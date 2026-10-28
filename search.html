@@ -5632,6 +5632,43 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     triggerSearch(true);
   });
 
+  // Listen for clicks on the "Remove all filters" button
+  document.getElementById("clear-filters-btn")?.addEventListener("click", async () => {
+    // 1. Reset Make dropdown
+    const makeDropdown = document.getElementById("filter-make");
+    if (makeDropdown) makeDropdown.value = "";
+
+    // 2. Reset and lock Model dropdown
+    const modelDropdown = document.getElementById("filter-model");
+    if (modelDropdown) {
+      modelDropdown.innerHTML = '<option value="">Select a make first</option>';
+      modelDropdown.disabled = true;
+    }
+
+    // 3. Reset Fuel dropdown
+    const fuelDropdown = document.getElementById("filter-fuel");
+    if (fuelDropdown) fuelDropdown.value = "";
+
+    // 4. Reset Sort dropdown if it exists
+    const allSelects = Array.from(document.querySelectorAll("select"));
+    const sortSelect = allSelects.find(sel => 
+      sel.id === "filter-sort" || 
+      sel.innerText.toLowerCase().includes("low to high") || 
+      sel.innerText.toLowerCase().includes("high to low")
+    );
+    if (sortSelect) sortSelect.value = "";
+
+    // 5. Clean URL parameters (keep only the vehicle type)
+    const params = new URLSearchParams();
+    params.set("type", vehicleType);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.pushState({ path: newUrl }, "", newUrl);
+
+    // 6. Reload fuel types for the blank state and trigger a fresh search
+    await loadFuelTypes("", "", "");
+    await triggerSearch(false);
+  });
+   
   // Listen for changes on the Sort dropdown automatically
   const allSelects = Array.from(document.querySelectorAll("select"));
   const sortDropdown = allSelects.find(sel => sel.id === "filter-sort" || sel.innerText.toLowerCase().includes("low to high") || sel.innerText.toLowerCase().includes("high to low"));
