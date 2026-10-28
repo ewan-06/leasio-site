@@ -5479,100 +5479,127 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
 
   const PAGE_SIZE = 24;
-let allVehicles = [];
-let currentPage = 1;
+  let allVehicles = [];
+  let currentPage = 1;
 
-function vehicleCardHTML(car) {
-  return `
-    <article class="group flex flex-col border border-border bg-secondary transition-colors hover:border-primary/40">
-      <div class="relative aspect-[16/9] overflow-hidden bg-background/60 flex items-center justify-center">
-        <span class="absolute left-3 top-3 border px-2 py-0.5 font-mono text-[10px] tracking-widest border-primary/60 text-primary">${car.Fuel || ""}</span>
-        <span class="absolute right-3 top-3 border border-border bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-muted-foreground">2026</span>
-      </div>
-      <div class="flex flex-1 flex-col p-5">
-        <p class="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">${car.Make}</p>
-        <h2 class="mt-0.5 text-xl leading-tight text-foreground">${car.Model}</h2>
-        <p class="mt-1 text-xs leading-5 text-muted-foreground">${car.CAP_Derivative || ""}</p>
-        <div class="mt-5 flex items-end justify-between border-t border-border pt-4">
-          <div>
-            <p class="font-mono text-[10px] tracking-widest text-muted-foreground">LEASE FROM</p>
-            <p class="mt-0.5 text-sm text-foreground font-bold">£${car.Monthly || "POA"} /mo</p>
-          </div>
-          <a class="flex items-center gap-1.5 border border-primary bg-transparent px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-background" href="vehicles.html?cap=${car.CAP_Code}&type=${vehicleType}">
-            Get a quote &rarr;
-          </a>
+  function vehicleCardHTML(car) {
+    return `
+      <article class="group flex flex-col border border-border bg-secondary transition-colors hover:border-primary/40">
+        <div class="relative aspect-[16/9] overflow-hidden bg-background/60 flex items-center justify-center">
+          <span class="absolute left-3 top-3 border px-2 py-0.5 font-mono text-[10px] tracking-widest border-primary/60 text-primary">${car.Fuel || ""}</span>
+          <span class="absolute right-3 top-3 border border-border bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-muted-foreground">2026</span>
         </div>
-      </div>
-    </article>`;
-}
-
-function renderPage(scrollToTop = false) {
-  const container = document.getElementById("search-results-grid");
-  const pagination = document.getElementById("pagination");
-  const pagBtns = document.querySelectorAll("#pagination button");
-  const prevBtn = pagBtns[0];
-  const nextBtn = pagBtns[1];
-  const curEl = document.getElementById("page-current");
-  const totEl = document.getElementById("page-total");
-  const countEl = document.getElementById("result-count");
-  if (!container) return;
-
-  const total = allVehicles.length;
-  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-  currentPage = Math.min(Math.max(1, currentPage), totalPages);
-
-  if (countEl) countEl.textContent = total.toLocaleString("en-GB");
-
-  if (total === 0) {
-    container.innerHTML = `<p class="text-muted-foreground col-span-3 py-10">No vehicles found matching these filters.</p>`;
-    if (pagination) pagination.style.display = "none";
-    return;
+        <div class="flex flex-1 flex-col p-5">
+          <p class="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">${car.Make}</p>
+          <h2 class="mt-0.5 text-xl leading-tight text-foreground">${car.Model}</h2>
+          <p class="mt-1 text-xs leading-5 text-muted-foreground">${car.CAP_Derivative || ""}</p>
+          <div class="mt-5 flex items-end justify-between border-t border-border pt-4">
+            <div>
+              <p class="font-mono text-[10px] tracking-widest text-muted-foreground">LEASE FROM</p>
+              <p class="mt-0.5 text-sm text-foreground font-bold">£${car.Monthly || "POA"} /mo</p>
+            </div>
+            <a class="flex items-center gap-1.5 border border-primary bg-transparent px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-background" href="vehicles.html?cap=${car.CAP_Code}&type=${vehicleType}">
+              Get a quote &rarr;
+            </a>
+          </div>
+        </div>
+      </article>`;
   }
 
-  const start = (currentPage - 1) * PAGE_SIZE;
-  container.innerHTML = allVehicles.slice(start, start + PAGE_SIZE).map(vehicleCardHTML).join("");
+  function renderPage(scrollToTop = false) {
+    const container = document.getElementById("search-results-grid");
+    const pagination = document.getElementById("pagination");
+    const pagBtns = document.querySelectorAll("#pagination button");
+    const prevBtn = pagBtns[0];
+    const nextBtn = pagBtns[1];
+    const curEl = document.getElementById("page-current");
+    const totEl = document.getElementById("page-total");
+    const countEl = document.getElementById("result-count");
+    if (!container) return;
 
-  if (curEl) curEl.textContent = currentPage;
-  if (totEl) totEl.textContent = totalPages;
-  if (prevBtn) prevBtn.disabled = currentPage <= 1;
-  if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
-  if (pagination) pagination.style.display = totalPages > 1 ? "flex" : "none";
+    const total = allVehicles.length;
+    const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    currentPage = Math.min(Math.max(1, currentPage), totalPages);
 
-  if (scrollToTop) window.scrollTo({ top: 0, behavior: "smooth" });
-}
+    if (countEl) countEl.textContent = total.toLocaleString("en-GB");
 
-async function triggerSearch(updateUrl = false) {
-  const make = document.getElementById("filter-make")?.value || "Any make";
-  const model = document.getElementById("filter-model")?.value || "";
-  const fuel = document.getElementById("filter-fuel")?.value || "Any fuel type";
+    if (total === 0) {
+      container.innerHTML = `<p class="text-muted-foreground col-span-3 py-10">No vehicles found matching these filters.</p>`;
+      if (pagination) pagination.style.display = "none";
+      return;
+    }
 
-  if (updateUrl) {
-    const params = new URLSearchParams();
-    if (make !== "Any make") params.set("make", make);
-    if (model) params.set("model", model);
-    if (fuel !== "Any fuel type") params.set("fuel", fuel);
-    params.set("type", vehicleType);
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
-    window.history.pushState({ path: newUrl }, "", newUrl);
+    const start = (currentPage - 1) * PAGE_SIZE;
+    container.innerHTML = allVehicles.slice(start, start + PAGE_SIZE).map(vehicleCardHTML).join("");
+
+    if (curEl) curEl.textContent = currentPage;
+    if (totEl) totEl.textContent = totalPages;
+    if (prevBtn) prevBtn.disabled = currentPage <= 1;
+    if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+    if (pagination) pagination.style.display = totalPages > 1 ? "flex" : "none";
+
+    if (scrollToTop) window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  try {
-    const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}`;
-    const response = await fetch(query);
-    const vehicles = await response.json();
-
-    allVehicles = Array.isArray(vehicles) ? vehicles : [];
-    currentPage = 1;
-    renderPage();
-  } catch (err) {
-    console.error("Failed to fetch filtered search results:", err);
+  // Find sort dropdown dynamically by looking for options or ID
+  function getSortValue() {
+    const allSelects = Array.from(document.querySelectorAll("select"));
+    const sortSelect = allSelects.find(sel =>
+      sel.id === "filter-sort" ||
+      sel.innerText.toLowerCase().includes("low to high") ||
+      sel.innerText.toLowerCase().includes("high to low")
+    );
+    if (!sortSelect) return "";
+    const val = (sortSelect.value || "").toLowerCase();
+    const text = (sortSelect.options[sortSelect.selectedIndex]?.text || "").toLowerCase();
+    
+    if (val.includes("asc") || text.includes("low to high") || val === "price_asc") return "price_asc";
+    if (val.includes("desc") || text.includes("high to low") || val === "price_desc") return "price_desc";
+    return "";
   }
-}
+
+  async function triggerSearch(updateUrl = false) {
+    const make = document.getElementById("filter-make")?.value || "Any make";
+    const model = document.getElementById("filter-model")?.value || "";
+    const fuel = document.getElementById("filter-fuel")?.value || "Any fuel type";
+    const sort = getSortValue();
+
+    if (updateUrl) {
+      const params = new URLSearchParams();
+      if (make !== "Any make") params.set("make", make);
+      if (model) params.set("model", model);
+      if (fuel !== "Any fuel type") params.set("fuel", fuel);
+      if (sort) params.set("sort", sort);
+      params.set("type", vehicleType);
+      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      window.history.pushState({ path: newUrl }, "", newUrl);
+    }
+
+    try {
+      const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(sort)}`;
+      const response = await fetch(query);
+      const vehicles = await response.json();
+
+      allVehicles = Array.isArray(vehicles) ? vehicles : [];
+      currentPage = 1;
+      renderPage();
+    } catch (err) {
+      console.error("Failed to fetch filtered search results:", err);
+    }
+  }
 
   document.addEventListener("DOMContentLoaded", async () => {
     const selectedMake = urlParams.get("make") || "";
     const selectedModel = urlParams.get("model") || "";
     const selectedFuel = urlParams.get("fuel") || "";
+    const selectedSort = urlParams.get("sort") || "";
+
+    // Set value on sort dropdown if it exists in URL
+    if (selectedSort) {
+      const allSelects = Array.from(document.querySelectorAll("select"));
+      const sortSelect = allSelects.find(sel => sel.id === "filter-sort" || sel.innerText.toLowerCase().includes("low to high"));
+      if (sortSelect) sortSelect.value = selectedSort;
+    }
 
     setTypeUI();
     await loadMakes(selectedMake);
@@ -5598,19 +5625,26 @@ async function triggerSearch(updateUrl = false) {
     triggerSearch(true);
   });
 
-   document.addEventListener("click", (e) => {
-  const btn = e.target.closest("#pagination button");
-  if (!btn || btn.disabled) return;
-  const label = btn.textContent.trim();
+  // Listen for changes on the Sort dropdown automatically
+  const allSelects = Array.from(document.querySelectorAll("select"));
+  const sortDropdown = allSelects.find(sel => sel.id === "filter-sort" || sel.innerText.toLowerCase().includes("low to high") || sel.innerText.toLowerCase().includes("high to low"));
+  sortDropdown?.addEventListener("change", () => {
+    triggerSearch(true);
+  });
 
-  if (btn.id === "next-page" || label.startsWith("Next")) {
-    currentPage++;
-    renderPage(true);
-  } else if (btn.id === "prev-page" || label.startsWith("Previous")) {
-    currentPage--;
-    renderPage(true);
-  }
-});
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("#pagination button");
+    if (!btn || btn.disabled) return;
+    const label = btn.textContent.trim();
+
+    if (btn.id === "next-page" || label.startsWith("Next")) {
+      currentPage++;
+      renderPage(true);
+    } else if (btn.id === "prev-page" || label.startsWith("Previous")) {
+      currentPage--;
+      renderPage(true);
+    }
+  });
 </script>
 
 </body>
