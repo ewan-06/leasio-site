@@ -5442,6 +5442,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const rawSelects = panel.querySelectorAll("select");
   if (rawSelects.length < 3) return;
 
+  // Clone selects to remove broken template listeners
   const selects = Array.from(rawSelects).map(sel => {
     const clone = sel.cloneNode(true);
     sel.parentNode.replaceChild(clone, sel);
@@ -5449,9 +5450,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   const [makeSelect, modelSelect, fuelSelect] = selects;
-  let activeTab = "car"; // Default type matching backend ("car" or "vans")
+  let activeTab = "car"; 
 
-  // Style Model dropdown as locked initially
+  // Initial locked state for Model dropdown
   modelSelect.innerHTML = `<option value="">Any model</option>`;
   modelSelect.disabled = true;
   modelSelect.style.opacity = "0.5";
@@ -5465,7 +5466,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     modelSelect.style.cursor = "not-allowed";
 
     try {
-      // Pass vehicle_type to the backend so it queries Car_RVs or LCV_RVs natively
       const res = await fetch(`${API_BASE}/api/search_vehicles?vehicle_type=${type}`);
       const data = await res.json();
       const vehicles = Array.isArray(data) ? data : (data.vehicles || []);
@@ -5478,6 +5478,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       await updateFuels(type, "", "");
     } catch (err) {
       console.error("Error loading makes:", err);
+      makeSelect.innerHTML = `<option value="">Any make</option>`;
     }
   }
 
@@ -5504,30 +5505,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Hook up tab buttons
+  // Robust Tab Switching
   const tabCars = document.getElementById("tab-cars");
   const tabVans = document.getElementById("tab-vans");
 
-  if (tabCars && tabVans) {
+  if (tabCars) {
     tabCars.addEventListener("click", () => {
       activeTab = "car";
       tabCars.className = "flex items-center gap-2 border px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-primary bg-primary text-background";
-      tabVans.className = "flex items-center gap-2 border-b border-r border-t px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-border bg-secondary text-muted-foreground hover:text-foreground";
+      if (tabVans) tabVans.className = "flex items-center gap-2 border-b border-r border-t px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-border bg-secondary text-muted-foreground hover:text-foreground";
       loadMakesForTab("car");
     });
+  }
 
+  if (tabVans) {
     tabVans.addEventListener("click", () => {
       activeTab = "vans";
       tabVans.className = "flex items-center gap-2 border px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-primary bg-primary text-background";
-      tabCars.className = "flex items-center gap-2 border-b border-r border-t px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-border bg-secondary text-muted-foreground hover:text-foreground";
+      if (tabCars) tabCars.className = "flex items-center gap-2 border-b border-r border-t px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-border bg-secondary text-muted-foreground hover:text-foreground";
       loadMakesForTab("vans");
     });
   }
 
-  // Initial load for cars
+  // Initial load
   await loadMakesForTab("car");
 
-  // Make change event -> unlocks Model dropdown and updates fuels
+  // Make change event -> Force unlocks model dropdown properly
   makeSelect.addEventListener("change", async () => {
     const selectedMake = makeSelect.value === "Any make" ? "" : makeSelect.value;
     modelSelect.innerHTML = `<option value="">Any model</option>`;
@@ -5540,7 +5543,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
+    // UNLOCK MODEL DROPDOWN
     modelSelect.disabled = false;
+    modelSelect.removeAttribute("disabled");
     modelSelect.style.opacity = "1";
     modelSelect.style.cursor = "pointer";
 
@@ -5564,6 +5569,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     await updateFuels(activeTab, selectedMake, selectedModel);
   });
 
+  // Search button redirect
   const searchBtn = Array.from(document.querySelectorAll("button, a")).find(
     el => el.innerText && el.innerText.trim().includes("Search cars")
   );
@@ -5581,7 +5587,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       const fuelVal = fuelSelect.value === "Any fuel type" ? "" : fuelSelect.value;
 
       if (makeVal) params.set("make", makeVal);
-      if (modelVal) params.set
+      if (modelVal) params.set("model", modelVal);
+      if (fuelVal) params.set("fuel", fuelVal);
+      params.set("type", activeTab);
+
+      const qs = params.toString();
+      window.location.href = qs ? `search.html?${qs}` : `search.html`;
+    });
+  }
+});
+</script>
   
 </body>
 
