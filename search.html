@@ -5401,7 +5401,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   <div data-airo-dev-tools=""
     style="position: fixed; bottom: 8px; right: 8px; z-index: 999999; background: rgba(0, 0, 0, 0.85); color: rgb(0, 255, 0); font-family: monospace; font-size: 11px; padding: 8px 10px; border-radius: 6px; pointer-events: none; max-width: 300px; line-height: 1.4; display: none;">
   </div>
- <script>
+<script>
   const API_BASE = "https://leasio-api.onrender.com";
   const urlParams = new URLSearchParams(window.location.search);
   const vehicleType = ["vans", "van"].includes(urlParams.get("type")) ? "vans" : "car";
@@ -5548,21 +5548,9 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     if (scrollToTop) window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  // Find sort dropdown dynamically by looking for options or ID
+  // Grab the current sorting mode from URL parameters
   function getSortValue() {
-    const allSelects = Array.from(document.querySelectorAll("select"));
-    const sortSelect = allSelects.find(sel =>
-      sel.id === "filter-sort" ||
-      sel.innerText.toLowerCase().includes("low to high") ||
-      sel.innerText.toLowerCase().includes("high to low")
-    );
-    if (!sortSelect) return "";
-    const val = (sortSelect.value || "").toLowerCase();
-    const text = (sortSelect.options[sortSelect.selectedIndex]?.text || "").toLowerCase();
-    
-    if (val.includes("asc") || text.includes("low to high") || val === "price_asc") return "price_asc";
-    if (val.includes("desc") || text.includes("high to low") || val === "price_desc") return "price_desc";
-    return "";
+    return urlParams.get("sort") || "";
   }
 
   async function triggerSearch(updateUrl = false) {
@@ -5572,13 +5560,13 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     const sort = getSortValue();
 
     if (updateUrl) {
-      const params = new URLSearchParams();
-      if (make !== "Any make") params.set("make", make);
-      if (model) params.set("model", model);
-      if (fuel !== "Any fuel type") params.set("fuel", fuel);
-      if (sort) params.set("sort", sort);
-      params.set("type", vehicleType);
-      const newUrl = `${window.location.pathname}?${params.toString()}`;
+      if (make !== "Any make") urlParams.set("make", make); else urlParams.delete("make");
+      if (model) urlParams.set("model", model); else urlParams.delete("model");
+      if (fuel !== "Any fuel type") urlParams.set("fuel", fuel); else urlParams.delete("fuel");
+      if (sort) urlParams.set("sort", sort); else urlParams.delete("sort");
+      urlParams.set("type", vehicleType);
+
+      const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
       window.history.pushState({ path: newUrl }, "", newUrl);
     }
 
@@ -5599,14 +5587,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     const selectedMake = urlParams.get("make") || "";
     const selectedModel = urlParams.get("model") || "";
     const selectedFuel = urlParams.get("fuel") || "";
-    const selectedSort = urlParams.get("sort") || "";
-
-    // Set value on sort dropdown if it exists in URL
-    if (selectedSort) {
-      const allSelects = Array.from(document.querySelectorAll("select"));
-      const sortSelect = allSelects.find(sel => sel.id === "filter-sort" || sel.innerText.toLowerCase().includes("low to high"));
-      if (sortSelect) sortSelect.value = selectedSort;
-    }
 
     setTypeUI();
     await loadMakes(selectedMake);
@@ -5615,6 +5595,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     triggerSearch();
   });
 
+  // Event Listeners for Filters
   document.getElementById("filter-make")?.addEventListener("change", async (e) => {
     const make = e.target.value;
     await loadModelsForMake(make);
@@ -5632,43 +5613,61 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     triggerSearch(true);
   });
 
-  // Listen for clicks on the "Remove all filters" button
+  // Global Click Listener for Sort buttons & "Remove all filters" button
+  document.addEventListener("click", async (e) => {
+    const target = e.target.closest("button, a, [role='option']");
+    if (!target) return;
+    const text = target.textContent.toLowerCase();
+
+    // 1. Sort: Low to High
+    if (text.includes("low to high") || text.includes("price: low")) {
+      e.preventDefault();
+      urlParams.set("sort", "price_asc");
+      await triggerSearch(true);
+    } 
+    // 2. Sort: High to Low
+    else if (text.includes("high to low") || text.includes("price: high")) {
+      e.preventDefault();
+      urlParams.set("sort", "price_desc");
+      await triggerSearch(true);
+    }
+    // 3. Sort: Relevance / Default / Clear Sort
+    else if (text.includes("relevance") || text.includes("default sort")) {
+      e.preventDefault();
+      urlParams.delete("sort");
+      await triggerSearch(true);
+    }
+  });
+
+  // Clear All Filters Button Listener
   document.getElementById("clear-filters-btn")?.addEventListener("click", async () => {
-    // 1. Reset Make dropdown
     const makeDropdown = document.getElementById("filter-make");
     if (makeDropdown) makeDropdown.value = "";
 
-    // 2. Reset and lock Model dropdown
     const modelDropdown = document.getElementById("filter-model");
     if (modelDropdown) {
       modelDropdown.innerHTML = '<option value="">Select a make first</option>';
       modelDropdown.disabled = true;
     }
 
-    // 3. Reset Fuel dropdown
     const fuelDropdown = document.getElementById("filter-fuel");
     if (fuelDropdown) fuelDropdown.value = "";
 
-    // 4. Reset Sort dropdown back to default / empty
-    const allSelects = Array.from(document.querySelectorAll("select"));
-    const sortSelect = allSelects.find(sel => 
-      sel.id === "filter-sort" || 
-      sel.innerText.toLowerCase().includes("low to high") || 
-      sel.innerText.toLowerCase().includes("high to low")
-    );
-    if (sortSelect) sortSelect.selectedIndex = 0; // Resets to the first option (Relevance / Default)
+    // Clear all URL filter and sort parameters except type
+    urlParams.delete("make");
+    urlParams.delete("model");
+    urlParams.delete("fuel");
+    urlParams.delete("sort");
+    urlParams.set("type", vehicleType);
 
-    // 5. Clean URL parameters (keep only the vehicle type)
-    const params = new URLSearchParams();
-    params.set("type", vehicleType);
-    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
     window.history.pushState({ path: newUrl }, "", newUrl);
 
-    // 6. Reload fuel types for the blank state and trigger a fresh search
     await loadFuelTypes("", "", "");
     await triggerSearch(false);
   });
 
+  // Pagination Handler
   document.addEventListener("click", (e) => {
     const btn = e.target.closest("#pagination button");
     if (!btn || btn.disabled) return;
