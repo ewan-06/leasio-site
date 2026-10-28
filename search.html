@@ -4951,7 +4951,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
 
           </nav>
         </div>
-      </header>
 
       <script>
         // Toggles the correct mega menu and closes the other
@@ -6908,7 +6907,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                     data-dev-bound-source-kind="bound-expression"
                     data-dev-bound-expression-hash="sha256:bfa062de040f55a15ce910800757061ec3d2fc31d6b7c72d9fa02b75a9ad1133"
                     data-dev-file="/app/src/pages/search.tsx" data-dev-line="453"
-                    data-dev-id="f8668c">390</span></span><button type="button"
+                    data-dev-id="f8668c">390</span></span><button id="next-page" type="button"
                   class="flex items-center gap-1.5 border border-border bg-secondary px-4 py-2.5 text-xs font-semibold text-foreground transition-colors hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
                   data-dev-file="/app/src/pages/search.tsx" data-dev-line="455" data-dev-id="72e1b3">Next <svg
                     xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
@@ -7090,8 +7089,9 @@ function vehicleCardHTML(car) {
 function renderPage(scrollToTop = false) {
   const container = document.getElementById("search-results-grid");
   const pagination = document.getElementById("pagination");
-  const prevBtn = document.getElementById("prev-page");
-  const nextBtn = document.getElementById("next-page");
+  const pagBtns = document.querySelectorAll("#pagination button");
+  const prevBtn = pagBtns[0];
+  const nextBtn = pagBtns[1];
   const curEl = document.getElementById("page-current");
   const totEl = document.getElementById("page-total");
   const countEl = document.getElementById("result-count");
@@ -7178,14 +7178,18 @@ async function triggerSearch(updateUrl = false) {
     triggerSearch(true);
   });
 
-   document.getElementById("prev-page")?.addEventListener("click", () => {
-  currentPage--;
-  renderPage(true);
-});
+   document.addEventListener("click", (e) => {
+  const btn = e.target.closest("#pagination button");
+  if (!btn || btn.disabled) return;
+  const label = btn.textContent.trim();
 
-document.getElementById("next-page")?.addEventListener("click", () => {
-  currentPage++;
-  renderPage(true);
+  if (btn.id === "next-page" || label.startsWith("Next")) {
+    currentPage++;
+    renderPage(true);
+  } else if (btn.id === "prev-page" || label.startsWith("Previous")) {
+    currentPage--;
+    renderPage(true);
+  }
 });
 </script>
 
