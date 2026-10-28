@@ -4862,7 +4862,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                 class="lucide lucide-chevron-right" aria-hidden="true" data-dev-file="/app/src/pages/vehicles/[id].tsx"
                 data-dev-line="303" data-dev-id="0fa7c3">
                 <path d="m9 18 6-6-6-6"></path>
-              </svg><a class="transition-colors hover:text-foreground" data-dev-file="/app/src/pages/vehicles/[id].tsx"
+              </svg><a id="breadcrumb-type" class="transition-colors hover:text-foreground" data-dev-file="/app/src/pages/vehicles/[id].tsx"
                 data-dev-line="304" data-dev-id="17f21f" href="search.html" data-discover="true">Cars</a><svg
                 xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -5198,6 +5198,12 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     document.addEventListener("DOMContentLoaded", async () => {
       const urlParams = new URLSearchParams(window.location.search);
       const rawCapCode = urlParams.get('cap');
+      const isVans = ["vans", "van"].includes(urlParams.get('type'));
+      const crumbType = document.getElementById('breadcrumb-type');
+      if (crumbType) {
+      crumbType.textContent = isVans ? 'Vans' : 'Cars';
+      crumbType.href = `search.html?type=${isVans ? 'vans' : 'car'}`;
+      }
 
       const elModel = document.getElementById('dyn-model');
       if (!rawCapCode) {
