@@ -5434,7 +5434,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     style="position: fixed; bottom: 8px; right: 8px; z-index: 999999; background: rgba(0, 0, 0, 0.85); color: rgb(0, 255, 0); font-family: monospace; font-size: 11px; padding: 8px 10px; border-radius: 6px; pointer-events: none; max-width: 300px; line-height: 1.4; display: none;">
   </div>
 <script>
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded",  () => {
   const API_BASE = "https://leasio-api.onrender.com";
   const panel = document.getElementById("search-panel-cars");
   if (!panel) return;
@@ -5466,12 +5466,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     modelSelect.style.cursor = "not-allowed";
 
     try {
-      const res = await fetch(`${API_BASE}/api/search_vehicles?vehicle_type=${type}`);
+      // Call the dedicated get_makes endpoint to fetch all manufacturers
+      const res = await fetch(`${API_BASE}/api/get_makes?vehicle_type=${type}`);
       const data = await res.json();
-      const vehicles = Array.isArray(data) ? data : (data.vehicles || []);
+      const makes = Array.isArray(data) ? data : (data.makes || []);
 
-      const makes = [...new Set(vehicles.map(v => v.Make || v.Manufacturer).filter(Boolean))].sort();
-      
       makeSelect.innerHTML = `<option value="">Any make</option>` +
         makes.map(m => `<option value="${m}">${m}</option>`).join("");
 
