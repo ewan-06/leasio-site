@@ -6890,7 +6890,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                 </article>
               </div>
               <div class="mt-10 flex items-center justify-center gap-2" data-dev-file="/app/src/pages/search.tsx"
-                data-dev-line="447" data-dev-id="712565"><button type="button" disabled=""
+                data-dev-line="447" data-dev-id="712565"><button id="prev-page" type="button" disabled=""
                   class="flex items-center gap-1.5 border border-border bg-secondary px-4 py-2.5 text-xs font-semibold text-foreground transition-colors hover:border-primary disabled:opacity-30 disabled:cursor-not-allowed"
                   data-dev-file="/app/src/pages/search.tsx" data-dev-line="448" data-dev-id="72e1b2"><svg
                     xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
@@ -6900,10 +6900,10 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                     <path d="m9 18 6-6-6-6"></path>
                   </svg> Previous</button><span class="font-mono text-[11px] text-muted-foreground"
                   data-dev-editable="text" data-dev-file="/app/src/pages/search.tsx" data-dev-line="452"
-                  data-dev-id="0c3aa8">Page <span class="text-foreground" data-dev-dynamic="true"
+                  data-dev-id="0c3aa8">Page <span id="page-current" class="text-foreground" data-dev-dynamic="true"
                     data-dev-bound-text="true" data-dev-bound-source-kind="bound-expression"
                     data-dev-bound-expression-hash="sha256:3660315a9af3df255d8f19ab077e4797822b41488a0e2a04bc6af71213c23274"
-                    data-dev-file="/app/src/pages/search.tsx" data-dev-line="453" data-dev-id="f8668b">1</span> of <span
+                    data-dev-file="/app/src/pages/search.tsx" data-dev-line="453" data-dev-id="f8668b">1</span> of <span id="page-total"
                     class="text-foreground" data-dev-dynamic="true" data-dev-bound-text="true"
                     data-dev-bound-source-kind="bound-expression"
                     data-dev-bound-expression-hash="sha256:bfa062de040f55a15ce910800757061ec3d2fc31d6b7c72d9fa02b75a9ad1133"
@@ -6924,7 +6924,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       <footer class="relative z-20 border-t border-border bg-background"
         data-dev-file="/app/src/layouts/parts/Footer.tsx" data-dev-line="5" data-dev-id="42358d">
         <div
-          class="mx-auto flex max-w-[1600px] flex-col gap-3 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12"
+          id="pagination" class="mx-auto flex max-w-[1600px] flex-col gap-3 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12"
           data-dev-file="/app/src/layouts/parts/Footer.tsx" data-dev-line="6" data-dev-id="166321">
           <p class="text-xs text-muted-foreground" data-dev-content-key="home.footer.copyright"
             data-dev-bound-text="true" data-dev-bound-source-kind="content-key"
@@ -7059,63 +7059,95 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     }
   }
 
-  async function triggerSearch(updateUrl = false) {
-    const make = document.getElementById("filter-make")?.value || "Any make";
-    const model = document.getElementById("filter-model")?.value || "";
-    const fuel = document.getElementById("filter-fuel")?.value || "Any fuel type";
+  const PAGE_SIZE = 24;
+let allVehicles = [];
+let currentPage = 1;
 
-    if (updateUrl) {
-      const params = new URLSearchParams();
-      if (make !== "Any make") params.set("make", make);
-      if (model) params.set("model", model);
-      if (fuel !== "Any fuel type") params.set("fuel", fuel);
-      params.set("type", vehicleType);
-      const newUrl = `${window.location.pathname}?${params.toString()}`;
-      window.history.pushState({ path: newUrl }, "", newUrl);
-    }
-
-    try {
-      const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}`;
-      const response = await fetch(query);
-      const vehicles = await response.json();
-
-      const container = document.getElementById("search-results-grid");
-      if (!container) return;
-
-      const countEl = document.getElementById("result-count");
-      if (countEl) countEl.textContent = Array.isArray(vehicles) ? vehicles.length.toLocaleString("en-GB") : "0";
-
-      if (!Array.isArray(vehicles) || vehicles.length === 0) {
-        container.innerHTML = `<p class="text-muted-foreground col-span-3 py-10">No vehicles found matching these filters.</p>`;
-        return;
-      }
-
-      container.innerHTML = vehicles.map(car => `
-        <article class="group flex flex-col border border-border bg-secondary transition-colors hover:border-primary/40">
-          <div class="relative aspect-[16/9] overflow-hidden bg-background/60 flex items-center justify-center">
-            <span class="absolute left-3 top-3 border px-2 py-0.5 font-mono text-[10px] tracking-widest border-primary/60 text-primary">${car.Fuel || ""}</span>
-            <span class="absolute right-3 top-3 border border-border bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-muted-foreground">2026</span>
+function vehicleCardHTML(car) {
+  return `
+    <article class="group flex flex-col border border-border bg-secondary transition-colors hover:border-primary/40">
+      <div class="relative aspect-[16/9] overflow-hidden bg-background/60 flex items-center justify-center">
+        <span class="absolute left-3 top-3 border px-2 py-0.5 font-mono text-[10px] tracking-widest border-primary/60 text-primary">${car.Fuel || ""}</span>
+        <span class="absolute right-3 top-3 border border-border bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-muted-foreground">2026</span>
+      </div>
+      <div class="flex flex-1 flex-col p-5">
+        <p class="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">${car.Make}</p>
+        <h2 class="mt-0.5 text-xl leading-tight text-foreground">${car.Model}</h2>
+        <p class="mt-1 text-xs leading-5 text-muted-foreground">${car.CAP_Derivative || ""}</p>
+        <div class="mt-5 flex items-end justify-between border-t border-border pt-4">
+          <div>
+            <p class="font-mono text-[10px] tracking-widest text-muted-foreground">LEASE FROM</p>
+            <p class="mt-0.5 text-sm text-foreground font-bold">£${car.Monthly || "POA"} /mo</p>
           </div>
-          <div class="flex flex-1 flex-col p-5">
-            <p class="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">${car.Make}</p>
-            <h2 class="mt-0.5 text-xl leading-tight text-foreground">${car.Model}</h2>
-            <p class="mt-1 text-xs leading-5 text-muted-foreground">${car.CAP_Derivative || ""}</p>
-            <div class="mt-5 flex items-end justify-between border-t border-border pt-4">
-              <div>
-                <p class="font-mono text-[10px] tracking-widest text-muted-foreground">LEASE FROM</p>
-                <p class="mt-0.5 text-sm text-foreground font-bold">£${car.Monthly || "POA"} /mo</p>
-              </div>
-              <a class="flex items-center gap-1.5 border border-primary bg-transparent px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-background" href="vehicles.html?cap=${car.CAP_Code}&type=${vehicleType}">
-                Get a quote &rarr;
-              </a>
-            </div>
-          </div>
-        </article>
-      `).join("");
-    } catch (err) {
-      console.error("Failed to fetch filtered search results:", err);
-    }
+          <a class="flex items-center gap-1.5 border border-primary bg-transparent px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-background" href="vehicles.html?cap=${car.CAP_Code}&type=${vehicleType}">
+            Get a quote &rarr;
+          </a>
+        </div>
+      </div>
+    </article>`;
+}
+
+function renderPage(scrollToTop = false) {
+  const container = document.getElementById("search-results-grid");
+  const pagination = document.getElementById("pagination");
+  const prevBtn = document.getElementById("prev-page");
+  const nextBtn = document.getElementById("next-page");
+  const curEl = document.getElementById("page-current");
+  const totEl = document.getElementById("page-total");
+  const countEl = document.getElementById("result-count");
+  if (!container) return;
+
+  const total = allVehicles.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  currentPage = Math.min(Math.max(1, currentPage), totalPages);
+
+  if (countEl) countEl.textContent = total.toLocaleString("en-GB");
+
+  if (total === 0) {
+    container.innerHTML = `<p class="text-muted-foreground col-span-3 py-10">No vehicles found matching these filters.</p>`;
+    if (pagination) pagination.style.display = "none";
+    return;
   }
+
+  const start = (currentPage - 1) * PAGE_SIZE;
+  container.innerHTML = allVehicles.slice(start, start + PAGE_SIZE).map(vehicleCardHTML).join("");
+
+  if (curEl) curEl.textContent = currentPage;
+  if (totEl) totEl.textContent = totalPages;
+  if (prevBtn) prevBtn.disabled = currentPage <= 1;
+  if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+  if (pagination) pagination.style.display = totalPages > 1 ? "flex" : "none";
+
+  if (scrollToTop) window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function triggerSearch(updateUrl = false) {
+  const make = document.getElementById("filter-make")?.value || "Any make";
+  const model = document.getElementById("filter-model")?.value || "";
+  const fuel = document.getElementById("filter-fuel")?.value || "Any fuel type";
+
+  if (updateUrl) {
+    const params = new URLSearchParams();
+    if (make !== "Any make") params.set("make", make);
+    if (model) params.set("model", model);
+    if (fuel !== "Any fuel type") params.set("fuel", fuel);
+    params.set("type", vehicleType);
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.pushState({ path: newUrl }, "", newUrl);
+  }
+
+  try {
+    const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}`;
+    const response = await fetch(query);
+    const vehicles = await response.json();
+
+    allVehicles = Array.isArray(vehicles) ? vehicles : [];
+    currentPage = 1;
+    renderPage();
+  } catch (err) {
+    console.error("Failed to fetch filtered search results:", err);
+  }
+}
 
   document.addEventListener("DOMContentLoaded", async () => {
     const selectedMake = urlParams.get("make") || "";
@@ -7145,6 +7177,16 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   document.getElementById("filter-fuel")?.addEventListener("change", () => {
     triggerSearch(true);
   });
+
+   document.getElementById("prev-page")?.addEventListener("click", () => {
+  currentPage--;
+  renderPage(true);
+});
+
+document.getElementById("next-page")?.addEventListener("click", () => {
+  currentPage++;
+  renderPage(true);
+});
 </script>
 
 </body>
