@@ -5433,6 +5433,135 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   <div data-airo-dev-tools=""
     style="position: fixed; bottom: 8px; right: 8px; z-index: 999999; background: rgba(0, 0, 0, 0.85); color: rgb(0, 255, 0); font-family: monospace; font-size: 11px; padding: 8px 10px; border-radius: 6px; pointer-events: none; max-width: 300px; line-height: 1.4; display: none;">
   </div>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const API_BASE = "https://leasio-api.onrender.com";
+  const panel = document.getElementById("search-panel-cars");
+  if (!panel) return;
+
+  const rawSelects = panel.querySelectorAll("select");
+  if (rawSelects.length < 3) return;
+
+  // Clone the selects to strip out any interfering template React listeners
+  const selects = Array.from(rawSelects).map(sel => {
+    const clone = sel.cloneNode(true);
+    sel.parentNode.replaceChild(clone, sel);
+    return clone;
+  });
+
+  const [makeSelect, modelSelect, fuelSelect] = selects;
+
+  // Lock Model initially until a Make is chosen
+  modelSelect.innerHTML = `<option value="">Any model</option>`;
+  modelSelect.disabled = true;
+  modelSelect.classList.add("opacity-50", "cursor-not-allowed");
+
+  // Helper to update Fuel options dynamically based on Make & Model
+  async function updateFuels(make = "", model = "") {
+    const currentFuel = fuelSelect.value;
+    try {
+      const params = new URLSearchParams();
+      if (make) params.set("make", make);
+      if (model) params.set("model", model);
+
+      const res = await fetch(`${API_BASE}/api/get_fuels?${params.toString()}`);
+      const data = await res.json();
+      const fuels = Array.isArray(data) ? data : (data.fuels || []);
+
+      fuelSelect.innerHTML = `<option value="">Any fuel type</option>` +
+        fuels.map(f => `<option value="${f}">${f}</option>`).join("");
+
+      // Keep previous fuel selected if it's still valid for this Make/Model
+      if (fuels.includes(currentFuel)) {
+        fuelSelect.value = currentFuel;
+      }
+    } catch (err) {
+      console.error("Failed to load fuels:", err);
+    }
+  }
+
+  // 1. Initial Load: Populate Makes & All Fuels
+  try {
+    const res = await fetch(`${API_BASE}/api/search_vehicles`);
+    const data = await res.json();
+    const vehicles = Array.isArray(data) ? data : (data.vehicles || []);
+
+    const makes = [...new Set(vehicles.map(v => v.Make || v.Manufacturer).filter(Boolean))].sort();
+    makeSelect.innerHTML = `<option value="">Any make</option>` +
+      makes.map(m => `<option value="${m}">${m}</option>`).join("");
+
+    await updateFuels();
+  } catch (err) {
+    console.error("Error loading initial homepage data:", err);
+  }
+
+  // 2. When Make changes -> Unlock & populate Models + Filter Fuels
+  makeSelect.addEventListener("change", async () => {
+    const selectedMake = makeSelect.value === "Any make" ? "" : makeSelect.value;
+    modelSelect.innerHTML = `<option value="">Any model</option>`;
+
+    if (!selectedMake) {
+      modelSelect.disabled = true;
+      modelSelect.classList.add("opacity-50", "cursor-not-allowed");
+      await updateFuels("", "");
+      return;
+    }
+
+    // Unlock the Model dropdown
+    modelSelect.disabled = false;
+    modelSelect.removeAttribute("disabled");
+    modelSelect.classList.remove("opacity-50", "cursor-not-allowed");
+
+    try {
+      const res = await fetch(`${API_BASE}/api/get_models?make=${encodeURIComponent(selectedMake)}`);
+      const data = await res.json();
+      const models = Array.isArray(data) ? data : (data.models || []);
+
+      modelSelect.innerHTML = `<option value="">Any model</option>` +
+        models.map(m => `<option value="${m}">${m}</option>`).join("");
+    } catch (err) {
+      console.error("Error loading models:", err);
+    }
+
+    // Filter fuels for the selected Make
+    await updateFuels(selectedMake, "");
+  });
+
+  // 3. When Model changes -> Filter Fuels for that specific Make + Model
+  modelSelect.addEventListener("change", async () => {
+    const selectedMake = makeSelect.value === "Any make" ? "" : makeSelect.value;
+    const selectedModel = modelSelect.value === "Any model" ? "" : modelSelect.value;
+    await updateFuels(selectedMake, selectedModel);
+  });
+
+  // 4. Wire up the "Search cars" button to pass selections to search.html
+  const searchBtn = panel.querySelector("button, a") || Array.from(document.querySelectorAll("button, a")).find(
+    el => el.innerText && el.innerText.trim().includes("Search cars")
+  );
+
+  if (searchBtn) {
+    const cleanBtn = searchBtn.cloneNode(true);
+    searchBtn.parentNode.replaceChild(cleanBtn, searchBtn);
+
+    cleanBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const params = new URLSearchParams();
+      
+      const makeVal = makeSelect.value === "Any make" ? "" : makeSelect.value;
+      const modelVal = modelSelect.value === "Any model" ? "" : modelSelect.value;
+      const fuelVal = fuelSelect.value === "Any fuel type" ? "" : fuelSelect.value;
+
+      if (makeVal) params.set("make", makeVal);
+      if (modelVal) params.set("model", modelVal);
+      if (fuelVal) params.set("fuel", fuelVal);
+
+      const qs = params.toString();
+      window.location.href = qs ? `search.html?${qs}` : `search.html`;
+    });
+  }
+});
+</script>
+  
 </body>
 
 </html>
