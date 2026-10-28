@@ -5585,7 +5585,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       const params = new URLSearchParams();
       
       const makeVal = makeSelect.value;
-      const modelVal = modelSelect.
+      const modelVal = modelSelect.value;
+      const fuelVal = fuelSelect.value;
+
+      if (makeVal && makeVal !== "Any make") params.set("make", makeVal);
+      if (modelVal && modelVal !== "Any model") params.set("model", modelVal);
+      if (fuelVal && fuelVal !== "Any fuel type") params.set("fuel", fuelVal);
+      params.set("type", activeTab);
+
+      const qs = params.toString();
+      window.location.href = qs ? `search.html?${qs}` : `search.html`;
+    });
+  }
+});
+</script>
   
 </body>
 
