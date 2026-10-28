@@ -5434,39 +5434,43 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     style="position: fixed; bottom: 8px; right: 8px; z-index: 999999; background: rgba(0, 0, 0, 0.85); color: rgb(0, 255, 0); font-family: monospace; font-size: 11px; padding: 8px 10px; border-radius: 6px; pointer-events: none; max-width: 300px; line-height: 1.4; display: none;">
   </div>
 <script>
-document.addEventListener("DOMContentLoaded",  () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const API_BASE = "https://leasio-api.onrender.com";
-  const panel = document.getElementById("search-panel-cars");
-  if (!panel) return;
 
-  const rawSelects = panel.querySelectorAll("select");
-  if (rawSelects.length < 3) return;
+  // Safely find all select dropdowns on the page
+  const selects = document.querySelectorAll("select");
+  if (selects.length === 0) {
+    console.error("Leasio Search: No <select> dropdowns found on page!");
+    return;
+  }
 
-  // Clone selects to remove broken template listeners
-  const selects = Array.from(rawSelects).map(sel => {
-    const clone = sel.cloneNode(true);
-    sel.parentNode.replaceChild(clone, sel);
-    return clone;
-  });
+  // Assuming the first 3 dropdowns in the search box are Make, Model, and Fuel
+  const makeSelect = selects[0];
+  const modelSelect = selects[1];
+  const fuelSelect = selects[2];
 
-  const [makeSelect, modelSelect, fuelSelect] = selects;
-  let activeTab = "car"; 
+  if (!makeSelect || !modelSelect || !fuelSelect) {
+    console.error("Leasio Search: Could not find all 3 dropdowns (Make, Model, Fuel).");
+    return;
+  }
 
-  // Initial locked state for Model dropdown
+  let activeTab = "car"; // "car" or "vans"
+
+  // Ensure Model starts locked and greyed out
   modelSelect.innerHTML = `<option value="">Any model</option>`;
   modelSelect.disabled = true;
   modelSelect.style.opacity = "0.5";
   modelSelect.style.cursor = "not-allowed";
 
-  async function loadMakesForTab(type) {
-    makeSelect.innerHTML = `<option value="">Loading...</option>`;
+  // Function to load Makes from your new /api/get_makes endpoint
+  async function loadMakes(type) {
+    makeSelect.innerHTML = `<option value="">Loading makes...</option>`;
     modelSelect.innerHTML = `<option value="">Any model</option>`;
     modelSelect.disabled = true;
     modelSelect.style.opacity = "0.5";
     modelSelect.style.cursor = "not-allowed";
 
     try {
-      // Call the dedicated get_makes endpoint to fetch all manufacturers
       const res = await fetch(`${API_BASE}/api/get_makes?vehicle_type=${type}`);
       const data = await res.json();
       const makes = Array.isArray(data) ? data : (data.makes || []);
@@ -5474,14 +5478,15 @@ document.addEventListener("DOMContentLoaded",  () => {
       makeSelect.innerHTML = `<option value="">Any make</option>` +
         makes.map(m => `<option value="${m}">${m}</option>`).join("");
 
-      await updateFuels(type, "", "");
+      await loadFuels(type, "", "");
     } catch (err) {
       console.error("Error loading makes:", err);
       makeSelect.innerHTML = `<option value="">Any make</option>`;
     }
   }
 
-  async function updateFuels(type, make = "", model = "") {
+  // Function to load Fuels
+  async function loadFuels(type, make = "", model = "") {
     const currentFuel = fuelSelect.value;
     try {
       const params = new URLSearchParams();
@@ -5500,11 +5505,11 @@ document.addEventListener("DOMContentLoaded",  () => {
         fuelSelect.value = currentFuel;
       }
     } catch (err) {
-      console.error("Failed to load fuels:", err);
+      console.error("Error loading fuels:", err);
     }
   }
 
-  // Robust Tab Switching
+  // Hook up Cars and Vans tab buttons securely
   const tabCars = document.getElementById("tab-cars");
   const tabVans = document.getElementById("tab-vans");
 
@@ -5513,7 +5518,7 @@ document.addEventListener("DOMContentLoaded",  () => {
       activeTab = "car";
       tabCars.className = "flex items-center gap-2 border px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-primary bg-primary text-background";
       if (tabVans) tabVans.className = "flex items-center gap-2 border-b border-r border-t px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-border bg-secondary text-muted-foreground hover:text-foreground";
-      loadMakesForTab("car");
+      loadMakes("car");
     });
   }
 
@@ -5522,27 +5527,27 @@ document.addEventListener("DOMContentLoaded",  () => {
       activeTab = "vans";
       tabVans.className = "flex items-center gap-2 border px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-primary bg-primary text-background";
       if (tabCars) tabCars.className = "flex items-center gap-2 border-b border-r border-t px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-border bg-secondary text-muted-foreground hover:text-foreground";
-      loadMakesForTab("vans");
+      loadMakes("vans");
     });
   }
 
-  // Initial load
-  await loadMakesForTab("car");
+  // Initial load on page startup
+  await loadMakes("car");
 
-  // Make change event -> Force unlocks model dropdown properly
+  // Make change event -> Unlocks Model dropdown and fetches models
   makeSelect.addEventListener("change", async () => {
-    const selectedMake = makeSelect.value === "Any make" ? "" : makeSelect.value;
+    const selectedMake = makeSelect.value;
     modelSelect.innerHTML = `<option value="">Any model</option>`;
 
-    if (!selectedMake) {
+    if (!selectedMake || selectedMake === "Any make") {
       modelSelect.disabled = true;
       modelSelect.style.opacity = "0.5";
       modelSelect.style.cursor = "not-allowed";
-      await updateFuels(activeTab, "", "");
+      await loadFuels(activeTab, "", "");
       return;
     }
 
-    // UNLOCK MODEL DROPDOWN
+    // Unlock Model dropdown & highlight brightness
     modelSelect.disabled = false;
     modelSelect.removeAttribute("disabled");
     modelSelect.style.opacity = "1";
@@ -5559,43 +5564,28 @@ document.addEventListener("DOMContentLoaded",  () => {
       console.error("Error loading models:", err);
     }
 
-    await updateFuels(activeTab, selectedMake, "");
+    await loadFuels(activeTab, selectedMake, "");
   });
 
+  // Model change event -> updates fuel filtering
   modelSelect.addEventListener("change", async () => {
-    const selectedMake = makeSelect.value === "Any make" ? "" : makeSelect.value;
-    const selectedModel = modelSelect.value === "Any model" ? "" : modelSelect.value;
-    await updateFuels(activeTab, selectedMake, selectedModel);
+    const selectedMake = makeSelect.value;
+    const selectedModel = modelSelect.value;
+    await loadFuels(activeTab, selectedMake === "Any make" ? "" : selectedMake, selectedModel === "Any model" ? "" : selectedModel);
   });
 
-  // Search button redirect
+  // Wire up the "Search cars" button
   const searchBtn = Array.from(document.querySelectorAll("button, a")).find(
     el => el.innerText && el.innerText.trim().includes("Search cars")
   );
 
   if (searchBtn) {
-    const cleanBtn = searchBtn.cloneNode(true);
-    searchBtn.parentNode.replaceChild(cleanBtn, searchBtn);
-
-    cleanBtn.addEventListener("click", (e) => {
+    searchBtn.addEventListener("click", (e) => {
       e.preventDefault();
       const params = new URLSearchParams();
       
-      const makeVal = makeSelect.value === "Any make" ? "" : makeSelect.value;
-      const modelVal = modelSelect.value === "Any model" ? "" : modelSelect.value;
-      const fuelVal = fuelSelect.value === "Any fuel type" ? "" : fuelSelect.value;
-
-      if (makeVal) params.set("make", makeVal);
-      if (modelVal) params.set("model", modelVal);
-      if (fuelVal) params.set("fuel", fuelVal);
-      params.set("type", activeTab);
-
-      const qs = params.toString();
-      window.location.href = qs ? `search.html?${qs}` : `search.html`;
-    });
-  }
-});
-</script>
+      const makeVal = makeSelect.value;
+      const modelVal = modelSelect.
   
 </body>
 
