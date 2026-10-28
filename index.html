@@ -5442,7 +5442,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const rawSelects = panel.querySelectorAll("select");
   if (rawSelects.length < 3) return;
 
-  // Clone the selects to strip out any interfering template React listeners
+  // Clone selects to remove broken template listeners
   const selects = Array.from(rawSelects).map(sel => {
     const clone = sel.cloneNode(true);
     sel.parentNode.replaceChild(clone, sel);
@@ -5450,13 +5450,48 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   const [makeSelect, modelSelect, fuelSelect] = selects;
+  
+  let activeTab = "Cars"; // Default tab
 
-  // Lock Model initially until a Make is chosen
+  // Lock Model initially
   modelSelect.innerHTML = `<option value="">Any model</option>`;
   modelSelect.disabled = true;
   modelSelect.classList.add("opacity-50", "cursor-not-allowed");
 
-  // Helper to update Fuel options dynamically based on Make & Model
+  // Helper to load Makes based on active tab (Cars vs Vans)
+  async function loadMakesForTab(tabName) {
+    makeSelect.innerHTML = `<option value="">Loading...</option>`;
+    modelSelect.innerHTML = `<option value="">Any model</option>`;
+    modelSelect.disabled = true;
+    modelSelect.classList.add("opacity-50", "cursor-not-allowed");
+
+    try {
+      // You can adjust this endpoint if you have a separate van API, or filter client-side / via query param
+      const res = await fetch(`${API_BASE}/api/search_vehicles`);
+      const data = await res.json();
+      const vehicles = Array.isArray(data) ? data : (data.vehicles || []);
+
+      // Filter based on tab (assuming your database differentiates them, or adjust if you have a vehicle type column)
+      // If your conduit table holds both, you can filter by a property or load all for cars
+      const filteredVehicles = vehicles.filter(v => {
+        const type = (v.VehicleType || v.Type || "Car").toLowerCase();
+        if (tabName === "Vans") return type.includes("van") || type.includes("commercial");
+        return !type.includes("van") && !type.includes("commercial");
+      });
+
+      // Fallback: if filtering returns nothing, show all makes so it's never empty
+      const targetVehicles = filteredVehicles.length > 0 ? filteredVehicles : vehicles;
+
+      const makes = [...new Set(targetVehicles.map(v => v.Make || v.Manufacturer).filter(Boolean))].sort();
+      makeSelect.innerHTML = `<option value="">Any make</option>` +
+        makes.map(m => `<option value="${m}">${m}</option>`).join("");
+
+      await updateFuels();
+    } catch (err) {
+      console.error("Error loading makes:", err);
+    }
+  }
+
   async function updateFuels(make = "", model = "") {
     const currentFuel = fuelSelect.value;
     try {
@@ -5471,7 +5506,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       fuelSelect.innerHTML = `<option value="">Any fuel type</option>` +
         fuels.map(f => `<option value="${f}">${f}</option>`).join("");
 
-      // Keep previous fuel selected if it's still valid for this Make/Model
       if (fuels.includes(currentFuel)) {
         fuelSelect.value = currentFuel;
       }
@@ -5480,22 +5514,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // 1. Initial Load: Populate Makes & All Fuels
-  try {
-    const res = await fetch(`${API_BASE}/api/search_vehicles`);
-    const data = await res.json();
-    const vehicles = Array.isArray(data) ? data : (data.vehicles || []);
+  // Hook up Cars and Vans tab buttons
+  const tabCars = document.getElementById("tab-cars");
+  const tabVans = document.getElementById("tab-vans");
 
-    const makes = [...new Set(vehicles.map(v => v.Make || v.Manufacturer).filter(Boolean))].sort();
-    makeSelect.innerHTML = `<option value="">Any make</option>` +
-      makes.map(m => `<option value="${m}">${m}</option>`).join("");
+  if (tabCars && tabVans) {
+    tabCars.addEventListener("click", () => {
+      activeTab = "Cars";
+      tabCars.className = "flex items-center gap-2 border px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-primary bg-primary text-background";
+      tabVans.className = "flex items-center gap-2 border-b border-r border-t px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-border bg-secondary text-muted-foreground hover:text-foreground";
+      loadMakesForTab("Cars");
+    });
 
-    await updateFuels();
-  } catch (err) {
-    console.error("Error loading initial homepage data:", err);
+    tabVans.addEventListener("click", () => {
+      activeTab = "Vans";
+      tabVans.className = "flex items-center gap-2 border px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-primary bg-primary text-background";
+      tabCars.className = "flex items-center gap-2 border-b border-r border-t px-5 py-2.5 text-xs font-semibold tracking-wide transition-colors focus:outline-none focus:ring-1 focus:ring-primary border-border bg-secondary text-muted-foreground hover:text-foreground";
+      loadMakesForTab("Vans");
+    });
   }
 
-  // 2. When Make changes -> Unlock & populate Models + Filter Fuels
+  // Initial load for Cars tab
+  await loadMakesForTab("Cars");
+
+  // Make change event
   makeSelect.addEventListener("change", async () => {
     const selectedMake = makeSelect.value === "Any make" ? "" : makeSelect.value;
     modelSelect.innerHTML = `<option value="">Any model</option>`;
@@ -5507,9 +5549,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    // Unlock the Model dropdown
     modelSelect.disabled = false;
-    modelSelect.removeAttribute("disabled");
     modelSelect.classList.remove("opacity-50", "cursor-not-allowed");
 
     try {
@@ -5523,19 +5563,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       console.error("Error loading models:", err);
     }
 
-    // Filter fuels for the selected Make
     await updateFuels(selectedMake, "");
   });
 
-  // 3. When Model changes -> Filter Fuels for that specific Make + Model
+  // Model change event
   modelSelect.addEventListener("change", async () => {
     const selectedMake = makeSelect.value === "Any make" ? "" : makeSelect.value;
     const selectedModel = modelSelect.value === "Any model" ? "" : modelSelect.value;
     await updateFuels(selectedMake, selectedModel);
   });
 
-  // 4. Wire up the "Search cars" button to pass selections to search.html
-  const searchBtn = panel.querySelector("button, a") || Array.from(document.querySelectorAll("button, a")).find(
+  // Search button redirect
+  const searchBtn = Array.from(document.querySelectorAll("button, a")).find(
     el => el.innerText && el.innerText.trim().includes("Search cars")
   );
 
@@ -5554,6 +5593,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (makeVal) params.set("make", makeVal);
       if (modelVal) params.set("model", modelVal);
       if (fuelVal) params.set("fuel", fuelVal);
+      params.set("type", activeTab.toLowerCase()); // Passes 'cars' or 'vans' to search page
 
       const qs = params.toString();
       window.location.href = qs ? `search.html?${qs}` : `search.html`;
