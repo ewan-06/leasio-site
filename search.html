@@ -5649,14 +5649,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     const fuelDropdown = document.getElementById("filter-fuel");
     if (fuelDropdown) fuelDropdown.value = "";
 
-    // 4. Reset Sort dropdown if it exists
+    // 4. Reset Sort dropdown back to default / empty
     const allSelects = Array.from(document.querySelectorAll("select"));
     const sortSelect = allSelects.find(sel => 
       sel.id === "filter-sort" || 
       sel.innerText.toLowerCase().includes("low to high") || 
       sel.innerText.toLowerCase().includes("high to low")
     );
-    if (sortSelect) sortSelect.value = "";
+    if (sortSelect) sortSelect.selectedIndex = 0; // Resets to the first option (Relevance / Default)
 
     // 5. Clean URL parameters (keep only the vehicle type)
     const params = new URLSearchParams();
@@ -5667,13 +5667,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     // 6. Reload fuel types for the blank state and trigger a fresh search
     await loadFuelTypes("", "", "");
     await triggerSearch(false);
-  });
-   
-  // Listen for changes on the Sort dropdown automatically
-  const allSelects = Array.from(document.querySelectorAll("select"));
-  const sortDropdown = allSelects.find(sel => sel.id === "filter-sort" || sel.innerText.toLowerCase().includes("low to high") || sel.innerText.toLowerCase().includes("high to low"));
-  sortDropdown?.addEventListener("change", () => {
-    triggerSearch(true);
   });
 
   document.addEventListener("click", (e) => {
