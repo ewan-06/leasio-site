@@ -327,7 +327,9 @@
         if (make) params.set("make", make);
         if (model) params.set("model", model);
         if (fuel) params.set("fuel", fuel);
-        if (maxPrice < 2000) params.set("max_price", maxPrice);
+        if (!isNaN(maxPrice) && maxPrice < 2000) {
+          params.set("max_price", maxPrice);
+        }
 
         window.location.href = `search.html?${params.toString()}`;
       });
