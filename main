@@ -179,120 +179,7 @@
   </footer>
 
 <script>
-    const API_BASE = "https://leasio-api.onrender.com";
-    let heroVehicleType = "car";
-    let offersVehicleType = "car";
-
-    // Identical card layout to search.html, with BHP code stripped out
-    function vehicleCardHTML(car, type) {
-      const cleanDerivative = (car.CAP_Derivative || "").replace(/\s*\b\d+bhp\b/gi, "").trim();
-
-      return `
-        <article class="group flex flex-col border border-border bg-secondary transition-colors hover:border-primary/40">
-          <div class="relative aspect-[16/9] overflow-hidden bg-background/60 flex items-center justify-center">
-            <div class="text-muted-foreground/10">
-              <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
-                <circle cx="7" cy="17" r="2"></circle>
-                <path d="M9 17h6"></path>
-                <circle cx="17" cy="17" r="2"></circle>
-              </svg>
-            </div>
-            <span class="absolute left-3 top-3 border px-2 py-0.5 font-mono text-[10px] tracking-widest border-primary/60 text-primary">${car.Fuel || "Electric"}</span>
-            <span class="absolute right-3 top-3 border border-border bg-background/80 px-2 py-0.5 font-mono text-[10px] tracking-widest text-muted-foreground">BEST DEAL</span>
-          </div>
-          <div class="flex flex-1 flex-col p-5">
-            <p class="font-mono text-[10px] tracking-[0.16em] text-muted-foreground">${car.Make}</p>
-            <h2 class="mt-0.5 text-xl leading-tight text-foreground">${car.Model}</h2>
-            <p class="mt-1 text-xs leading-5 text-muted-foreground">${cleanDerivative}</p>
-            <div class="mt-5 flex items-end justify-between border-t border-border pt-4">
-              <div>
-                <p class="font-mono text-[10px] tracking-widest text-muted-foreground">LEASE FROM</p>
-                <p class="mt-0.5 text-sm text-foreground font-bold">£${car.Monthly || "POA"} /mo</p>
-              </div>
-              <a class="flex items-center gap-1.5 border border-primary bg-transparent px-4 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-background" href="vehicles.html?cap=${encodeURIComponent(car.CAP_Code)}&type=${type}">
-                Get a quote &rarr;
-              </a>
-            </div>
-          </div>
-        </article>`;
-    }
-
-    // Load Best Offers into Grid
-    async function loadBestOffers(type = "car") {
-      const grid = document.getElementById("best-offers-grid");
-      const viewAllLink = document.getElementById("view-all-link");
-      if (!grid) return;
-
-      grid.innerHTML = `<p class="text-sm text-muted-foreground col-span-full py-12 text-center">Loading best leasing offers...</p>`;
-      if (viewAllLink) viewAllLink.href = `search.html?type=${type}&sort=price_asc`;
-
-      try {
-        const res = await fetch(`${API_BASE}/api/best_offers?vehicle_type=${type}&limit=9`);
-        const data = await res.json();
-
-        if (!Array.isArray(data) || data.length === 0) {
-          grid.innerHTML = `<p class="text-sm text-muted-foreground col-span-full py-12 text-center">No special offers available right now.</p>`;
-          return;
-        }
-
-        grid.innerHTML = data.map(car => vehicleCardHTML(car, type)).join("");
-      } catch (err) {
-        console.error("Failed to load best offers:", err);
-        grid.innerHTML = `<p class="text-sm text-muted-foreground col-span-full py-12 text-center">Unable to load offers at this moment.</p>`;
-      }
-    }
-
-    // Hero Search Cascading Dropdowns
-    async function loadHeroMakes() {
-      const makeEl = document.getElementById("hero-make");
-      try {
-        const res = await fetch(`${API_BASE}/api/get_makes?vehicle_type=${heroVehicleType}`);
-        const data = await res.json();
-        const makes = Array.isArray(data) ? data : (data.makes || []);
-        makeEl.innerHTML = '<option value="">Any make</option>' +
-          makes.map(m => `<option value="${m}">${m}</option>`).join("");
-      } catch (err) {
-        console.error("Failed to load makes:", err);
-      }
-    }
-
-    async function loadHeroModels(make) {
-      const modelEl = document.getElementById("hero-model");
-      if (!make) {
-        modelEl.innerHTML = '<option value="">Select a make first</option>';
-        modelEl.disabled = true;
-        return;
-      }
-      try {
-        const res = await fetch(`${API_BASE}/api/get_models?make=${encodeURIComponent(make)}&vehicle_type=${heroVehicleType}`);
-        const data = await res.json();
-        const models = Array.isArray(data) ? data : (data.models || []);
-        modelEl.innerHTML = '<option value="">All models</option>' +
-          models.map(m => `<option value="${m}">${m}</option>`).join("");
-        modelEl.disabled = false;
-      } catch (err) {
-        console.error("Failed to load models:", err);
-      }
-    }
-
-    async function loadHeroFuels(make = "", model = "") {
-      const fuelEl = document.getElementById("hero-fuel");
-      try {
-        const params = new URLSearchParams({ vehicle_type: heroVehicleType });
-        if (make) params.set("make", make);
-        if (model) params.set("model", model);
-        const res = await fetch(`${API_BASE}/api/get_fuels?${params.toString()}`);
-        const data = await res.json();
-        const fuels = Array.isArray(data) ? data : (data.fuels || []);
-        fuelEl.innerHTML = '<option value="">Any fuel type</option>' +
-          fuels.map(f => `<option value="${f}">${f}</option>`).join("");
-      } catch (err) {
-        console.error("Failed to load fuels:", err);
-      }
-    }
-
-    // Initialize Page
+// Initialize Page
     document.addEventListener("DOMContentLoaded", () => {
       loadHeroMakes();
       loadHeroFuels();
@@ -310,9 +197,10 @@
         await loadHeroFuels(make, e.target.value);
       });
 
-      // Update Hero Max Budget label while sliding
+      // Update Hero Max Budget label and store in URL params on slider drag
       const heroPriceSlider = document.getElementById("hero-max-price");
       const heroPriceLabel = document.getElementById("hero-price-label");
+      
       heroPriceSlider?.addEventListener("input", (e) => {
         const val = parseInt(e.target.value, 10);
         if (heroPriceLabel) {
@@ -325,14 +213,14 @@
         const make = document.getElementById("hero-make")?.value || "";
         const model = document.getElementById("hero-model")?.value || "";
         const fuel = document.getElementById("hero-fuel")?.value || "";
-        const maxPrice = parseInt(document.getElementById("hero-max-price")?.value || "2000", 10);
+        const maxPrice = parseInt(heroPriceSlider?.value || "2000", 10);
 
         const params = new URLSearchParams({ type: heroVehicleType });
-        if (make) params.set("make", make);
+        if (make && make !== "Any make") params.set("make", make);
         if (model) params.set("model", model);
-        if (fuel) params.set("fuel", fuel);
+        if (fuel && fuel !== "Any fuel type") params.set("fuel", fuel);
         
-        // Force the max_price parameter into the URL string
+        // Force the max_price parameter into the URL string if it's below the 2000 ceiling
         if (!isNaN(maxPrice) && maxPrice > 0 && maxPrice < 2000) {
           params.set("max_price", maxPrice);
         }
@@ -380,6 +268,6 @@
         loadBestOffers("vans");
       });
     });
-  </script>
+</script>
 </body>
 </html>
