@@ -75,8 +75,8 @@
           </button>
         </div>
 
-        <!-- Filter Dropdowns -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+        <!-- Filter Dropdowns + Price Slider -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
           <div>
             <label for="hero-make" class="block font-mono text-[11px] uppercase tracking-wider text-muted-foreground mb-2">Make</label>
             <select id="hero-make" class="w-full h-11 bg-background border border-border px-3 text-sm text-foreground focus:outline-none focus:border-primary">
@@ -95,13 +95,27 @@
               <option value="">Any fuel type</option>
             </select>
           </div>
+          <div class="bg-background border border-border px-3 h-11 flex flex-col justify-center">
+            <div class="flex items-center justify-between mb-1">
+              <label for="hero-max-price" class="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Max Budget</label>
+              <span id="hero-price-label" class="font-mono text-[11px] font-semibold text-primary">Any price</span>
+            </div>
+            <input 
+              type="range" 
+              id="hero-max-price" 
+              min="150" 
+              max="2000" 
+              step="50" 
+              value="2000" 
+              class="w-full h-1 bg-secondary rounded-lg appearance-none cursor-pointer accent-primary"
+            />
+          </div>
           <div>
             <button id="hero-search-btn" type="button" class="w-full h-11 bg-primary text-background font-semibold text-xs uppercase tracking-widest hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
               Search Deals &rarr;
             </button>
           </div>
         </div>
-      </div>
 
       <!-- Trust Bar -->
       <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 text-xs font-mono text-muted-foreground">
