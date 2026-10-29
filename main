@@ -178,8 +178,7 @@
     </div>
   </footer>
 
-  <!-- HOMEPAGE LOGIC -->
-  <script>
+<script>
     const API_BASE = "https://leasio-api.onrender.com";
     let heroVehicleType = "car";
     let offersVehicleType = "car";
@@ -306,6 +305,11 @@
         await loadHeroFuels(make, "");
       });
 
+      document.getElementById("hero-model")?.addEventListener("change", async (e) => {
+        const make = document.getElementById("hero-make")?.value || "";
+        await loadHeroFuels(make, e.target.value);
+      });
+
       // Update Hero Max Budget label while sliding
       const heroPriceSlider = document.getElementById("hero-max-price");
       const heroPriceLabel = document.getElementById("hero-price-label");
@@ -327,16 +331,13 @@
         if (make) params.set("make", make);
         if (model) params.set("model", model);
         if (fuel) params.set("fuel", fuel);
-        if (!isNaN(maxPrice) && maxPrice < 2000) {
+        
+        // Force the max_price parameter into the URL string
+        if (!isNaN(maxPrice) && maxPrice > 0 && maxPrice < 2000) {
           params.set("max_price", maxPrice);
         }
 
         window.location.href = `search.html?${params.toString()}`;
-      });
-
-      document.getElementById("hero-model")?.addEventListener("change", async (e) => {
-        const make = document.getElementById("hero-make")?.value || "";
-        await loadHeroFuels(make, e.target.value);
       });
 
       // Hero Car/Van Tabs
@@ -359,20 +360,6 @@
         loadHeroMakes();
         loadHeroModels("");
         loadHeroFuels();
-      });
-
-      // Hero Search Submit -> Redirects to search.html with selected filters
-      document.getElementById("hero-search-btn")?.addEventListener("click", () => {
-        const make = document.getElementById("hero-make")?.value || "";
-        const model = document.getElementById("hero-model")?.value || "";
-        const fuel = document.getElementById("hero-fuel")?.value || "";
-
-        const params = new URLSearchParams({ type: heroVehicleType });
-        if (make) params.set("make", make);
-        if (model) params.set("model", model);
-        if (fuel) params.set("fuel", fuel);
-
-        window.location.href = `search.html?${params.toString()}`;
       });
 
       // Best Offers Car/Van Toggle
