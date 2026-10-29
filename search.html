@@ -5424,7 +5424,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   </div>
 <script>
   const API_BASE = "https://leasio-api.onrender.com";
-  const urlParams = new URLSearchParams(window.location.search);
+  let urlParams = new URLSearchParams(window.location.search);
   const vehicleType = ["vans", "van"].includes(urlParams.get("type")) ? "vans" : "car";
 
   const PAGE_SIZE = 24;
@@ -5556,20 +5556,23 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       </article>`;
   }
 
-  // Apply Max Price & Sort directly in the browser so it works 100% of the time
+  // Apply Max Price & Sort directly in the browser
   function applyClientFiltersAndSort(resetPage = true) {
+    urlParams = new URLSearchParams(window.location.search);
     const sliderEl = document.getElementById("filter-max-price");
-    const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : (parseInt(urlParams.get("max_price") || "2000", 10));
+    
+    // Read from slider or fallback to fresh URL search parameters
+    const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : parseInt(urlParams.get("max_price") || "2000", 10);
     const maxPrice = (!isNaN(maxPriceVal) && maxPriceVal < 2000) ? maxPriceVal : 0;
 
     // 1. Filter by Max Monthly Price
     filteredVehicles = rawVehicles.filter(car => {
-      if (maxPrice <= 0) return true; // Any price
+      if (maxPrice <= 0) return true;
       const p = parseMonthlyPrice(car.Monthly);
       return p !== null && p <= maxPrice;
     });
 
-    // 2. Sort vehicles (always push POA / null prices to the bottom when sorting by price)
+    // 2. Sort vehicles (push POA / null prices to the bottom when sorting by price)
     if (currentSort === "price_asc") {
       filteredVehicles.sort((a, b) => {
         const pa = parseMonthlyPrice(a.Monthly);
@@ -5595,6 +5598,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
 
   function syncUrlParams() {
+    urlParams = new URLSearchParams(window.location.search);
     const make = document.getElementById("filter-make")?.value || "";
     const model = document.getElementById("filter-model")?.value || "";
     const fuel = document.getElementById("filter-fuel")?.value || "";
@@ -5648,11 +5652,14 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
 
   async function triggerSearch(updateUrl = false) {
+    urlParams = new URLSearchParams(window.location.search);
     const make = document.getElementById("filter-make")?.value || "Any make";
     const model = document.getElementById("filter-model")?.value || "";
     const fuel = document.getElementById("filter-fuel")?.value || "Any fuel type";
     const sliderEl = document.getElementById("filter-max-price");
-    const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : (parseInt(urlParams.get("max_price") || "2000", 10));
+    
+    // Safely parse max_price from slider or URL parameters
+    const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : parseInt(urlParams.get("max_price") || "2000", 10);
     const maxPrice = (!isNaN(maxPriceVal) && maxPriceVal < 2000) ? maxPriceVal : 0;
 
     if (updateUrl) syncUrlParams();
@@ -5670,22 +5677,40 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
+    urlParams = new URLSearchParams(window.location.search);
     const selectedMake = urlParams.get("make") || "";
     const selectedModel = urlParams.get("model") || "";
     const selectedFuel = urlParams.get("fuel") || "";
     const selectedMaxPrice = urlParams.get("max_price") || "2000";
+    currentSort = urlParams.get("sort") || "";
 
-    // Initialize the price slider from URL param (e.g., when redirected from index.html)
+    // 1. Immediately apply slider position and label from URL parameters
     const priceSlider = document.getElementById("filter-max-price");
     if (priceSlider) {
       priceSlider.value = selectedMaxPrice;
     }
     updatePriceLabel(selectedMaxPrice);
 
+    // 2. Set the Sort dropdown value to match URL parameter if present
+    const sortSelects = document.querySelectorAll("select");
+    sortSelects.forEach(sel => {
+      if (["filter-make", "filter-model", "filter-fuel"].includes(sel.id)) return;
+      for (let option of sel.options) {
+        if (currentSort === "price_asc" && option.text.toLowerCase().includes("low to high")) {
+          sel.value = option.value;
+        } else if (currentSort === "price_desc" && option.text.toLowerCase().includes("high to low")) {
+          sel.value = option.value;
+        }
+      }
+    });
+
+    // 3. Set UI headers & load dropdown filters
     setTypeUI();
     await loadMakes(selectedMake);
     if (selectedMake) await loadModelsForMake(selectedMake, selectedModel);
     await loadFuelTypes(selectedMake, selectedModel, selectedFuel);
+    
+    // 4. Trigger search
     await triggerSearch(false);
   });
 
@@ -5707,7 +5732,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     triggerSearch(true);
   });
 
-  // Price Slider Listeners (instant client-side filter + URL sync)
+  // Price Slider Listeners
   const priceSliderEl = document.getElementById("filter-max-price");
   priceSliderEl?.addEventListener("input", (e) => {
     updatePriceLabel(e.target.value);
@@ -5717,7 +5742,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     syncUrlParams();
   });
 
-  // Sort Listener 1: Standard <select> dropdown (if your Sort By is a <select>)
+  // Sort Listener: Standard <select> dropdowns
   document.addEventListener("change", (e) => {
     const sel = e.target.closest("select");
     if (!sel || ["filter-make", "filter-model", "filter-fuel"].includes(sel.id)) return;
@@ -5736,15 +5761,13 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     applyClientFiltersAndSort(true);
   });
 
-  // Sort Listener 2: Custom buttons / dropdown items (if your Sort By uses <button> or <div>)
+  // Sort Listener: Custom buttons or dropdown items
   document.addEventListener("click", (e) => {
-    // Ignore clicks on <select> or <option>
     if (e.target.closest("select")) return;
 
     const target = e.target.closest("button, a, [role='option'], [role='menuitem'], li");
     if (!target) return;
 
-    // Make sure we don't accidentally match a container holding all buttons at once
     const text = (target.textContent || "").trim().toLowerCase();
     if (text.length > 45) return;
 
@@ -5762,7 +5785,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
       e.preventDefault();
       currentSort = "";
       syncUrlParams();
-       triggerSearch(false); // Re-fetch default alphabetical/relevance order
+      triggerSearch(false);
     }
   });
 
@@ -5784,7 +5807,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     if (priceSlider) priceSlider.value = "2000";
     updatePriceLabel(2000);
 
-    // Reset any Sort <select> dropdowns to first option
     document.querySelectorAll("select").forEach(sel => {
       if (!["filter-make", "filter-model", "filter-fuel"].includes(sel.id)) {
         sel.selectedIndex = 0;
@@ -5792,6 +5814,7 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
     });
 
     currentSort = "";
+    urlParams = new URLSearchParams(window.location.search);
     urlParams.delete("make");
     urlParams.delete("model");
     urlParams.delete("fuel");
