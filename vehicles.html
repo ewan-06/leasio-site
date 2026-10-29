@@ -5011,11 +5011,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
                     <dt class="text-sm text-muted-foreground">Power (kW)</dt>
                     <dd id="spec-kw" class="text-sm font-medium text-foreground">-</dd>
                   </div>
-                  <!-- Power (BHP) -->
-                  <div class="flex items-center justify-between border-b border-border px-0 py-3.5 bg-secondary/40">
-                    <dt class="text-sm text-muted-foreground">Power (BHP)</dt>
-                    <dd id="spec-bhp" class="text-sm font-medium text-foreground">-</dd>
-                  </div>
                 </dl>
               </div>
             </div>
@@ -5257,8 +5252,6 @@ Constrain images and videos to the parent width and preserve their intrinsic asp
           if (specEngine) specEngine.innerText = data.EngineSize || '-';
           const specKw = document.getElementById('spec-kw');
           if (specKw) specKw.innerText = data.PowerKW || '-';
-          const specBhp = document.getElementById('spec-bhp');
-          if (specBhp) specBhp.innerText = data.BHP || '-';
 
           // Fade everything in smoothly once data is ready
           document.querySelectorAll('.pending-load').forEach(el => {
