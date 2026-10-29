@@ -306,6 +306,32 @@
         await loadHeroFuels(make, "");
       });
 
+      // Update Hero Max Budget label while sliding
+      const heroPriceSlider = document.getElementById("hero-max-price");
+      const heroPriceLabel = document.getElementById("hero-price-label");
+      heroPriceSlider?.addEventListener("input", (e) => {
+        const val = parseInt(e.target.value, 10);
+        if (heroPriceLabel) {
+          heroPriceLabel.textContent = val >= 2000 ? "Any price" : `Up to £${val.toLocaleString("en-GB")}/mo`;
+        }
+      });
+
+      // Hero Search Submit -> Redirects to search.html with selected filters + max_price
+      document.getElementById("hero-search-btn")?.addEventListener("click", () => {
+        const make = document.getElementById("hero-make")?.value || "";
+        const model = document.getElementById("hero-model")?.value || "";
+        const fuel = document.getElementById("hero-fuel")?.value || "";
+        const maxPrice = parseInt(document.getElementById("hero-max-price")?.value || "2000", 10);
+
+        const params = new URLSearchParams({ type: heroVehicleType });
+        if (make) params.set("make", make);
+        if (model) params.set("model", model);
+        if (fuel) params.set("fuel", fuel);
+        if (maxPrice < 2000) params.set("max_price", maxPrice);
+
+        window.location.href = `search.html?${params.toString()}`;
+      });
+
       document.getElementById("hero-model")?.addEventListener("change", async (e) => {
         const make = document.getElementById("hero-make")?.value || "";
         await loadHeroFuels(make, e.target.value);
