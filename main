@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="base_logo_transparent_background.png">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><image href='base_logo_transparent_background.png' width='100' height='100' preserveAspectRatio='xMidYMid meet'/></svg>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leasio | Find the best leasing deal for you.</title>
     <script src="https://cdn.tailwindcss.com"></script>
