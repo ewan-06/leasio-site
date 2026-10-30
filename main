@@ -178,21 +178,26 @@
     </div>
   </footer>
 <script>
+// IMPORTANT: Put your Render backend URL here (no trailing slash), e.g. "https://leasio-api.onrender.com"
+// Look inside vehicles.html to see the exact URL you use there!
+const API_BASE = "https://leasio-api.onrender.com";
+
 // --- 1. HERO SEARCH HELPER FUNCTIONS ---
-async function loadHeroMakes() {
+async function loadHeroMakes(vehicleType = "car") {
     const makeSelect = document.getElementById("hero-make") || document.getElementById("make-select");
     if (!makeSelect) return;
 
     try {
-        const res = await fetch("/api/makes");
+        const res = await fetch(`${API_BASE}/api/get_makes?vehicle_type=${encodeURIComponent(vehicleType)}`);
         if (!res.ok) return;
-        const makes = await res.json();
+        const data = await res.json();
+        const makes = data.makes || [];
         
-        makeSelect.innerHTML = '<option value="">All Makes</option>';
+        makeSelect.innerHTML = '<option value="Any make">Any make</option>';
         makes.forEach(make => {
             const opt = document.createElement("option");
-            opt.value = typeof make === "string" ? make : (make.Make || make.Manufacturer || "");
-            opt.textContent = opt.value;
+            opt.value = make;
+            opt.textContent = make;
             makeSelect.appendChild(opt);
         });
     } catch (err) {
@@ -200,26 +205,27 @@ async function loadHeroMakes() {
     }
 }
 
-async function loadHeroModels(selectedMake) {
+async function loadHeroModels(selectedMake, vehicleType = "car") {
     const modelSelect = document.getElementById("hero-model") || document.getElementById("model-select");
     if (!modelSelect) return;
 
-    if (!selectedMake) {
-        modelSelect.innerHTML = '<option value="">All Models</option>';
+    if (!selectedMake || selectedMake === "Any make") {
+        modelSelect.innerHTML = '<option value="">Any model</option>';
         modelSelect.disabled = true;
         return;
     }
 
     try {
-        const res = await fetch(`/api/models?make=${encodeURIComponent(selectedMake)}`);
+        const res = await fetch(`${API_BASE}/api/get_models?make=${encodeURIComponent(selectedMake)}&vehicle_type=${encodeURIComponent(vehicleType)}`);
         if (!res.ok) return;
-        const models = await res.json();
+        const data = await res.json();
+        const models = data.models || [];
         
-        modelSelect.innerHTML = '<option value="">All Models</option>';
+        modelSelect.innerHTML = '<option value="">Any model</option>';
         models.forEach(model => {
             const opt = document.createElement("option");
-            opt.value = typeof model === "string" ? model : (model.Model || "");
-            opt.textContent = opt.value;
+            opt.value = model;
+            opt.textContent = model;
             modelSelect.appendChild(opt);
         });
         modelSelect.disabled = false;
@@ -228,20 +234,25 @@ async function loadHeroModels(selectedMake) {
     }
 }
 
-async function loadHeroFuels() {
+async function loadHeroFuels(selectedMake = "", selectedModel = "", vehicleType = "car") {
     const fuelSelect = document.getElementById("hero-fuel") || document.getElementById("fuel-select");
     if (!fuelSelect) return;
 
     try {
-        const res = await fetch("/api/fuels");
-        if (!res.ok) return;
-        const fuels = await res.json();
+        const params = new URLSearchParams({ vehicle_type: vehicleType });
+        if (selectedMake && selectedMake !== "Any make") params.append("make", selectedMake);
+        if (selectedModel) params.append("model", selectedModel);
 
-        fuelSelect.innerHTML = '<option value="">All Fuel Types</option>';
+        const res = await fetch(`${API_BASE}/api/get_fuels?${params.toString()}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        const fuels = data.fuels || [];
+
+        fuelSelect.innerHTML = '<option value="Any fuel type">Any fuel type</option>';
         fuels.forEach(fuel => {
             const opt = document.createElement("option");
-            opt.value = typeof fuel === "string" ? fuel : (fuel.Fuel_Type || fuel.Fuel || "");
-            opt.textContent = opt.value;
+            opt.value = fuel;
+            opt.textContent = fuel;
             fuelSelect.appendChild(opt);
         });
     } catch (err) {
@@ -250,51 +261,64 @@ async function loadHeroFuels() {
 }
 
 // --- 2. BEST OFFERS FETCHER ---
-async function loadBestOffers() {
-    const container = document.getElementById("best-offers-grid") 
-                   || document.getElementById("offers-grid") 
-                   || document.querySelector(".offers-container");
+async function loadBestOffers(vehicleType = "car") {
+    let container = document.getElementById("best-offers-grid") 
+                 || document.getElementById("offers-grid") 
+                 || document.getElementById("best-offers")
+                 || document.querySelector(".offers-container");
+
+    if (!container) {
+        const elements = document.querySelectorAll("div, p, span");
+        for (const el of elements) {
+            if (el.children.length === 0 && el.textContent.toLowerCase().includes("loading best leasing offers")) {
+                container = el.parentElement;
+                break;
+            }
+        }
+    }
+
+    if (!container) return;
 
     try {
-        // Adjust endpoint to /api/best-offers or /api/best_offers depending on your main.py route
-        let res = await fetch("/api/best_offers");
-        if (!res.ok) {
-            res = await fetch("/api/best-offers");
-        }
+        const res = await fetch(`${API_BASE}/api/best_offers?vehicle_type=${encodeURIComponent(vehicleType)}&limit=9`);
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
         const offers = await res.json();
 
-        if (!container) return;
+        if (offers.error) {
+            throw new Error(offers.error);
+        }
+
         container.innerHTML = "";
 
-        if (!offers || offers.length === 0) {
+        if (!Array.isArray(offers) || offers.length === 0) {
             container.innerHTML = '<p class="text-gray-500 text-center col-span-full">No active offers found.</p>';
             return;
         }
 
         offers.forEach(offer => {
-            const make = offer.Make || offer.Manufacturer || "";
+            const make = offer.Make || "";
             const model = offer.Model || "";
-            const monthly = offer.Monthly ? `£${Number(offer.Monthly).toFixed(2)}` : "POA";
-            const capCode = offer.Cap_Code || offer.CAP_Code || "";
-            const discount = offer.DiscountPercent ? `<span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded">${offer.DiscountPercent}% OFF</span>` : "";
+            const derivative = offer.CAP_Derivative || "Standard Spec";
+            const fuel = offer.Fuel || "";
+            const capCode = offer.CAP_Code || "";
+            const monthly = typeof offer.Monthly === "number" ? `£${offer.Monthly.toFixed(2)}` : offer.Monthly;
 
             const card = document.createElement("div");
             card.className = "bg-white border rounded-xl shadow-sm hover:shadow-md transition p-5 flex flex-col justify-between";
             card.innerHTML = `
                 <div>
-                    <div class="flex justify-between items-start mb-2">
+                    <div class="flex justify-between items-start mb-1">
                         <h3 class="text-lg font-bold text-gray-900">${make} ${model}</h3>
-                        ${discount}
+                        <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2.5 py-0.5 rounded">${fuel}</span>
                     </div>
-                    <p class="text-xs text-gray-500 mb-4">${capCode}</p>
+                    <p class="text-sm text-gray-600 mb-4">${derivative}</p>
                 </div>
                 <div class="pt-4 border-t flex justify-between items-end">
                     <div>
                         <span class="text-xs text-gray-500 block">Monthly Rental</span>
                         <span class="text-xl font-extrabold text-blue-600">${monthly}</span>
-                        <span class="text-xs text-gray-400"> + VAT</span>
+                        <span class="text-xs text-gray-400"> /mo</span>
                     </div>
                     <a href="/vehicles.html?cap=${encodeURIComponent(capCode)}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition">
                         View Deal
@@ -305,28 +329,34 @@ async function loadBestOffers() {
         });
     } catch (err) {
         console.error("Failed to load best offers:", err);
-        if (container) {
-            container.innerHTML = '<p class="text-red-500 text-center col-span-full">Failed to load offers. Please try again shortly.</p>';
-        }
+        container.innerHTML = '<p class="text-red-500 text-center col-span-full">Failed to load offers. Please try again shortly.</p>';
     }
 }
 
 // --- 3. DOM INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Load initial data
     loadHeroMakes();
     loadHeroFuels();
     loadBestOffers();
 
-    // 2. Cascading make -> model dropdown listener
     const makeSelect = document.getElementById("hero-make") || document.getElementById("make-select");
+    const modelSelect = document.getElementById("hero-model") || document.getElementById("model-select");
+
     if (makeSelect) {
         makeSelect.addEventListener("change", (e) => {
-            loadHeroModels(e.target.value);
+            const selectedMake = e.target.value;
+            loadHeroModels(selectedMake);
+            loadHeroFuels(selectedMake, "");
         });
     }
 
-    // 3. Budget slider sync (if present)
+    if (modelSelect) {
+        modelSelect.addEventListener("change", (e) => {
+            const selectedMake = makeSelect ? makeSelect.value : "";
+            loadHeroFuels(selectedMake, e.target.value);
+        });
+    }
+
     const budgetSlider = document.getElementById("budget-slider") || document.getElementById("max-budget");
     const budgetDisplay = document.getElementById("budget-display") || document.getElementById("budget-val");
     if (budgetSlider && budgetDisplay) {
@@ -335,20 +365,21 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 4. Hero Search Deals Button
     const searchBtn = document.getElementById("hero-search-btn") || document.getElementById("search-btn");
     if (searchBtn) {
         searchBtn.addEventListener("click", (e) => {
             e.preventDefault();
             const make = makeSelect ? makeSelect.value : "";
-            const modelSelect = document.getElementById("hero-model") || document.getElementById("model-select");
             const model = modelSelect ? modelSelect.value : "";
+            const fuelSelect = document.getElementById("hero-fuel") || document.getElementById("fuel-select");
+            const fuel = fuelSelect ? fuelSelect.value : "";
             const budget = budgetSlider ? budgetSlider.value : "";
 
             const params = new URLSearchParams();
-            if (make) params.append("make", make);
+            if (make && make !== "Any make") params.append("make", make);
             if (model) params.append("model", model);
-            if (budget) params.append("max_budget", budget);
+            if (fuel && fuel !== "Any fuel type") params.append("fuel", fuel);
+            if (budget) params.append("max_price", budget);
 
             window.location.href = `/vehicles.html?${params.toString()}`;
         });
