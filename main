@@ -244,20 +244,21 @@
         loadHeroFuels("", "", type);
     }
 
-    function switchOffersTab(type) {
-        const carTab = document.getElementById("offers-tab-car");
-        const vanTab = document.getElementById("offers-tab-vans");
+    // Inside your homepage script switcher
+function switchOffersTab(type) {
+    const carTab = document.getElementById("offers-tab-car");
+    const vanTab = document.getElementById("offers-tab-vans");
 
-        if (type === "car") {
-            carTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-blue-600 text-white transition";
-            vanTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-slate-900 transition";
-        } else {
-            vanTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-blue-600 text-white transition";
-            carTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-slate-900 transition";
-        }
-
-        loadBestOffers(type);
+    if (type === "car") {
+        carTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-blue-600 text-white transition";
+        vanTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-slate-900 transition";
+        loadBestOffers("car"); // Automatically filtered <= £400/mo by backend
+    } else {
+        vanTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-blue-600 text-white transition";
+        carTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-slate-900 transition";
+        loadBestOffers("vans"); // Automatically filtered <= £800/mo by backend
     }
+}
 
     // --- 1. HERO SEARCH HELPER FUNCTIONS ---
     async function loadHeroMakes(vehicleType = "car") {
