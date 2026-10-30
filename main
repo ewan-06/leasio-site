@@ -178,96 +178,16 @@
     </div>
   </footer>
 
-<script>
-// Initialize Page
-    document.addEventListener("DOMContentLoaded", () => {
-      loadHeroMakes();
-      loadHeroFuels();
-      loadBestOffers("car");
-
-      // Hero Make & Model listeners
-      document.getElementById("hero-make")?.addEventListener("change", async (e) => {
-        const make = e.target.value;
-        await loadHeroModels(make);
-        await loadHeroFuels(make, "");
-      });
-
-      document.getElementById("hero-model")?.addEventListener("change", async (e) => {
-        const make = document.getElementById("hero-make")?.value || "";
-        await loadHeroFuels(make, e.target.value);
-      });
-
-      // Update Hero Max Budget label and store in URL params on slider drag
-      const heroPriceSlider = document.getElementById("hero-max-price");
-      const heroPriceLabel = document.getElementById("hero-price-label");
-      
-      heroPriceSlider?.addEventListener("input", (e) => {
-        const val = parseInt(e.target.value, 10);
-        if (heroPriceLabel) {
-          heroPriceLabel.textContent = val >= 2000 ? "Any price" : `Up to £${val.toLocaleString("en-GB")}/mo`;
-        }
-      });
-
-      // Hero Search Submit -> Redirects to search.html with selected filters + max_price
-      document.getElementById("hero-search-btn")?.addEventListener("click", () => {
-        const make = document.getElementById("hero-make")?.value || "";
-        const model = document.getElementById("hero-model")?.value || "";
-        const fuel = document.getElementById("hero-fuel")?.value || "";
-        const maxPrice = parseInt(heroPriceSlider?.value || "2000", 10);
-
-        const params = new URLSearchParams({ type: heroVehicleType });
-        if (make && make !== "Any make") params.set("make", make);
-        if (model) params.set("model", model);
-        if (fuel && fuel !== "Any fuel type") params.set("fuel", fuel);
-        
-        // Force the max_price parameter into the URL string if it's below the 2000 ceiling
-        if (!isNaN(maxPrice) && maxPrice > 0 && maxPrice < 2000) {
-          params.set("max_price", maxPrice);
-        }
-
-        window.location.href = `search.html?${params.toString()}`;
-      });
-
-      // Hero Car/Van Tabs
-      const heroCarBtn = document.getElementById("hero-tab-car");
-      const heroVanBtn = document.getElementById("hero-tab-vans");
-
-      heroCarBtn?.addEventListener("click", () => {
-        heroVehicleType = "car";
-        heroCarBtn.className = "px-5 py-2 text-xs font-mono uppercase tracking-widest border border-primary bg-primary text-background font-semibold transition-colors";
-        heroVanBtn.className = "px-5 py-2 text-xs font-mono uppercase tracking-widest border border-border bg-background text-muted-foreground hover:text-foreground transition-colors";
-        loadHeroMakes();
-        loadHeroModels("");
-        loadHeroFuels();
-      });
-
-      heroVanBtn?.addEventListener("click", () => {
-        heroVehicleType = "vans";
-        heroVanBtn.className = "px-5 py-2 text-xs font-mono uppercase tracking-widest border border-primary bg-primary text-background font-semibold transition-colors";
-        heroCarBtn.className = "px-5 py-2 text-xs font-mono uppercase tracking-widest border border-border bg-background text-muted-foreground hover:text-foreground transition-colors";
-        loadHeroMakes();
-        loadHeroModels("");
-        loadHeroFuels();
-      });
-
-      // Best Offers Car/Van Toggle
-      const offersCarBtn = document.getElementById("offers-tab-car");
-      const offersVanBtn = document.getElementById("offers-tab-vans");
-
-      offersCarBtn?.addEventListener("click", () => {
-        offersVehicleType = "car";
-        offersCarBtn.className = "px-4 py-2 text-xs font-mono uppercase tracking-wider border border-primary text-primary bg-primary/10";
-        offersVanBtn.className = "px-4 py-2 text-xs font-mono uppercase tracking-wider border border-border text-muted-foreground hover:text-foreground";
-        loadBestOffers("car");
-      });
-
-      offersVanBtn?.addEventListener("click", () => {
-        offersVehicleType = "vans";
-        offersVanBtn.className = "px-4 py-2 text-xs font-mono uppercase tracking-wider border border-primary text-primary bg-primary/10";
-        offersCarBtn.className = "px-4 py-2 text-xs font-mono uppercase tracking-wider border border-border text-muted-foreground hover:text-foreground";
-        loadBestOffers("vans");
-      });
-    });
-</script>
+rror with Permissions-Policy header: Unrecognized feature: 'attribution-reporting'.
+Error with Permissions-Policy header: Unrecognized feature: 'private-aggregation'.
+Error with Permissions-Policy header: Unrecognized feature: 'join-ad-interest-group'.
+Error with Permissions-Policy header: Unrecognized feature: 'run-ad-auction'.
+(index):64 cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+(anonymous) @ (index):64
+(anonymous) @ (index):64
+main:184 Uncaught ReferenceError: loadHeroMakes is not defined
+    at HTMLDocument.<anonymous> (main:184:7)
+(anonymous) @ main:184
+favicon.ico:1  GET https://www.leasio.co.uk/favicon.ico 404 (Not Found)
 </body>
 </html>
