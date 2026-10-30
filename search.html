@@ -414,41 +414,54 @@
         </article>`;
     }
 
-    function applyClientFiltersAndSort(resetPage = true) {
-      urlParams = new URLSearchParams(window.location.search);
-      const sliderEl = document.getElementById("filter-max-price");
-      const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : parseInt(urlParams.get("max_price") || "2000", 10);
-      const maxPrice = (!isNaN(maxPriceVal) && maxPriceVal < 2000) ? maxPriceVal : 0;
+    // Apply Max Price & Sort directly in the browser
+  function applyClientFiltersAndSort(resetPage = true) {
+    urlParams = new URLSearchParams(window.location.search);
+    const sliderEl = document.getElementById("filter-max-price");
+    
+    const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : parseInt(urlParams.get("max_price") || "2000", 10);
+    const maxPrice = (!isNaN(maxPriceVal) && maxPriceVal < 2000) ? maxPriceVal : 0;
 
-      filteredVehicles = rawVehicles.filter(car => {
-        if (maxPrice <= 0) return true;
-        const p = parseMonthlyPrice(car.Monthly);
-        return p !== null && p <= maxPrice;
+    // 1. Filter by Max Monthly Price
+    filteredVehicles = rawVehicles.filter(car => {
+      if (maxPrice <= 0) return true;
+      const p = parseMonthlyPrice(car.Monthly);
+      return p !== null && p <= maxPrice;
+    });
+
+    // 2. Sort vehicles based on selected option
+    if (currentSort === "price_asc") {
+      // Price: Low to High
+      filteredVehicles.sort((a, b) => {
+        const pa = parseMonthlyPrice(a.Monthly);
+        const pb = parseMonthlyPrice(b.Monthly);
+        if (pa === null && pb === null) return 0;
+        if (pa === null) return 1;
+        if (pb === null) return -1;
+        return pa - pb;
       });
-
-      if (currentSort === "price_asc") {
-        filteredVehicles.sort((a, b) => {
-          const pa = parseMonthlyPrice(a.Monthly);
-          const pb = parseMonthlyPrice(b.Monthly);
-          if (pa === null && pb === null) return 0;
-          if (pa === null) return 1;
-          if (pb === null) return -1;
-          return pa - pb;
-        });
-      } else if (currentSort === "price_desc") {
-        filteredVehicles.sort((a, b) => {
-          const pa = parseMonthlyPrice(a.Monthly);
-          const pb = parseMonthlyPrice(b.Monthly);
-          if (pa === null && pb === null) return 0;
-          if (pa === null) return 1;
-          if (pb === null) return -1;
-          return pb - pa;
-        });
-      }
-
-      if (resetPage) currentPage = 1;
-      renderPage();
+    } else if (currentSort === "price_desc") {
+      // Price: High to Low
+      filteredVehicles.sort((a, b) => {
+        const pa = parseMonthlyPrice(a.Monthly);
+        const pb = parseMonthlyPrice(b.Monthly);
+        if (pa === null && pb === null) return 0;
+        if (pa === null) return 1;
+        if (pb === null) return -1;
+        return pb - pa;
+      });
+    } else {
+      // DEFAULT / RELEVANCE: Sort by Best Deals / Best Value ([Monthly/OTR] scale)
+      filteredVehicles.sort((a, b) => {
+        const scoreA = parseFloat(a.Monthly_OTR || a.Score || 9999);
+        const scoreB = parseFloat(b.Monthly_OTR || b.Score || 9999);
+        return scoreA - scoreB;
+      });
     }
+
+    if (resetPage) currentPage = 1;
+    renderPage();
+  }
 
     function syncUrlParams() {
       urlParams = new URLSearchParams(window.location.search);
