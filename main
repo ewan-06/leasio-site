@@ -69,16 +69,16 @@
     <section class="relative overflow-hidden pt-12 pb-16 md:pt-16 md:pb-24 bg-gradient-to-b from-white via-blue-50/40 to-slate-50 border-b border-slate-200/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
-          <!-- Headline -->
+         <!-- Headline -->
 <div class="max-w-4xl mb-10">
     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-700 mb-4">
         Personal & Business Vehicle Leasing
     </span>
     
-    <!-- Flex container keeps words flowing naturally without awkward breaks -->
-    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.12] flex flex-wrap gap-x-3 gap-y-1">
+    <!-- Using clean solid text-blue-600 eliminates the clipping bug entirely -->
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15] flex flex-wrap gap-x-3 gap-y-1">
         <span>Find the best leasing deal for</span>
-        <span class="bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent">
+        <span class="text-blue-600">
             you.
         </span>
     </h1>
