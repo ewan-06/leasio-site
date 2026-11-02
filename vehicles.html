@@ -162,7 +162,7 @@
           </nav>
         </div>
 
-        <!-- RIGHT SIDE: Action Buttons -->
+        <!--  SIDE: Action Buttons -->
         <div class="flex items-center gap-3 shrink-0">
           <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm" href="search.html">SEARCH</a>
         </div>
@@ -291,11 +291,9 @@
                   <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Contract Length</span>
                 </div>
                 <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
-                  <button type="button" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">12 mo</button>
-                  <button type="button" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">24 mo</button>
+                  <button type="button" aria-pressed="true" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">24 mo</button>
                   <button type="button" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">36 mo</button>
-                  <button type="button" aria-pressed="true" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48 mo</button>
-                  <button type="button" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">60 mo</button>
+                  <button type="button" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">48 mo</button>
                 </div>
               </div>
 
@@ -304,13 +302,12 @@
                 <div class="mb-2 flex items-center justify-between">
                   <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Annual Mileage</span>
                 </div>
+                <!-- Added new mileage options to match your expanded database -->
                 <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
                   <button type="button" aria-pressed="true" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
-                  <button type="button" aria-pressed="true" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">10k</button>
-                  <button type="button" aria-pressed="true" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">15k</button>
+                  <button type="button" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">10k</button>
+                  <button type="button" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">15k</button>
                   <button type="button" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">20k</button>
-                  <button type="button" aria-pressed="true" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">25k</button>
-                  <button type="button" aria-pressed="false" class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">30k</button>
                 </div>
               </div>
 
@@ -318,13 +315,14 @@
               <div>
                 <div class="mb-2 flex items-center justify-between">
                   <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Initial Payment</span>
-                  <span id="label-initial" class="font-mono text-xs font-bold text-slate-900">3 mo</span>
+                  <!-- Updated label to show 9 mo by default -->
+                  <span id="label-initial" class="font-mono text-xs font-bold text-slate-900">9 mo</span>
                 </div>
                 <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50 gap-1">
                   <button type="button" aria-pressed="false" class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900" onclick="setInitial(1, this)">1m</button>
-                  <button type="button" aria-pressed="true" class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm" onclick="setInitial(3, this)">3m</button>
+                  <button type="button" aria-pressed="false" class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900" onclick="setInitial(3, this)">3m</button>
                   <button type="button" aria-pressed="false" class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900" onclick="setInitial(6, this)">6m</button>
-                  <button type="button" aria-pressed="false" class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900" onclick="setInitial(9, this)">9m</button>
+                  <button type="button" aria-pressed="true" class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm" onclick="setInitial(9, this)">9m</button>
                   <button type="button" aria-pressed="false" class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900" onclick="setInitial(12, this)">12m</button>
                 </div>
               </div>
