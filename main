@@ -53,8 +53,8 @@
             </a>
 
             <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
-                <a href="/search.html?type=car" class="hover:text-blue-600 transition">Personal Leasing</a>
-                <a href="/search.html?type=vans" class="hover:text-blue-600 transition">Business & Vans</a>
+                <a href="/search.html?type=car" class="hover:text-blue-600 transition">Cars</a>
+                <a href="/search.html?type=vans" class="hover:text-blue-600 transition">Vans</a>
                 <a href="#best-offers-section" class="hover:text-blue-600 transition">Special Offers</a>
             </nav>
 
