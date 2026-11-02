@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="leasio_icon.ico">
+    <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leasio | Find the best leasing deal for you.</title>
     <script src="https://cdn.tailwindcss.com"></script>
