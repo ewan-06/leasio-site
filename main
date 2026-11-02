@@ -618,7 +618,7 @@ function switchOffersTab(type) {
                 if (fuel && fuel !== "Any fuel type") params.append("fuel", fuel);
                 if (budget && Number(budget) < 2000) params.append("max_price", budget);
 
-                window.location.href = `/search.html?${params.toString()}`;
+                window.location.href = `/vehicles.html?${params.toString()}`;
             });
         }
     });
