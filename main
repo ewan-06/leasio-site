@@ -208,8 +208,41 @@
         </div>
 
         <!-- Offers Grid -->
+        <!-- Offers Grid (With Skeleton Loaders) -->
         <div id="best-offers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <p class="text-slate-500 text-center col-span-full py-12">Loading best leasing offers...</p>
+            <!-- Skeleton Card 1 -->
+            <div class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-48">
+                <div>
+                    <div class="flex justify-between items-start gap-2 mb-2"><div class="h-6 bg-slate-200 rounded w-2/3"></div><div class="h-5 bg-blue-100 rounded w-16"></div></div>
+                    <div class="h-4 bg-slate-100 rounded w-3/4 mb-6"></div>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex justify-between items-end">
+                    <div><div class="h-3 bg-slate-100 rounded w-16 mb-1"></div><div class="h-8 bg-slate-200 rounded w-24"></div></div>
+                    <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
+                </div>
+            </div>
+            <!-- Skeleton Card 2 -->
+            <div class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-48 hidden md:flex">
+                <div>
+                    <div class="flex justify-between items-start gap-2 mb-2"><div class="h-6 bg-slate-200 rounded w-1/2"></div><div class="h-5 bg-blue-100 rounded w-16"></div></div>
+                    <div class="h-4 bg-slate-100 rounded w-2/3 mb-6"></div>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex justify-between items-end">
+                    <div><div class="h-3 bg-slate-100 rounded w-16 mb-1"></div><div class="h-8 bg-slate-200 rounded w-24"></div></div>
+                    <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
+                </div>
+            </div>
+            <!-- Skeleton Card 3 -->
+            <div class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-48 hidden lg:flex">
+                <div>
+                    <div class="flex justify-between items-start gap-2 mb-2"><div class="h-6 bg-slate-200 rounded w-3/4"></div><div class="h-5 bg-blue-100 rounded w-16"></div></div>
+                    <div class="h-4 bg-slate-100 rounded w-1/2 mb-6"></div>
+                </div>
+                <div class="pt-4 border-t border-slate-100 flex justify-between items-end">
+                    <div><div class="h-3 bg-slate-100 rounded w-16 mb-1"></div><div class="h-8 bg-slate-200 rounded w-24"></div></div>
+                    <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
+                </div>
+            </div>
         </div>
 
         <!-- View All Button -->
