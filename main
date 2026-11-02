@@ -64,7 +64,7 @@
               class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
               CARS<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
             </button>
-            <div id="cars-mega" class="leasio-mega-menu absolute top-full right-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl" style="width: 750px;">
+            <div id="cars-mega" class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl" style="width: 750px;">
               <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">CARS MANUFACTURERS</h3>
               <div class="grid text-slate-800" style="grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
                 <a href="search.html?make=Abarth" class="hover:text-blue-600 transition-colors">Abarth</a>
@@ -137,7 +137,7 @@
               class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
               VANS<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
             </button>
-            <div id="vans-mega" class="leasio-mega-menu absolute top-full right-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl" style="width: 400px;">
+            <div id="vans-mega" class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl" style="width: 400px;">
               <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">VANS MANUFACTURERS</h3>
               <div class="grid text-slate-800" style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
                 <a href="search.html?make=BYD&type=vans" class="hover:text-blue-600 transition-colors">BYD</a>
