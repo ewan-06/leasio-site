@@ -494,17 +494,25 @@
       const cleanDerivative = (car.CAP_Derivative || "").replace(/\s*\b\d+bhp\b/gi, "").trim();
       const numericPrice = parseMonthlyPrice(car.Monthly);
       const priceDisplay = numericPrice !== null ? `£${numericPrice.toFixed(2)}` : "POA";
+      
+      // Use the database image, fallback to a local placeholder if null
+      const imageUrl = car.Image_URL ? car.Image_URL : "placeholder-car.png";
 
       return `
         <article class="bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 p-6 flex flex-col justify-between">
           <div>
-            <div class="flex justify-between items-start gap-2 mb-1.5">
+            <div class="flex justify-between items-start gap-2 mb-4">
               <span class="bg-blue-50 text-blue-700 border border-blue-100 text-xs font-bold px-2.5 py-0.5 rounded-full">${car.Fuel || "Electric"}</span>
               <span class="text-xs font-mono text-slate-400">2026</span>
             </div>
             
-            <!-- NEW CONCEPT 3: Manufacturer Primary Hierarchy -->
-            <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight uppercase mt-3">${car.Make}</h2>
+            <!-- Vehicle Image -->
+            <div class="w-full h-32 mb-4 flex items-center justify-center overflow-hidden">
+                <img src="${imageUrl}" alt="${car.Make} ${car.Model}" loading="lazy" class="w-full h-full object-contain object-center mix-blend-multiply" onerror="this.src='placeholder-car.png'" />
+            </div>
+            
+            <!-- Manufacturer Primary Hierarchy -->
+            <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight uppercase">${car.Make}</h2>
             <h3 class="text-lg font-semibold text-blue-600 mt-0.5">${car.Model}</h3>
             <p class="text-xs text-slate-500 mt-1.5 line-clamp-2">${cleanDerivative}</p>
           </div>
