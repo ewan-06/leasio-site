@@ -293,6 +293,34 @@
         errorMsg.classList.remove('hidden');
       }
     });
+
+// nav.js
+document.addEventListener("DOMContentLoaded", () => {
+    const userJson = localStorage.getItem('leasio_user');
+    
+    // Find all elements or links that point to login or act as the auth button
+    // You can target them by looking for href="login.html" or a specific ID
+    const loginLinks = document.querySelectorAll('a[href="login.html"], a[href="register.html"]');
+    
+    if (userJson) {
+        try {
+            const user = JSON.parse(userJson);
+            
+            // Loop through login/register links in the nav and convert them to "Account"
+            loginLinks.forEach(link => {
+                // Only convert if it's the main login/auth nav item (avoid footer links if needed)
+                if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
+                    link.textContent = "Account";
+                    link.setAttribute("href", "dashboard.html");
+                    link.className = "px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-blue-600 font-bold transition-colors";
+                }
+            });
+        } catch (e) {
+            console.error("Failed to parse user session", e);
+            localStorage.removeItem('leasio_user');
+        }
+    }
+});
   </script>
 </main>
 </body>
