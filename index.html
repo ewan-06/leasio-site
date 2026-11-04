@@ -24,10 +24,10 @@
 <body class="antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col justify-between gif-background relative">
 
     <!-- Dark Overlay to ensure text readability over the background GIF -->
-    <div class="absolute inset-0 bg-[#00282f]/85 z-0"></div>
+    <div class="absolute inset-0 bg-[#00282f]/75 z-0"></div>
 
-    <!-- NAVIGATION BAR -->
-    <header class="relative z-10 border-b border-white/10 bg-[#00282f]/60 backdrop-blur-md sticky top-0">
+    <!-- NAVIGATION BAR (Made completely transparent so it floats over the GIF) -->
+    <header class="relative z-10 border-b border-white/10 bg-transparent">
       <div class="mx-auto flex h-20 max-w-[1600px] items-center px-5 sm:px-8 lg:px-12">
         <a aria-label="Leasio home" class="block" href="index.html">
           <img src="base_logo_transparent_background.png" alt="Leasio" width="260" height="80" loading="eager"
@@ -45,7 +45,7 @@
                 Launching Soon
             </span>
 
-            <!-- Heading & Text matching your new theme colour -->
+            <!-- Heading & Text matching your theme colour -->
             <h1 class="text-3xl font-extrabold text-[#00859b] mb-3">Something exciting is on the way</h1>
             <p class="text-sm font-medium text-[#00859b]/90 leading-relaxed mb-8">
                 We are currently upgrading our platform. Please check back shortly.
@@ -59,7 +59,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="relative z-10 py-6 text-center text-xs text-[#00859b]/60 border-t border-white/10">
+    <footer class="relative z-10 py-6 text-center text-xs text-[#00859b]/60 border-t border-white/10 bg-transparent">
         &copy; 2026 Leasio. All rights reserved.
     </footer>
 
