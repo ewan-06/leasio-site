@@ -1,48 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
-    }
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 6px;
-      background: #e2e8f0;
-      border-radius: 999px;
-      outline: none;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #2563eb;
-      cursor: pointer;
-      border: 2px solid #ffffff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-      transition: transform 0.15s ease;
-    }
-    input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.15);
-      background: #1d4ed8;
-    }
-  </style>
-  <link rel="canonical" href="https://leasio.co.uk/search">
-</head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leasio | Find the best leasing deal for you.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc; /* Soft Slate-50 background */
+            color: #0f172a; /* Deep Slate-900 text */
+        }
 
+        /* Custom Range Slider in Royal Blue */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 999px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #2563eb;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            transition: transform 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: #1d4ed8;
+        }
+    </style>
+</head>
 <body class="antialiased selection:bg-blue-600 selection:text-white">
-  <div class="min-h-screen bg-[#f8fafc] flex flex-col">
-    
-    <!-- HEADER -->
+
+    <!-- 1. NAVIGATION BAR -->
     <header class="relative z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0">
       <div class="mx-auto flex h-20 max-w-[1600px] items-center px-5 sm:px-8 lg:px-12 relative">
         
@@ -179,13 +181,12 @@
         <!-- RIGHT SIDE: Action Buttons -->
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="guides.html">Guides</a>
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="about-us.html">About Us</a>
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="register.html">Login</a>
+        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="login.html">Login</a>
         
         <div class="flex items-center gap-3 shrink-0">
           <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm" href="search.html">SEARCH</a>
         </div>
 <!-- -->
-
       </div>
 
       <script>
