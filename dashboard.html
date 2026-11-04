@@ -204,42 +204,81 @@
       </script>
     </header>
 
-    <!-- DASHBOARD CONTENT -->
-    <main class="flex-1 max-w-5xl mx-auto px-4 py-12 w-full">
-        <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 mb-2">
-                    Member Dashboard
-                </span>
-                <h1 id="welcome-heading" class="text-3xl font-extrabold text-slate-900">Welcome back</h1>
-                <p class="text-sm text-slate-500 mt-1">Manage your personal details and saved lease configurations.</p>
-            </div>
-            <button id="logout-btn" class="self-start sm:self-auto border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-xl transition">
-                Sign Out
-            </button>
-        </div>
+   <!-- MAIN DASHBOARD LAYOUT WITH SIDEBAR -->
+    <div class="flex-1 max-w-[1600px] mx-auto w-full flex flex-col md:flex-row">
+        
+        <!-- SIDEBAR -->
+        <aside class="w-full md:w-72 bg-white border-r border-slate-200/80 p-6 flex flex-col justify-between shrink-0">
+            <div class="space-y-6">
+                <!-- User Quick View -->
+                <div class="px-3 pb-6 border-b border-slate-100">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-1">Signed in as</span>
+                    <p id="sidebar-user-name" class="text-sm font-extrabold text-slate-900 truncate">Loading...</p>
+                </div>
 
-        <!-- Account Info Card -->
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Full Name</h3>
-                <p id="user-name" class="text-base font-bold text-slate-900">-</p>
+                <!-- Navigation Links -->
+                <nav class="space-y-1">
+                    <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold bg-blue-50 text-blue-600 transition">
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="contracts.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+                        <span>Contracts</span>
+                    </a>
+                    <a href="saved-quotes.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+                        <span>Saved Quotes</span>
+                    </a>
+                    <a href="benefits.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+                        <span>Benefits</span>
+                    </a>
+                    <a href="account-details.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
+                        <span>Account Details</span>
+                    </a>
+                </nav>
             </div>
-            <div>
-                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Email Address</h3>
-                <p id="user-email" class="text-base font-bold text-slate-900">-</p>
+
+            <!-- Sign Out Button inside Sidebar -->
+            <div class="pt-6 border-t border-slate-100 mt-6">
+                <button id="logout-btn" class="w-full border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs uppercase tracking-wider px-4 py-3 rounded-xl transition text-center">
+                    Sign Out
+                </button>
             </div>
-        </div>
-    </main>
+        </aside>
+
+        <!-- DASHBOARD CONTENT AREA -->
+        <main class="flex-1 p-6 sm:p-10 lg:p-12">
+            <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 mb-2">
+                        Member Dashboard
+                    </span>
+                    <h1 id="welcome-heading" class="text-3xl font-extrabold text-slate-900">Welcome back</h1>
+                    <p class="text-sm text-slate-500 mt-1">Manage your personal details and saved lease configurations.</p>
+                </div>
+            </div>
+
+            <!-- Account Info Grid Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Full Name</h3>
+                    <p id="user-name" class="text-base font-bold text-slate-900">-</p>
+                </div>
+                <div>
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Email Address</h3>
+                    <p id="user-email" class="text-base font-bold text-slate-900">-</p>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script src="nav.js"></script>
     <script>
-        // Check if user is logged in, otherwise kick them back to login.html
+        // Check session validity & populate user information
         const userJson = localStorage.getItem('leasio_user');
         if (!userJson) {
             window.location.href = 'login.html';
         } else {
             const user = JSON.parse(userJson);
+            document.getElementById('sidebar-user-name').textContent = `${user.first_name} ${user.last_name}`;
             document.getElementById('welcome-heading').textContent = `Welcome back, ${user.first_name}`;
             document.getElementById('user-name').textContent = `${user.first_name} ${user.last_name}`;
             document.getElementById('user-email').textContent = user.email;
@@ -248,7 +287,7 @@
         // Handle Logout
         document.getElementById('logout-btn').addEventListener('click', () => {
             localStorage.removeItem('leasio_user');
-            window.location.href = 'main.html';
+            window.location.href = 'index.html';
         });
     </script>
 </body>
