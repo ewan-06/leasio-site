@@ -260,16 +260,19 @@
       e.preventDefault();
       
       const errorMsg = document.getElementById('error-message');
+      const submitBtn = e.target.querySelector('button[type="submit"]');
       errorMsg.classList.add('hidden');
       
-      // Build the JSON payload matching the Pydantic model
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating Account...";
+
       const payload = {
-        first_name: document.getElementById('first_name').value,
-        last_name: document.getElementById('last_name').value,
+        first_name: document.getElementById('first_name').value.trim(),
+        last_name: document.getElementById('last_name').value.trim(),
         date_of_birth: document.getElementById('dob').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        address: document.getElementById('address').value,
+        email: document.getElementById('email').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        address: document.getElementById('address').value.trim(),
         password: document.getElementById('password').value
       };
 
@@ -285,12 +288,16 @@
         if (response.ok) {
           window.location.href = 'login.html?registered=true';
         } else {
+          // Displays backend error message (e.g., "An account with this email address...")
           errorMsg.textContent = data.detail || "An error occurred during registration.";
           errorMsg.classList.remove('hidden');
         }
       } catch (err) {
         errorMsg.textContent = "Could not connect to the server.";
         errorMsg.classList.remove('hidden');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create Account";
       }
     });
 
