@@ -1,197 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+<body class="antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col justify-between gif-background relative">
 
-<head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
-    }
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 6px;
-      background: #e2e8f0;
-      border-radius: 999px;
-      outline: none;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #2563eb;
-      cursor: pointer;
-      border: 2px solid #ffffff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-      transition: transform 0.15s ease;
-    }
-    input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.15);
-      background: #1d4ed8;
-    }
-  </style>
-  <link rel="canonical" href="https://leasio.co.uk/search">
-</head>
+    <!-- Dark Overlay to ensure text readability over the background GIF -->
+    <div class="absolute inset-0 bg-[#00282f]/75 z-0"></div>
 
-<body class="antialiased selection:bg-blue-600 selection:text-white">
-  <div class="min-h-screen bg-[#f8fafc] flex flex-col">
-    
-    <!-- HEADER -->
-    <header class="relative z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0">
-      <div class="mx-auto flex h-20 max-w-[1600px] items-center px-5 sm:px-8 lg:px-12 relative">
-        
-        <!-- LEFT SIDE: Logo & Navigation Menu -->
-        <div class="flex items-center gap-6 lg:gap-10 flex-1">
-          <!-- Logo -->
-          <a aria-label="Leasio home" class="min-w-0 shrink-0 block" href="index.html">
-            <img src="base_logo_transparent_background.png" alt="Leasio" width="260" height="80" loading="eager"
-              class="block h-auto max-h-10 w-auto max-w-full object-contain md:max-h-12" style="filter: none;">
-          </a>
-
-          <!-- Navigation Links (Moved left, next to logo) -->
-          <nav aria-label="Main navigation" class="flex items-center gap-1">
-          <!-- CARS MEGA MENU -->
-          <div class="relative inline-block leasio-nav-container">
-            <button onclick="toggleMegaMenu('cars-mega')"
-              class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
-              CARS<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
-            </button>
-            <div id="cars-mega" class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl" style="width: 750px;">
-              <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">CARS MANUFACTURERS</h3>
-              <div class="grid text-slate-800" style="grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
-                <a href="search.html?make=Abarth" class="hover:text-blue-600 transition-colors">Abarth</a>
-                <a href="search.html?make=Aion" class="hover:text-blue-600 transition-colors">Aion</a>
-                <a href="search.html?make=Alfa+Romeo" class="hover:text-blue-600 transition-colors">Alfa Romeo</a>
-                <a href="search.html?make=Alpine" class="hover:text-blue-600 transition-colors">Alpine</a>
-                <a href="search.html?make=Audi" class="hover:text-blue-600 transition-colors">Audi</a>
-                <a href="search.html?make=BMW" class="hover:text-blue-600 transition-colors">BMW</a>
-                <a href="search.html?make=BYD" class="hover:text-blue-600 transition-colors">BYD</a>
-                <a href="search.html?make=Cadillac" class="hover:text-blue-600 transition-colors">Cadillac</a>
-                <a href="search.html?make=Changen" class="hover:text-blue-600 transition-colors">Changen</a>
-                <a href="search.html?make=Chery" class="hover:text-blue-600 transition-colors">Chery</a>
-                <a href="search.html?make=Chevrolet" class="hover:text-blue-600 transition-colors">Chevrolet</a>
-                <a href="search.html?make=Citroen" class="hover:text-blue-600 transition-colors">Citroen</a>
-                <a href="search.html?make=Cupra" class="hover:text-blue-600 transition-colors">Cupra</a>
-                <a href="search.html?make=Dacia" class="hover:text-blue-600 transition-colors">Dacia</a>
-                <a href="search.html?make=Denza" class="hover:text-blue-600 transition-colors">Denza</a>
-                <a href="search.html?make=DS+Automobiles" class="hover:text-blue-600 transition-colors">DS Automobiles</a>
-                <a href="search.html?make=Fiat" class="hover:text-blue-600 transition-colors">Fiat</a>
-                <a href="search.html?make=Ford" class="hover:text-blue-600 transition-colors">Ford</a>
-                <a href="search.html?make=Geely" class="hover:text-blue-600 transition-colors">Geely</a>
-                <a href="search.html?make=Genesis" class="hover:text-blue-600 transition-colors">Genesis</a>
-                <a href="search.html?make=GWM+ORA" class="hover:text-blue-600 transition-colors">GWM ORA</a>
-                <a href="search.html?make=Honda" class="hover:text-blue-600 transition-colors">Honda</a>
-                <a href="search.html?make=Hyundai" class="hover:text-blue-600 transition-colors">Hyundai</a>
-                <a href="search.html?make=Ineos" class="hover:text-blue-600 transition-colors">Ineos</a>
-                <a href="search.html?make=Jaecoo" class="hover:text-blue-600 transition-colors">Jaecoo</a>
-                <a href="search.html?make=Jeep" class="hover:text-blue-600 transition-colors">Jeep</a>
-                <a href="search.html?make=KG+Mobility" class="hover:text-blue-600 transition-colors">KG Mobility</a>
-                <a href="search.html?make=Kia" class="hover:text-blue-600 transition-colors">Kia</a>
-                <a href="search.html?make=Land+Rover" class="hover:text-blue-600 transition-colors">Land Rover</a>
-                <a href="search.html?make=Leapmotor" class="hover:text-blue-600 transition-colors">Leapmotor</a>
-                <a href="search.html?make=Lepas" class="hover:text-blue-600 transition-colors">Lepas</a>
-                <a href="search.html?make=Lexus" class="hover:text-blue-600 transition-colors">Lexus</a>
-                <a href="search.html?make=Lotus" class="hover:text-blue-600 transition-colors">Lotus</a>
-                <a href="search.html?make=Maserati" class="hover:text-blue-600 transition-colors">Maserati</a>
-                <a href="search.html?make=Mazda" class="hover:text-blue-600 transition-colors">Mazda</a>
-                <a href="search.html?make=Mercedes" class="hover:text-blue-600 transition-colors">Mercedes</a>
-                <a href="search.html?make=MG+Motor+UK" class="hover:text-blue-600 transition-colors">MG Motor UK</a>
-                <a href="search.html?make=Mini" class="hover:text-blue-600 transition-colors">Mini</a>
-                <a href="search.html?make=Mitsubishi" class="hover:text-blue-600 transition-colors">Mitsubishi</a>
-                <a href="search.html?make=Nissan" class="hover:text-blue-600 transition-colors">Nissan</a>
-                <a href="search.html?make=Omoda" class="hover:text-blue-600 transition-colors">Omoda</a>
-                <a href="search.html?make=Peugeot" class="hover:text-blue-600 transition-colors">Peugeot</a>
-                <a href="search.html?make=Polestar" class="hover:text-blue-600 transition-colors">Polestar</a>
-                <a href="search.html?make=Porsche" class="hover:text-blue-600 transition-colors">Porsche</a>
-                <a href="search.html?make=Raipiar" class="hover:text-blue-600 transition-colors">Raipiar</a>
-                <a href="search.html?make=Renault" class="hover:text-blue-600 transition-colors">Renault</a>
-                <a href="search.html?make=SEAT" class="hover:text-blue-600 transition-colors">SEAT</a>
-                <a href="search.html?make=Skoda" class="hover:text-blue-600 transition-colors">Skoda</a>
-                <a href="search.html?make=SMART" class="hover:text-blue-600 transition-colors">SMART</a>
-                <a href="search.html?make=Subaru" class="hover:text-blue-600 transition-colors">Subaru</a>
-                <a href="search.html?make=Suzuki" class="hover:text-blue-600 transition-colors">Suzuki</a>
-                <a href="search.html?make=Tesla" class="hover:text-blue-600 transition-colors">Tesla</a>
-                <a href="search.html?make=Toyota" class="hover:text-blue-600 transition-colors">Toyota</a>
-                <a href="search.html?make=Vauxhall" class="hover:text-blue-600 transition-colors">Vauxhall</a>
-                <a href="search.html?make=Volkswagen" class="hover:text-blue-600 transition-colors">Volkswagen</a>
-                <a href="search.html?make=Volvo" class="hover:text-blue-600 transition-colors">Volvo</a>
-                <a href="search.html?make=Xpeng" class="hover:text-blue-600 transition-colors">Xpeng</a>
-              </div>
-              <div class="mt-8 border-t border-slate-100 pt-4">
-                <a href="search.html" class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse all cars &rarr;</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- VANS MEGA MENU -->
-          <div class="relative inline-block leasio-nav-container">
-            <button onclick="toggleMegaMenu('vans-mega')"
-              class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
-              VANS<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
-            </button>
-            <div id="vans-mega" class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl" style="width: 400px;">
-              <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">VANS MANUFACTURERS</h3>
-              <div class="grid text-slate-800" style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
-                <a href="search.html?make=BYD&type=vans" class="hover:text-blue-600 transition-colors">BYD</a>
-                <a href="search.html?make=Citroen&type=vans" class="hover:text-blue-600 transition-colors">Citroen</a>
-                <a href="search.html?make=Dacia&type=vans" class="hover:text-blue-600 transition-colors">Dacia</a>
-                <a href="search.html?make=Farizon&type=vans" class="hover:text-blue-600 transition-colors">Farizon</a>
-                <a href="search.html?make=Fiat&type=vans" class="hover:text-blue-600 transition-colors">Fiat</a>
-                <a href="search.html?make=Ford&type=vans" class="hover:text-blue-600 transition-colors">Ford</a>
-                <a href="search.html?make=GWM+ORA&type=vans" class="hover:text-blue-600 transition-colors">GWM ORA</a>
-                <a href="search.html?make=Ineos&type=vans" class="hover:text-blue-600 transition-colors">Ineos</a>
-                <a href="search.html?make=Isuzu&type=vans" class="hover:text-blue-600 transition-colors">Isuzu</a>
-                <a href="search.html?make=Isuzu+Trucks&type=vans" class="hover:text-blue-600 transition-colors">Isuzu Trucks</a>
-                <a href="search.html?make=Iveco&type=vans" class="hover:text-blue-600 transition-colors">Iveco</a>
-                <a href="search.html?make=KG+Mobility&type=vans" class="hover:text-blue-600 transition-colors">KG Mobility</a>
-                <a href="search.html?make=KIA&type=vans" class="hover:text-blue-600 transition-colors">KIA</a>
-                <a href="search.html?make=Land+Rover&type=vans" class="hover:text-blue-600 transition-colors">Land Rover</a>
-                <a href="search.html?make=MAN&type=vans" class="hover:text-blue-600 transition-colors">MAN</a>
-                <a href="search.html?make=Mercedes&type=vans" class="hover:text-blue-600 transition-colors">Mercedes</a>
-                <a href="search.html?make=Mitsubishi&type=vans" class="hover:text-blue-600 transition-colors">Mitsubishi</a>
-                <a href="search.html?make=Nissan&type=vans" class="hover:text-blue-600 transition-colors">Nissan</a>
-                <a href="search.html?make=Peugeot&type=vans" class="hover:text-blue-600 transition-colors">Peugeot</a>
-                <a href="search.html?make=Renault&type=vans" class="hover:text-blue-600 transition-colors">Renault</a>
-                <a href="search.html?make=Renault+Trucks&type=vans" class="hover:text-blue-600 transition-colors">Renault Trucks</a>
-                <a href="search.html?make=Skoda&type=vans" class="hover:text-blue-600 transition-colors">Skoda</a>
-                <a href="search.html?make=Toyota&type=vans" class="hover:text-blue-600 transition-colors">Toyota</a>
-                <a href="search.html?make=Vauxhall&type=vans" class="hover:text-blue-600 transition-colors">Vauxhall</a>
-                <a href="search.html?make=Volkswagen&type=vans" class="hover:text-blue-600 transition-colors">Volkswagen</a>
-                <a href="search.html?make=Volvo&type=vans" class="hover:text-blue-600 transition-colors">Volvo</a>
-              </div>
-              <div class="mt-8 border-t border-slate-100 pt-4">
-                <a href="search.html?type=vans" class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse all vans &rarr;</a>
-              </div>
-            </div>
-          </div>
-
-          <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="index.html#best-offers-section">OFFERS</a>
-          
-          </nav>
-        </div>
-
-        <!-- RIGHT SIDE: Action Buttons -->
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="guides.html">Guides</a>
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="about-us.html">About Us</a>
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="register.html">Login</a>
-        
-        <div class="flex items-center gap-3 shrink-0">
-          <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm" href="search.html">SEARCH</a>
-        </div>
-
-
+    <!-- NAVIGATION BAR (Made completely transparent so it floats over the GIF) -->
+    <header class="relative z-10 border-b border-white/10 bg-transparent">
+      <div class="mx-auto flex h-20 max-w-[1600px] items-center px-5 sm:px-8 lg:px-12">
+        <a aria-label="Leasio home" class="block" href="index.html">
+          <img src="base_logo_transparent_background.png" alt="Leasio" width="260" height="80" loading="eager"
+            class="block h-auto max-h-10 w-auto object-contain md:max-h-12">
+        </a>
       </div>
+    </header>
 
-      <script>
+    <!-- CONTENT SECTION -->
+    <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-16">
+        <div class="max-w-md w-full text-center">
+            
+            <!-- Badge -->
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#00859b]/20 text-[#00859b] border border-[#00859b]/30 mb-6">
+                Launching Soon
+            </span>
+
+            <!-- Heading & Text matching your theme colour -->
+            <h1 class="text-3xl font-extrabold text-[#00859b] mb-3">Something exciting is on the way</h1>
+            <p class="text-sm font-medium text-[#00859b]/90 leading-relaxed mb-8">
+                We are currently upgrading our platform. Please check back shortly.
+            </p>
+
+            <!-- Optional Home Button -->
+            <a href="index.html" class="inline-block bg-[#00859b] hover:bg-[#006f81] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl shadow-md transition">
+                &larr; Back to Home
+            </a>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="relative z-10 py-6 text-center text-xs text-[#00859b]/60 border-t border-white/10 bg-transparent">
+        &copy; 2026 Leasio. All rights reserved.
+    </footer>
+<script>
         function toggleMegaMenu(id) {
           const menus = document.querySelectorAll('.leasio-mega-menu');
           const target = document.getElementById(id);
@@ -203,33 +53,34 @@
             document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
           }
         });
-      </script>
-    </header>
-
-  // nav.js
-document.addEventListener("DOMContentLoaded", () => {
-    const userJson = localStorage.getItem('leasio_user');
-    
-    // Find all elements or links that point to login or act as the auth button
-    // You can target them by looking for href="login.html" or a specific ID
-    const loginLinks = document.querySelectorAll('a[href="login.html"], a[href="register.html"]');
-    
-    if (userJson) {
-        try {
-            const user = JSON.parse(userJson);
+          // nav.js
+        document.addEventListener("DOMContentLoaded", () => {
+            const userJson = localStorage.getItem('leasio_user');
             
-            // Loop through login/register links in the nav and convert them to "Account"
-            loginLinks.forEach(link => {
-                // Only convert if it's the main login/auth nav item (avoid footer links if needed)
-                if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
-                    link.textContent = "Account";
-                    link.setAttribute("href", "dashboard.html");
-                    link.className = "px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-blue-600 font-bold transition-colors";
+            // Find all elements or links that point to login or act as the auth button
+            // You can target them by looking for href="login.html" or a specific ID
+            const loginLinks = document.querySelectorAll('a[href="login.html"], a[href="register.html"]');
+            
+            if (userJson) {
+                try {
+                    const user = JSON.parse(userJson);
+                    
+                    // Loop through login/register links in the nav and convert them to "Account"
+                    loginLinks.forEach(link => {
+                        // Only convert if it's the main login/auth nav item (avoid footer links if needed)
+                        if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
+                            link.textContent = "Account";
+                            link.setAttribute("href", "dashboard.html");
+                            link.className = "px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-blue-600 font-bold transition-colors";
+                        }
+                    });
+                } catch (e) {
+                    console.error("Failed to parse user session", e);
+                    localStorage.removeItem('leasio_user');
                 }
-            });
-        } catch (e) {
-            console.error("Failed to parse user session", e);
-            localStorage.removeItem('leasio_user');
-        }
-    }
-});
+            }
+        });
+
+  </script>
+</body>
+</html>
