@@ -309,19 +309,19 @@
                       <!-- Section 1: Vehicle Size -->
                                 <h4 class="font-mono text-[10px] tracking-widest text-blue-600 font-bold uppercase mb-2 px-1 border-b border-slate-100 pb-1">Vehicle Size</h4>
                                 <div class="grid grid-cols-3 gap-2 mb-5">
-                                    <button type="button" onclick="selectHeroBodyFilter('size', 'small')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('size', 'small')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="small.png" alt="Small" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Small</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('size', 'medium')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('size', 'medium')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="medium.png" alt="Medium" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Medium</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('size', 'large')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('size', 'large')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="large.png" alt="Large" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
@@ -332,49 +332,49 @@
                                 <!-- Section 2: Body Type -->
                                 <h4 class="font-mono text-[10px] tracking-widest text-blue-600 font-bold uppercase mb-2 px-1 border-b border-slate-100 pb-1">Body Type</h4>
                                 <div class="grid grid-cols-2 gap-2">
-                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'hatchback')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('bodytype', 'hatchback')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="hatchback.png" alt="Hatchback" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Hatchback</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'convertible')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('bodytype', 'convertible')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="convertible.png" alt="Convertible" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Convertible</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'coupe')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('bodytype', 'coupe')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="coupe.png" alt="Coupe" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Coupe</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'saloon')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('bodytype', 'saloon')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="saloon.png" alt="Saloon" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Saloon</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'Estate')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('bodytype', 'Estate')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="estate.png" alt="Estate" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Estate</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'suv')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('bodytype', 'suv')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="SUV.png" alt="SUV" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">SUV</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'mpv')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('bodytype', 'mpv')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="MPV.png" alt="MPV" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">MPV</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'van')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectBodyFilter('bodytype', 'van')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
                                             <img src="van.png" alt="Van" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
@@ -484,6 +484,10 @@
   <!-- WORKING SEARCH SCRIPT LOGIC -->
   <script>
     const API_BASE = "https://leasio-api.onrender.com";
+
+    // Global State for Custom Filters
+    let selectedBodyCategory = ""; // 'size' or 'bodytype'
+    let selectedBodyValue = "";
     let urlParams = new URLSearchParams(window.location.search);
     const vehicleType = ["vans", "van"].includes(urlParams.get("type")) ? "vans" : "car";
 
@@ -684,14 +688,24 @@
       const fuel = document.getElementById("filter-fuel")?.value || "";
       const sliderEl = document.getElementById("filter-max-price");
       const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : 2000;
-
+    
       if (make && make !== "Any make") urlParams.set("make", make); else urlParams.delete("make");
       if (model) urlParams.set("model", model); else urlParams.delete("model");
       if (fuel && fuel !== "Any fuel type") urlParams.set("fuel", fuel); else urlParams.delete("fuel");
       if (maxPriceVal < 2000) urlParams.set("max_price", maxPriceVal); else urlParams.delete("max_price");
       if (currentSort) urlParams.set("sort", currentSort); else urlParams.delete("sort");
       urlParams.set("type", vehicleType);
-
+    
+      // NEW: Integrated Body Filter Logic
+      if (selectedBodyCategory && selectedBodyValue) {
+        urlParams.set(selectedBodyCategory, selectedBodyValue);
+        if (selectedBodyCategory === 'size') urlParams.delete('bodytype');
+        if (selectedBodyCategory === 'bodytype') urlParams.delete('size');
+      } else {
+        urlParams.delete('size');
+        urlParams.delete('bodytype');
+      }
+    
       const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
       window.history.pushState({ path: newUrl }, "", newUrl);
     }
@@ -739,14 +753,19 @@
       const sliderEl = document.getElementById("filter-max-price");
       const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : parseInt(urlParams.get("max_price") || "2000", 10);
       const maxPrice = (!isNaN(maxPriceVal) && maxPriceVal < 2000) ? maxPriceVal : 0;
-
+    
       if (updateUrl) syncUrlParams();
-
+    
       try {
-        const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}`;
+        // NEW: Integrated Body Filter query string
+        const sizeParam = selectedBodyCategory === 'size' ? encodeURIComponent(selectedBodyValue) : '';
+        const bodytypeParam = selectedBodyCategory === 'bodytype' ? encodeURIComponent(selectedBodyValue) : '';
+        
+        const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}&size=${sizeParam}&bodytype=${bodytypeParam}`;
+        
         const response = await fetch(query);
         const vehicles = await response.json();
-
+    
         rawVehicles = Array.isArray(vehicles) ? vehicles : [];
         applyClientFiltersAndSort(true);
       } catch (err) {
@@ -898,9 +917,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Global State for Custom Filters
-let selectedBodyCategory = ""; // 'size' or 'bodytype'
-let selectedBodyValue = "";
+
 
 // 1. Toggle Dropdown Visibility
 const bodyBtn = document.getElementById("filter-body-btn");
@@ -942,21 +959,6 @@ function selectBodyFilter(category, value) {
   triggerSearch(true);
 }
 
-// 3. Update Existing `syncUrlParams`
-// Find your existing syncUrlParams() function and append these lines before pushing the history state:
-if (selectedBodyCategory && selectedBodyValue) {
-  urlParams.set(selectedBodyCategory, selectedBodyValue);
-  // Clear the opposite category so they don't conflict in the URL
-  if (selectedBodyCategory === 'size') urlParams.delete('bodytype');
-  if (selectedBodyCategory === 'bodytype') urlParams.delete('size');
-} else {
-  urlParams.delete('size');
-  urlParams.delete('bodytype');
-}
-
-// 4. Update Existing `triggerSearch`
-// Find your existing triggerSearch() function and update the query string to append the new values:
-const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}&size=${selectedBodyCategory === 'size' ? encodeURIComponent(selectedBodyValue) : ''}&bodytype=${selectedBodyCategory === 'bodytype' ? encodeURIComponent(selectedBodyValue) : ''}`;
   </script>
 
 <script src="nav.js"></script>
