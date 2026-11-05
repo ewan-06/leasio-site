@@ -564,8 +564,18 @@
 
     function vehicleCardHTML(car) {
       const cleanDerivative = (car.CAP_Derivative || "").replace(/\s*\b\d+bhp\b/gi, "").trim();
-      const numericPrice = parseMonthlyPrice(car.Monthly);
+      let numericPrice = parseMonthlyPrice(car.Monthly);
+      
+      // --- VAT MATH LOGIC ---
+      const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+      let vatLabel = isBusiness ? " +VAT" : " inc VAT";
+      
+      if (numericPrice !== null && isBusiness) {
+        numericPrice = numericPrice / 1.2; // Remove 20% VAT
+      }
+      
       const priceDisplay = numericPrice !== null ? `£${numericPrice.toFixed(2)}` : "POA";
+      const labelDisplay = numericPrice !== null ? `<span class="text-xs font-medium text-slate-400">${vatLabel}</span>` : "";
       
       // Use the database image, fallback to a local placeholder if null
       const imageUrl = car.Image_URL ? car.Image_URL : "placeholder-car.png";
@@ -593,13 +603,14 @@
             <div>
               <span class="text-xs font-medium text-slate-400 block mb-0.5">Monthly Rental</span>
               <span class="text-2xl font-extrabold text-blue-600">${priceDisplay}</span>
-              <span class="text-xs font-medium text-slate-400"> /mo</span>
+              ${labelDisplay}
             </div>
             <a class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm shadow-blue-600/20 transition" href="vehicles.html?cap=${encodeURIComponent(car.CAP_Code)}&type=${vehicleType}">
               View Deal &rarr;
             </a>
           </div>
         </article>`;
+    }
     }
 
     // Apply Max Price & Sort directly in the browser
@@ -964,15 +975,20 @@ const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&
       syncVisuals(isBusiness);
 
       // Listen for slider clicks
+      // Listen for slider clicks
       vatInputs.forEach(input => {
         input.addEventListener('change', (e) => {
           const newMode = e.target.checked ? 'business' : 'personal';
           localStorage.setItem('leasio_vat_mode', newMode);
           syncVisuals(e.target.checked);
           
-          // Re-calculate the live price if we are on the vehicles page
+          // Re-calculate the live price if we are on the vehicles.html page
           if (typeof window.fetchValuation === 'function') {
             window.fetchValuation();
+          }
+          // Re-render the search grid if we are on the search.html page
+          if (typeof renderPage === 'function') {
+            renderPage();
           }
         });
       });
