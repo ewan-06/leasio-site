@@ -218,14 +218,18 @@
               <span class="absolute right-4 top-4 border border-slate-200 bg-white/90 backdrop-blur px-3 py-1 font-mono text-[10px] tracking-widest text-slate-500 rounded-full">2026 Model</span>
             </div>
 
-            <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm font-sans">
-              <div class="flex items-center gap-4 mb-3">
-                <div class="w-12 h-0.5 bg-blue-600"></div>
-                <span id="dyn-make" class="text-sm font-bold text-blue-600 tracking-[0.2em] uppercase">Loading Vehicle...</span>
-              </div>
-              <h1 id="dyn-model" class="text-5xl sm:text-6xl md:text-7xl font-black text-slate-900 tracking-tight leading-none mb-4 pending-load">Loading...</h1>
-              <p id="dyn-derivative" class="text-xl md:text-2xl text-slate-500 font-normal pending-load"></p>
-              <p id="vehicle-description" class="mt-6 max-w-3xl text-sm leading-relaxed text-slate-600 pending-load"></p>
+           <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm font-sans">
+              <!-- Manufacturer (Massive & Bold) -->
+              <h1 id="dyn-make" class="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight uppercase">Loading Vehicle...</h1>
+              
+              <!-- Model (Blue Subtitle) -->
+              <h2 id="dyn-model" class="mt-2 text-2xl sm:text-3xl font-semibold text-blue-600 pending-load">Loading...</h2>
+              
+              <!-- Trim / Derivative -->
+              <p id="dyn-derivative" class="mt-4 text-lg font-medium text-slate-500 pending-load"></p>
+              
+              <!-- Description -->
+              <p id="vehicle-description" class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 pending-load"></p>
             </div>
 
             <!-- Standard Features -->
