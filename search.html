@@ -935,6 +935,48 @@ const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&
   </script>
 
 <script src="nav.js"></script>
-                        
+
+<!-- VAT TOGGLE SYNC SCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const vatInputs = document.querySelectorAll('.vat-toggle-input');
+      const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+
+      // Set initial visual state on page load
+      function syncVisuals(businessMode) {
+        vatInputs.forEach(input => input.checked = businessMode);
+        
+        // Update header labels if they exist
+        const lblPersonal = document.getElementById('label-personal');
+        const lblBusiness = document.getElementById('label-business');
+        if (lblPersonal && lblBusiness) {
+            lblPersonal.style.color = businessMode ? '#94a3b8' : '#0f172a'; // highlight active
+            lblBusiness.style.color = businessMode ? '#0f172a' : '#94a3b8';
+        }
+
+        // Update tiny text under calculator slider if it exists
+        document.querySelectorAll('.vat-status-text').forEach(el => {
+            el.innerText = businessMode ? 'Business' : 'Personal';
+            el.style.color = businessMode ? '#2563eb' : '#94a3b8';
+        });
+      }
+
+      syncVisuals(isBusiness);
+
+      // Listen for slider clicks
+      vatInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+          const newMode = e.target.checked ? 'business' : 'personal';
+          localStorage.setItem('leasio_vat_mode', newMode);
+          syncVisuals(e.target.checked);
+          
+          // Re-calculate the live price if we are on the vehicles page
+          if (typeof window.fetchValuation === 'function') {
+            window.fetchValuation();
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
