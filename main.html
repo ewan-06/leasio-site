@@ -53,7 +53,7 @@
           <!-- Logo -->
           <a aria-label="Leasio home" class="min-w-0 shrink-0 block" href="main.html">
             <img src="base_logo_transparent_background.png" alt="Leasio" width="260" height="80" loading="eager"
-              class="block h-auto max-h-10 w-auto max-w-full object-contain md:max-h-12" style="filter: none;">
+              class="block h-auto max-h-10 w-auto max-w-full object-contain md:max-h-12" style=": none;">
           </a>
 
           <!-- Navigation Links (Moved left, next to logo) -->
@@ -241,39 +241,79 @@
                     </button>
                 </div>
 
-                <!-- Filter Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+                <!-- Filter Grid (Updated to lg:grid-cols-3 to fit 6 items over 2 rows) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-5 items-end">
                     
                     <!-- Make -->
                     <div>
-                        <label for="hero-make" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                            Make
-                        </label>
+                        <label for="hero-make" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Make</label>
                         <select id="hero-make" class="w-full h-12 px-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm font-medium focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none transition">
                             <option value="Any make">Any make</option>
                         </select>
                     </div>
-
+                
                     <!-- Model -->
                     <div>
-                        <label for="hero-model" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                            Model
-                        </label>
+                        <label for="hero-model" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Model</label>
                         <select id="hero-model" disabled class="w-full h-12 px-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm font-medium disabled:opacity-50 focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none transition">
                             <option value="">Select a make first</option>
                         </select>
                     </div>
-
+                
                     <!-- Fuel Type -->
                     <div>
-                        <label for="hero-fuel" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                            Fuel Type
-                        </label>
+                        <label for="hero-fuel" class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Fuel Type</label>
                         <select id="hero-fuel" class="w-full h-12 px-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm font-medium focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none transition">
                             <option value="Any fuel type">Any fuel type</option>
                         </select>
                     </div>
-
+                
+                    <!-- Size & Body Style Custom Dropdown -->
+                    <div class="relative z-40">
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Body Style</label>
+                        <button type="button" id="hero-body-btn" class="w-full h-12 px-3.5 flex items-center justify-between rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm font-medium focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none transition">
+                            <span id="hero-body-label" class="truncate">Any style</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-slate-400 shrink-0 transition-transform duration-200" id="hero-body-icon"><path d="m6 9 6 6 6-6"></path></svg>
+                        </button>
+                
+                        <div id="hero-body-dropdown" class="hidden absolute top-full left-0 mt-2 w-full lg:w-[320px] bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
+                            <div class="p-4 max-h-[400px] overflow-y-auto">
+                                <button type="button" onclick="selectHeroBodyFilter('', '')" class="w-full text-left px-3 py-2 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors mb-3">View All (Clear Filter)</button>
+                
+                                <!-- Section 1: Vehicle Size -->
+                                <h4 class="font-mono text-[10px] tracking-widest text-blue-600 font-bold uppercase mb-2 px-1 border-b border-slate-100 pb-1">Vehicle Size</h4>
+                                <div class="grid grid-cols-3 gap-2 mb-5">
+                                    <button type="button" onclick="selectHeroBodyFilter('size', 'small')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                        <div class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-6 h-6"><rect x="3" y="10" width="18" height="8" rx="2"/><path d="M5 10L7 6h10l2 4"/></svg></div>
+                                        <span class="text-[10px] font-bold text-slate-700">Small</span>
+                                    </button>
+                                    <button type="button" onclick="selectHeroBodyFilter('size', 'medium')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                        <div class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-7 h-7"><rect x="2" y="9" width="20" height="9" rx="2"/><path d="M4 9L6.5 5h11L20 9"/></svg></div>
+                                        <span class="text-[10px] font-bold text-slate-700">Medium</span>
+                                    </button>
+                                    <button type="button" onclick="selectHeroBodyFilter('size', 'large')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                        <div class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-8 h-8"><rect x="1" y="8" width="22" height="10" rx="2"/><path d="M3 8L6 4h12l3 4"/></svg></div>
+                                        <span class="text-[10px] font-bold text-slate-700">Large</span>
+                                    </button>
+                                </div>
+                
+                                <!-- Section 2: Body Type -->
+                                <h4 class="font-mono text-[10px] tracking-widest text-blue-600 font-bold uppercase mb-2 px-1 border-b border-slate-100 pb-1">Body Type</h4>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'hatchback')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                        <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M4 10h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6Z"/><path d="M4 10l2-5h9l5 5"/></svg></div>
+                                        <span class="text-[10px] font-bold text-slate-700">Hatchback</span>
+                                    </button>
+                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'suv')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                        <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5"><path d="M3 10h18v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6Z"/><path d="M3 10l3-6h12l3 6"/></svg></div>
+                                        <span class="text-[10px] font-bold text-slate-700">SUV</span>
+                                    </button>
+                                    <!-- Add your other buttons here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
                     <!-- Max Budget Slider -->
                     <div class="bg-slate-50 border border-slate-200 rounded-xl px-4 h-12 flex flex-col justify-center">
                         <div class="flex justify-between items-center mb-1">
@@ -282,11 +322,10 @@
                         </div>
                         <input id="budget-slider" type="range" min="150" max="2000" step="50" value="2000" />
                     </div>
-
+                
                     <!-- Search Button -->
                     <div>
-                        <button id="hero-search-btn" type="button"
-                            class="w-full h-12 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm rounded-xl shadow-md shadow-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 transition flex items-center justify-center gap-2">
+                        <button id="hero-search-btn" type="button" class="w-full h-12 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
                             <span>SEARCH DEALS</span>
                             <span>&rarr;</span>
                         </button>
@@ -604,22 +643,29 @@ function switchOffersTab(type) {
         const searchBtn = document.getElementById("hero-search-btn");
         if (searchBtn) {
             searchBtn.addEventListener("click", (e) => {
-                e.preventDefault();
-                const make = makeSelect ? makeSelect.value : "";
-                const model = modelSelect ? modelSelect.value : "";
-                const fuelSelect = document.getElementById("hero-fuel");
-                const fuel = fuelSelect ? fuelSelect.value : "";
-                const budget = budgetSlider ? budgetSlider.value : "";
-
-                const params = new URLSearchParams();
-                params.append("type", currentHeroType);
-                if (make && make !== "Any make") params.append("make", make);
-                if (model) params.append("model", model);
-                if (fuel && fuel !== "Any fuel type") params.append("fuel", fuel);
-                if (budget && Number(budget) < 2000) params.append("max_price", budget);
-
-                window.location.href = `/vehicles.html?${params.toString()}`;
-            });
+            e.preventDefault();
+            const make = makeSelect ? makeSelect.value : "";
+            const model = modelSelect ? modelSelect.value : "";
+            const fuelSelect = document.getElementById("hero-fuel");
+            const fuel = fuelSelect ? fuelSelect.value : "";
+            const budget = budgetSlider ? budgetSlider.value : "";
+        
+            const params = new URLSearchParams();
+            params.append("type", currentHeroType);
+            
+            if (make && make !== "Any make") params.append("make", make);
+            if (model) params.append("model", model);
+            if (fuel && fuel !== "Any fuel type") params.append("fuel", fuel);
+            if (budget && Number(budget) < 2000) params.append("max_price", budget);
+            
+            // NEW: Append the custom body filter
+            if (heroSelectedBodyCategory && heroSelectedBodyValue) {
+                params.append(heroSelectedBodyCategory, heroSelectedBodyValue);
+            }
+        
+            // Pass everything directly to search.html
+            window.location.href = `search.html?${params.toString()}`;
+        });
         }
     });
 
@@ -650,6 +696,48 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 });
+
+// Global State for Hero Body Filter
+let heroSelectedBodyCategory = ""; 
+let heroSelectedBodyValue = "";
+
+// Toggle Dropdown Visibility
+const heroBodyBtn = document.getElementById("hero-body-btn");
+const heroBodyDropdown = document.getElementById("hero-body-dropdown");
+const heroBodyIcon = document.getElementById("hero-body-icon");
+
+if (heroBodyBtn) {
+    heroBodyBtn.addEventListener("click", () => {
+        heroBodyDropdown.classList.toggle("hidden");
+        heroBodyIcon.classList.toggle("rotate-180");
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+        if (!heroBodyBtn.contains(e.target) && !heroBodyDropdown.contains(e.target)) {
+            heroBodyDropdown.classList.add("hidden");
+            heroBodyIcon.classList.remove("rotate-180");
+        }
+    });
+}
+
+// Handle Selection
+function selectHeroBodyFilter(category, value) {
+    heroSelectedBodyCategory = category;
+    heroSelectedBodyValue = value;
+    
+    const label = document.getElementById("hero-body-label");
+    if (!value) {
+        label.textContent = "Any style";
+        label.classList.remove("text-blue-600", "font-bold");
+    } else {
+        label.textContent = value.charAt(0).toUpperCase() + value.slice(1);
+        label.classList.add("text-blue-600", "font-bold");
+    }
+
+    heroBodyDropdown.classList.add("hidden");
+    heroBodyIcon.classList.remove("rotate-180");
+}
     </script>
 
 <script src="nav.js"></script>
