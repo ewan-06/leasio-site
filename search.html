@@ -179,12 +179,23 @@
           </nav>
         </div>
 
-        <!-- RIGHT SIDE: Action Buttons -->
+        <!-- SIDE: Action Buttons -->
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="guides.html">Guides</a>
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="about-us.html">About Us</a>
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="register.html">Login</a>
         
-        <div class="flex items-center gap-3 shrink-0">
+        <div class="flex items-center gap-6 shrink-0 ml-2">
+          
+          <!-- GLOBAL VAT TOGGLE -->
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase font-bold" id="label-personal">Personal</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" class="sr-only peer vat-toggle-input">
+              <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+            </label>
+            <span class="text-[10px] font-mono tracking-widest text-slate-400 uppercase font-bold" id="label-business">Business</span>
+          </div>
+
           <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm" href="search.html">SEARCH</a>
         </div>
 
