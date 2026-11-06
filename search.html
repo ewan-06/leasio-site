@@ -731,7 +731,9 @@
       if (updateUrl) syncUrlParams();
 
       try {
-        const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}`;
+        // Updated query with the Body Style & Size parameters included properly
+        const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}&size=${typeof selectedBodyCategory !== 'undefined' && selectedBodyCategory === 'size' ? encodeURIComponent(selectedBodyValue) : ''}&bodytype=${typeof selectedBodyCategory !== 'undefined' && selectedBodyCategory === 'bodytype' ? encodeURIComponent(selectedBodyValue) : ''}`;
+        
         const response = await fetch(query);
         const vehicles = await response.json();
 
@@ -942,9 +944,6 @@ if (selectedBodyCategory && selectedBodyValue) {
   urlParams.delete('bodytype');
 }
 
-// 4. Update Existing `triggerSearch`
-// Find your existing triggerSearch() function and update the query string to append the new values:
-const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}&size=${selectedBodyCategory === 'size' ? encodeURIComponent(selectedBodyValue) : ''}&bodytype=${selectedBodyCategory === 'bodytype' ? encodeURIComponent(selectedBodyValue) : ''}`;
   </script>
 
 <script src="nav.js"></script>
