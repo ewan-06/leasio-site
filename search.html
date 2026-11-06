@@ -308,7 +308,7 @@
         <div class="flex gap-10">
 
           <!-- SIDEBAR FILTERS -->
-          <aside aria-label="Refine your search" class="hidden w-full shrink-0 lg:block lg:w-72 sticky top-28 h-fit">
+          <aside id="filter-sidebar" aria-label="Refine your search" class="hidden w-full shrink-0 lg:block lg:w-72">
             <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
               <p
                 class="mb-5 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
@@ -1137,6 +1137,24 @@
           }
         });
       });
+    });
+
+    //STICKY SIDEBAR SCROLL BEHAVIOR
+    window.addEventListener('scroll', () => {
+      const sidebar = document.getElementById('filter-sidebar');
+      if (!sidebar || window.innerWidth < 1024) return; // Only apply on desktop (lg breakpoint)
+
+      const headerOffset = 112; // Matches top-28 (7rem / 112px)
+      const scrollY = window.scrollY;
+
+      if (scrollY >= headerOffset) {
+        sidebar.style.position = 'fixed';
+        sidebar.style.top = '112px';
+        sidebar.style.width = '288px'; // Matches w-72 (18rem / 288px)
+      } else {
+        sidebar.style.position = 'static';
+        sidebar.style.top = 'auto';
+      }
     });
   </script>
 </body>
