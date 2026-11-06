@@ -579,8 +579,10 @@
       const priceDisplay = numericPrice !== null ? `£${numericPrice.toFixed(2)}` : "POA";
       const labelDisplay = numericPrice !== null ? `<span class="text-xs font-medium text-slate-400">${vatLabel}</span>` : "";
       
-      // Use the database image, fallback to a local placeholder if null
-     // const imageUrl = car.Image_URL ? car.Image_URL : "placeholder-car.png";
+      // API READY: Uses the real URL when available. 
+      // If none exists, uses a clean, reliable cloud placeholder to prevent local 404 errors.
+      const fallbackImage = "https://placehold.co/600x400/f8fafc/94a3b8?text=Image+Coming+Soon";
+      const imageUrl = car.Image_URL ? car.Image_URL : fallbackImage;
 
       return `
         <article class="bg-white border border-slate-200/90 rounded-2xl shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 p-6 flex flex-col justify-between">
@@ -590,10 +592,11 @@
               <span class="text-xs font-mono text-slate-400">2026</span>
             </div>
             
-            <!-- Vehicle Image -->
-           // <div class="w-full h-32 mb-4 flex items-center justify-center overflow-hidden">
-           //     <img src="${imageUrl}" alt="${car.Make} ${car.Model}" loading="lazy" class="w-full h-full object-contain object-center mix-blend-multiply" onerror="this.src='placeholder-car.png'" />
-         //   </div>
+            <!-- Vehicle Image (API Ready & Flicker-Free) -->
+            <!-- Note: this.onerror=null prevents the infinite loop crash -->
+            <div class="w-full h-32 mb-4 flex items-center justify-center overflow-hidden bg-slate-50 rounded-xl">
+                <img src="${imageUrl}" alt="${car.Make} ${car.Model}" loading="lazy" class="w-full h-full object-contain object-center mix-blend-multiply" onerror="this.onerror=null; this.src='${fallbackImage}';" />
+            </div>
             
             <!-- Manufacturer Primary Hierarchy -->
             <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight uppercase">${car.Make}</h2>
