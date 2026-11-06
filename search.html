@@ -509,8 +509,7 @@
             <div id="search-results-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
 
               <!-- Search Skeleton Loaders -->
-              <div
-                class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px]">
+              <div class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px]">
                 <div>
                   <div class="flex justify-between items-start gap-2 mb-4">
                     <div class="h-5 bg-blue-100 rounded w-16"></div>
@@ -528,8 +527,7 @@
                   <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
                 </div>
               </div>
-              <div
-                class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px] hidden sm:flex">
+              <div class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px] hidden sm:flex">
                 <div>
                   <div class="flex justify-between items-start gap-2 mb-4">
                     <div class="h-5 bg-blue-100 rounded w-16"></div>
@@ -547,8 +545,7 @@
                   <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
                 </div>
               </div>
-              <div
-                class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px] hidden xl:flex">
+              <div class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px] hidden xl:flex">
                 <div>
                   <div class="flex justify-between items-start gap-2 mb-4">
                     <div class="h-5 bg-blue-100 rounded w-16"></div>
@@ -568,30 +565,25 @@
               </div>
 
             </div>
-            <div class="min-w-0 flex-1">
-              <div id="search-results-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-                <p class="text-slate-500 col-span-full py-16 text-center font-medium">Searching available vehicles...
-                </p>
-              </div>
 
-              <!-- PAGINATION -->
-              <div id="pagination" class="mt-12 flex items-center justify-center gap-3">
-                <button id="prev-page" type="button" disabled
-                  class="flex items-center gap-1.5 border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 rounded-xl transition-colors hover:border-blue-600 disabled:opacity-30 shadow-sm">
-                  &larr; Previous
-                </button>
-                <span class="font-mono text-xs text-slate-500 font-medium">Page <span id="page-current"
-                    class="text-slate-900 font-bold">1</span> of <span id="page-total"
-                    class="text-slate-900 font-bold">1</span></span>
-                <button id="next-page" type="button"
-                  class="flex items-center gap-1.5 border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 rounded-xl transition-colors hover:border-blue-600 disabled:opacity-30 shadow-sm">
-                  Next &rarr;
-                </button>
-              </div>
+            <!-- PAGINATION -->
+            <div id="pagination" class="mt-12 flex items-center justify-center gap-3">
+              <button id="prev-page" type="button" disabled
+                class="flex items-center gap-1.5 border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 rounded-xl transition-colors hover:border-blue-600 disabled:opacity-30 shadow-sm">
+                &larr; Previous
+              </button>
+              <span class="font-mono text-xs text-slate-500 font-medium">Page <span id="page-current"
+                  class="text-slate-900 font-bold">1</span> of <span id="page-total"
+                  class="text-slate-900 font-bold">1</span></span>
+              <button id="next-page" type="button"
+                class="flex items-center gap-1.5 border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 rounded-xl transition-colors hover:border-blue-600 disabled:opacity-30 shadow-sm">
+                Next &rarr;
+              </button>
             </div>
-
           </div>
+
         </div>
+      </div>
     </main>
 
     <!-- FOOTER -->
@@ -611,10 +603,14 @@
     const vehicleType = ["vans", "van"].includes(urlParams.get("type")) ? "vans" : "car";
 
     const PAGE_SIZE = 24;
-    let rawVehicles = [];
     let filteredVehicles = [];
+    let totalItems = 0;
     let currentPage = 1;
     let currentSort = urlParams.get("sort") || "";
+
+    // Global State for Custom Body/Size Filters
+    let selectedBodyCategory = urlParams.get("size") ? "size" : (urlParams.get("bodytype") ? "bodytype" : "");
+    let selectedBodyValue = urlParams.get("size") || urlParams.get("bodytype") || "";
 
     function setTypeUI() {
       const label = vehicleType === "vans" ? "Vans" : "Cars";
@@ -714,19 +710,16 @@
       const cleanDerivative = (car.CAP_Derivative || "").replace(/\s*\b\d+bhp\b/gi, "").trim();
       let numericPrice = parseMonthlyPrice(car.Monthly);
 
-      // --- VAT MATH LOGIC ---
       const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
       let vatLabel = isBusiness ? " +VAT" : " inc VAT";
 
       if (numericPrice !== null && isBusiness) {
-        numericPrice = numericPrice / 1.2; // Remove 20% VAT
+        numericPrice = numericPrice / 1.2;
       }
 
       const priceDisplay = numericPrice !== null ? `£${numericPrice.toFixed(2)}` : "POA";
       const labelDisplay = numericPrice !== null ? `<span class="text-xs font-medium text-slate-400">${vatLabel}</span>` : "";
 
-      // API READY: Uses the real URL when available. 
-      // If none exists, uses a clean, reliable cloud placeholder to prevent local 404 errors.
       const fallbackImage = "https://placehold.co/600x400/f8fafc/94a3b8?text=Image+Coming+Soon";
       const imageUrl = car.Image_URL ? car.Image_URL : fallbackImage;
 
@@ -738,13 +731,10 @@
               <span class="text-xs font-mono text-slate-400">2026</span>
             </div>
             
-            <!-- Vehicle Image (API Ready & Flicker-Free) -->
-            <!-- Note: this.onerror=null prevents the infinite loop crash -->
             <div class="w-full h-32 mb-4 flex items-center justify-center overflow-hidden bg-slate-50 rounded-xl">
-                <img src="${imageUrl}" alt="${car.Make} ${car.Model}" loading="lazy" class="w-full h-full object-contain object-center mix-blend-multiply" onerror="this.onerror=null; this.src='${fallbackImage}';" />
+              <img src="${imageUrl}" alt="${car.Make} ${car.Model}" loading="lazy" class="w-full h-full object-contain object-center mix-blend-multiply" onerror="this.onerror=null; this.src='${fallbackImage}';" />
             </div>
             
-            <!-- Manufacturer Primary Hierarchy -->
             <h2 class="text-2xl font-extrabold text-slate-900 tracking-tight uppercase">${car.Make}</h2>
             <h3 class="text-lg font-semibold text-blue-600 mt-0.5">${car.Model}</h3>
             <p class="text-xs text-slate-500 mt-1.5 line-clamp-2">${cleanDerivative}</p>
@@ -763,23 +753,46 @@
         </article>`;
     }
 
-    // Apply Max Price & Sort directly in the browser
-    // Apply Max Price & Sort directly in the browser
-    let totalItems = 0; // Add this near your other let variables at the top
+    // Restored syncUrlParams function
+    function syncUrlParams() {
+      urlParams = new URLSearchParams(window.location.search);
+      const make = document.getElementById("filter-make")?.value || "";
+      const model = document.getElementById("filter-model")?.value || "";
+      const fuel = document.getElementById("filter-fuel")?.value || "";
+      const sliderEl = document.getElementById("filter-max-price");
+      const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : 2000;
 
-    // 1. Tell the API to handle the filtering
+      if (make && make !== "Any make") urlParams.set("make", make); else urlParams.delete("make");
+      if (model) urlParams.set("model", model); else urlParams.delete("model");
+      if (fuel && fuel !== "Any fuel type") urlParams.set("fuel", fuel); else urlParams.delete("fuel");
+      if (maxPriceVal < 2000) urlParams.set("max_price", maxPriceVal); else urlParams.delete("max_price");
+      if (currentSort) urlParams.set("sort", currentSort); else urlParams.delete("sort");
+
+      if (selectedBodyCategory && selectedBodyValue) {
+        urlParams.set(selectedBodyCategory, selectedBodyValue);
+        if (selectedBodyCategory === 'size') urlParams.delete('bodytype');
+        if (selectedBodyCategory === 'bodytype') urlParams.delete('size');
+      } else {
+        urlParams.delete('size');
+        urlParams.delete('bodytype');
+      }
+
+      urlParams.set("type", vehicleType);
+
+      const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+      window.history.pushState({ path: newUrl }, "", newUrl);
+    }
+
     function applyClientFiltersAndSort(resetPage = true) {
       if (resetPage) currentPage = 1;
       triggerSearch(true);
     }
 
-    // 2. Render the page directly from the API slice
     function renderPage(scrollToTop = false) {
       const container = document.getElementById("search-results-grid");
       const pagination = document.getElementById("pagination");
-      const pagBtns = document.querySelectorAll("#pagination button");
-      const prevBtn = pagBtns[0];
-      const nextBtn = pagBtns[1];
+      const prevBtn = document.getElementById("prev-page");
+      const nextBtn = document.getElementById("next-page");
       const curEl = document.getElementById("page-current");
       const totEl = document.getElementById("page-total");
       const countEl = document.getElementById("result-count");
@@ -789,13 +802,12 @@
 
       if (countEl) countEl.textContent = totalItems.toLocaleString("en-GB");
 
-      if (totalItems === 0) {
+      if (totalItems === 0 || filteredVehicles.length === 0) {
         container.innerHTML = `<p class="text-slate-500 col-span-full py-16 text-center font-medium">No vehicles found matching these filters.</p>`;
         if (pagination) pagination.style.display = "none";
         return;
       }
 
-      // We no longer slice the array! The API already gave us exactly 24 cars.
       container.innerHTML = filteredVehicles.map(vehicleCardHTML).join("");
 
       if (curEl) curEl.textContent = currentPage;
@@ -807,7 +819,6 @@
       if (scrollToTop) window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // 3. Fetch the data using the new API parameters
     async function triggerSearch(updateUrl = false) {
       urlParams = new URLSearchParams(window.location.search);
       const make = document.getElementById("filter-make")?.value || "Any make";
@@ -820,17 +831,19 @@
       if (updateUrl) syncUrlParams();
 
       try {
-        // We now append &page and &limit to the API query
-        const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}&size=${typeof selectedBodyCategory !== 'undefined' && selectedBodyCategory === 'size' ? encodeURIComponent(selectedBodyValue) : ''}&bodytype=${typeof selectedBodyCategory !== 'undefined' && selectedBodyCategory === 'bodytype' ? encodeURIComponent(selectedBodyValue) : ''}&page=${currentPage}&limit=${PAGE_SIZE}`;
+        const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}&size=${selectedBodyCategory === 'size' ? encodeURIComponent(selectedBodyValue) : ''}&bodytype=${selectedBodyCategory === 'bodytype' ? encodeURIComponent(selectedBodyValue) : ''}&page=${currentPage}&limit=${PAGE_SIZE}`;
 
         const response = await fetch(query);
         const data = await response.json();
 
-        // Look for the new dictionary keys sent by main.py
         if (data.error) {
           filteredVehicles = [];
           totalItems = 0;
           console.error(data.error);
+        } else if (Array.isArray(data)) {
+          // Fallback if API ever returns a flat array
+          filteredVehicles = data.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+          totalItems = data.length;
         } else {
           filteredVehicles = data.vehicles || [];
           totalItems = data.total_count || 0;
@@ -854,6 +867,14 @@
       if (priceSlider) priceSlider.value = selectedMaxPrice;
       updatePriceLabel(selectedMaxPrice);
 
+      if (selectedBodyValue) {
+        const label = document.getElementById("filter-body-label");
+        if (label) {
+          label.textContent = selectedBodyValue.charAt(0).toUpperCase() + selectedBodyValue.slice(1);
+          label.classList.add("text-blue-600", "font-bold");
+        }
+      }
+
       const sortSelects = document.querySelectorAll("select");
       sortSelects.forEach(sel => {
         if (["filter-make", "filter-model", "filter-fuel"].includes(sel.id)) return;
@@ -865,24 +886,17 @@
 
       setTypeUI();
 
-      // OPTIMIZATION: Fire all API requests simultaneously using Promise.all
-      // This stops the "waterfall" effect and loads the page significantly faster
-      const apiRequests = [
-        triggerSearch(false), // Fetch the heavy vehicle grid immediately
-        loadMakes(selectedMake),
-        loadFuelTypes(selectedMake, selectedModel, selectedFuel)
-      ];
-
-      if (selectedMake) {
-        apiRequests.push(loadModelsForMake(selectedMake, selectedModel));
-      }
-
-      // Wait for all of them to finish in parallel
-      await Promise.all(apiRequests);
+      // Ensure initial filter values are populated before or alongside search
+      await loadMakes(selectedMake);
+      if (selectedMake) await loadModelsForMake(selectedMake, selectedModel);
+      await loadFuelTypes(selectedMake, selectedModel, selectedFuel);
+      await triggerSearch(false);
     });
 
+    // Filter Change Listeners (Reset to Page 1 on every filter change)
     document.getElementById("filter-make")?.addEventListener("change", async (e) => {
       const make = e.target.value;
+      currentPage = 1;
       await loadModelsForMake(make);
       await loadFuelTypes(make, "");
       triggerSearch(true);
@@ -890,39 +904,54 @@
 
     document.getElementById("filter-model")?.addEventListener("change", async (e) => {
       const make = document.getElementById("filter-make")?.value || "";
+      currentPage = 1;
       await loadFuelTypes(make, e.target.value);
       triggerSearch(true);
     });
 
     document.getElementById("filter-fuel")?.addEventListener("change", () => {
+      currentPage = 1;
       triggerSearch(true);
     });
 
     const priceSliderEl = document.getElementById("filter-max-price");
     priceSliderEl?.addEventListener("input", (e) => {
-      // ONLY update the visual label while dragging, do NOT call the API yet
-      updatePriceLabel(e.target.value); 
+      updatePriceLabel(e.target.value);
     });
     priceSliderEl?.addEventListener("change", () => {
-      // Call the API once they let go of the mouse button
-      syncUrlParams();
-      applyClientFiltersAndSort(true); 
+      applyClientFiltersAndSort(true);
     });
 
+    // Restored Sort Dropdown Listener
+    document.addEventListener("change", (e) => {
+      const sel = e.target.closest("select");
+      if (!sel || ["filter-make", "filter-model", "filter-fuel"].includes(sel.id)) return;
+
+      const val = (sel.value || "").toLowerCase();
+      const text = (sel.options[sel.selectedIndex]?.text || "").toLowerCase();
+
+      if (val.includes("asc") || text.includes("low to high")) currentSort = "price_asc";
+      else if (val.includes("desc") || text.includes("high to low")) currentSort = "price_desc";
+      else currentSort = "";
+
+      applyClientFiltersAndSort(true);
+    });
+
+    // Single Pagination Click Listener
     document.addEventListener("click", (e) => {
       const btn = e.target.closest("#pagination button");
       if (!btn || btn.disabled) return;
-      const label = btn.textContent.trim();
 
-      if (label.includes("Next")) {
+      if (btn.id === "next-page") {
         currentPage++;
         triggerSearch(true).then(() => { window.scrollTo({ top: 0, behavior: "smooth" }); });
-      } else if (label.includes("Previous")) {
-        currentPage--;
+      } else if (btn.id === "prev-page") {
+        currentPage = Math.max(1, currentPage - 1);
         triggerSearch(true).then(() => { window.scrollTo({ top: 0, behavior: "smooth" }); });
       }
     });
 
+    // Clear All Filters Listener
     document.getElementById("clear-filters-btn")?.addEventListener("click", async () => {
       const makeDropdown = document.getElementById("filter-make");
       if (makeDropdown) makeDropdown.value = "";
@@ -940,15 +969,19 @@
       if (priceSlider) priceSlider.value = "2000";
       updatePriceLabel(2000);
 
-      currentSort = "";
-      urlParams = new URLSearchParams(window.location.search);
-      urlParams.delete("make");
-      urlParams.delete("model");
-      urlParams.delete("fuel");
-      urlParams.delete("max_price");
-      urlParams.delete("sort");
-      urlParams.set("type", vehicleType);
+      selectedBodyCategory = "";
+      selectedBodyValue = "";
+      const bodyLabel = document.getElementById("filter-body-label");
+      if (bodyLabel) {
+        bodyLabel.textContent = "Any size or style";
+        bodyLabel.classList.remove("text-blue-600", "font-bold");
+      }
 
+      currentSort = "";
+      currentPage = 1;
+
+      urlParams = new URLSearchParams();
+      urlParams.set("type", vehicleType);
       const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
       window.history.pushState({ path: newUrl }, "", newUrl);
 
@@ -956,35 +989,15 @@
       await triggerSearch(false);
     });
 
-    document.addEventListener("click", (e) => {
-      const btn = e.target.closest("#pagination button");
-      if (!btn || btn.disabled) return;
-      const label = btn.textContent.trim();
-
-      if (label.includes("Next")) {
-        currentPage++;
-        renderPage(true);
-      } else if (label.includes("Previous")) {
-        currentPage--;
-        renderPage(true);
-      }
-    });
-
-    // nav.js
+    // Auth Nav Check
     document.addEventListener("DOMContentLoaded", () => {
       const userJson = localStorage.getItem('leasio_user');
-
-      // Find all elements or links that point to login or act as the auth button
-      // You can target them by looking for href="login.html" or a specific ID
       const loginLinks = document.querySelectorAll('a[href="login.html"], a[href="register.html"]');
 
       if (userJson) {
         try {
-          const user = JSON.parse(userJson);
-
-          // Loop through login/register links in the nav and convert them to "Account"
+          JSON.parse(userJson);
           loginLinks.forEach(link => {
-            // Only convert if it's the main login/auth nav item (avoid footer links if needed)
             if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
               link.textContent = "Account";
               link.setAttribute("href", "dashboard.html");
@@ -998,11 +1011,7 @@
       }
     });
 
-    // Global State for Custom Filters
-    let selectedBodyCategory = ""; // 'size' or 'bodytype'
-    let selectedBodyValue = "";
-
-    // 1. Toggle Dropdown Visibility
+    // Body Style & Size Dropdown Controls
     const bodyBtn = document.getElementById("filter-body-btn");
     const bodyDropdown = document.getElementById("filter-body-dropdown");
     const bodyIcon = document.getElementById("filter-body-icon");
@@ -1013,7 +1022,6 @@
         bodyIcon.classList.toggle("rotate-180");
       });
 
-      // Close dropdown when clicking outside
       document.addEventListener("click", (e) => {
         if (!bodyBtn.contains(e.target) && !bodyDropdown.contains(e.target)) {
           bodyDropdown.classList.add("hidden");
@@ -1022,17 +1030,16 @@
       });
     }
 
-    // 2. Handle Filter Selection
     function selectBodyFilter(category, value) {
       selectedBodyCategory = category;
       selectedBodyValue = value;
+      currentPage = 1;
 
       const label = document.getElementById("filter-body-label");
       if (!value) {
         label.textContent = "Any size or style";
         label.classList.remove("text-blue-600", "font-bold");
       } else {
-        // Capitalize first letter for label
         label.textContent = value.charAt(0).toUpperCase() + value.slice(1);
         label.classList.add("text-blue-600", "font-bold");
       }
@@ -1041,19 +1048,6 @@
       bodyIcon.classList.remove("rotate-180");
       triggerSearch(true);
     }
-
-    // 3. Update Existing `syncUrlParams`
-    // Find your existing syncUrlParams() function and append these lines before pushing the history state:
-    if (selectedBodyCategory && selectedBodyValue) {
-      urlParams.set(selectedBodyCategory, selectedBodyValue);
-      // Clear the opposite category so they don't conflict in the URL
-      if (selectedBodyCategory === 'size') urlParams.delete('bodytype');
-      if (selectedBodyCategory === 'bodytype') urlParams.delete('size');
-    } else {
-      urlParams.delete('size');
-      urlParams.delete('bodytype');
-    }
-
   </script>
 
 
