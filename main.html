@@ -178,12 +178,26 @@
           </nav>
         </div>
 
-        <!-- RIGHT SIDE: Action Buttons -->
+       <!-- SIDE: Action Buttons -->
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="guides.html">Guides</a>
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="about-us.html">About Us</a>
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="login.html">Login</a>
+        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="register.html">Login</a>
         
-        <div class="flex items-center gap-3 shrink-0">
+        <div class="flex items-center gap-6 shrink-0 ml-2">
+          
+          <!-- GLOBAL VAT TOGGLE -->
+          <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-blue-600" id="label-personal">Personal</span>
+              
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer vat-toggle-input">
+                <!-- Track stays bg-blue-600 at all times -->
+                <div class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+              </label>
+              
+              <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-slate-400" id="label-business">Business</span>
+            </div>
+
           <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm" href="search.html">SEARCH</a>
         </div>
 <!-- -->
@@ -281,76 +295,76 @@
                                 <button type="button" onclick="selectHeroBodyFilter('', '')" class="w-full text-left px-3 py-2 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors mb-3">View All (Clear Filter)</button>
                 
                                 <!-- Section 1: Vehicle Size -->
-                                <h4 class="font-mono text-[10px] tracking-widest text-blue-600 font-bold uppercase mb-2 px-1 border-b border-slate-100 pb-1">Vehicle Size</h4>
+                                <h4 class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Vehicle Size</h4>
                                 <div class="grid grid-cols-3 gap-2 mb-5">
                                     <button type="button" onclick="selectHeroBodyFilter('size', 'small')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/small.png" alt="Small" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                                            </div>
+                                            <img src="small.png" alt="Small" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                        </div>
                                         <span class="text-[10px] font-bold text-slate-700">Small</span>
                                     </button>
                                     <button type="button" onclick="selectHeroBodyFilter('size', 'medium')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/medium.png" alt="Medium" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="medium.png" alt="Medium" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Medium</span>
                                     </button>
                                     <button type="button" onclick="selectHeroBodyFilter('size', 'large')" class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/large.png" alt="Large" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="large.png" alt="Large" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Large</span>
                                     </button>
                                 </div>
                 
                                 <!-- Section 2: Body Type -->
-                                <h4 class="font-mono text-[10px] tracking-widest text-blue-600 font-bold uppercase mb-2 px-1 border-b border-slate-100 pb-1">Body Type</h4>
+                                <h4 class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Body Type</h4>
                                 <div class="grid grid-cols-2 gap-2">
                                     <button type="button" onclick="selectHeroBodyFilter('bodytype', 'hatchback')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/hatchback.png" alt="Hatchback" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="hatchback.png" alt="Hatchback" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Hatchback</span>
                                     </button>
                                     <button type="button" onclick="selectHeroBodyFilter('bodytype', 'convertible')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/convertible.png" alt="Convertible" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="convertible.png" alt="Convertible" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Convertible</span>
                                     </button>
                                     <button type="button" onclick="selectHeroBodyFilter('bodytype', 'coupe')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/coupe.png" alt="Coupe" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="coupe.png" alt="Coupe" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Coupe</span>
                                     </button>
                                     <button type="button" onclick="selectHeroBodyFilter('bodytype', 'saloon')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/saloon.png" alt="Saloon" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="saloon.png" alt="Saloon" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Saloon</span>
                                     </button>
                                     <button type="button" onclick="selectHeroBodyFilter('bodytype', 'Estate')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/Estate.png" alt="Estate" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="estate.png" alt="Estate" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Estate</span>
                                     </button>
                                     <button type="button" onclick="selectHeroBodyFilter('bodytype', 'suv')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/suv.png" alt="SUV" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="SUV.png" alt="SUV" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">SUV</span>
                                     </button>
-                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', 'mpv')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                                    <button type="button" onclick="selectHeroBodyFilter('bodytype', '')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/mpv.png" alt="MPV" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="MPV.png" alt="MPV" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">MPV</span>
                                     </button>
                                     <button type="button" onclick="selectHeroBodyFilter('bodytype', 'van')" class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                                         <div class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                                            <img src="images/van.png" alt="Van" class="h-full w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                                            <img src="van.png" alt="Van" class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
                                         </div>
                                         <span class="text-[10px] font-bold text-slate-700">Van</span>
                                     </button>
@@ -786,5 +800,48 @@ function selectHeroBodyFilter(category, value) {
     </script>
 
 <script src="nav.js"></script>
+
+<!-- VAT TOGGLE SYNC SCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const vatInputs = document.querySelectorAll('.vat-toggle-input');
+      const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+
+      // Set initial visual state on page load
+      function syncVisuals(businessMode) {
+          vatInputs.forEach(input => input.checked = businessMode);
+          
+          const lblPersonal = document.getElementById('label-personal');
+          const lblBusiness = document.getElementById('label-business');
+          
+          if (lblPersonal && lblBusiness) {
+            // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
+            lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
+            lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+          }
+        
+          document.querySelectorAll('.vat-status-text').forEach(el => {
+            el.innerText = businessMode ? 'Business' : 'Personal';
+            el.style.color = '#2563eb';
+          });
+        }
+
+      syncVisuals(isBusiness);
+
+      // Listen for slider clicks
+      vatInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+          const newMode = e.target.checked ? 'business' : 'personal';
+          localStorage.setItem('leasio_vat_mode', newMode);
+          syncVisuals(e.target.checked);
+          
+          // Re-calculate the live price if we are on the vehicles page
+          if (typeof window.fetchValuation === 'function') {
+            window.fetchValuation();
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
