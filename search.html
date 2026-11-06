@@ -424,7 +424,8 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-7 h-7">
                               <rect x="2" y="9" width="20" height="9" rx="2" />
                               <path d="M4 9L6.5 5h11L20 9" />
-                            </svg></div>
+                            </svg>
+                          </div>
                           <span class="text-[10px] font-bold text-slate-700">Medium</span>
                         </button>
                         <button type="button" onclick="selectBodyFilter('size', 'large')"
@@ -434,7 +435,8 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-8 h-8">
                               <rect x="1" y="8" width="22" height="10" rx="2" />
                               <path d="M3 8L6 4h12l3 4" />
-                            </svg></div>
+                            </svg>
+                          </div>
                           <span class="text-[10px] font-bold text-slate-700">Large</span>
                         </button>
                       </div>
@@ -452,7 +454,8 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
                               <path d="M4 10h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6Z" />
                               <path d="M4 10l2-5h9l5 5" />
-                            </svg></div>
+                            </svg>
+                          </div>
                           <span class="text-[10px] font-bold text-slate-700">Hatchback</span>
                         </button>
                         <button type="button" onclick="selectBodyFilter('bodytype', 'suv')"
@@ -462,7 +465,8 @@
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
                               <path d="M3 10h18v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6Z" />
                               <path d="M3 10l3-6h12l3 6" />
-                            </svg></div>
+                            </svg>
+                          </div>
                           <span class="text-[10px] font-bold text-slate-700">SUV</span>
                         </button>
                         <!-- Add remaining body types here using the same format -->
@@ -761,73 +765,15 @@
 
     // Apply Max Price & Sort directly in the browser
     // Apply Max Price & Sort directly in the browser
+    let totalItems = 0; // Add this near your other let variables at the top
+
+    // 1. Tell the API to handle the filtering
     function applyClientFiltersAndSort(resetPage = true) {
-      urlParams = new URLSearchParams(window.location.search);
-      const sliderEl = document.getElementById("filter-max-price");
-
-      const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : parseInt(urlParams.get("max_price") || "2000", 10);
-      const maxPrice = (!isNaN(maxPriceVal) && maxPriceVal < 2000) ? maxPriceVal : 0;
-
-      // 1. Filter by Max Monthly Price
-      filteredVehicles = rawVehicles.filter(car => {
-        if (maxPrice <= 0) return true;
-        const p = parseMonthlyPrice(car.Monthly);
-        return p !== null && p <= maxPrice;
-      });
-
-      // 2. Sort vehicles based on selected option
-      if (currentSort === "price_asc") {
-        // Price: Low to High
-        filteredVehicles.sort((a, b) => {
-          const pa = parseMonthlyPrice(a.Monthly);
-          const pb = parseMonthlyPrice(b.Monthly);
-          if (pa === null && pb === null) return 0;
-          if (pa === null) return 1;
-          if (pb === null) return -1;
-          return pa - pb;
-        });
-      } else if (currentSort === "price_desc") {
-        // Price: High to Low
-        filteredVehicles.sort((a, b) => {
-          const pa = parseMonthlyPrice(a.Monthly);
-          const pb = parseMonthlyPrice(b.Monthly);
-          if (pa === null && pb === null) return 0;
-          if (pa === null) return 1;
-          if (pb === null) return -1;
-          return pb - pa;
-        });
-      } else {
-        // DEFAULT / RELEVANCE: Sort by Best Deals / Best Value ([Monthly/OTR] scale)
-        filteredVehicles.sort((a, b) => {
-          const scoreA = parseFloat(a.Monthly_OTR || a.Score || 9999);
-          const scoreB = parseFloat(b.Monthly_OTR || b.Score || 9999);
-          return scoreA - scoreB;
-        });
-      }
-
       if (resetPage) currentPage = 1;
-      renderPage();
+      triggerSearch(true);
     }
 
-    function syncUrlParams() {
-      urlParams = new URLSearchParams(window.location.search);
-      const make = document.getElementById("filter-make")?.value || "";
-      const model = document.getElementById("filter-model")?.value || "";
-      const fuel = document.getElementById("filter-fuel")?.value || "";
-      const sliderEl = document.getElementById("filter-max-price");
-      const maxPriceVal = sliderEl ? parseInt(sliderEl.value, 10) : 2000;
-
-      if (make && make !== "Any make") urlParams.set("make", make); else urlParams.delete("make");
-      if (model) urlParams.set("model", model); else urlParams.delete("model");
-      if (fuel && fuel !== "Any fuel type") urlParams.set("fuel", fuel); else urlParams.delete("fuel");
-      if (maxPriceVal < 2000) urlParams.set("max_price", maxPriceVal); else urlParams.delete("max_price");
-      if (currentSort) urlParams.set("sort", currentSort); else urlParams.delete("sort");
-      urlParams.set("type", vehicleType);
-
-      const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
-      window.history.pushState({ path: newUrl }, "", newUrl);
-    }
-
+    // 2. Render the page directly from the API slice
     function renderPage(scrollToTop = false) {
       const container = document.getElementById("search-results-grid");
       const pagination = document.getElementById("pagination");
@@ -839,20 +785,18 @@
       const countEl = document.getElementById("result-count");
       if (!container) return;
 
-      const total = filteredVehicles.length;
-      const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
-      currentPage = Math.min(Math.max(1, currentPage), totalPages);
+      const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
 
-      if (countEl) countEl.textContent = total.toLocaleString("en-GB");
+      if (countEl) countEl.textContent = totalItems.toLocaleString("en-GB");
 
-      if (total === 0) {
+      if (totalItems === 0) {
         container.innerHTML = `<p class="text-slate-500 col-span-full py-16 text-center font-medium">No vehicles found matching these filters.</p>`;
         if (pagination) pagination.style.display = "none";
         return;
       }
 
-      const start = (currentPage - 1) * PAGE_SIZE;
-      container.innerHTML = filteredVehicles.slice(start, start + PAGE_SIZE).map(vehicleCardHTML).join("");
+      // We no longer slice the array! The API already gave us exactly 24 cars.
+      container.innerHTML = filteredVehicles.map(vehicleCardHTML).join("");
 
       if (curEl) curEl.textContent = currentPage;
       if (totEl) totEl.textContent = totalPages;
@@ -863,6 +807,7 @@
       if (scrollToTop) window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+    // 3. Fetch the data using the new API parameters
     async function triggerSearch(updateUrl = false) {
       urlParams = new URLSearchParams(window.location.search);
       const make = document.getElementById("filter-make")?.value || "Any make";
@@ -875,14 +820,23 @@
       if (updateUrl) syncUrlParams();
 
       try {
-        // Updated query with the Body Style & Size parameters included properly
-        const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}&size=${typeof selectedBodyCategory !== 'undefined' && selectedBodyCategory === 'size' ? encodeURIComponent(selectedBodyValue) : ''}&bodytype=${typeof selectedBodyCategory !== 'undefined' && selectedBodyCategory === 'bodytype' ? encodeURIComponent(selectedBodyValue) : ''}`;
+        // We now append &page and &limit to the API query
+        const query = `${API_BASE}/api/search_vehicles?make=${encodeURIComponent(make)}&fuel=${encodeURIComponent(fuel)}&model=${encodeURIComponent(model)}&vehicle_type=${vehicleType}&sort=${encodeURIComponent(currentSort)}&max_price=${maxPrice}&size=${typeof selectedBodyCategory !== 'undefined' && selectedBodyCategory === 'size' ? encodeURIComponent(selectedBodyValue) : ''}&bodytype=${typeof selectedBodyCategory !== 'undefined' && selectedBodyCategory === 'bodytype' ? encodeURIComponent(selectedBodyValue) : ''}&page=${currentPage}&limit=${PAGE_SIZE}`;
 
         const response = await fetch(query);
-        const vehicles = await response.json();
+        const data = await response.json();
 
-        rawVehicles = Array.isArray(vehicles) ? vehicles : [];
-        applyClientFiltersAndSort(true);
+        // Look for the new dictionary keys sent by main.py
+        if (data.error) {
+          filteredVehicles = [];
+          totalItems = 0;
+          console.error(data.error);
+        } else {
+          filteredVehicles = data.vehicles || [];
+          totalItems = data.total_count || 0;
+        }
+
+        renderPage();
       } catch (err) {
         console.error("Failed to fetch filtered search results:", err);
       }
@@ -946,26 +900,27 @@
 
     const priceSliderEl = document.getElementById("filter-max-price");
     priceSliderEl?.addEventListener("input", (e) => {
-      updatePriceLabel(e.target.value);
-      applyClientFiltersAndSort(true);
+      // ONLY update the visual label while dragging, do NOT call the API yet
+      updatePriceLabel(e.target.value); 
     });
     priceSliderEl?.addEventListener("change", () => {
+      // Call the API once they let go of the mouse button
       syncUrlParams();
+      applyClientFiltersAndSort(true); 
     });
 
-    document.addEventListener("change", (e) => {
-      const sel = e.target.closest("select");
-      if (!sel || ["filter-make", "filter-model", "filter-fuel"].includes(sel.id)) return;
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("#pagination button");
+      if (!btn || btn.disabled) return;
+      const label = btn.textContent.trim();
 
-      const val = (sel.value || "").toLowerCase();
-      const text = (sel.options[sel.selectedIndex]?.text || "").toLowerCase();
-
-      if (val.includes("asc") || text.includes("low to high")) currentSort = "price_asc";
-      else if (val.includes("desc") || text.includes("high to low")) currentSort = "price_desc";
-      else currentSort = "";
-
-      syncUrlParams();
-      applyClientFiltersAndSort(true);
+      if (label.includes("Next")) {
+        currentPage++;
+        triggerSearch(true).then(() => { window.scrollTo({ top: 0, behavior: "smooth" }); });
+      } else if (label.includes("Previous")) {
+        currentPage--;
+        triggerSearch(true).then(() => { window.scrollTo({ top: 0, behavior: "smooth" }); });
+      }
     });
 
     document.getElementById("clear-filters-btn")?.addEventListener("click", async () => {
