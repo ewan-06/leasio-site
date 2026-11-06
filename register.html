@@ -178,12 +178,26 @@
           </nav>
         </div>
 
-        <!-- RIGHT SIDE: Action Buttons -->
+        <!-- SIDE: Action Buttons -->
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="guides.html">Guides</a>
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="about-us.html">About Us</a>
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="login.html">Login</a>
+        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="register.html">Login</a>
         
-        <div class="flex items-center gap-3 shrink-0">
+        <div class="flex items-center gap-6 shrink-0 ml-2">
+          
+          <!-- GLOBAL VAT TOGGLE -->
+          <div class="flex items-center gap-2">
+              <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-blue-600" id="label-personal">Personal</span>
+              
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer vat-toggle-input">
+                <!-- Track stays bg-blue-600 at all times -->
+                <div class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+              </label>
+              
+              <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-slate-400" id="label-business">Business</span>
+            </div>
+
           <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm" href="search.html">SEARCH</a>
         </div>
 
@@ -325,5 +339,48 @@ document.addEventListener("DOMContentLoaded", () => {
 });
   </script>
 </main>
+
+<!-- VAT TOGGLE SYNC SCRIPT -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const vatInputs = document.querySelectorAll('.vat-toggle-input');
+      const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+
+      // Set initial visual state on page load
+      function syncVisuals(businessMode) {
+          vatInputs.forEach(input => input.checked = businessMode);
+          
+          const lblPersonal = document.getElementById('label-personal');
+          const lblBusiness = document.getElementById('label-business');
+          
+          if (lblPersonal && lblBusiness) {
+            // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
+            lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
+            lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+          }
+        
+          document.querySelectorAll('.vat-status-text').forEach(el => {
+            el.innerText = businessMode ? 'Business' : 'Personal';
+            el.style.color = '#2563eb';
+          });
+        }
+
+      syncVisuals(isBusiness);
+
+      // Listen for slider clicks
+      vatInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+          const newMode = e.target.checked ? 'business' : 'personal';
+          localStorage.setItem('leasio_vat_mode', newMode);
+          syncVisuals(e.target.checked);
+          
+          // Re-calculate the live price if we are on the vehicles page
+          if (typeof window.fetchValuation === 'function') {
+            window.fetchValuation();
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>
