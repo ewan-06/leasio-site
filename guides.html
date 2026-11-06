@@ -1,51 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
-    }
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 6px;
-      background: #e2e8f0;
-      border-radius: 999px;
-      outline: none;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #2563eb;
-      cursor: pointer;
-      border: 2px solid #ffffff;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-      transition: transform 0.15s ease;
-    }
-    input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.15);
-      background: #1d4ed8;
-    }
-  </style>
-  <link rel="canonical" href="https://leasio.co.uk/search">
-</head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leasio | Find the best leasing deal for you.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc; /* Soft Slate-50 background */
+            color: #0f172a; /* Deep Slate-900 text */
+        }
 
+        /* Custom Range Slider in Royal Blue */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 999px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #2563eb;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            transition: transform 0.15s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: #1d4ed8;
+        }
+    </style>
+</head>
 <body class="antialiased selection:bg-blue-600 selection:text-white">
-  <div class="min-h-screen bg-[#f8fafc] flex flex-col">
-    
-    <!-- HEADER -->
+
+    <!-- 1. NAVIGATION BAR -->
     <header class="relative z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0">
       <div class="mx-auto flex h-20 max-w-[1600px] items-center px-5 sm:px-8 lg:px-12 relative">
         
@@ -179,7 +178,7 @@
           </nav>
         </div>
 
-       <!-- SIDE: Action Buttons -->
+        <!-- SIDE: Action Buttons -->
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="guides.html">Guides</a>
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="about-us.html">About Us</a>
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="register.html">Login</a>
@@ -188,21 +187,20 @@
           
           <!-- GLOBAL VAT TOGGLE -->
           <div class="flex items-center gap-2">
-            <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-blue-600" id="label-personal">Personal</span>
-            
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" class="sr-only peer vat-toggle-input">
-              <!-- Track stays bg-blue-600 at all times -->
-              <div class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
-            </label>
-            
-            <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-slate-400" id="label-business">Business</span>
-          </div>
+              <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-blue-600" id="label-personal">Personal</span>
+              
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer vat-toggle-input">
+                <!-- Track stays bg-blue-600 at all times -->
+                <div class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+              </label>
+              
+              <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-slate-400" id="label-business">Business</span>
+            </div>
 
           <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm" href="search.html">SEARCH</a>
         </div>
 <!-- -->
-
       </div>
 
       <script>
@@ -220,35 +218,122 @@
       </script>
     </header>
 
-    // nav.js
-document.addEventListener("DOMContentLoaded", () => {
-    const userJson = localStorage.getItem('leasio_user');
-    
-    // Find all elements or links that point to login or act as the auth button
-    // You can target them by looking for href="login.html" or a specific ID
-    const loginLinks = document.querySelectorAll('a[href="login.html"], a[href="register.html"]');
-    
-    if (userJson) {
-        try {
-            const user = JSON.parse(userJson);
+    <!-- 2. LOGIN SECTION -->
+    <main class="flex-1 flex items-center justify-center px-4 py-12 bg-gradient-to-b from-white via-blue-50/40 to-slate-50">
+        <div class="bg-white p-8 sm:p-10 rounded-2xl shadow-xl shadow-slate-900/5 border border-slate-200/90 w-full max-w-md">
             
-            // Loop through login/register links in the nav and convert them to "Account"
-            loginLinks.forEach(link => {
-                // Only convert if it's the main login/auth nav item (avoid footer links if needed)
-                if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
-                    link.textContent = "Account";
-                    link.setAttribute("href", "dashboard.html");
-                    link.className = "px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-blue-600 font-bold transition-colors";
-                }
-            });
-        } catch (e) {
-            console.error("Failed to parse user session", e);
-            localStorage.removeItem('leasio_user');
-        }
-    }
-});
+            <!-- Header Badge & Title -->
+            <div class="text-center mb-8">
+                <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 mb-3">
+                    Customer Portal
+                </span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Welcome back</h1>
+                <p class="text-sm text-slate-500 mt-1.5">Sign in to manage your vehicle lease deals</p>
+            </div>
 
-<script src="nav.js"></script>
+            <!-- Registration Success Banner (Shown when redirected from register.html) -->
+            <div id="registered-banner" class="hidden mb-6 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold flex items-center gap-2.5">
+                <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold shrink-0">✓</span>
+                <span>Account created! Please sign in below.</span>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="flex flex-col gap-5">
+                <div>
+                    <label for="email" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
+                        Email Address
+                    </label>
+                    <input type="email" id="email" required placeholder="you@example.com"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none transition">
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-1.5">
+                        <label for="password" class="block text-xs font-bold text-slate-500 uppercase tracking-wider">
+                            Password
+                        </label>
+                        <a href="#" class="text-xs font-semibold text-blue-600 hover:text-blue-700 transition">Forgot password?</a>
+                    </div>
+                    <input type="password" id="password" required placeholder="••••••••"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none transition">
+                </div>
+
+                <!-- Error Message Display -->
+                <p id="error-message" class="text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium hidden"></p>
+
+                <button type="submit" id="submit-btn"
+                    class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 hover:shadow-lg hover:shadow-blue-600/30 transition flex items-center justify-center gap-2 mt-1">
+                    <span>Sign In</span>
+                    <span>&rarr;</span>
+                </button>
+            </form>
+
+            <!-- Footer Link to Register -->
+            <div class="mt-8 pt-6 border-t border-slate-100 text-center">
+                <p class="text-xs text-slate-500 font-medium">
+                    Don't have an account yet? 
+                    <a href="register.html" class="text-blue-600 font-bold hover:text-blue-700 transition ml-1">Create an account &rarr;</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = "https://leasio-api.onrender.com";
+
+        // 1. Check if the user just registered (?registered=true)
+        document.addEventListener("DOMContentLoaded", () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('registered') === 'true') {
+                document.getElementById('registered-banner').classList.remove('hidden');
+            }
+        });
+
+        // 2. Handle Login Submission
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const errorMsg = document.getElementById('error-message');
+            const submitBtn = document.getElementById('submit-btn');
+            errorMsg.classList.add('hidden');
+            
+            // Disable button & show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Signing in...</span>';
+
+            const payload = {
+                email: document.getElementById('email').value.trim(),
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Save user info in localStorage so your other pages know the user is logged in
+                    localStorage.setItem('leasio_user', JSON.stringify(data.user));
+                    
+                    // Redirect to homepage
+                    window.location.href = 'main.html';
+                } else {
+                    errorMsg.textContent = data.detail || "Invalid email or password.";
+                    errorMsg.classList.remove('hidden');
+                }
+            } catch (err) {
+                errorMsg.textContent = "Could not connect to the server. Please try again.";
+                errorMsg.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Sign In</span><span>&rarr;</span>';
+            }
+        });
+    </script>
 
 <!-- VAT TOGGLE SYNC SCRIPT -->
   <script>
@@ -258,22 +343,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Set initial visual state on page load
       function syncVisuals(businessMode) {
-        vatInputs.forEach(input => input.checked = businessMode);
+          vatInputs.forEach(input => input.checked = businessMode);
+          
+          const lblPersonal = document.getElementById('label-personal');
+          const lblBusiness = document.getElementById('label-business');
+          
+          if (lblPersonal && lblBusiness) {
+            // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
+            lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
+            lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+          }
         
-        const lblPersonal = document.getElementById('label-personal');
-        const lblBusiness = document.getElementById('label-business');
-        
-        if (lblPersonal && lblBusiness) {
-          // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
-          lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
-          lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+          document.querySelectorAll('.vat-status-text').forEach(el => {
+            el.innerText = businessMode ? 'Business' : 'Personal';
+            el.style.color = '#2563eb';
+          });
         }
-      
-        document.querySelectorAll('.vat-status-text').forEach(el => {
-          el.innerText = businessMode ? 'Business' : 'Personal';
-          el.style.color = '#2563eb';
-        });
-      }
 
       syncVisuals(isBusiness);
 
@@ -292,3 +377,5 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   </script>
+</body>
+</html>
