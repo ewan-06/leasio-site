@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon | Leasio</title>
-    <link href="output.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="canonical" href="https://leasio.co.uk/search">
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #00282f;
-        }
-        /* Sets the GIF as the background, covering the full screen */
-        .gif-background {
-            background-image: url('comingsoongif.gif');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coming Soon | Leasio</title>
+  <link href="output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="canonical" href="https://leasio.co.uk/search">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #00282f;
+    }
+
+    /* Sets the GIF as the background, covering the full screen */
+    .gif-background {
+      background-image: url('comingsoongif.gif');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
 </head>
-<body class="antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col justify-between gif-background relative">
+
+<body
+  class="antialiased selection:bg-blue-600 selection:text-white min-h-screen flex flex-col justify-between gif-background relative">
 
   <!-- Dark Overlay to ensure text readability over the background GIF -->
   <div class="absolute inset-0 bg-[#00282f]/80 z-0"></div>
@@ -30,7 +35,7 @@
   <!-- HEADER -->
   <header class="relative z-50 border-b border-white/10 bg-transparent">
     <div class="mx-auto flex h-20 max-w-[1600px] items-center px-5 sm:px-8 lg:px-12 relative">
-      
+
       <!-- LEFT SIDE: Logo & Navigation Menu -->
       <div class="flex items-center gap-6 lg:gap-10 flex-1">
         <!-- Logo -->
@@ -41,16 +46,22 @@
 
         <!-- Navigation Links -->
         <nav aria-label="Main navigation" class="hidden lg:flex items-center gap-1">
-          
+
           <!-- CARS MEGA MENU -->
           <div class="relative inline-block leasio-nav-container">
             <button onclick="toggleMegaMenu('cars-mega')"
               class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-300 transition-colors hover:text-blue-400 focus:outline-none">
-              CARS<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+              CARS<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                class="lucide lucide-chevron-down">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
             </button>
-            <div id="cars-mega" class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl text-slate-800" style="width: 750px;">
+            <div id="cars-mega"
+              class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl text-slate-800"
+              style="width: 750px;">
               <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">CARS MANUFACTURERS</h3>
-              <div class="grid" style="grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
+              <div class="grid"
+                style="grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
                 <a href="search.html?make=Abarth" class="hover:text-blue-600 transition-colors">Abarth</a>
                 <a href="search.html?make=Aion" class="hover:text-blue-600 transition-colors">Aion</a>
                 <a href="search.html?make=Alfa+Romeo" class="hover:text-blue-600 transition-colors">Alfa Romeo</a>
@@ -66,7 +77,8 @@
                 <a href="search.html?make=Cupra" class="hover:text-blue-600 transition-colors">Cupra</a>
                 <a href="search.html?make=Dacia" class="hover:text-blue-600 transition-colors">Dacia</a>
                 <a href="search.html?make=Denza" class="hover:text-blue-600 transition-colors">Denza</a>
-                <a href="search.html?make=DS+Automobiles" class="hover:text-blue-600 transition-colors">DS Automobiles</a>
+                <a href="search.html?make=DS+Automobiles" class="hover:text-blue-600 transition-colors">DS
+                  Automobiles</a>
                 <a href="search.html?make=Fiat" class="hover:text-blue-600 transition-colors">Fiat</a>
                 <a href="search.html?make=Ford" class="hover:text-blue-600 transition-colors">Ford</a>
                 <a href="search.html?make=Geely" class="hover:text-blue-600 transition-colors">Geely</a>
@@ -110,7 +122,9 @@
                 <a href="search.html?make=Xpeng" class="hover:text-blue-600 transition-colors">Xpeng</a>
               </div>
               <div class="mt-8 border-t border-slate-100 pt-4">
-                <a href="search.html" class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse all cars &rarr;</a>
+                <a href="search.html"
+                  class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse all cars
+                  &rarr;</a>
               </div>
             </div>
           </div>
@@ -119,11 +133,17 @@
           <div class="relative inline-block leasio-nav-container">
             <button onclick="toggleMegaMenu('vans-mega')"
               class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-300 transition-colors hover:text-blue-400 focus:outline-none">
-              VANS<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"></path></svg>
+              VANS<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                class="lucide lucide-chevron-down">
+                <path d="m6 9 6 6 6-6"></path>
+              </svg>
             </button>
-            <div id="vans-mega" class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl text-slate-800" style="width: 400px;">
+            <div id="vans-mega"
+              class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl text-slate-800"
+              style="width: 400px;">
               <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">VANS MANUFACTURERS</h3>
-              <div class="grid" style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
+              <div class="grid"
+                style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
                 <a href="search.html?make=BYD&type=vans" class="hover:text-blue-600 transition-colors">BYD</a>
                 <a href="search.html?make=Citroen&type=vans" class="hover:text-blue-600 transition-colors">Citroen</a>
                 <a href="search.html?make=Dacia&type=vans" class="hover:text-blue-600 transition-colors">Dacia</a>
@@ -133,58 +153,75 @@
                 <a href="search.html?make=GWM+ORA&type=vans" class="hover:text-blue-600 transition-colors">GWM ORA</a>
                 <a href="search.html?make=Ineos&type=vans" class="hover:text-blue-600 transition-colors">Ineos</a>
                 <a href="search.html?make=Isuzu&type=vans" class="hover:text-blue-600 transition-colors">Isuzu</a>
-                <a href="search.html?make=Isuzu+Trucks&type=vans" class="hover:text-blue-600 transition-colors">Isuzu Trucks</a>
+                <a href="search.html?make=Isuzu+Trucks&type=vans" class="hover:text-blue-600 transition-colors">Isuzu
+                  Trucks</a>
                 <a href="search.html?make=Iveco&type=vans" class="hover:text-blue-600 transition-colors">Iveco</a>
-                <a href="search.html?make=KG+Mobility&type=vans" class="hover:text-blue-600 transition-colors">KG Mobility</a>
+                <a href="search.html?make=KG+Mobility&type=vans" class="hover:text-blue-600 transition-colors">KG
+                  Mobility</a>
                 <a href="search.html?make=KIA&type=vans" class="hover:text-blue-600 transition-colors">KIA</a>
-                <a href="search.html?make=Land+Rover&type=vans" class="hover:text-blue-600 transition-colors">Land Rover</a>
+                <a href="search.html?make=Land+Rover&type=vans" class="hover:text-blue-600 transition-colors">Land
+                  Rover</a>
                 <a href="search.html?make=MAN&type=vans" class="hover:text-blue-600 transition-colors">MAN</a>
                 <a href="search.html?make=Mercedes&type=vans" class="hover:text-blue-600 transition-colors">Mercedes</a>
-                <a href="search.html?make=Mitsubishi&type=vans" class="hover:text-blue-600 transition-colors">Mitsubishi</a>
+                <a href="search.html?make=Mitsubishi&type=vans"
+                  class="hover:text-blue-600 transition-colors">Mitsubishi</a>
                 <a href="search.html?make=Nissan&type=vans" class="hover:text-blue-600 transition-colors">Nissan</a>
                 <a href="search.html?make=Peugeot&type=vans" class="hover:text-blue-600 transition-colors">Peugeot</a>
                 <a href="search.html?make=Renault&type=vans" class="hover:text-blue-600 transition-colors">Renault</a>
-                <a href="search.html?make=Renault+Trucks&type=vans" class="hover:text-blue-600 transition-colors">Renault Trucks</a>
+                <a href="search.html?make=Renault+Trucks&type=vans"
+                  class="hover:text-blue-600 transition-colors">Renault Trucks</a>
                 <a href="search.html?make=Skoda&type=vans" class="hover:text-blue-600 transition-colors">Skoda</a>
                 <a href="search.html?make=Toyota&type=vans" class="hover:text-blue-600 transition-colors">Toyota</a>
                 <a href="search.html?make=Vauxhall&type=vans" class="hover:text-blue-600 transition-colors">Vauxhall</a>
-                <a href="search.html?make=Volkswagen&type=vans" class="hover:text-blue-600 transition-colors">Volkswagen</a>
+                <a href="search.html?make=Volkswagen&type=vans"
+                  class="hover:text-blue-600 transition-colors">Volkswagen</a>
                 <a href="search.html?make=Volvo&type=vans" class="hover:text-blue-600 transition-colors">Volvo</a>
               </div>
               <div class="mt-8 border-t border-slate-100 pt-4">
-                <a href="search.html?type=vans" class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse all vans &rarr;</a>
+                <a href="search.html?type=vans"
+                  class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse all vans
+                  &rarr;</a>
               </div>
             </div>
           </div>
 
-          <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-300 transition-colors hover:text-blue-400" href="main.html#best-offers-section">OFFERS</a>
-          
+          <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-300 transition-colors hover:text-blue-400"
+            href="main.html#best-offers-section">OFFERS</a>
+
         </nav>
       </div>
 
       <!-- SIDE: Action Buttons -->
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="guides.html">Guides</a>
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="about-us.html">About Us</a>
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600" href="register.html">Login</a>
-        
-        <div class="flex items-center gap-6 shrink-0 ml-2">
-          
-          <!-- GLOBAL VAT TOGGLE -->
-          <div class="flex items-center gap-2">
-              <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-blue-600" id="label-personal">Personal</span>
-              
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" class="sr-only peer vat-toggle-input">
-                <!-- Track stays bg-blue-600 at all times -->
-                <div class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
-              </label>
-              
-              <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-slate-400" id="label-business">Business</span>
-            </div>
+      <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
+        href="guides.html">Guides</a>
+      <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
+        href="about-us.html">About Us</a>
+      <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
+        href="register.html">Login</a>
 
-          <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm" href="search.html">SEARCH</a>
+      <div class="flex items-center gap-6 shrink-0 ml-2">
+
+        <!-- GLOBAL VAT TOGGLE -->
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-blue-600"
+            id="label-personal">Personal</span>
+
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only peer vat-toggle-input">
+            <!-- Track stays bg-blue-600 at all times -->
+            <div
+              class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
+            </div>
+          </label>
+
+          <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-slate-400"
+            id="label-business">Business</span>
         </div>
+
+        <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm"
+          href="search.html">SEARCH</a>
       </div>
+    </div>
 
     </div>
 
@@ -205,35 +242,37 @@
 
   <!-- CONTENT SECTION -->
   <main class="relative z-10 flex-1 flex items-center justify-center px-4 py-16">
-      <div class="max-w-md w-full text-center">
-          
-          <!-- Badge -->
-          <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#00859b]/20 text-[#00859b] border border-[#00859b]/30 mb-6">
-              Launching Soon
-          </span>
+    <div class="max-w-md w-full text-center">
 
-          <!-- Heading & Text -->
-          <h1 class="text-3xl font-extrabold text-[#00859b] mb-3">Something exciting is on the way</h1>
-          <p class="text-sm font-medium text-[#00859b]/90 leading-relaxed mb-8">
-              We are currently upgrading our platform. Please check back shortly.
-          </p>
+      <!-- Badge -->
+      <span
+        class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#00859b]/20 text-[#00859b] border border-[#00859b]/30 mb-6">
+        Launching Soon
+      </span>
 
-          <!-- Back to Home Button -->
-          <a href="main.html" class="inline-block bg-[#00859b] hover:bg-[#006f81] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl shadow-md transition">
-              &larr; Back to Home
-          </a>
-      </div>
+      <!-- Heading & Text -->
+      <h1 class="text-3xl font-extrabold text-[#00859b] mb-3">Something exciting is on the way</h1>
+      <p class="text-sm font-medium text-[#00859b]/90 leading-relaxed mb-8">
+        We are currently upgrading our platform. Please check back shortly.
+      </p>
+
+      <!-- Back to Home Button -->
+      <a href="main.html"
+        class="inline-block bg-[#00859b] hover:bg-[#006f81] text-white font-bold text-xs uppercase tracking-wider px-6 py-3 rounded-xl shadow-md transition">
+        &larr; Back to Home
+      </a>
+    </div>
   </main>
 
   <!-- FOOTER -->
   <footer class="relative z-10 py-6 text-center text-xs text-[#00859b]/60 border-t border-white/10 bg-transparent">
-      &copy; 2026 Leasio. All rights reserved.
+    &copy; 2026 Leasio. All rights reserved.
   </footer>
 
   <!-- Include nav.js to auto-update login to account if logged in -->
   <script src="nav.js"></script>
 
-<!-- VAT TOGGLE SYNC SCRIPT -->
+  <!-- VAT TOGGLE SYNC SCRIPT -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const vatInputs = document.querySelectorAll('.vat-toggle-input');
@@ -241,22 +280,22 @@
 
       // Set initial visual state on page load
       function syncVisuals(businessMode) {
-          vatInputs.forEach(input => input.checked = businessMode);
-          
-          const lblPersonal = document.getElementById('label-personal');
-          const lblBusiness = document.getElementById('label-business');
-          
-          if (lblPersonal && lblBusiness) {
-            // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
-            lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
-            lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
-          }
-        
-          document.querySelectorAll('.vat-status-text').forEach(el => {
-            el.innerText = businessMode ? 'Business' : 'Personal';
-            el.style.color = '#2563eb';
-          });
+        vatInputs.forEach(input => input.checked = businessMode);
+
+        const lblPersonal = document.getElementById('label-personal');
+        const lblBusiness = document.getElementById('label-business');
+
+        if (lblPersonal && lblBusiness) {
+          // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
+          lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
+          lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
         }
+
+        document.querySelectorAll('.vat-status-text').forEach(el => {
+          el.innerText = businessMode ? 'Business' : 'Personal';
+          el.style.color = '#2563eb';
+        });
+      }
 
       syncVisuals(isBusiness);
 
@@ -266,7 +305,7 @@
           const newMode = e.target.checked ? 'business' : 'personal';
           localStorage.setItem('leasio_vat_mode', newMode);
           syncVisuals(e.target.checked);
-          
+
           // Re-calculate the live price if we are on the vehicles page
           if (typeof window.fetchValuation === 'function') {
             window.fetchValuation();
@@ -276,4 +315,5 @@
     });
   </script>
 </body>
+
 </html>
