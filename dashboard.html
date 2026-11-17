@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
@@ -239,7 +239,6 @@
         <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm"
           href="search.html">SEARCH</a>
       </div>
-      <!-- -->
     </div>
 
     <script>
@@ -258,10 +257,12 @@
   </header>
 
   <!-- MAIN DASHBOARD LAYOUT WITH SIDEBAR -->
-  <div class="flex-1 max-w-[1600px] mx-auto w-full flex flex-col md:flex-row">
+  <div class="flex-1 max-w-[1600px] mx-auto w-full flex flex-col md:flex-row items-start">
 
-    <!-- SIDEBAR -->
-    <aside class="w-full md:w-72 bg-white border-r border-slate-200/80 p-6 flex flex-col justify-between shrink-0">
+    <!-- SIDEBAR (Now Sticky) -->
+    <!-- Added sticky, top-28, self-start, and dynamic height so it locks in place -->
+    <aside
+      class="w-full md:w-72 bg-white border-r border-slate-200/80 p-6 flex flex-col justify-between shrink-0 sticky top-28 self-start h-[calc(100vh-112px)] overflow-y-auto">
       <div class="space-y-6">
         <!-- User Quick View -->
         <div class="px-3 pb-6 border-b border-slate-100">
@@ -269,25 +270,25 @@
           <p id="sidebar-user-name" class="text-sm font-extrabold text-slate-900 truncate">Loading...</p>
         </div>
 
-        <!-- Navigation Links -->
+        <!-- Navigation Links (Updated with # anchor links) -->
         <nav class="space-y-1">
-          <a href="dashboard.html"
+          <a href="#dashboard"
             class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold bg-blue-50 text-blue-600 transition">
             <span>Dashboard</span>
           </a>
-          <a href="contracts.html"
+          <a href="#contracts"
             class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
             <span>Contracts</span>
           </a>
-          <a href="saved-quotes.html"
+          <a href="#saved-quotes"
             class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
             <span>Saved Quotes</span>
           </a>
-          <a href="benefits.html"
+          <a href="#benefits"
             class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
             <span>Benefits</span>
           </a>
-          <a href="account-details.html"
+          <a href="#account-details"
             class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition">
             <span>Account Details</span>
           </a>
@@ -295,7 +296,7 @@
       </div>
 
       <!-- Sign Out Button inside Sidebar -->
-      <div class="pt-6 border-t border-slate-100 mt-6">
+      <div class="pt-6 border-t border-slate-100 mt-6 shrink-0">
         <button id="logout-btn"
           class="w-full border border-red-200 bg-red-50 hover:bg-red-100 text-red-600 font-bold text-xs uppercase tracking-wider px-4 py-3 rounded-xl transition text-center">
           Sign Out
@@ -305,29 +306,71 @@
 
     <!-- DASHBOARD CONTENT AREA -->
     <main class="flex-1 p-6 sm:p-10 lg:p-12">
-      <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <span
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 mb-2">
-            Member Dashboard
-          </span>
-          <h1 id="welcome-heading" class="text-3xl font-extrabold text-slate-900">Welcome back</h1>
-          <p class="text-sm text-slate-500 mt-1">Manage your personal details and saved lease configurations.</p>
-        </div>
-      </div>
 
-      <!-- Account Info Grid Card -->
-      <div
-        class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Full Name</h3>
-          <p id="user-name" class="text-base font-bold text-slate-900">-</p>
+      <!-- Section 1: Dashboard -->
+      <section id="dashboard" class="scroll-mt-28 mb-20">
+        <div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <span
+              class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-blue-100 text-blue-700 mb-2">
+              Member Dashboard
+            </span>
+            <h1 id="welcome-heading" class="text-3xl font-extrabold text-slate-900">Welcome back</h1>
+            <p class="text-sm text-slate-500 mt-1">Manage your personal details and saved lease configurations.</p>
+          </div>
         </div>
-        <div>
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Email Address</h3>
-          <p id="user-email" class="text-base font-bold text-slate-900">-</p>
+
+        <!-- Account Info Grid Card -->
+        <div
+          class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-6 sm:p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Full Name</h3>
+            <p id="user-name" class="text-base font-bold text-slate-900">-</p>
+          </div>
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">Email Address</h3>
+            <p id="user-email" class="text-base font-bold text-slate-900">-</p>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- Section 2: Contracts -->
+      <section id="contracts" class="scroll-mt-28 mb-20 border-t border-slate-200 pt-10">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Contracts</h2>
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-8 text-center">
+          <p class="text-slate-500 font-medium">You have no active contracts at this time.</p>
+        </div>
+      </section>
+
+      <!-- Section 3: Saved Quotes -->
+      <section id="saved-quotes" class="scroll-mt-28 mb-20 border-t border-slate-200 pt-10">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Saved Quotes</h2>
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-8 text-center">
+          <p class="text-slate-500 font-medium">Your saved quotes will appear here.</p>
+        </div>
+      </section>
+
+      <!-- Section 4: Benefits -->
+      <section id="benefits" class="scroll-mt-28 mb-20 border-t border-slate-200 pt-10">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Member Benefits</h2>
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-8 text-center">
+          <p class="text-slate-500 font-medium">Exclusive offers and benefits are coming soon.</p>
+        </div>
+      </section>
+
+      <!-- Section 5: Account Details -->
+      <section id="account-details" class="scroll-mt-28 mb-20 border-t border-slate-200 pt-10">
+        <h2 class="text-2xl font-bold text-slate-900 mb-4">Account Details</h2>
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-8">
+          <p class="text-slate-500 font-medium mb-6">Update your account information.</p>
+          <!-- Future form inputs go here -->
+          <button
+            class="bg-slate-900 hover:bg-slate-800 text-white font-bold py-2.5 px-6 rounded-xl transition text-sm shadow-sm">
+            Edit Details
+          </button>
+        </div>
+      </section>
+
     </main>
   </div>
 
@@ -358,15 +401,12 @@
       const vatInputs = document.querySelectorAll('.vat-toggle-input');
       const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
 
-      // Set initial visual state on page load
       function syncVisuals(businessMode) {
         vatInputs.forEach(input => input.checked = businessMode);
-
         const lblPersonal = document.getElementById('label-personal');
         const lblBusiness = document.getElementById('label-business');
 
         if (lblPersonal && lblBusiness) {
-          // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
           lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
           lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
         }
@@ -379,14 +419,11 @@
 
       syncVisuals(isBusiness);
 
-      // Listen for slider clicks
       vatInputs.forEach(input => {
         input.addEventListener('change', (e) => {
           const newMode = e.target.checked ? 'business' : 'personal';
           localStorage.setItem('leasio_vat_mode', newMode);
           syncVisuals(e.target.checked);
-
-          // Re-calculate the live price if we are on the vehicles page
           if (typeof window.fetchValuation === 'function') {
             window.fetchValuation();
           }
