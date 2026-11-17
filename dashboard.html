@@ -380,12 +380,23 @@
     const userJson = localStorage.getItem('leasio_user');
     if (!userJson) {
       window.location.href = 'login.html';
-    } else {// Fetch Saved Quotes
+    } else {// Fetch Saved Quotes (Upgraded with error handling)
       fetch(`https://leasio-api.onrender.com/api/get_quotes?email=${encodeURIComponent(user.email)}`)
-        .then(res => res.json())
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP Error: ${res.status}`);
+          return res.json();
+        })
         .then(quotes => {
           const container = document.getElementById('quotes-container');
-          if (!quotes || quotes.length === 0) {
+
+          // Check if the backend caught a SQL error and sent it back
+          if (quotes.error) {
+            console.error("Backend SQL Error:", quotes.error);
+            container.innerHTML = `<p class="text-red-500 font-medium">Database connection failed. Check console.</p>`;
+            return;
+          }
+
+          if (!Array.isArray(quotes) || quotes.length === 0) {
             container.innerHTML = `<p class="text-slate-500 font-medium">You have no saved quotes.</p>`;
             return;
           }
@@ -413,7 +424,8 @@
         `).join('');
         })
         .catch(err => {
-          document.getElementById('quotes-container').innerHTML = `<p class="text-red-500 font-medium">Error loading quotes.</p>`;
+          console.error("Fetch failed:", err);
+          document.getElementById('quotes-container').innerHTML = `<p class="text-red-500 font-medium">Error loading quotes. Are you sure main.py finished deploying?</p>`;
         });
       const user = JSON.parse(userJson);
       document.getElementById('sidebar-user-name').textContent = `${user.first_name} ${user.last_name}`;
