@@ -345,8 +345,8 @@
       <!-- Section 3: Saved Quotes -->
       <section id="saved-quotes" class="scroll-mt-28 mb-20 border-t border-slate-200 pt-10">
         <h2 class="text-2xl font-bold text-slate-900 mb-4">Saved Quotes</h2>
-        <div class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-8 text-center">
-          <p class="text-slate-500 font-medium">Your saved quotes will appear here.</p>
+        <div id="quotes-container" class="bg-white rounded-2xl shadow-sm border border-slate-200/90 p-8 text-center">
+          <p class="text-slate-500 font-medium">Loading saved quotes...</p>
         </div>
       </section>
 
@@ -380,7 +380,41 @@
     const userJson = localStorage.getItem('leasio_user');
     if (!userJson) {
       window.location.href = 'login.html';
-    } else {
+    } else {// Fetch Saved Quotes
+      fetch(`https://leasio-api.onrender.com/api/get_quotes?email=${encodeURIComponent(user.email)}`)
+        .then(res => res.json())
+        .then(quotes => {
+          const container = document.getElementById('quotes-container');
+          if (!quotes || quotes.length === 0) {
+            container.innerHTML = `<p class="text-slate-500 font-medium">You have no saved quotes.</p>`;
+            return;
+          }
+
+          container.classList.remove('p-8', 'text-center');
+          container.classList.add('grid', 'grid-cols-1', 'gap-4', 'p-6');
+
+          container.innerHTML = quotes.map(q => `
+          <div class="border border-slate-200 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-blue-300 transition">
+            <div>
+              <h3 class="font-extrabold text-slate-900 uppercase">${q.Make} ${q.Model}</h3>
+              <p class="text-xs text-slate-500 line-clamp-1">${q.Derivative}</p>
+              <div class="flex items-center gap-2 mt-2 font-mono text-[10px] text-slate-400">
+                <span class="bg-slate-100 px-2 py-0.5 rounded">${q.InitialPayment}mo Initial</span>
+                <span class="bg-slate-100 px-2 py-0.5 rounded">${q.Term}mo Term</span>
+                <span class="bg-slate-100 px-2 py-0.5 rounded">${q.Mileage} mi/yr</span>
+              </div>
+            </div>
+            <div class="text-left sm:text-right shrink-0">
+              <p class="text-2xl font-bold text-blue-600">£${q.MonthlyPrice.toFixed(2)}</p>
+              <p class="text-[10px] font-mono text-slate-400 uppercase">${q.IsBusiness ? '+VAT' : 'inc VAT'}</p>
+              <a href="vehicles.html?cap=${q.CAP_Code}&type=car" class="inline-block mt-2 text-xs font-bold text-blue-600 hover:text-blue-800">View Vehicle &rarr;</a>
+            </div>
+          </div>
+        `).join('');
+        })
+        .catch(err => {
+          document.getElementById('quotes-container').innerHTML = `<p class="text-red-500 font-medium">Error loading quotes.</p>`;
+        });
       const user = JSON.parse(userJson);
       document.getElementById('sidebar-user-name').textContent = `${user.first_name} ${user.last_name}`;
       document.getElementById('welcome-heading').textContent = `Welcome back, ${user.first_name}`;
