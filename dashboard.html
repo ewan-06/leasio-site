@@ -431,6 +431,45 @@
       });
     });
   </script>
+
+  <!-- SCROLL SPY SCRIPT FOR SIDEBAR -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const sections = document.querySelectorAll("main section[id]");
+      const navLinks = document.querySelectorAll("aside nav a[href^='#']");
+
+      // This margin creates a horizontal "tripwire" just below your sticky top header
+      const observerOptions = {
+        root: null,
+        rootMargin: "-120px 0px -40% 0px",
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const activeId = entry.target.id;
+
+            navLinks.forEach(link => {
+              const isActive = link.getAttribute("href") === `#${activeId}`;
+
+              if (isActive) {
+                // Apply active styling
+                link.classList.add("bg-blue-50", "text-blue-600", "font-bold");
+                link.classList.remove("text-slate-600", "hover:bg-slate-50", "hover:text-slate-900", "font-medium");
+              } else {
+                // Apply inactive styling
+                link.classList.add("text-slate-600", "hover:bg-slate-50", "hover:text-slate-900", "font-medium");
+                link.classList.remove("bg-blue-50", "text-blue-600", "font-bold");
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => observer.observe(section));
+    });
+  </script>
 </body>
 
 </html>
