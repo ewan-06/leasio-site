@@ -324,110 +324,113 @@
 
   <script>
     const API_BASE = "https://leasio-api.onrender.com";
+    function isValidEmail(email) {
+      const strictEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return strictEmailRegex.test(email);
+    }
 
-    // 1. Check if the user just registered (?registered=true)
-    document.addEventListener("DOMContentLoaded", () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('registered') === 'true') {
-        document.getElementById('registered-banner').classList.remove('hidden');
-      }
-    });
-
-    // 2. Handle Login Submission
-    document.getElementById('login-form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const emailInput = document.getElementById('email').value.trim();
-      const passwordInput = document.getElementById('password').value;
-
-      // Validate email format
-      if (!isValidEmail(emailInput)) {
-        alert("Please enter a valid email address (e.g., name@example.com)");
-        return;
-      }
-
-      const errorMsg = document.getElementById('error-message');
-      const submitBtn = document.getElementById('submit-btn');
-      errorMsg.classList.add('hidden');
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Signing in...</span>';
-
-      const payload = {
-        email: document.getElementById('email').value.trim(),
-        password: document.getElementById('password').value
-      };
-
-      try {
-        const response = await fetch(`${API_BASE}/api/login`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          // Save user info in localStorage so your other pages know the user is logged in
-          localStorage.setItem('leasio_user', JSON.stringify(data.user));
-
-          // Redirect to homepage
-          window.location.href = 'main.html';
-        } else {
-          errorMsg.textContent = data.detail || "Invalid email or password.";
-          errorMsg.classList.remove('hidden');
+      document.addEventListener("DOMContentLoaded", () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('registered') === 'true') {
+          document.getElementById('registered-banner').classList.remove('hidden');
         }
-      } catch (err) {
-        errorMsg.textContent = "Could not connect to the server. Please try again.";
-        errorMsg.classList.remove('hidden');
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<span>Sign In</span><span>&rarr;</span>';
-      }
-    });
+      });
+
+      // 2. Handle Login Submission
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const emailInput = document.getElementById('email').value.trim();
+        const passwordInput = document.getElementById('password').value;
+
+        // Validate email format
+        if (!isValidEmail(emailInput)) {
+          alert("Please enter a valid email address (e.g., name@example.com)");
+          return;
+        }
+
+        const errorMsg = document.getElementById('error-message');
+        const submitBtn = document.getElementById('submit-btn');
+        errorMsg.classList.add('hidden');
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Signing in...</span>';
+
+        const payload = {
+          email: document.getElementById('email').value.trim(),
+          password: document.getElementById('password').value
+        };
+
+        try {
+          const response = await fetch(`${API_BASE}/api/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            // Save user info in localStorage so your other pages know the user is logged in
+            localStorage.setItem('leasio_user', JSON.stringify(data.user));
+
+            // Redirect to homepage
+            window.location.href = 'main.html';
+          } else {
+            errorMsg.textContent = data.detail || "Invalid email or password.";
+            errorMsg.classList.remove('hidden');
+          }
+        } catch (err) {
+          errorMsg.textContent = "Could not connect to the server. Please try again.";
+          errorMsg.classList.remove('hidden');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span>Sign In</span><span>&rarr;</span>';
+        }
+      });
   </script>
 
   <!-- VAT TOGGLE SYNC SCRIPT -->
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const vatInputs = document.querySelectorAll('.vat-toggle-input');
-      const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+      document.addEventListener("DOMContentLoaded", () => {
+        const vatInputs = document.querySelectorAll('.vat-toggle-input');
+        const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
 
-      // Set initial visual state on page load
-      function syncVisuals(businessMode) {
-        vatInputs.forEach(input => input.checked = businessMode);
+        // Set initial visual state on page load
+        function syncVisuals(businessMode) {
+          vatInputs.forEach(input => input.checked = businessMode);
 
-        const lblPersonal = document.getElementById('label-personal');
-        const lblBusiness = document.getElementById('label-business');
+          const lblPersonal = document.getElementById('label-personal');
+          const lblBusiness = document.getElementById('label-business');
 
-        if (lblPersonal && lblBusiness) {
-          // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
-          lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
-          lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+          if (lblPersonal && lblBusiness) {
+            // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
+            lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
+            lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+          }
+
+          document.querySelectorAll('.vat-status-text').forEach(el => {
+            el.innerText = businessMode ? 'Business' : 'Personal';
+            el.style.color = '#2563eb';
+          });
         }
 
-        document.querySelectorAll('.vat-status-text').forEach(el => {
-          el.innerText = businessMode ? 'Business' : 'Personal';
-          el.style.color = '#2563eb';
-        });
-      }
+        syncVisuals(isBusiness);
 
-      syncVisuals(isBusiness);
+        // Listen for slider clicks
+        vatInputs.forEach(input => {
+          input.addEventListener('change', (e) => {
+            const newMode = e.target.checked ? 'business' : 'personal';
+            localStorage.setItem('leasio_vat_mode', newMode);
+            syncVisuals(e.target.checked);
 
-      // Listen for slider clicks
-      vatInputs.forEach(input => {
-        input.addEventListener('change', (e) => {
-          const newMode = e.target.checked ? 'business' : 'personal';
-          localStorage.setItem('leasio_vat_mode', newMode);
-          syncVisuals(e.target.checked);
-
-          // Re-calculate the live price if we are on the vehicles page
-          if (typeof window.fetchValuation === 'function') {
-            window.fetchValuation();
-          }
+            // Re-calculate the live price if we are on the vehicles page
+            if (typeof window.fetchValuation === 'function') {
+              window.fetchValuation();
+            }
+          });
         });
       });
-    });
   </script>
 </body>
 

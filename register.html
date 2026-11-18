@@ -317,6 +317,10 @@
     </div>
 
     <script>
+      function isValidEmail(email) {
+        const strictEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return strictEmailRegex.test(email);
+      }
       document.getElementById('register-form').addEventListener('submit', async (e) => {
         e.preventDefault();
 
