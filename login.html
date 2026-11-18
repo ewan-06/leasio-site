@@ -284,11 +284,9 @@
       <!-- Login Form -->
       <form id="login-form" class="flex flex-col gap-5">
         <div>
-          <label for="email" class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">
-            Email Address
-          </label>
-          <input type="email" id="email" required placeholder="you@example.com"
-            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 focus:bg-white focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 outline-none transition">
+          <label for="email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email Address</label>
+          <input type="email" id="email" name="email" required placeholder="name@example.com"
+            class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-sm font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
         </div>
 
         <div>
@@ -339,11 +337,19 @@
     document.getElementById('login-form').addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      const emailInput = document.getElementById('email').value.trim();
+      const passwordInput = document.getElementById('password').value;
+
+      // Validate email format
+      if (!isValidEmail(emailInput)) {
+        alert("Please enter a valid email address (e.g., name@example.com)");
+        return;
+      }
+
       const errorMsg = document.getElementById('error-message');
       const submitBtn = document.getElementById('submit-btn');
       errorMsg.classList.add('hidden');
 
-      // Disable button & show loading state
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<span>Signing in...</span>';
 
