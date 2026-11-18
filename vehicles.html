@@ -466,7 +466,8 @@
                   class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
                   onclick="setInitial(12, this)">12m</button>
               </div>
-              <button id="save-quote-btn" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition text-sm shadow-sm hidden">
+              <button id="save-quote-btn"
+                class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 px-4 rounded-xl transition text-sm shadow-sm hidden">
                 Save Quote
               </button>
             </div>
@@ -620,12 +621,10 @@
                       term: Number(window.leaseState.term),
                       mileage: Number(window.leaseState.mileage),
                       initial: Number(window.leaseState.initial),
-                      Initial: Number(window.leaseState.initial), // Sends both cases to prevent 422 errors
+                      Initial: Number(window.leaseState.initial),
                       price: Number(rawPrice),
                       is_business: Boolean(isBusiness)
                     };
-
-                    console.log("Sending quote payload:", payload);
 
                     const saveRes = await fetch('https://leasio-api.onrender.com/api/save_quote', {
                       method: 'POST',
@@ -634,7 +633,6 @@
                     });
 
                     const responseData = await saveRes.json();
-                    console.log("Server response:", saveRes.status, responseData);
 
                     if (!saveRes.ok) {
                       throw new Error(JSON.stringify(responseData));
@@ -643,35 +641,61 @@
                     saveBtn.innerHTML = "✓ Saved to Dashboard";
                     saveBtn.classList.replace('bg-blue-600', 'bg-emerald-600');
                   } catch (e) {
-                    saveBtn.innerHTML = "Error saving (Check Console)";
+                    saveBtn.innerHTML = "Error saving";
                     console.error("Exact Save Error:", e.message);
                   }
 
                   setTimeout(() => {
                     saveBtn.innerHTML = originalText;
                     saveBtn.disabled = false;
-                    saveBtn.classList.remove('bg-emerald-600');
-                    saveBtn.classList.add('bg-blue-600');
+                    saveBtn.classList.replace('bg-emerald-600', 'bg-blue-600');
                   }, 3000);
                 };
 
-              } else {
-                priceDisplayBox.innerText = "POA";
               }
-            } catch (e) {
-              priceDisplayBox.innerText = "Unavailable";
-              console.error("Calculation fetch failed:", e);
+            } else {
+              priceDisplayBox.innerText = "POA";
             }
+          } catch (e) {
+            priceDisplayBox.innerText = "Unavailable";
+            console.error("Calculation fetch failed:", e);
           }
+        };
 
         window.fetchValuation();
 
-          window.setInitial = function (months, clickedBtn) {
-            window.leaseState.initial = months;
-            const lbl = document.getElementById('label-initial');
-            if (lbl) lbl.innerText = `${months} mo`;
+        window.setInitial = function (months, clickedBtn) {
+          window.leaseState.initial = months;
+          const lbl = document.getElementById('label-initial');
+          if (lbl) lbl.innerText = `${months} mo`;
 
-            const rowContainer = clickedBtn.closest('.flex');
+          const rowContainer = clickedBtn.closest('.flex');
+          if (rowContainer) {
+            rowContainer.querySelectorAll('button').forEach(b => {
+              b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
+              b.classList.add('text-slate-600');
+              b.setAttribute('aria-pressed', 'false');
+            });
+          }
+          clickedBtn.classList.remove('text-slate-600');
+          clickedBtn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+          clickedBtn.setAttribute('aria-pressed', 'true');
+
+          window.fetchValuation();
+        }
+
+        calculatorContainer.querySelectorAll('button').forEach(btn => {
+          if (btn.getAttribute('onclick')?.includes('setInitial')) return;
+
+          btn.addEventListener('click', (e) => {
+            const text = e.currentTarget.innerText.trim();
+            if (text.includes('mo')) {
+              window.leaseState.term = parseInt(text);
+            } else if (text.includes('k')) {
+              window.leaseState.mileage = parseInt(text) * 1000;
+            }
+
+            const rowContainer = e.currentTarget.closest('.flex');
             if (rowContainer) {
               rowContainer.querySelectorAll('button').forEach(b => {
                 b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
@@ -679,41 +703,15 @@
                 b.setAttribute('aria-pressed', 'false');
               });
             }
-            clickedBtn.classList.remove('text-slate-600');
-            clickedBtn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
-            clickedBtn.setAttribute('aria-pressed', 'true');
+            e.currentTarget.classList.remove('text-slate-600');
+            e.currentTarget.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+            e.currentTarget.setAttribute('aria-pressed', 'true');
 
             window.fetchValuation();
-          }
-
-          calculatorContainer.querySelectorAll('button').forEach(btn => {
-            if (btn.getAttribute('onclick')?.includes('setInitial')) return;
-
-            btn.addEventListener('click', (e) => {
-              const text = e.currentTarget.innerText.trim();
-              if (text.includes('mo')) {
-                window.leaseState.term = parseInt(text);
-              } else if (text.includes('k')) {
-                window.leaseState.mileage = parseInt(text) * 1000;
-              }
-
-              const rowContainer = e.currentTarget.closest('.flex');
-              if (rowContainer) {
-                rowContainer.querySelectorAll('button').forEach(b => {
-                  b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
-                  b.classList.add('text-slate-600');
-                  b.setAttribute('aria-pressed', 'false');
-                });
-              }
-              e.currentTarget.classList.remove('text-slate-600');
-              e.currentTarget.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
-              e.currentTarget.setAttribute('aria-pressed', 'true');
-
-              window.fetchValuation();
-            });
           });
-        }
-      });
+        });
+      }
+    });
 
     // nav.js
     document.addEventListener("DOMContentLoaded", () => {
