@@ -639,7 +639,8 @@
                     }
 
                     saveBtn.innerHTML = "✓ Saved to Dashboard";
-                    saveBtn.classList.replace('bg-blue-600', 'bg-emerald-600');
+                    saveBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                    saveBtn.style.backgroundColor = '#059669'; // Emerald 600
                   } catch (e) {
                     saveBtn.innerHTML = "Error saving";
                     console.error("Exact Save Error:", e.message);
@@ -648,7 +649,8 @@
                   setTimeout(() => {
                     saveBtn.innerHTML = originalText;
                     saveBtn.disabled = false;
-                    saveBtn.classList.replace('bg-emerald-600', 'bg-blue-600');
+                    saveBtn.style.backgroundColor = '';
+                    saveBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
                   }, 3000);
                 };
 
@@ -686,6 +688,7 @@
 
         calculatorContainer.querySelectorAll('button').forEach(btn => {
           if (btn.getAttribute('onclick')?.includes('setInitial')) return;
+          if (btn.id === 'save-quote-btn') return;
 
           btn.addEventListener('click', (e) => {
             const text = e.currentTarget.innerText.trim();
