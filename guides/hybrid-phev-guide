@@ -361,7 +361,13 @@
       </div>
     </article>
   </main>
-
-  <!-- [INSERT YOUR FOOTER HERE] -->
+<!-- FOOTER -->
+    <footer class="relative z-20 border-t border-slate-200 bg-white">
+      <div
+        class="mx-auto flex max-w-[1600px] flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+        <p class="text-xs text-slate-500 font-medium">© 2026 Leasio. Car leasing made easy.</p>
+        <p class="font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold">Live Fleet Database</p>
+      </div>
+    </footer>
 </body>
 </html>
