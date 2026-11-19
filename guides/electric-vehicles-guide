@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electric Vehicles (EV) Leasing Guide | Leasio</title>
+  <link href="output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #f8fafc; color: #0f172a; }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-blue-600 selection:text-white flex flex-col min-h-screen">
+  <!-- [INSERT YOUR HEADER HERE] -->
+
+  <main class="flex-1">
+    <div class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-[1200px] px-5 py-4 sm:px-8">
+        <nav aria-label="Breadcrumb" class="flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-slate-400">
+          <a href="main.html" class="hover:text-slate-900 transition-colors">Home</a>
+          <span>&rsaquo;</span>
+          <a href="guides.html" class="hover:text-slate-900 transition-colors">Guides</a>
+          <span>&rsaquo;</span>
+          <span class="text-slate-900 font-bold">Electric Vehicles</span>
+        </nav>
+      </div>
+    </div>
+
+    <article class="mx-auto max-w-[1200px] px-5 py-12 sm:px-8">
+      <div class="bg-white border border-slate-200 rounded-2xl p-8 sm:p-12 shadow-sm">
+        <span class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-4">
+          Electric Leasing
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Leasing an Electric Vehicle (EV)
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-slate-500 leading-relaxed">
+          Smooth acceleration, low day-to-day energy costs, and no worries about long-term battery resale value—here's what to know before leasing an EV.
+        </p>
+
+        <hr class="my-8 border-slate-100">
+
+        <div class="space-y-6 text-slate-700 leading-relaxed text-sm sm:text-base">
+          <h2 class="text-xl font-bold text-slate-900">Why leasing pairs naturally with EVs</h2>
+          <p>
+            Battery technology and range improve quickly, which makes leasing a popular way to drive a newer EV without committing to owning it forever. At the end of your lease, you hand the car back rather than worrying about how future battery tech affects used values.
+          </p>
+
+          <h2 class="text-xl font-bold text-slate-900">Charging and range tips</h2>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Home charging is cheapest:</strong> If you have off-street parking and a home charger, waking up to a full battery every morning—especially on an EV energy tariff—keeps running costs low.</li>
+            <li><strong>Real-world range vs. weather:</strong> Cold winter temperatures and high motorway speeds reduce real-world range compared to official figures, so leave a comfortable buffer for regular long trips.</li>
+            <li><strong>Public charging:</strong> Public rapid chargers are great for occasional long journeys, though they usually cost more per kWh than charging at home.</li>
+          </ul>
+        </div>
+
+        <div class="mt-10 bg-blue-50 border border-blue-100 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-extrabold text-slate-900">See available electric leases</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1">Head to the search page and filter for electric models.</p>
+          </div>
+          <a href="search.html?type=car" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-sm transition shrink-0 text-center">
+            Browse EV Deals &rarr;
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- [INSERT YOUR FOOTER HERE] -->
+</body>
+</html>
