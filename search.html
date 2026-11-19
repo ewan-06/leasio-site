@@ -211,8 +211,41 @@
         </div>
 
         <!-- SIDE: Action Buttons -->
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
-          href="guides.html">Guides</a>
+        <!-- GUIDES DROPDOWN MENU -->
+        <div class="relative inline-block leasio-nav-container">
+          <button onclick="toggleMegaMenu('guides-mega')"
+            class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 uppercase transition-colors hover:text-blue-600 focus:outline-none">
+            Guides
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              class="lucide lucide-chevron-down">
+              <path d="m6 9 6 6 6-6"></path>
+            </svg>
+          </button>
+
+          <div id="guides-mega"
+            class="leasio-mega-menu absolute top-full right-0 bg-white border border-slate-200 p-6 hidden shadow-2xl rounded-2xl z-50"
+            style="width: 280px;">
+            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-4 uppercase font-bold">Leasing Guides</h3>
+            <div class="flex flex-col gap-3 text-sm text-slate-800">
+              <a href="/guides/personal-contract-hire" class="hover:text-blue-600 transition-colors">Personal
+                Contract Hire</a>
+              <a href="/guides/business-contract-hire" class="hover:text-blue-600 transition-colors">Business
+                Contract Hire</a>
+              <a href="/guides/car-leasing" class="hover:text-blue-600 transition-colors">Car Leasing</a>
+              <a href="/guides/van-leasing" class="hover:text-blue-600 transition-colors">Van Leasing</a>
+              <a href="/guides/hybrid-phev-vehicles" class="hover:text-blue-600 transition-colors">Hybrid/PHEV
+                Vehicles</a>
+              <a href="/guides/electric-vehicles" class="hover:text-blue-600 transition-colors">Electric
+                Vehicles</a>
+              <a href="/guides/leasing-faqs" class="hover:text-blue-600 transition-colors">Leasing FAQs</a>
+            </div>
+            <div class="mt-5 border-t border-slate-100 pt-3">
+              <a href="/guides.html" class="font-bold text-xs text-blue-600 hover:text-blue-700 transition-colors">
+                View all guides &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
           href="about-us.html">About Us</a>
         <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
