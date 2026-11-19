@@ -343,7 +343,7 @@
           <!-- SIDEBAR FILTERS -->
           <aside id="filter-sidebar" aria-label="Refine your search"
             class="hidden w-full shrink-0 lg:block lg:w-72 z-20"
-            style="position: sticky; top: 6rem; align-self: flex-start;">
+            style="position: sticky; top: 6rem; align-self: flex-start; max-height: calc(100vh - 7rem); overflow-y: auto;">
             <div>
               <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
                 <p
@@ -425,8 +425,8 @@
 
                     <!-- Hidden Dropdown Panel -->
                     <div id="filter-body-dropdown"
-                      class="hidden absolute top-full left-0 mt-2 w-full lg:w-[320px] bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
-                      <div class="p-4 max-h-[400px] overflow-y-auto">
+                      class="hidden mt-2 w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                      <div class="p-4">
 
                         <!-- Clear Selection -->
                         <button type="button" onclick="selectBodyFilter('', '')"
@@ -438,7 +438,7 @@
                         <h4 class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Vehicle Size
                         </h4>
                         <div class="grid grid-cols-3 gap-2 mb-5">
-                          <button type="button" onclick="selectHeroBodyFilter('size', 'small')"
+                          <button type="button" onclick="selectBodyFilter('size', 'small')"
                             class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -447,7 +447,7 @@
                             </div>
                             <span class="text-[10px] font-bold text-slate-700">Small</span>
                           </button>
-                          <button type="button" onclick="selectHeroBodyFilter('size', 'medium')"
+                          <button type="button" onclick="selectBodyFilter('size', 'medium')"
                             class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -456,7 +456,7 @@
                             </div>
                             <span class="text-[10px] font-bold text-slate-700">Medium</span>
                           </button>
-                          <button type="button" onclick="selectHeroBodyFilter('size', 'large')"
+                          <button type="button" onclick="selectBodyFilter('size', 'large')"
                             class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -470,7 +470,7 @@
                         <!-- Section 2: Body Type -->
                         <h4 class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Body Type</h4>
                         <div class="grid grid-cols-2 gap-2">
-                          <button type="button" onclick="selectHeroBodyFilter('bodytype', 'hatchback')"
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'hatchback')"
                             class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -479,7 +479,7 @@
                             </div>
                             <span class="text-[10px] font-bold text-slate-700">Hatchback</span>
                           </button>
-                          <button type="button" onclick="selectHeroBodyFilter('bodytype', 'convertible')"
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'convertible')"
                             class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -488,7 +488,7 @@
                             </div>
                             <span class="text-[10px] font-bold text-slate-700">Convertible</span>
                           </button>
-                          <button type="button" onclick="selectHeroBodyFilter('bodytype', 'coupe')"
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'coupe')"
                             class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -497,7 +497,7 @@
                             </div>
                             <span class="text-[10px] font-bold text-slate-700">Coupe</span>
                           </button>
-                          <button type="button" onclick="selectHeroBodyFilter('bodytype', 'saloon')"
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'saloon')"
                             class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -506,7 +506,7 @@
                             </div>
                             <span class="text-[10px] font-bold text-slate-700">Saloon</span>
                           </button>
-                          <button type="button" onclick="selectHeroBodyFilter('bodytype', 'Estate')"
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'Estate')"
                             class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -515,7 +515,7 @@
                             </div>
                             <span class="text-[10px] font-bold text-slate-700">Estate</span>
                           </button>
-                          <button type="button" onclick="selectHeroBodyFilter('bodytype', 'suv')"
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'suv')"
                             class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -524,7 +524,7 @@
                             </div>
                             <span class="text-[10px] font-bold text-slate-700">SUV</span>
                           </button>
-                          <button type="button" onclick="selectHeroBodyFilter('bodytype', '')"
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'mpv')"
                             class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
@@ -533,7 +533,7 @@
                             </div>
                             <span class="text-[10px] font-bold text-slate-700">MPV</span>
                           </button>
-                          <button type="button" onclick="selectHeroBodyFilter('bodytype', 'van')"
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'van')"
                             class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
                             <div
                               class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
