@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="base_icon_transparent_background.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hybrid &amp; PHEV Vehicles Guide | Leasio</title>
+  <link href="output.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; background-color: #f8fafc; color: #0f172a; }
+  </style>
+</head>
+
+<body class="antialiased selection:bg-blue-600 selection:text-white flex flex-col min-h-screen">
+  <!-- [INSERT YOUR HEADER HERE] -->
+
+  <main class="flex-1">
+    <div class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-[1200px] px-5 py-4 sm:px-8">
+        <nav aria-label="Breadcrumb" class="flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-slate-400">
+          <a href="main.html" class="hover:text-slate-900 transition-colors">Home</a>
+          <span>&rsaquo;</span>
+          <a href="guides.html" class="hover:text-slate-900 transition-colors">Guides</a>
+          <span>&rsaquo;</span>
+          <span class="text-slate-900 font-bold">Hybrid/PHEV Vehicles</span>
+        </nav>
+      </div>
+    </div>
+
+    <article class="mx-auto max-w-[1200px] px-5 py-12 sm:px-8">
+      <div class="bg-white border border-slate-200 rounded-2xl p-8 sm:p-12 shadow-sm">
+        <span class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-4">
+          Hybrid &amp; Plug-In Hybrid
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Hybrid &amp; PHEV Vehicles Explained
+        </h1>
+        <p class="mt-4 text-base sm:text-lg text-slate-500 leading-relaxed">
+          Not quite ready for full electric? Learn the difference between self-charging hybrids and plug-in hybrids (PHEVs).
+        </p>
+
+        <hr class="my-8 border-slate-100">
+
+        <div class="space-y-6 text-slate-700 leading-relaxed text-sm sm:text-base">
+          <h2 class="text-xl font-bold text-slate-900">Self-charging hybrid vs. plug-in hybrid (PHEV)</h2>
+          <p>
+            <strong>Full / Self-Charging Hybrids</strong> combine a petrol engine with an electric motor and a small battery that tops itself up through braking and engine power. You never need to plug them in, and they shine in stop-start town driving.
+          </p>
+          <p>
+            <strong>Plug-In Hybrids (PHEVs)</strong> have a larger battery you can charge from a wallbox or public charger. That lets you cover shorter daily trips on electric power alone, while still having a petrol engine for longer motorway journeys.
+          </p>
+
+          <h2 class="text-xl font-bold text-slate-900">How to tell if a PHEV suits you</h2>
+          <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Charging habits:</strong> PHEVs deliver their best running costs when charged regularly—ideally at home or work.</li>
+            <li><strong>Trip lengths:</strong> If your regular commute fits within the car's electric-only range, you can cut fuel stops noticeably.</li>
+            <li><strong>Peace of mind on long trips:</strong> You get flexibility for long journeys without planning every stop around a rapid charger.</li>
+          </ul>
+        </div>
+
+        <div class="mt-10 bg-blue-50 border border-blue-100 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-extrabold text-slate-900">Browse hybrid lease deals</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1">Filter vehicles by fuel type on our search page.</p>
+          </div>
+          <a href="search.html?type=car" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3 rounded-xl shadow-sm transition shrink-0 text-center">
+            Search Vehicles &rarr;
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <!-- [INSERT YOUR FOOTER HERE] -->
+</body>
+</html>
