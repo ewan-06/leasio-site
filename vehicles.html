@@ -498,7 +498,95 @@
                 Save Quote
               </button>
             </div>
+            <!-- Trigger Button -->
+            <button type="button" id="open-enquiry-btn"
+              class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
+              <span>Enquire</span>
+              <span>&rarr;</span>
+            </button>
 
+            <!-- Enquiry Modal Box -->
+            <div id="enquiry-modal"
+              class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
+              <div class="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-8 relative">
+                <div class="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <span
+                      class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-2">
+                      Vehicle Enquiry
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Request a callback or quote</h2>
+                    <p id="enquiry-vehicle-summary" class="text-xs text-slate-500 mt-1">Share your details and our team
+                      will be in touch.</p>
+                  </div>
+                  <button type="button" id="close-enquiry-btn" aria-label="Close enquiry box"
+                    class="text-slate-400 hover:text-slate-700 font-bold text-lg leading-none p-1">
+                    &times;
+                  </button>
+                </div>
+
+                <form id="enquiry-form" class="flex flex-col gap-4" novalidate>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label for="enq-first-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">First
+                        Name</label>
+                      <input type="text" id="enq-first-name" name="first_name" required placeholder="Jane"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                    </div>
+                    <div>
+                      <label for="enq-last-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Last
+                        Name</label>
+                      <input type="text" id="enq-last-name" name="last_name" required placeholder="Doe"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="enq-phone" class="block text-xs font-bold text-slate-500 uppercase mb-1">Phone
+                      Number</label>
+                    <input type="tel" id="enq-phone" name="phone" required placeholder="07123 456789"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                  </div>
+
+                  <div>
+                    <label for="enq-email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email
+                      Address</label>
+                    <input type="email" id="enq-email" name="email" required placeholder="name@example.com"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                  </div>
+
+                  <!-- Terms & Conditions Checkbox -->
+                  <label class="flex items-start gap-3 pt-1 cursor-pointer select-none">
+                    <input type="checkbox" id="enq-terms" required
+                      class="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
+                    <span class="text-xs text-slate-600 leading-relaxed">
+                      I confirm that I have read and agree to the <a href="/terms"
+                        class="text-blue-600 font-semibold underline hover:text-blue-700">terms and conditions</a>.
+                    </span>
+                  </label>
+
+                  <!-- Validation / Status Messages -->
+                  <p id="enquiry-error"
+                    class="hidden text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium">
+                  </p>
+                  <p id="enquiry-success"
+                    class="hidden text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5 text-xs font-semibold">
+                  </p>
+
+                  <!-- Send Enquiry Button & GDPR Disclaimer -->
+                  <div class="pt-1">
+                    <button type="submit" id="send-enquiry-btn"
+                      class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
+                      <span>Send Enquiry</span>
+                    </button>
+                    <p class="text-[11px] text-slate-400 leading-relaxed mt-2.5 text-center">
+                      By clicking this button you agree to be contacted about this vehicle and your requirements in
+                      accordance with our privacy policy.
+                    </p>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -815,6 +903,138 @@
         });
       });
     });
+  </script>
+  <script>
+    (function () {
+      const openBtn = document.getElementById("open-enquiry-btn");
+      const closeBtn = document.getElementById("close-enquiry-btn");
+      const modal = document.getElementById("enquiry-modal");
+      const form = document.getElementById("enquiry-form");
+      const errorEl = document.getElementById("enquiry-error");
+      const successEl = document.getElementById("enquiry-success");
+      const submitBtn = document.getElementById("send-enquiry-btn");
+
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const phoneRegex = /^(?:(?:\+44\s?|0)(?:\d{2}\s?\d{4}\s?\d{4}|\d{3}\s?\d{3}\s?\d{4}|\d{3}\s?\d{4}\s?\d{4}|\d{4}\s?\d{6}|\d{5}\s?\d{5})|\+?[0-9\s-]{10,15})$/;
+
+      function prefillSignedInUser() {
+        try {
+          const userJson = localStorage.getItem("leasio_user");
+          if (!userJson) return;
+          const user = JSON.parse(userJson);
+          if (user.first_name && !document.getElementById("enq-first-name").value) {
+            document.getElementById("enq-first-name").value = user.first_name;
+          }
+          if (user.last_name && !document.getElementById("enq-last-name").value) {
+            document.getElementById("enq-last-name").value = user.last_name;
+          }
+          if (user.email && !document.getElementById("enq-email").value) {
+            document.getElementById("enq-email").value = user.email;
+          }
+        } catch (_) { }
+      }
+
+      function openModal() {
+        errorEl.classList.add("hidden");
+        successEl.classList.add("hidden");
+        prefillSignedInUser();
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        document.getElementById("enq-first-name").focus();
+      }
+
+      function closeModal() {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+
+      openBtn?.addEventListener("click", openModal);
+      closeBtn?.addEventListener("click", closeModal);
+
+      modal?.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        errorEl.classList.add("hidden");
+        successEl.classList.add("hidden");
+
+        const firstName = document.getElementById("enq-first-name").value.trim();
+        const lastName = document.getElementById("enq-last-name").value.trim();
+        const phone = document.getElementById("enq-phone").value.trim();
+        const email = document.getElementById("enq-email").value.trim();
+        const agreedToTerms = document.getElementById("enq-terms").checked;
+
+        if (!firstName || !lastName) {
+          errorEl.textContent = "Please enter both your first name and last name.";
+          errorEl.classList.remove("hidden");
+          return;
+        }
+
+        if (!phoneRegex.test(phone)) {
+          errorEl.textContent = "Please enter a valid phone number.";
+          errorEl.classList.remove("hidden");
+          return;
+        }
+
+        if (!emailRegex.test(email)) {
+          errorEl.textContent = "Please enter a valid email address (e.g., name@example.com).";
+          errorEl.classList.remove("hidden");
+          return;
+        }
+
+        if (!agreedToTerms) {
+          errorEl.textContent = "Please confirm that you have read and agree to the terms and conditions.";
+          errorEl.classList.remove("hidden");
+          return;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const payload = {
+          first_name: firstName,
+          last_name: lastName,
+          phone,
+          email,
+          agreed_terms: true,
+          cap_code: params.get("cap") || "",
+          vehicle_type: params.get("type") || "car"
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "<span>Sending...</span>";
+
+        try {
+          const res = await fetch("https://leasio-api.onrender.com/api/enquire", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          if (res.ok) {
+            successEl.textContent = "Thank you! Your enquiry has been sent.";
+            successEl.classList.remove("hidden");
+            form.reset();
+          } else {
+            const data = await res.json().catch(() => ({}));
+            errorEl.textContent = data.detail || "Could not send enquiry. Please try again.";
+            errorEl.classList.remove("hidden");
+          }
+        } catch (_) {
+          errorEl.textContent = "Could not connect to the server. Please try again.";
+          errorEl.classList.remove("hidden");
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = "<span>Send Enquiry</span>";
+        }
+      });
+    })();
   </script>
 </body>
 
