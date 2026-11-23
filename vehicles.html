@@ -319,7 +319,7 @@
               <span id="dyn-fuel"
                 class="absolute left-4 top-4 border px-3 py-1 font-mono text-[10px] tracking-widest border-blue-200 bg-blue-50 text-blue-700 rounded-full font-bold">Loading
                 Fuel Type...</span>
-              <span
+              <span id="dyn-year"
                 class="absolute right-4 top-4 border border-slate-200 bg-white/90 backdrop-blur px-3 py-1 font-mono text-[10px] tracking-widest text-slate-500 rounded-full">Year
               </span>
             </div>
@@ -649,6 +649,9 @@
 
           const fuelBadge = document.getElementById('dyn-fuel');
           if (fuelBadge) fuelBadge.innerText = data.Fuel || "";
+
+          const elYear = document.getElementById('dyn-year');
+          if (elYear) elYear.innerText = data.ModYr || "";
 
           const fullName = `${data.Make || ''} ${data.Model || ''} ${data.CAP_Derivative || ''}`.trim();
           document.title = `${data.Make} ${data.Model} Lease | Leasio`;
