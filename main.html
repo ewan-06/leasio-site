@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="images/base_icon_transparent_background.ico">
+    <link rel="icon" type="image/x-icon" href="images/base_icon_transparent_background.ico" alt="Leasio Logo">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Leasio | Find the best leasing deal for you.</title>
     <link href="output.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700;9..40,800&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700;9..40,800&family=Source+Sans+3:wght@400;500;600;700&display=block"
         rel="stylesheet">
     <style>
         body {
@@ -64,23 +64,23 @@
 
 <body class="antialiased selection:bg-blue-600 selection:text-white">
 
-    <!-- 1. NAVIGATION BAR -->
+    <!-- Navigation Bar -->
     <header class="relative z-50 backdrop-blur-md sticky top-0"
         style="background-color: rgba(248, 250, 252, 0.92); border-bottom: 1px solid rgba(226, 232, 240, 0.5);">
         <div class="mx-auto flex h-20 max-w-[1600px] items-center px-5 sm:px-8 lg:px-12 relative">
 
-            <!-- LEFT SIDE: Logo & Navigation Menu -->
+            <!-- Left Side: Logo & Navigation Menu -->
             <div class="flex items-center gap-6 lg:gap-10 flex-1">
                 <!-- Logo -->
                 <a aria-label="Leasio home" class="min-w-0 shrink-0 block" href="main.html">
-                    <img src="images/base_logo_transparent_background.png" alt="Leasio" width="260" height="80"
+                    <img src="images/base_logo_transparent_background.png" alt="Leasio Logo" width="260" height="80"
                         loading="eager" class="block w-auto object-contain"
                         style="height: 56px; max-height: 56px; filter: none;">
                 </a>
 
-                <!-- Navigation Links (Moved left, next to logo) -->
+                <!-- Navigation Links -->
                 <nav aria-label="Main navigation" class="flex items-center gap-1">
-                    <!-- CARS MEGA MENU -->
+                    <!-- Cars Menu -->
                     <div class="relative inline-block leasio-nav-container">
                         <button onclick="toggleMegaMenu('cars-mega')"
                             class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
@@ -192,7 +192,7 @@
                         </div>
                     </div>
 
-                    <!-- VANS MEGA MENU -->
+                    <!-- Vans Menu -->
                     <div class="relative inline-block leasio-nav-container">
                         <button onclick="toggleMegaMenu('vans-mega')"
                             class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
@@ -275,7 +275,7 @@
                 </nav>
             </div>
 
-            <!-- SIDE: Action Buttons -->
+            <!-- Action Buttons -->
             <div class="relative inline-block leasio-nav-container">
                 <button onclick="toggleMegaMenu('guides-mega')"
                     class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
@@ -318,7 +318,7 @@
 
             <div class="flex items-center gap-6 shrink-0 ml-2">
 
-                <!-- GLOBAL VAT TOGGLE -->
+                <!-- Global VAT Toggle -->
                 <div class="flex items-center gap-2">
                     <span
                         class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-blue-600"
@@ -326,7 +326,6 @@
 
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input type="checkbox" class="sr-only peer vat-toggle-input">
-                        <!-- Track stays bg-blue-600 at all times -->
                         <div
                             class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
                         </div>
@@ -357,7 +356,7 @@
         </script>
     </header>
 
-    <!-- 2. HERO SECTION -->
+    <!-- Hero Section -->
     <section class="relative z-40" style="background-color: #f8fafc;">
         <style>
             .hero-split-layout {
@@ -375,20 +374,18 @@
             }
         </style>
 
-        <!-- UNOBSTRUCTED VEHICLE BANNER -->
+        <!-- Vehicle Banner -->
         <div class="relative w-full overflow-hidden" style="min-height: 440px;">
-            <img src="images/hero-suv.jpg" alt="Modern SUV driving on an open road" loading="eager"
-                style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 72% 58%;" />
+            <img src="images/hero-suv.jpg" alt="SUV driving on an open road" loading="eager"
+                style="position: absolute; inset: 0; width: 1024; height: 724; object-fit: cover; object-position: 72% 58%;" />
 
-            <!-- Tight Edge Blends Only (Keeps the SUV Crisp & Unfogged) -->
             <div
                 style="position: absolute; inset: 0; pointer-events: none; background:
-        linear-gradient(to bottom, #f8fafc 0%, rgba(248, 250, 252, 0.7) 5%, rgba(248, 250, 252, 0) 15%),
         linear-gradient(to top, #f8fafc 0%, rgba(248, 250, 252, 0.75) 5%, rgba(248, 250, 252, 0) 14%),
         radial-gradient(ellipse 42% 60% at 10% 24%, rgba(248, 250, 252, 0.85) 0%, rgba(248, 250, 252, 0.4) 55%, rgba(248, 250, 252, 0) 100%);">
             </div>
 
-            <!-- Headline aligned with the left logo in the open sky -->
+            <!-- Headline on the left -->
             <div class="relative z-10 mx-auto max-w-[1600px] px-5 sm:px-8 lg:px-12 pt-10 pb-20">
                 <div style="max-width: 27rem;">
                     <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
@@ -401,11 +398,10 @@
             </div>
         </div>
 
-        <!-- SPLIT INFO (LEFT) & SEARCH CARD (RIGHT) -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
             <div class="hero-split-layout">
 
-                <!-- LEFT: Short, Snappy Leasing Highlights -->
+                <!-- Left: Leasing Info -->
                 <div>
                     </p>
                     <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug">
@@ -443,7 +439,7 @@
                     </div>
                 </div>
 
-                <!-- RIGHT: Contained Search Filter Card -->
+                <!-- Right: Search Filters -->
                 <div class="bg-white rounded-2xl shadow-xl shadow-slate-900/5 border border-slate-200/90 p-6 sm:p-8">
 
                     <!-- Cars / Vans Toggle -->
@@ -458,7 +454,7 @@
                         </button>
                     </div>
 
-                    <!-- Filter Grid (2 Columns for Clean Fit Inside Right Card) -->
+                    <!-- Filter Grid, 2 columns -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-5 items-end">
 
                         <!-- Make -->
@@ -492,7 +488,7 @@
                             </select>
                         </div>
 
-                        <!-- Size & Body Style Custom Dropdown -->
+                        <!-- Size & Body Style Dropdown -->
                         <div class="relative z-40">
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Body
                                 Style</label>
@@ -655,7 +651,7 @@
 
     </section>
 
-    <!-- 3. BEST LEASING OFFERS SECTION -->
+    <!-- Best Offers Section -->
     <section id="best-offers-section" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
@@ -670,7 +666,7 @@
                 </p>
             </div>
 
-            <!-- Car Offers / Van Offers Switcher -->
+            <!-- Car / Van Switcher -->
             <div class="inline-flex bg-white p-1 rounded-xl border border-slate-200 shadow-sm self-start sm:self-auto">
                 <button type="button" id="offers-tab-car" onclick="switchOffersTab('car')"
                     class="px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-blue-600 text-white transition">
@@ -751,7 +747,6 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer class="relative z-20 border-t border-slate-200 bg-white">
         <div
             class="mx-auto flex max-w-[1600px] flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
@@ -761,7 +756,6 @@
     </footer>
 
     <script>
-        // Keep your working API_BASE URL here
         const API_BASE = "https://leasio-api.onrender.com";
         let currentHeroType = "car";
 
@@ -783,7 +777,6 @@
             loadHeroFuels("", "", type);
         }
 
-        // Inside your homepage script switcher
         function switchOffersTab(type) {
             const carTab = document.getElementById("offers-tab-car");
             const vanTab = document.getElementById("offers-tab-vans");
@@ -791,15 +784,15 @@
             if (type === "car") {
                 carTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-blue-600 text-white transition";
                 vanTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-slate-900 transition";
-                loadBestOffers("car"); // Automatically filtered <= £400/mo by backend
+                loadBestOffers("car"); // <£400/m for cars
             } else {
                 vanTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider bg-blue-600 text-white transition";
                 carTab.className = "px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider text-slate-600 hover:text-slate-900 transition";
-                loadBestOffers("vans"); // Automatically filtered <= £800/mo by backend
+                loadBestOffers("vans"); // <£800/m for vans
             }
         }
 
-        // --- 1. HERO SEARCH HELPER FUNCTIONS ---
+        // Hero Search Functions
         async function loadHeroMakes(vehicleType = "car") {
             const makeSelect = document.getElementById("hero-make") || document.getElementById("make-select");
             if (!makeSelect) return;
@@ -877,7 +870,7 @@
             }
         }
 
-        // --- 2. BEST OFFERS FETCHER ---
+        // Best Offers
         async function loadBestOffers(vehicleType = "car") {
             const container = document.getElementById("best-offers-grid");
             if (!container) return;
@@ -935,7 +928,7 @@
             }
         }
 
-        // --- 3. DOM INITIALIZATION ---
+        // DOM Content Loaded Section
         document.addEventListener("DOMContentLoaded", () => {
             loadHeroMakes("car");
             loadHeroFuels("", "", "car");
@@ -1001,17 +994,13 @@
         document.addEventListener("DOMContentLoaded", () => {
             const userJson = localStorage.getItem('leasio_user');
 
-            // Find all elements or links that point to login or act as the auth button
-            // You can target them by looking for href="login.html" or a specific ID
             const loginLinks = document.querySelectorAll('a[href="login.html"], a[href="register.html"]');
 
             if (userJson) {
                 try {
                     const user = JSON.parse(userJson);
 
-                    // Loop through login/register links in the nav and convert them to "Account"
                     loginLinks.forEach(link => {
-                        // Only convert if it's the main login/auth nav item (avoid footer links if needed)
                         if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
                             link.textContent = "Account";
                             link.setAttribute("href", "dashboard.html");
@@ -1025,11 +1014,9 @@
             }
         });
 
-        // Global State for Hero Body Filter
         let heroSelectedBodyCategory = "";
         let heroSelectedBodyValue = "";
 
-        // Toggle Dropdown Visibility
         const heroBodyBtn = document.getElementById("hero-body-btn");
         const heroBodyDropdown = document.getElementById("hero-body-dropdown");
         const heroBodyIcon = document.getElementById("hero-body-icon");
@@ -1040,7 +1027,6 @@
                 heroBodyIcon.classList.toggle("rotate-180");
             });
 
-            // Close when clicking outside
             document.addEventListener("click", (e) => {
                 if (!heroBodyBtn.contains(e.target) && !heroBodyDropdown.contains(e.target)) {
                     heroBodyDropdown.classList.add("hidden");
@@ -1049,7 +1035,6 @@
             });
         }
 
-        // Handle Selection
         function selectHeroBodyFilter(category, value) {
             heroSelectedBodyCategory = category;
             heroSelectedBodyValue = value;
@@ -1070,13 +1055,12 @@
 
     <script src="nav.js"></script>
 
-    <!-- VAT TOGGLE SYNC SCRIPT -->
+    <!-- VAT Toggle Script -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const vatInputs = document.querySelectorAll('.vat-toggle-input');
             const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
 
-            // Set initial visual state on page load
             function syncVisuals(businessMode) {
                 vatInputs.forEach(input => input.checked = businessMode);
 
@@ -1084,7 +1068,6 @@
                 const lblBusiness = document.getElementById('label-business');
 
                 if (lblPersonal && lblBusiness) {
-                    // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
                     lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
                     lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
                 }
@@ -1097,14 +1080,12 @@
 
             syncVisuals(isBusiness);
 
-            // Listen for slider clicks
             vatInputs.forEach(input => {
                 input.addEventListener('change', (e) => {
                     const newMode = e.target.checked ? 'business' : 'personal';
                     localStorage.setItem('leasio_vat_mode', newMode);
                     syncVisuals(e.target.checked);
 
-                    // Re-calculate the live price if we are on the vehicles page
                     if (typeof window.fetchValuation === 'function') {
                         window.fetchValuation();
                     }
