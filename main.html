@@ -138,7 +138,7 @@
         .l-card {
             flex: 0 0 260px;
             flex-shrink: 0;
-            min-height: 318px;
+            height: 334px;
             scroll-snap-align: start;
             border: 1.5px solid #e2e8f0;
             border-radius: 18px;
@@ -228,14 +228,14 @@
             display: flex;
             align-items: center;
             gap: 14px;
+            height: 360px;
         }
 
         .offers-viewport {
             position: relative;
             overflow: hidden;
             flex: 1;
-            min-height: 344px;
-            /* Reserves full card + bottom padding height */
+            height: 360px;
             padding: 6px 2px 16px;
             box-sizing: border-box;
         }
@@ -839,7 +839,7 @@
         </div>
 
         <div class="l-wrap" style="padding-bottom: 56px;">
-            <div class="offers-carousel-shell">
+            <div class="offers-carousel-shell" style="height: 360px;">
                 <!-- Left Arrow -->
                 <button type="button" id="offers-prev-btn" class="offers-arrow" aria-label="Previous offers"
                     onclick="moveOffersCarousel(-1)">
@@ -850,46 +850,8 @@
                 </button>
 
                 <!-- Clipped Viewport + Sliding Track -->
-                <div class="offers-viewport">
-                    <div id="best-offers-grid">
-                        <!-- Skeleton Cards -->
-                        <div class="l-card animate-pulse">
-                            <div style="height: 130px; border-radius: 14px; background: #eff6ff;"></div>
-                            <div class="h-5 bg-slate-200 rounded w-3/4"></div>
-                            <div class="h-3.5 bg-slate-100 rounded w-1/2"></div>
-                            <div class="flex justify-between items-center mt-auto pt-2">
-                                <div class="h-7 bg-slate-200 rounded w-24"></div>
-                                <div class="h-10 bg-blue-100 rounded-full w-20"></div>
-                            </div>
-                        </div>
-                        <div class="l-card animate-pulse">
-                            <div style="height: 130px; border-radius: 14px; background: #eff6ff;"></div>
-                            <div class="h-5 bg-slate-200 rounded w-2/3"></div>
-                            <div class="h-3.5 bg-slate-100 rounded w-1/2"></div>
-                            <div class="flex justify-between items-center mt-auto pt-2">
-                                <div class="h-7 bg-slate-200 rounded w-24"></div>
-                                <div class="h-10 bg-blue-100 rounded-full w-20"></div>
-                            </div>
-                        </div>
-                        <div class="l-card animate-pulse">
-                            <div style="height: 130px; border-radius: 14px; background: #eff6ff;"></div>
-                            <div class="h-5 bg-slate-200 rounded w-3/4"></div>
-                            <div class="h-3.5 bg-slate-100 rounded w-2/3"></div>
-                            <div class="flex justify-between items-center mt-auto pt-2">
-                                <div class="h-7 bg-slate-200 rounded w-24"></div>
-                                <div class="h-10 bg-blue-100 rounded-full w-20"></div>
-                            </div>
-                        </div>
-                        <div class="l-card animate-pulse">
-                            <div style="height: 130px; border-radius: 14px; background: #eff6ff;"></div>
-                            <div class="h-5 bg-slate-200 rounded w-2/3"></div>
-                            <div class="h-3.5 bg-slate-100 rounded w-1/2"></div>
-                            <div class="flex justify-between items-center mt-auto pt-2">
-                                <div class="h-7 bg-slate-200 rounded w-24"></div>
-                                <div class="h-10 bg-blue-100 rounded-full w-20"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="offers-viewport" style="height: 360px;">
+                    <div id="best-offers-grid"></div>
                 </div>
 
                 <!-- Right Arrow -->
