@@ -186,7 +186,7 @@
             </div>
 
             <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
-              href="main.html#best-offers-section">OFFERS</a>
+              href="main.html#best-offers-section">Offers</a>
 
           </nav>
         </div>
@@ -650,7 +650,14 @@
           if (fuelBadge) fuelBadge.innerText = data.Fuel || "";
 
           const elYear = document.getElementById('dyn-year');
-          if (elYear) elYear.innerText = data.ModYr || "";
+          if (elYear) {
+            if (data.ModYr) {
+              elYear.innerText = `${data.ModYr} Model`;
+              elYear.classList.remove('hidden');
+            } else {
+              elYear.classList.add('hidden');
+            }
+          }
 
           const fullName = `${data.Make || ''} ${data.Model || ''} ${data.CAP_Derivative || ''}`.trim();
           document.title = `${data.Make} ${data.Model} Lease | Leasio`;
