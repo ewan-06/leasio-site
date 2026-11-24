@@ -137,6 +137,8 @@
 
         .l-card {
             flex: 0 0 260px;
+            flex-shrink: 0;
+            min-height: 318px;
             scroll-snap-align: start;
             border: 1.5px solid #e2e8f0;
             border-radius: 18px;
@@ -145,6 +147,7 @@
             flex-direction: column;
             gap: 10px;
             background: #ffffff;
+            box-sizing: border-box;
             transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
         }
 
@@ -231,7 +234,10 @@
             position: relative;
             overflow: hidden;
             flex: 1;
+            min-height: 344px;
+            /* Reserves full card + bottom padding height */
             padding: 6px 2px 16px;
+            box-sizing: border-box;
         }
 
         .offers-viewport::before,
@@ -330,7 +336,7 @@
                         <div id="cars-mega"
                             class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl z-50"
                             style="width: 750px;">
-                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">Cars
+                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Cars
                                 Manufacturers</h3>
                             <div class="grid text-slate-800"
                                 style="grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
@@ -443,7 +449,7 @@
                         <div id="vans-mega"
                             class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl z-50"
                             style="width: 400px;">
-                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">Vans
+                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Vans
                                 Manufacturers</h3>
                             <div class="grid text-slate-800"
                                 style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
@@ -1140,16 +1146,63 @@
             return card;
         }
 
+        const offersCache = {
+            car: null,
+            vans: null
+        };
+
+        const statusHtml = (message, colorClass = "text-slate-500") =>
+            `<div style="width: 100%; min-height: 318px; display: flex; align-items: center; justify-content: center;" class="${colorClass}">${message}</div>`;
+        function renderOffersCarousel(track, offers, vehicleType) {
+            track.innerHTML = "";
+
+            if (!Array.isArray(offers) || offers.length === 0) {
+                track.innerHTML = '<p class="text-slate-500 py-8">No active offers found.</p>';
+                return;
+            }
+
+            const slice = offers.slice(0, 9);
+            const cloneCount = Math.min(4, slice.length);
+
+            offersCarousel.total = slice.length;
+            offersCarousel.cloneCount = cloneCount;
+            offersCarousel.index = cloneCount;
+
+            slice.slice(-cloneCount).forEach(offer => track.appendChild(createOfferCard(offer, vehicleType)));
+            slice.forEach(offer => track.appendChild(createOfferCard(offer, vehicleType)));
+            slice.slice(0, cloneCount).forEach(offer => track.appendChild(createOfferCard(offer, vehicleType)));
+
+            setCarouselPosition(track, false);
+        }
+
+        async function fetchOffersData(vehicleType) {
+            if (offersCache[vehicleType]) {
+                return offersCache[vehicleType];
+            }
+            const res = await fetch(`${API_BASE}/api/best_offers?vehicle_type=${encodeURIComponent(vehicleType)}&limit=9`);
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            const offers = await res.json();
+            if (offers.error) throw new Error(offers.error);
+
+            offersCache[vehicleType] = offers;
+            return offers;
+        }
+
+        async function prefetchOffers(vehicleType) {
+            try {
+                await fetchOffersData(vehicleType);
+            } catch (err) {
+                console.error(`Prefetch failed for ${vehicleType}:`, err);
+            }
+        }
+
         async function loadBestOffers(vehicleType = "car") {
             const track = document.getElementById("best-offers-grid");
             if (!track) return;
 
             offersCarousel.isAnimating = false;
-            track.style.transition = "none";
-            track.style.transform = "translateX(0px)";
-            track.innerHTML = '<p class="text-slate-500 py-8">Loading best leasing offers...</p>';
+            clearTimeout(offersCarousel.fallbackTimer);
 
-            // Bind transitionend once
             if (!track.dataset.carouselBound) {
                 track.addEventListener("transitionend", (e) => {
                     if (e.target === track && e.propertyName === "transform") {
@@ -1162,39 +1215,22 @@
                 track.dataset.carouselBound = "true";
             }
 
+            // Instant render if already cached
+            if (offersCache[vehicleType]) {
+                renderOffersCarousel(track, offersCache[vehicleType], vehicleType);
+                return;
+            }
+
+            track.style.transition = "none";
+            track.style.transform = "translateX(0px)";
+            track.innerHTML = statusHtml("Loading best leasing offers...");
+
             try {
-                const res = await fetch(`${API_BASE}/api/best_offers?vehicle_type=${encodeURIComponent(vehicleType)}&limit=9`);
-                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
-                const offers = await res.json();
-                if (offers.error) throw new Error(offers.error);
-
-                track.innerHTML = "";
-
-                if (!Array.isArray(offers) || offers.length === 0) {
-                    track.innerHTML = '<p class="text-slate-500 py-8">No active offers found.</p>';
-                    return;
-                }
-
-                const slice = offers.slice(0, 9);
-                const cloneCount = Math.min(4, slice.length);
-
-                offersCarousel.total = slice.length;
-                offersCarousel.cloneCount = cloneCount;
-                offersCarousel.index = cloneCount;
-
-                // 1. Prepend clones of the last cards (for seamless backward looping)
-                slice.slice(-cloneCount).forEach(offer => track.appendChild(createOfferCard(offer, vehicleType)));
-                // 2. Append the 9 real offer cards
-                slice.forEach(offer => track.appendChild(createOfferCard(offer, vehicleType)));
-                // 3. Append clones of the first cards (for seamless forward looping)
-                slice.slice(0, cloneCount).forEach(offer => track.appendChild(createOfferCard(offer, vehicleType)));
-
-                // Snap to offer #1 without animation
-                setCarouselPosition(track, false);
+                const offers = await fetchOffersData(vehicleType);
+                renderOffersCarousel(track, offers, vehicleType);
             } catch (err) {
                 console.error("Failed to load best offers:", err);
-                track.innerHTML = '<p class="text-red-500 py-8">Failed to load offers. Please try again shortly.</p>';
+                track.innerHTML = statusHtml("Failed to load offers. Please try again shortly.", "text-red-500");
             }
         }
 
@@ -1202,6 +1238,7 @@
             loadHeroMakes("car");
             loadHeroFuels("", "", "car");
             loadBestOffers("car");
+            prefetchOffers("vans");
 
             const makeSelect = document.getElementById("hero-make");
             const modelSelect = document.getElementById("hero-model");
