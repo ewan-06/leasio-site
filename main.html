@@ -194,6 +194,78 @@
                 padding: 0 20px;
             }
         }
+
+        /* Header dropdown button hover highlight */
+        .leasio-nav-container>button {
+            border-radius: 10px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .leasio-nav-container>button:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
+        /* Dropdown menu item hover highlight */
+        .leasio-mega-menu a {
+            display: inline-block;
+            padding: 6px 10px;
+            margin: -6px -10px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .leasio-mega-menu a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
+        /* Best Offers Looping Carousel */
+        .offers-carousel-shell {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .offers-viewport {
+            overflow: hidden;
+            flex: 1;
+            padding: 6px 2px 16px;
+        }
+
+        #best-offers-grid {
+            display: flex;
+            gap: 18px;
+            will-change: transform;
+        }
+
+        .offers-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            color: #0f172a;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+            z-index: 10;
+        }
+
+        .offers-arrow:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+            color: #ffffff;
+        }
+
+        .offers-arrow:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 
@@ -731,45 +803,67 @@
         </div>
 
         <div class="l-wrap" style="padding-bottom: 56px;">
-            <div id="best-offers-grid"
-                style="display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 4px 16px;">
-                <!-- Skeleton Cards -->
-                <div class="l-card animate-pulse">
-                    <div class="rounded-[14px] bg-blue-50" style="height: 130px;"></div>
-                    <div class="h-5 bg-slate-200 rounded w-3/4"></div>
-                    <div class="h-3.5 bg-slate-100 rounded w-1/2"></div>
-                    <div class="flex justify-between items-center mt-auto pt-2">
-                        <div class="h-7 bg-slate-200 rounded w-24"></div>
-                        <div class="h-10 bg-blue-100 rounded-full w-20"></div>
+            <div class="offers-carousel-shell">
+                <!-- Left Arrow -->
+                <button type="button" id="offers-prev-btn" class="offers-arrow" aria-label="Previous offers"
+                    onclick="moveOffersCarousel(-1)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6"></path>
+                    </svg>
+                </button>
+
+                <!-- Clipped Viewport + Sliding Track -->
+                <div class="offers-viewport">
+                    <div id="best-offers-grid">
+                        <!-- Skeleton Cards -->
+                        <div class="l-card animate-pulse">
+                            <div style="height: 130px; border-radius: 14px; background: #eff6ff;"></div>
+                            <div class="h-5 bg-slate-200 rounded w-3/4"></div>
+                            <div class="h-3.5 bg-slate-100 rounded w-1/2"></div>
+                            <div class="flex justify-between items-center mt-auto pt-2">
+                                <div class="h-7 bg-slate-200 rounded w-24"></div>
+                                <div class="h-10 bg-blue-100 rounded-full w-20"></div>
+                            </div>
+                        </div>
+                        <div class="l-card animate-pulse">
+                            <div style="height: 130px; border-radius: 14px; background: #eff6ff;"></div>
+                            <div class="h-5 bg-slate-200 rounded w-2/3"></div>
+                            <div class="h-3.5 bg-slate-100 rounded w-1/2"></div>
+                            <div class="flex justify-between items-center mt-auto pt-2">
+                                <div class="h-7 bg-slate-200 rounded w-24"></div>
+                                <div class="h-10 bg-blue-100 rounded-full w-20"></div>
+                            </div>
+                        </div>
+                        <div class="l-card animate-pulse">
+                            <div style="height: 130px; border-radius: 14px; background: #eff6ff;"></div>
+                            <div class="h-5 bg-slate-200 rounded w-3/4"></div>
+                            <div class="h-3.5 bg-slate-100 rounded w-2/3"></div>
+                            <div class="flex justify-between items-center mt-auto pt-2">
+                                <div class="h-7 bg-slate-200 rounded w-24"></div>
+                                <div class="h-10 bg-blue-100 rounded-full w-20"></div>
+                            </div>
+                        </div>
+                        <div class="l-card animate-pulse">
+                            <div style="height: 130px; border-radius: 14px; background: #eff6ff;"></div>
+                            <div class="h-5 bg-slate-200 rounded w-2/3"></div>
+                            <div class="h-3.5 bg-slate-100 rounded w-1/2"></div>
+                            <div class="flex justify-between items-center mt-auto pt-2">
+                                <div class="h-7 bg-slate-200 rounded w-24"></div>
+                                <div class="h-10 bg-blue-100 rounded-full w-20"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="l-card animate-pulse">
-                    <div class="rounded-[14px] bg-blue-50" style="height: 130px;"></div>
-                    <div class="h-5 bg-slate-200 rounded w-2/3"></div>
-                    <div class="h-3.5 bg-slate-100 rounded w-1/2"></div>
-                    <div class="flex justify-between items-center mt-auto pt-2">
-                        <div class="h-7 bg-slate-200 rounded w-24"></div>
-                        <div class="h-10 bg-blue-100 rounded-full w-20"></div>
-                    </div>
-                </div>
-                <div class="l-card animate-pulse">
-                    <div class="rounded-[14px] bg-blue-50" style="height: 130px;"></div>
-                    <div class="h-5 bg-slate-200 rounded w-3/4"></div>
-                    <div class="h-3.5 bg-slate-100 rounded w-2/3"></div>
-                    <div class="flex justify-between items-center mt-auto pt-2">
-                        <div class="h-7 bg-slate-200 rounded w-24"></div>
-                        <div class="h-10 bg-blue-100 rounded-full w-20"></div>
-                    </div>
-                </div>
-                <div class="l-card animate-pulse">
-                    <div class="rounded-[14px] bg-blue-50" style="height: 130px;"></div>
-                    <div class="h-5 bg-slate-200 rounded w-2/3"></div>
-                    <div class="h-3.5 bg-slate-100 rounded w-1/2"></div>
-                    <div class="flex justify-between items-center mt-auto pt-2">
-                        <div class="h-7 bg-slate-200 rounded w-24"></div>
-                        <div class="h-10 bg-blue-100 rounded-full w-20"></div>
-                    </div>
-                </div>
+
+                <!-- Right Arrow -->
+                <button type="button" id="offers-next-btn" class="offers-arrow" aria-label="Next offers"
+                    onclick="moveOffersCarousel(1)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </section>
@@ -792,7 +886,7 @@
                 <span style="font-size: 14px; color: #dbeafe;">across UK mainland</span>
             </div>
             <div class="l-stat">
-                <span style="font-family: 'DM Sans', sans-serif; font-size: 32px; font-weight: 700;">All-In</span>
+                <span style="font-family: 'DM Sans', sans-serif; font-size: 32px; font-weight: 700;">All Included</span>
                 <span style="font-size: 14px; color: #dbeafe;">road tax &amp; warranty included</span>
             </div>
         </div>
@@ -926,12 +1020,115 @@
             }
         }
 
-        // Best Offers (Horizontal Card Layout matching Template.dc.html)
-        async function loadBestOffers(vehicleType = "car") {
-            const container = document.getElementById("best-offers-grid");
-            if (!container) return;
+        const offersCarousel = {
+            index: 0,
+            total: 0,
+            cloneCount: 0,
+            isAnimating: false,
+            fallbackTimer: null
+        };
 
-            container.innerHTML = '<p class="text-slate-500 py-8">Loading best leasing offers...</p>';
+        function getCarouselStep(track) {
+            const firstCard = track.querySelector(".l-card");
+            return firstCard ? firstCard.offsetWidth + 18 : 278; // 260px card + 18px gap
+        }
+
+        function setCarouselPosition(track, animate) {
+            track.style.transition = animate
+                ? "transform 0.42s cubic-bezier(0.25, 0.8, 0.25, 1)"
+                : "none";
+            const offset = offersCarousel.index * getCarouselStep(track);
+            track.style.transform = `translateX(-${offset}px)`;
+        }
+
+        function finishCarouselStep(track) {
+            clearTimeout(offersCarousel.fallbackTimer);
+            if (offersCarousel.index >= offersCarousel.cloneCount + offersCarousel.total) {
+                offersCarousel.index -= offersCarousel.total;
+                setCarouselPosition(track, false);
+                void track.offsetWidth; // force reflow so the snap is invisible
+            } else if (offersCarousel.index < offersCarousel.cloneCount) {
+                offersCarousel.index += offersCarousel.total;
+                setCarouselPosition(track, false);
+                void track.offsetWidth;
+            }
+            offersCarousel.isAnimating = false;
+        }
+
+        function moveOffersCarousel(direction) {
+            const track = document.getElementById("best-offers-grid");
+            if (!track || offersCarousel.isAnimating || offersCarousel.total <= 1) return;
+
+            offersCarousel.isAnimating = true;
+            offersCarousel.index += direction;
+            setCarouselPosition(track, true);
+
+            // Fallback in case the browser tab is backgrounded and skips transitionend
+            clearTimeout(offersCarousel.fallbackTimer);
+            offersCarousel.fallbackTimer = setTimeout(() => finishCarouselStep(track), 480);
+        }
+
+        function createOfferCard(offer, vehicleType) {
+            const make = offer.Make || "";
+            const model = offer.Model || "";
+            const derivative = offer.CAP_Derivative || "Standard Spec";
+            const fuel = offer.Fuel || "";
+            const capCode = offer.CAP_Code || "";
+            const monthly = typeof offer.Monthly === "number" ? `£${offer.Monthly.toFixed(2)}` : offer.Monthly;
+            const typeParam = vehicleType === "vans" ? "&type=vans" : "";
+
+            const card = document.createElement("div");
+            card.className = "l-card";
+            card.innerHTML = `
+        <div style="position: relative; height: 130px; border-radius: 14px; background: #eff6ff; color: #94a3b8; display: flex; align-items: center; justify-content: center; padding-top: 18px; box-sizing: border-box;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
+                <circle cx="7" cy="17" r="2"></circle>
+                <path d="M9 17h6"></path>
+                <circle cx="17" cy="17" r="2"></circle>
+            </svg>
+            <span style="position: absolute; top: 10px; right: 10px; background: #ffffff; color: #1d4ed8; border: 1px solid #dbeafe; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 999px; white-space: nowrap;">
+                ${fuel}
+            </span>
+        </div>
+        <h3 class="font-bold text-slate-900 truncate" style="font-size: 18px; margin: 0;">${make} ${model}</h3>
+        <p class="text-slate-500 truncate" style="font-size: 13px; margin: 0;">${derivative}</p>
+        <p class="text-slate-400" style="font-size: 12px; margin: 0;">48 mo · 5k miles · 12m initial</p>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 6px;">
+            <span style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 22px; color: #2563eb;">
+                ${monthly}<span style="font-size: 13px; font-weight: 500; color: #64748b;"> /mo</span>
+            </span>
+            <a href="/vehicles.html?cap=${encodeURIComponent(capCode)}${typeParam}" class="l-btn l-btn-sec"
+                style="min-height: 40px; padding: 0 16px; font-size: 14px;">
+                View
+            </a>
+        </div>
+    `;
+            return card;
+        }
+
+        async function loadBestOffers(vehicleType = "car") {
+            const track = document.getElementById("best-offers-grid");
+            if (!track) return;
+
+            offersCarousel.isAnimating = false;
+            track.style.transition = "none";
+            track.style.transform = "translateX(0px)";
+            track.innerHTML = '<p class="text-slate-500 py-8">Loading best leasing offers...</p>';
+
+            // Bind transitionend once
+            if (!track.dataset.carouselBound) {
+                track.addEventListener("transitionend", (e) => {
+                    if (e.target === track && e.propertyName === "transform") {
+                        finishCarouselStep(track);
+                    }
+                });
+                window.addEventListener("resize", () => {
+                    if (offersCarousel.total > 0) setCarouselPosition(track, false);
+                });
+                track.dataset.carouselBound = "true";
+            }
 
             try {
                 const res = await fetch(`${API_BASE}/api/best_offers?vehicle_type=${encodeURIComponent(vehicleType)}&limit=9`);
@@ -940,55 +1137,32 @@
                 const offers = await res.json();
                 if (offers.error) throw new Error(offers.error);
 
-                container.innerHTML = "";
+                track.innerHTML = "";
 
                 if (!Array.isArray(offers) || offers.length === 0) {
-                    container.innerHTML = '<p class="text-slate-500 py-8">No active offers found.</p>';
+                    track.innerHTML = '<p class="text-slate-500 py-8">No active offers found.</p>';
                     return;
                 }
 
-                offers.forEach(offer => {
-                    const make = offer.Make || "";
-                    const model = offer.Model || "";
-                    const derivative = offer.CAP_Derivative || "Standard Spec";
-                    const fuel = offer.Fuel || "";
-                    const capCode = offer.CAP_Code || "";
-                    const monthly = typeof offer.Monthly === "number" ? `£${offer.Monthly.toFixed(2)}` : offer.Monthly;
-                    const typeParam = vehicleType === "vans" ? "&type=vans" : "";
+                const slice = offers.slice(0, 9);
+                const cloneCount = Math.min(4, slice.length);
 
-                    const card = document.createElement("div");
-                    card.className = "l-card";
-                    card.innerHTML = `
-                    <div style="position: relative; height: 130px; border-radius: 14px; background: #eff6ff; color: #94a3b8; display: flex; align-items: center; justify-content: center; padding-top: 18px; box-sizing: border-box;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
-                            <circle cx="7" cy="17" r="2"></circle>
-                            <path d="M9 17h6"></path>
-                            <circle cx="17" cy="17" r="2"></circle>
-                        </svg>
-                        <span style="position: absolute; top: 10px; right: 10px; background: #ffffff; color: #1d4ed8; border: 1px solid #dbeafe; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 999px; white-space: nowrap;">
-                            ${fuel}
-                        </span>
-                    </div>
-                        <h3 class="font-bold text-slate-900 truncate" style="font-size: 18px; margin: 0;">${make} ${model}</h3>
-                        <p class="text-slate-500 truncate" style="font-size: 13px; margin: 0;">${derivative}</p>
-                        <p class="text-slate-400" style="font-size: 12px; margin: 0;">48 mo · 5k miles · 12m initial</p>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 6px;">
-                            <span style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 22px; color: #2563eb;">
-                                ${monthly}<span style="font-size: 13px; font-weight: 500; color: #64748b;"> /mo</span>
-                            </span>
-                            <a href="/vehicles.html?cap=${encodeURIComponent(capCode)}${typeParam}" class="l-btn l-btn-sec"
-                                style="min-height: 40px; padding: 0 16px; font-size: 14px;">
-                                View
-                            </a>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
+                offersCarousel.total = slice.length;
+                offersCarousel.cloneCount = cloneCount;
+                offersCarousel.index = cloneCount;
+
+                // 1. Prepend clones of the last cards (for seamless backward looping)
+                slice.slice(-cloneCount).forEach(offer => track.appendChild(createOfferCard(offer, vehicleType)));
+                // 2. Append the 9 real offer cards
+                slice.forEach(offer => track.appendChild(createOfferCard(offer, vehicleType)));
+                // 3. Append clones of the first cards (for seamless forward looping)
+                slice.slice(0, cloneCount).forEach(offer => track.appendChild(createOfferCard(offer, vehicleType)));
+
+                // Snap to offer #1 without animation
+                setCarouselPosition(track, false);
             } catch (err) {
                 console.error("Failed to load best offers:", err);
-                container.innerHTML = '<p class="text-red-500 py-8">Failed to load offers. Please try again shortly.</p>';
+                track.innerHTML = '<p class="text-red-500 py-8">Failed to load offers. Please try again shortly.</p>';
             }
         }
 
