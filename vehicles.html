@@ -432,77 +432,86 @@
 
             <div class="flex flex-col gap-5">
               <!-- Contract Length -->
-              <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">24
-                  mo</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">36
-                  mo</button>
-                <button type="button" aria-pressed="true"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48
-                  mo</button>
+              <div>
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Contract
+                    Length</span>
+                </div>
+                <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">24
+                    mo</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">36
+                    mo</button>
+                  <button type="button" aria-pressed="true"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48
+                    mo</button>
+                </div>
+              </div>
+
+              <!-- Annual Mileage -->
+              <div>
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Annual
+                    Mileage</span>
+                </div>
+                <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
+                  <button type="button" aria-pressed="true"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">10k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">15k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">20k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">25k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">30k</button>
+                </div>
+              </div>
+
+              <!-- Initial Payment -->
+              <div>
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Initial
+                    Payment</span>
+                </div>
+                <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50 gap-1">
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                    onclick="setInitial(1, this)">1m</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                    onclick="setInitial(3, this)">3m</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                    onclick="setInitial(6, this)">6m</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                    onclick="setInitial(9, this)">9m</button>
+                  <button type="button" aria-pressed="true"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm"
+                    onclick="setInitial(12, this)">12m</button>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col gap-3">
+                <button id="save-quote-btn"
+                  class="w-full bg-blue-50 hover:bg-blue-100 text-blue-500 font-bold py-2.5 px-4 rounded-xl transition text-sm shadow-sm hidden">
+                  Save Quote
+                </button>
+
+                <!-- Trigger Button -->
+                <button type="button" id="open-enquiry-btn"
+                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
+                  <span>Enquire</span>
+                  <span>&rarr;</span>
+                </button>
               </div>
             </div>
-
-            <!-- Annual Mileage -->
-            <div>
-              <div class="mb-2 flex items-center justify-between">
-                <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Annual
-                  Mileage</span>
-              </div>
-              <!-- Added new mileage options to match your expanded database -->
-              <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
-                <button type="button" aria-pressed="true"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">10k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">15k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">20k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">25k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">30k</button>
-              </div>
-            </div>
-
-            <!-- Initial Payment -->
-            <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50 gap-1">
-              <button type="button" aria-pressed="false"
-                class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                onclick="setInitial(1, this)">1m</button>
-              <button type="button" aria-pressed="false"
-                class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                onclick="setInitial(3, this)">3m</button>
-              <button type="button" aria-pressed="false"
-                class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                onclick="setInitial(6, this)">6m</button>
-              <button type="button" aria-pressed="false"
-                class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                onclick="setInitial(9, this)">9m</button>
-              <button type="button" aria-pressed="true"
-                class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm"
-                onclick="setInitial(12, this)">12m</button>
-            </div>
-          </div>
-
-          <!-- Action Buttons -->
-          <div class="flex flex-col gap-3">
-            <button id="save-quote-btn"
-              class="w-full bg-blue-50 hover:bg-blue-100 text-blue-500 font-bold py-2.5 px-4 rounded-xl transition text-sm shadow-sm hidden">
-              Save Quote
-            </button>
-
-            <!-- Trigger Button -->
-            <button type="button" id="open-enquiry-btn"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
-              <span>Enquire</span>
-              <span>&rarr;</span>
-            </button>
-          </div>
-        </div>
 
         <!-- Enquiry Modal Box -->
         <div id="enquiry-modal"
