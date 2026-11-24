@@ -220,7 +220,6 @@
             color: #ffffff;
         }
 
-        /* Best Offers Looping Carousel */
         .offers-carousel-shell {
             position: relative;
             display: flex;
@@ -229,9 +228,31 @@
         }
 
         .offers-viewport {
+            position: relative;
             overflow: hidden;
             flex: 1;
             padding: 6px 2px 16px;
+        }
+
+        .offers-viewport::before,
+        .offers-viewport::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 64px;
+            pointer-events: none;
+            z-index: 6;
+        }
+
+        .offers-viewport::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0) 100%);
+        }
+
+        .offers-viewport::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0) 100%);
         }
 
         #best-offers-grid {
@@ -241,6 +262,8 @@
         }
 
         .offers-arrow {
+            position: relative;
+            z-index: 10;
             width: 44px;
             height: 44px;
             border-radius: 999px;
@@ -254,7 +277,6 @@
             justify-content: center;
             flex-shrink: 0;
             transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-            z-index: 10;
         }
 
         .offers-arrow:hover {
@@ -265,6 +287,14 @@
 
         .offers-arrow:active {
             transform: scale(0.95);
+        }
+
+        @media (max-width: 640px) {
+
+            .offers-viewport::before,
+            .offers-viewport::after {
+                width: 28px;
+            }
         }
     </style>
 </head>
@@ -1041,18 +1071,20 @@
             track.style.transform = `translateX(-${offset}px)`;
         }
 
-        function finishCarouselStep(track) {
-            clearTimeout(offersCarousel.fallbackTimer);
-            if (offersCarousel.index >= offersCarousel.cloneCount + offersCarousel.total) {
-                offersCarousel.index -= offersCarousel.total;
-                setCarouselPosition(track, false);
-                void track.offsetWidth; // force reflow so the snap is invisible
-            } else if (offersCarousel.index < offersCarousel.cloneCount) {
-                offersCarousel.index += offersCarousel.total;
-                setCarouselPosition(track, false);
-                void track.offsetWidth;
-            }
-            offersCarousel.isAnimating = false;
+        function setCarouselPosition(track, animate) {
+            const viewport = track.parentElement;
+            const step = getCarouselStep(track);
+            const cardWidth = step - 18; // 260px card width (step minus 18px gap)
+            const viewportWidth = viewport ? viewport.clientWidth : step * 4;
+
+            // Center the active card so left and right edges are cut off equally
+            const centerOffset = (viewportWidth - cardWidth) / 2;
+            const translateX = centerOffset - (offersCarousel.index * step);
+
+            track.style.transition = animate
+                ? "transform 0.42s cubic-bezier(0.25, 0.8, 0.25, 1)"
+                : "none";
+            track.style.transform = `translateX(${translateX}px)`;
         }
 
         function moveOffersCarousel(direction) {
