@@ -137,8 +137,11 @@
 
         .l-card {
             flex: 0 0 260px;
-            flex-shrink: 0;
+            width: 260px;
+            min-width: 260px;
+            max-width: 260px;
             height: 334px;
+            overflow: hidden;
             scroll-snap-align: start;
             border: 1.5px solid #e2e8f0;
             border-radius: 18px;
@@ -1022,8 +1025,12 @@
             index: 0,
             total: 0,
             cloneCount: 0,
-            isAnimating: false,
             fallbackTimer: null
+        };
+
+        const offersCache = {
+            car: null,
+            vans: null
         };
 
         function getCarouselStep(track) {
@@ -1032,17 +1039,9 @@
         }
 
         function setCarouselPosition(track, animate) {
-            track.style.transition = animate
-                ? "transform 0.42s cubic-bezier(0.25, 0.8, 0.25, 1)"
-                : "none";
-            const offset = offersCarousel.index * getCarouselStep(track);
-            track.style.transform = `translateX(-${offset}px)`;
-        }
-
-        function setCarouselPosition(track, animate) {
             const viewport = track.parentElement;
             const step = getCarouselStep(track);
-            const cardWidth = step - 18; // 260px card width (step minus 18px gap)
+            const cardWidth = step - 18;
             const viewportWidth = viewport ? viewport.clientWidth : step * 4;
 
             // Center the active card so left and right edges are cut off equally
@@ -1055,17 +1054,34 @@
             track.style.transform = `translateX(${translateX}px)`;
         }
 
+        function wrapCarouselIfNeeded(track) {
+            clearTimeout(offersCarousel.fallbackTimer);
+            if (offersCarousel.total <= 1) return;
+
+            if (offersCarousel.index >= offersCarousel.cloneCount + offersCarousel.total) {
+                offersCarousel.index -= offersCarousel.total;
+                setCarouselPosition(track, false);
+                void track.offsetWidth; // invisible instant snap
+            } else if (offersCarousel.index < offersCarousel.cloneCount) {
+                offersCarousel.index += offersCarousel.total;
+                setCarouselPosition(track, false);
+                void track.offsetWidth;
+            }
+        }
+
         function moveOffersCarousel(direction) {
             const track = document.getElementById("best-offers-grid");
-            if (!track || offersCarousel.isAnimating || offersCarousel.total <= 1) return;
+            if (!track || offersCarousel.total <= 1) return;
 
-            offersCarousel.isAnimating = true;
+            // If a previous click landed on a clone edge, wrap cleanly before moving
+            wrapCarouselIfNeeded(track);
+
             offersCarousel.index += direction;
             setCarouselPosition(track, true);
 
-            // Fallback in case the browser tab is backgrounded and skips transitionend
+            // Guarantee wrap completes even if transitionend is skipped
             clearTimeout(offersCarousel.fallbackTimer);
-            offersCarousel.fallbackTimer = setTimeout(() => finishCarouselStep(track), 480);
+            offersCarousel.fallbackTimer = setTimeout(() => wrapCarouselIfNeeded(track), 450);
         }
 
         function createOfferCard(offer, vehicleType) {
@@ -1080,46 +1096,39 @@
             const card = document.createElement("div");
             card.className = "l-card";
             card.innerHTML = `
-        <div style="position: relative; height: 130px; border-radius: 14px; background: #eff6ff; color: #94a3b8; display: flex; align-items: center; justify-content: center; padding-top: 18px; box-sizing: border-box;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
-                <circle cx="7" cy="17" r="2"></circle>
-                <path d="M9 17h6"></path>
-                <circle cx="17" cy="17" r="2"></circle>
-            </svg>
-            <span style="position: absolute; top: 10px; right: 10px; background: #ffffff; color: #1d4ed8; border: 1px solid #dbeafe; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 999px; white-space: nowrap;">
-                ${fuel}
-            </span>
-        </div>
-        <h3 class="font-bold text-slate-900 truncate" style="font-size: 18px; margin: 0;">${make} ${model}</h3>
-        <p class="text-slate-500 truncate" style="font-size: 13px; margin: 0;">${derivative}</p>
-        <p class="text-slate-400" style="font-size: 12px; margin: 0;">48 mo · 5k miles · 12m initial</p>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 6px;">
-            <span style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 22px; color: #2563eb;">
-                ${monthly}<span style="font-size: 13px; font-weight: 500; color: #64748b;"> /mo</span>
-            </span>
-            <a href="/vehicles.html?cap=${encodeURIComponent(capCode)}${typeParam}" class="l-btn l-btn-sec"
-                style="min-height: 40px; padding: 0 16px; font-size: 14px;">
-                View
-            </a>
-        </div>
-    `;
+                <div style="position: relative; height: 130px; border-radius: 14px; background: #eff6ff; color: #94a3b8; display: flex; align-items: center; justify-content: center; padding-top: 18px; box-sizing: border-box;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"></path>
+                        <circle cx="7" cy="17" r="2"></circle>
+                        <path d="M9 17h6"></path>
+                        <circle cx="17" cy="17" r="2"></circle>
+                    </svg>
+                    <span style="position: absolute; top: 10px; right: 10px; background: #ffffff; color: #1d4ed8; border: 1px solid #dbeafe; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 999px; white-space: nowrap;">
+                        ${fuel}
+                    </span>
+                </div>
+                <h3 class="font-bold text-slate-900" style="font-size: 18px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">${make} ${model}</h3>
+                <p class="text-slate-500" style="font-size: 13px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">${derivative}</p>
+                <p class="text-slate-400" style="font-size: 12px; margin: 0;">48 mo · 5k miles · 12m initial</p>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 6px;">
+                    <span style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 22px; color: #2563eb;">
+                        ${monthly}<span style="font-size: 13px; font-weight: 500; color: #64748b;"> /mo</span>
+                    </span>
+                    <a href="/vehicles.html?cap=${encodeURIComponent(capCode)}${typeParam}" class="l-btn l-btn-sec"
+                        style="min-height: 40px; padding: 0 16px; font-size: 14px;">
+                        View
+                    </a>
+                </div>
+            `;
             return card;
         }
 
-        const offersCache = {
-            car: null,
-            vans: null
-        };
-
-        const statusHtml = (message, colorClass = "text-slate-500") =>
-            `<div style="width: 100%; min-height: 318px; display: flex; align-items: center; justify-content: center;" class="${colorClass}">${message}</div>`;
         function renderOffersCarousel(track, offers, vehicleType) {
             track.innerHTML = "";
 
             if (!Array.isArray(offers) || offers.length === 0) {
-                track.innerHTML = '<p class="text-slate-500 py-8">No active offers found.</p>';
+                track.innerHTML = '<div style="width: 100%; height: 334px; display: flex; align-items: center; justify-content: center;" class="text-slate-500">No active offers found.</div>';
                 return;
             }
 
@@ -1162,13 +1171,12 @@
             const track = document.getElementById("best-offers-grid");
             if (!track) return;
 
-            offersCarousel.isAnimating = false;
             clearTimeout(offersCarousel.fallbackTimer);
 
             if (!track.dataset.carouselBound) {
                 track.addEventListener("transitionend", (e) => {
                     if (e.target === track && e.propertyName === "transform") {
-                        finishCarouselStep(track);
+                        wrapCarouselIfNeeded(track);
                     }
                 });
                 window.addEventListener("resize", () => {
@@ -1177,7 +1185,6 @@
                 track.dataset.carouselBound = "true";
             }
 
-            // Instant render if already cached
             if (offersCache[vehicleType]) {
                 renderOffersCarousel(track, offersCache[vehicleType], vehicleType);
                 return;
@@ -1185,14 +1192,14 @@
 
             track.style.transition = "none";
             track.style.transform = "translateX(0px)";
-            track.innerHTML = statusHtml("Loading best leasing offers...");
+            track.innerHTML = "";
 
             try {
                 const offers = await fetchOffersData(vehicleType);
                 renderOffersCarousel(track, offers, vehicleType);
             } catch (err) {
                 console.error("Failed to load best offers:", err);
-                track.innerHTML = statusHtml("Failed to load offers. Please try again shortly.", "text-red-500");
+                track.innerHTML = '<div style="width: 100%; height: 334px; display: flex; align-items: center; justify-content: center;" class="text-red-500">Failed to load offers. Please try again shortly.</div>';
             }
         }
 
