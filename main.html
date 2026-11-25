@@ -1105,19 +1105,18 @@
             const derivative = offer.CAP_Derivative || "Standard Spec";
             const fuel = offer.Fuel || "";
             const capCode = offer.CAP_Code || "";
-            const monthly = typeof offer.Monthly === "number" ? `£${offer.Monthly.toFixed(2)}` : offer.Monthly;
             const typeParam = vehicleType === "vans" ? "&type=vans" : "";
+
             const baseMonthly = typeof offer.Monthly === "number" ? offer.Monthly : parseFloat(offer.Monthly);
             const hasNumericPrice = !isNaN(baseMonthly);
             const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
             const displayMonthly = hasNumericPrice ? (isBusiness ? baseMonthly : baseMonthly * 1.2) : null;
-            const vatSuffix = isBusiness ? ' + VAT' : 'inc VAT';
-            const priceDisplay = hasNumericPrice
-                ? `<span class="js-dynamic-price" data-base-price="${baseMonthly.toFixed(2)}" data-current-price="${displayMonthly.toFixed(2)}">£${displayMonthly.toFixed(2)}</span>`
-                : "POA";
-            const labelDisplay = hasNumericPrice
-                ? `<span class="js-vat-suffix text-xs font-medium text-slate-400">${vatSuffix}</span>`
-                : "";
+            const vatSuffix = isBusiness ? '+VAT' : 'inc VAT';
+
+            const priceHtml = hasNumericPrice
+                ? `<span class="js-dynamic-price" data-base-price="${baseMonthly.toFixed(2)}" data-current-price="${displayMonthly.toFixed(2)}">£${displayMonthly.toFixed(2)}</span><span class="js-vat-suffix" style="font-size: 12px; font-weight: 500; color: #64748b;">${vatSuffix}</span>`
+                : `<span>${offer.Monthly || "POA"}</span>`;
+
             const card = document.createElement("div");
             card.className = "l-card";
             card.innerHTML = `
@@ -1135,7 +1134,7 @@
                 </div>
                 <h3 class="font-bold text-slate-900" style="font-size: 18px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">${make} ${model}</h3>
                 <p class="text-slate-500" style="font-size: 13px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">${derivative}</p>
-                <p class="text-slate-400" style="font-size: 12px; margin: 0;">48 months · 5,000 miles · 12 months initial</p>
+                <p class="text-slate-400" style="font-size: 12px; margin: 0;">48 mo · 5k miles · 12m initial</p>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 6px;">
                     <span style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 20px; color: #2563eb; white-space: nowrap;">
                         ${priceHtml}
