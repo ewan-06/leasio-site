@@ -113,8 +113,31 @@
 
   <!-- HEADER -->
   <header class="relative z-50 backdrop-blur-md sticky top-0 bg-white/95 border-b border-slate-200/70">
+    <!-- Mobile Menu Button (shown below md) -->
+    <button type="button" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu"
+      class="md:hidden inline-flex items-center justify-center p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-blue-600 hover:text-white transition-colors">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
     <div class="l-wrap flex items-center justify-between gap-4 py-3 relative" style="min-height: 76px;">
-
+      <!-- Mobile Navigation Drawer -->
+      <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3">
+        <div class="flex flex-col gap-1 text-base font-semibold text-slate-800">
+          <a href="search.html"
+            class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Cars</a>
+          <a href="search.html?type=vans"
+            class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Vans</a>
+          <a href="main.html#best-offers-section"
+            class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Offers</a>
+          <a href="guides.html"
+            class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Guides</a>
+          <a href="about-us.html"
+            class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">About Us</a>
+          <a href="login.html"
+            class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Login</a>
+        </div>
+      </div>
       <!-- Left Side: Logo & Navigation Menu -->
       <div class="flex items-center gap-6 lg:gap-8">
         <!-- Logo -->
@@ -314,7 +337,7 @@
             </div>
           </div>
 
-          <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text--600"
+          <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
             href="about-us.html">About Us</a>
           <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
             href="login.html">Login</a>
@@ -354,6 +377,10 @@
           document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
         }
       });
+      function toggleMobileMenu() {
+        const drawer = document.getElementById('mobile-nav-drawer');
+        if (drawer) drawer.classList.toggle('hidden');
+      }
     </script>
   </header>
 
