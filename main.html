@@ -731,6 +731,12 @@
                     document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
                 }
             });
+            window.addEventListener('resize', function () {
+                if (window.innerWidth >= 768) {
+                    const drawer = document.getElementById('mobile-nav-drawer');
+                    if (drawer) drawer.classList.add('hidden');
+                }
+            });
         </script>
     </header>
 
