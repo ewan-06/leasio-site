@@ -7,7 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="page-title">Vehicle Leasing | Leasio</title>
   <link href="output.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700;9..40,800&family=Source+Sans+3:wght@400;500;600;700&display=block"
     rel="stylesheet">
   <style>
     body {
@@ -39,6 +42,82 @@
     .js-vat-suffix.is-fading {
       opacity: 0;
     }
+
+    /* Header Container & CTA Button Sizing */
+    .l-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      box-sizing: border-box;
+    }
+
+    .l-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 0 26px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 16px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+    }
+
+    .l-btn-pri {
+      background: #2563eb;
+      color: #ffffff;
+    }
+
+    .l-btn-pri:hover {
+      background: #1d4ed8;
+    }
+
+    @media (max-width: 640px) {
+      .l-wrap {
+        padding: 0 20px;
+      }
+    }
+
+    /* Header dropdown button hover highlight */
+    .leasio-nav-container>button {
+      border-radius: 10px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .leasio-nav-container>button:hover {
+      background-color: #2563eb !important;
+      color: #ffffff !important;
+    }
+
+    /* Match direct header nav links (Offers, About Us, Login) to dropdown button hover */
+    header nav>a {
+      border-radius: 10px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    header nav>a:hover {
+      background-color: #2563eb !important;
+      color: #ffffff !important;
+    }
+
+    /* Dropdown menu item hover highlight */
+    .leasio-mega-menu a {
+      display: inline-block;
+      padding: 6px 10px;
+      margin: -6px -10px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .leasio-mega-menu a:hover {
+      background-color: #2563eb !important;
+      color: #ffffff !important;
+    }
   </style>
   <link rel="canonical" href="https://leasio.co.uk/vehicles/1">
 </head>
@@ -47,37 +126,41 @@
   <div class="min-h-screen bg-[#f8fafc] flex flex-col">
 
     <!-- HEADER -->
-    <header class="relative z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md sticky top-0">
-      <div class="mx-auto flex h-20 max-w-[1600px] items-center px-5 sm:px-8 lg:px-12 relative">
+    <header class="relative z-50 backdrop-blur-md sticky top-0 bg-white/95 border-b border-slate-200/70">
+      <div class="l-wrap flex items-center justify-between gap-4 py-3 relative" style="min-height: 76px;">
 
-        <!-- LEFT SIDE: Logo & Navigation Menu -->
-        <div class="flex items-center gap-6 lg:gap-10 flex-1">
+        <!-- Left Side: Logo & Navigation Menu -->
+        <div class="flex items-center gap-6 lg:gap-8">
           <!-- Logo -->
           <a aria-label="Leasio home" class="min-w-0 shrink-0 block" href="main.html">
-            <img src="images/base_logo_transparent_background.png" alt="Leasio" width="260" height="80" loading="eager"
-              class="block w-auto object-contain" style="height: 56px; max-height: 56px; filter: none;">
+            <img src="images/base_logo_transparent_background.png" alt="Leasio Logo" width="260" height="80"
+              loading="eager" class="block w-auto object-contain" style="height: 44px; max-height: 44px; filter: none;">
           </a>
 
-          <!-- Navigation Links (Moved left, next to logo) -->
-          <nav aria-label="Main navigation" class="flex items-center gap-1">
-            <!-- CARS MEGA MENU -->
+          <!-- Navigation Links -->
+          <nav aria-label="Main navigation"
+            class="hidden md:flex items-center gap-1 text-[15px] font-medium text-slate-700">
+            <!-- Cars Menu -->
             <div class="relative inline-block leasio-nav-container">
               <button onclick="toggleMegaMenu('cars-mega')"
-                class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
-                Cars<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                class="flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600 focus:outline-none">
+                <span>Cars</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   class="lucide lucide-chevron-down">
                   <path d="m6 9 6 6 6-6"></path>
                 </svg>
               </button>
               <div id="cars-mega"
-                class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl"
+                class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl z-50"
                 style="width: 750px;">
-                <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">Cars Manufacturers</h3>
+                <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Cars
+                  Manufacturers</h3>
                 <div class="grid text-slate-800"
                   style="grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
                   <a href="search.html?make=Abarth" class="hover:text-blue-600 transition-colors">Abarth</a>
                   <a href="search.html?make=Aion" class="hover:text-blue-600 transition-colors">Aion</a>
-                  <a href="search.html?make=Alfa+Romeo" class="hover:text-blue-600 transition-colors">Alfa Romeo</a>
+                  <a href="search.html?make=Alfa+Romeo" class="hover:text-blue-600 transition-colors">Alfa
+                    Romeo</a>
                   <a href="search.html?make=Alpine" class="hover:text-blue-600 transition-colors">Alpine</a>
                   <a href="search.html?make=Audi" class="hover:text-blue-600 transition-colors">Audi</a>
                   <a href="search.html?make=BMW" class="hover:text-blue-600 transition-colors">BMW</a>
@@ -96,15 +179,18 @@
                   <a href="search.html?make=Ford" class="hover:text-blue-600 transition-colors">Ford</a>
                   <a href="search.html?make=Geely" class="hover:text-blue-600 transition-colors">Geely</a>
                   <a href="search.html?make=Genesis" class="hover:text-blue-600 transition-colors">Genesis</a>
-                  <a href="search.html?make=GWM+ORA" class="hover:text-blue-600 transition-colors">GWM ORA</a>
+                  <a href="search.html?make=GWM+ORA" class="hover:text-blue-600 transition-colors">GWM
+                    ORA</a>
                   <a href="search.html?make=Honda" class="hover:text-blue-600 transition-colors">Honda</a>
                   <a href="search.html?make=Hyundai" class="hover:text-blue-600 transition-colors">Hyundai</a>
                   <a href="search.html?make=Ineos" class="hover:text-blue-600 transition-colors">Ineos</a>
                   <a href="search.html?make=Jaecoo" class="hover:text-blue-600 transition-colors">Jaecoo</a>
                   <a href="search.html?make=Jeep" class="hover:text-blue-600 transition-colors">Jeep</a>
-                  <a href="search.html?make=KG+Mobility" class="hover:text-blue-600 transition-colors">KG Mobility</a>
+                  <a href="search.html?make=KG+Mobility" class="hover:text-blue-600 transition-colors">KG
+                    Mobility</a>
                   <a href="search.html?make=Kia" class="hover:text-blue-600 transition-colors">Kia</a>
-                  <a href="search.html?make=Land+Rover" class="hover:text-blue-600 transition-colors">Land Rover</a>
+                  <a href="search.html?make=Land+Rover" class="hover:text-blue-600 transition-colors">Land
+                    Rover</a>
                   <a href="search.html?make=Leapmotor" class="hover:text-blue-600 transition-colors">Leapmotor</a>
                   <a href="search.html?make=Lepas" class="hover:text-blue-600 transition-colors">Lepas</a>
                   <a href="search.html?make=Lexus" class="hover:text-blue-600 transition-colors">Lexus</a>
@@ -112,7 +198,8 @@
                   <a href="search.html?make=Maserati" class="hover:text-blue-600 transition-colors">Maserati</a>
                   <a href="search.html?make=Mazda" class="hover:text-blue-600 transition-colors">Mazda</a>
                   <a href="search.html?make=Mercedes" class="hover:text-blue-600 transition-colors">Mercedes</a>
-                  <a href="search.html?make=MG+Motor+UK" class="hover:text-blue-600 transition-colors">MG Motor UK</a>
+                  <a href="search.html?make=MG+Motor+UK" class="hover:text-blue-600 transition-colors">MG
+                    Motor UK</a>
                   <a href="search.html?make=Mini" class="hover:text-blue-600 transition-colors">Mini</a>
                   <a href="search.html?make=Mitsubishi" class="hover:text-blue-600 transition-colors">Mitsubishi</a>
                   <a href="search.html?make=Nissan" class="hover:text-blue-600 transition-colors">Nissan</a>
@@ -136,25 +223,27 @@
                 </div>
                 <div class="mt-8 border-t border-slate-100 pt-4">
                   <a href="search.html"
-                    class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse all cars
-                    &rarr;</a>
+                    class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse
+                    all cars &rarr;</a>
                 </div>
               </div>
             </div>
 
-            <!-- VANS MEGA MENU -->
+            <!-- Vans Menu -->
             <div class="relative inline-block leasio-nav-container">
               <button onclick="toggleMegaMenu('vans-mega')"
-                class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
-                Vans<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                class="flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600 focus:outline-none">
+                <span>Vans</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   class="lucide lucide-chevron-down">
                   <path d="m6 9 6 6 6-6"></path>
                 </svg>
               </button>
               <div id="vans-mega"
-                class="leasio-mega-menu absolute top-full left-0 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl"
+                class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl z-50"
                 style="width: 400px;">
-                <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 uppercase font-bold">Vans Manufacturers</h3>
+                <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Vans
+                  Manufacturers</h3>
                 <div class="grid text-slate-800"
                   style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
                   <a href="search.html?make=BYD&type=vans" class="hover:text-blue-600 transition-colors">BYD</a>
@@ -194,427 +283,426 @@
                 </div>
                 <div class="mt-8 border-t border-slate-100 pt-4">
                   <a href="search.html?type=vans"
-                    class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse all vans
-                    &rarr;</a>
+                    class="font-bold text-sm text-blue-600 hover:text-blue-700 transition-colors">Browse
+                    all vans &rarr;</a>
                 </div>
               </div>
             </div>
 
-            <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
+            <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
               href="main.html#best-offers-section">Offers</a>
 
-          </nav>
-        </div>
-
-        <!-- SIDE: Action Buttons -->
-        <!-- GUIDES DROPDOWN MENU -->
-        <div class="relative inline-block leasio-nav-container">
-          <button onclick="toggleMegaMenu('guides-mega')"
-            class="flex items-center gap-1 px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600 focus:outline-none">
-            Guides
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              class="lucide lucide-chevron-down">
-              <path d="m6 9 6 6 6-6"></path>
-            </svg>
-          </button>
-
-          <div id="guides-mega"
-            class="leasio-mega-menu absolute top-full right-0 bg-white border border-slate-200 p-6 hidden shadow-2xl rounded-2xl z-50"
-            style="width: 280px;">
-            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-4 uppercase font-bold">Leasing Guides</h3>
-            <div class="flex flex-col gap-3 text-sm text-slate-800">
-              <a href="/guides/personal-contract-hire" class="hover:text-blue-600 transition-colors">Personal
-                Contract Hire</a>
-              <a href="/guides/business-contract-hire" class="hover:text-blue-600 transition-colors">Business
-                Contract Hire</a>
-              <a href="/guides/car-leasing" class="hover:text-blue-600 transition-colors">Car Leasing</a>
-              <a href="/guides/van-leasing" class="hover:text-blue-600 transition-colors">Van Leasing</a>
-              <a href="/guides/hybrid-phev-vehicles" class="hover:text-blue-600 transition-colors">Hybrid/PHEV
-                Vehicles</a>
-              <a href="/guides/electric-vehicles" class="hover:text-blue-600 transition-colors">Electric
-                Vehicles</a>
-              <a href="/guides/leasing-faqs" class="hover:text-blue-600 transition-colors">Leasing FAQs</a>
-            </div>
-            <div class="mt-5 border-t border-slate-100 pt-3">
-              <a href="/guides.html" class="font-bold text-xs text-blue-600 hover:text-blue-700 transition-colors">
-                View all guides &rarr;
-              </a>
-            </div>
-          </div>
-        </div>
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
-          href="about-us.html">About Us</a>
-        <a class="px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-slate-600 transition-colors hover:text-blue-600"
-          href="login.html">Login</a>
-
-        <div class="flex items-center gap-6 shrink-0 ml-2">
-
-          <!-- GLOBAL VAT TOGGLE -->
-          <div class="flex items-center gap-2">
-            <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-blue-600"
-              id="label-personal">Personal</span>
-
-            <label class="relative inline-flex items-center cursor-pointer">
-              <input type="checkbox" class="sr-only peer vat-toggle-input">
-              <!-- Track stays bg-blue-600 at all times -->
-              <div
-                class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
-              </div>
-            </label>
-
-            <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-slate-400"
-              id="label-business">Business</span>
-          </div>
-
-          <a class="border border-blue-600 px-6 py-2.5 font-mono text-[11px] tracking-[0.12em] text-blue-600 rounded-xl transition-colors hover:bg-blue-600 hover:text-white shadow-sm"
-            href="search.html">SEARCH</a>
-        </div>
-      </div>
-
-      <script>
-        function toggleMegaMenu(id) {
-          const menus = document.querySelectorAll('.leasio-mega-menu');
-          const target = document.getElementById(id);
-          menus.forEach(menu => { if (menu !== target) menu.classList.add('hidden'); });
-          target.classList.toggle('hidden');
-        }
-        document.addEventListener('click', function (event) {
-          if (!event.target.closest('.leasio-nav-container')) {
-            document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
-          }
-        });
-      </script>
-    </header>
-
-    <!-- MAIN CONTENT -->
-    <main class="min-h-screen bg-[#f8fafc]">
-
-      <!-- BREADCRUMB BAR -->
-      <div class="border-b border-slate-200 bg-white">
-        <div class="mx-auto max-w-[1600px] px-5 py-4 sm:px-8 lg:px-12">
-          <nav aria-label="Breadcrumb"
-            class="flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-slate-400">
-            <a class="transition-colors hover:text-slate-900" href="main.html">Home</a>
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-chevron-right" aria-hidden="true">
-              <path d="m9 18 6-6-6-6"></path>
-            </svg>
-            <a id="breadcrumb-type" class="transition-colors hover:text-slate-900" href="search.html">Cars</a>
-            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="lucide lucide-chevron-right" aria-hidden="true">
-              <path d="m9 18 6-6-6-6"></path>
-            </svg>
-            <span id="breadcrumb-title" class="text-slate-900 pending-load font-bold">Vehicle Details</span>
-          </nav>
-        </div>
-      </div>
-
-      <!-- VEHICLE DETAILS & CALCULATOR GRID -->
-      <div class="mx-auto max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12">
-        <div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_400px]">
-
-          <!-- LEFT COLUMN: Image & Specs -->
-          <div class="min-w-0">
-            <div
-              class="relative aspect-[16/7] overflow-hidden border border-slate-200 bg-white rounded-2xl shadow-sm flex items-center justify-center">
-              <div class="text-slate-300">
-                <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                  class="lucide lucide-car">
-                  <path
-                    d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2">
-                  </path>
-                  <circle cx="7" cy="17" r="2"></circle>
-                  <path d="M9 17h6"></path>
-                  <circle cx="17" cy="17" r="2"></circle>
+            <!-- Guides Dropdown -->
+            <div class="relative inline-block leasio-nav-container">
+              <button onclick="toggleMegaMenu('guides-mega')"
+                class="flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600 focus:outline-none">
+                <span>Guides</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  class="lucide lucide-chevron-down">
+                  <path d="m6 9 6 6 6-6"></path>
                 </svg>
-              </div>
-              <span id="dyn-fuel"
-                class="absolute left-4 top-4 border px-3 py-1 font-mono text-[10px] tracking-widest border-blue-200 bg-blue-50 text-blue-700 rounded-full font-bold">Loading
-                Fuel Type...</span>
-              <span id="dyn-year"
-                class="absolute right-4 top-4 border border-slate-200 bg-white/90 backdrop-blur px-3 py-1 font-mono text-[10px] tracking-widest text-slate-500 rounded-full">Year
-              </span>
-            </div>
-
-            <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm font-sans">
-              <!-- Manufacturer (Massive & Bold) -->
-              <h1 id="dyn-make" class="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight uppercase">Loading
-                Vehicle...</h1>
-
-              <!-- Model (Blue Subtitle) -->
-              <h2 id="dyn-model" class="mt-2 text-2xl sm:text-3xl font-semibold text-blue-600 pending-load">Loading...
-              </h2>
-
-              <!-- Trim / Derivative -->
-              <p id="dyn-derivative" class="mt-4 text-lg font-medium text-slate-500 pending-load"></p>
-
-              <!-- Description -->
-              <p id="vehicle-description" class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 pending-load">
-              </p>
-            </div>
-
-            <!-- Standard Features -->
-            <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-              <p
-                class="mb-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
-                <span class="h-px w-8 bg-blue-600"></span>
-                <span>Standard features included</span>
-              </p>
-              <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm text-slate-700 font-medium">
-                <li class="flex items-start gap-3"><span
-                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Flexible
-                  contract lengths (24, 36 or 48 months)</li>
-                <li class="flex items-start gap-3"><span
-                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Choice
-                  of annual mileage allowance</li>
-                <li class="flex items-start gap-3"><span
-                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Road
-                  tax included for the duration</li>
-                <li class="flex items-start gap-3"><span
-                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Manufacturer
-                  warranty included</li>
-                <li class="flex items-start gap-3"><span
-                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Fixed
-                  monthly payments</li>
-                <li class="flex items-start gap-3"><span
-                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>No
-                  depreciation risk</li>
-              </ul>
-            </div>
-
-            <!-- Technical Specifications -->
-            <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-              <p
-                class="mb-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
-                <span class="h-px w-8 bg-blue-600"></span>
-                <span>Technical specifications</span>
-              </p>
-              <dl class="divide-y divide-slate-100">
-                <div class="flex items-center justify-between py-3">
-                  <dt class="text-sm text-slate-500 font-medium">Make</dt>
-                  <dd id="spec-make" class="text-sm font-bold text-slate-900">-</dd>
+              </button>
+              <div id="guides-mega"
+                class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-6 hidden shadow-2xl rounded-2xl z-50"
+                style="width: 280px;">
+                <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-4 uppercase font-bold">Leasing
+                  Guides</h3>
+                <div class="flex flex-col gap-3 text-sm text-slate-800">
+                  <a href="/guides/personal-contract-hire" class="hover:text-blue-600 transition-colors">Personal
+                    Contract Hire</a>
+                  <a href="/guides/business-contract-hire" class="hover:text-blue-600 transition-colors">Business
+                    Contract Hire</a>
+                  <a href="/guides/car-leasing" class="hover:text-blue-600 transition-colors">Car
+                    Leasing</a>
+                  <a href="/guides/van-leasing" class="hover:text-blue-600 transition-colors">Van
+                    Leasing</a>
+                  <a href="/guides/hybrid-phev-vehicles" class="hover:text-blue-600 transition-colors">Hybrid/PHEV
+                    Vehicles</a>
+                  <a href="/guides/electric-vehicles" class="hover:text-blue-600 transition-colors">Electric
+                    Vehicles</a>
+                  <a href="/guides/leasing-faqs" class="hover:text-blue-600 transition-colors">Leasing
+                    FAQs</a>
                 </div>
-                <div class="flex items-center justify-between py-3">
-                  <dt class="text-sm text-slate-500 font-medium">Model</dt>
-                  <dd id="spec-model" class="text-sm font-bold text-slate-900">-</dd>
+                <div class="mt-5 border-t border-slate-100 pt-3">
+                  <a href="/guides.html" class="font-bold text-xs text-blue-600 hover:text-blue-700 transition-colors">
+                    View all guides &rarr;
+                  </a>
                 </div>
-                <div class="flex items-center justify-between py-3">
-                  <dt class="text-sm text-slate-500 font-medium">Fuel type</dt>
-                  <dd id="spec-fuel" class="text-sm font-bold text-slate-900">-</dd>
-                </div>
-                <div class="flex items-center justify-between py-3">
-                  <dt class="text-sm text-slate-500 font-medium">Engine Size</dt>
-                  <dd id="spec-engine" class="text-sm font-bold text-slate-900">-</dd>
-                </div>
-                <div class="flex items-center justify-between py-3">
-                  <dt class="text-sm text-slate-500 font-medium">Power (kW)</dt>
-                  <dd id="spec-kw" class="text-sm font-bold text-slate-900">-</dd>
-                </div>
-              </dl>
-            </div>
-          </div>
-
-          <!-- RIGHT COLUMN: Interactive Calculator Box -->
-          <div
-            class="border border-slate-200 bg-white rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-900/5 lg:self-start sticky top-28">
-
-            <div class="flex items-center justify-between mb-6">
-              <div>
-                <p
-                  class="mb-1 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
-                  <span class="h-px w-6 bg-blue-600"></span>
-                  <span>Lease calculator</span>
-                </p>
-                <p class="text-xs text-slate-500">Adjust the options to see your live payment.</p>
-              </div>
-
-              <!-- CALCULATOR VAT TOGGLE -->
-              <div class="flex flex-col items-center gap-1">
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" class="sr-only peer vat-toggle-input">
-                  <!-- Track stays bg-blue-600 at all times -->
-                  <div
-                    class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
-                  </div>
-                </label>
-                <span
-                  class="text-[9px] font-mono tracking-widest text-slate-400 uppercase font-bold text-center vat-status-text">Personal</span>
               </div>
             </div>
 
-            <div class="flex flex-col gap-5">
-              <!-- Contract Length -->
-              <div>
-                <div class="mb-2 flex items-center justify-between">
-                  <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Contract
-                    Length</span>
-                </div>
-                <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">24
-                    mo</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">36
-                    mo</button>
-                  <button type="button" aria-pressed="true"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48
-                    mo</button>
-                </div>
-              </div>
-
-              <!-- Annual Mileage -->
-              <div>
-                <div class="mb-2 flex items-center justify-between">
-                  <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Annual
-                    Mileage</span>
-                </div>
-                <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
-                  <button type="button" aria-pressed="true"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">10k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">15k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">20k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">25k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">30k</button>
-                </div>
-              </div>
-
-              <!-- Initial Payment -->
-              <div>
-                <div class="mb-2 flex items-center justify-between">
-                  <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Initial
-                    Payment</span>
-                </div>
-                <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50 gap-1">
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                    onclick="setInitial(1, this)">1m</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                    onclick="setInitial(3, this)">3m</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                    onclick="setInitial(6, this)">6m</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                    onclick="setInitial(9, this)">9m</button>
-                  <button type="button" aria-pressed="true"
-                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm"
-                    onclick="setInitial(12, this)">12m</button>
-                </div>
-              </div>
-
-              <!-- Action Buttons -->
-              <div class="flex flex-col gap-3">
-                <button id="save-quote-btn"
-                  class="w-full bg-blue-50 hover:bg-blue-100 text-blue-500 font-bold py-2.5 px-4 rounded-xl transition text-sm shadow-sm hidden">
-                  Save Quote
-                </button>
-
-                <!-- Trigger Button -->
-                <button type="button" id="open-enquiry-btn"
-                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
-                  <span>Enquire</span>
-                  <span>&rarr;</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Enquiry Modal Box -->
-            <div id="enquiry-modal"
-              class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
-              <div class="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-8 relative">
-                <div class="flex items-start justify-between gap-4 mb-6">
-                  <div>
-                    <span
-                      class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-2">
-                      Vehicle Enquiry
-                    </span>
-                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Request a callback or quote</h2>
-                    <p id="enquiry-vehicle-summary" class="text-xs text-slate-500 mt-1">Share your details and our team
-                      will be in touch.</p>
-                  </div>
-                  <button type="button" id="close-enquiry-btn" aria-label="Close enquiry box"
-                    class="text-slate-400 hover:text-slate-700 font-bold text-lg leading-none p-1">
-                    &times;
-                  </button>
-                </div>
-
-                <form id="enquiry-form" class="flex flex-col gap-4" novalidate>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label for="enq-first-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">First
-                        Name</label>
-                      <input type="text" id="enq-first-name" name="first_name" required placeholder="Jane"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                    </div>
-                    <div>
-                      <label for="enq-last-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Last
-                        Name</label>
-                      <input type="text" id="enq-last-name" name="last_name" required placeholder="Doe"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                    </div>
-                  </div>
-
-                  <div>
-                    <label for="enq-phone" class="block text-xs font-bold text-slate-500 uppercase mb-1">Phone
-                      Number</label>
-                    <input type="tel" id="enq-phone" name="phone" required placeholder="07123 456789"
-                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                  </div>
-
-                  <div>
-                    <label for="enq-email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email
-                      Address</label>
-                    <input type="email" id="enq-email" name="email" required placeholder="name@example.com"
-                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                  </div>
-
-                  <!-- Terms & Conditions Checkbox -->
-                  <label class="flex items-start gap-3 pt-1 cursor-pointer select-none">
-                    <input type="checkbox" id="enq-terms" required
-                      class="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
-                    <span class="text-xs text-slate-600 leading-relaxed">
-                      I confirm that I have read and agree to the <a href="/terms"
-                        class="text-blue-600 font-semibold underline hover:text-blue-700">terms and conditions</a>.
-                    </span>
-                  </label>
-
-                  <!-- Validation / Status Messages -->
-                  <p id="enquiry-error"
-                    class="hidden text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium">
-                  </p>
-                  <p id="enquiry-success"
-                    class="hidden text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5 text-xs font-semibold">
-                  </p>
-
-                  <!-- Send Enquiry Button & GDPR Disclaimer -->
-                  <div class="pt-1">
-                    <button type="submit" id="send-enquiry-btn"
-                      class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
-                      <span>Send Enquiry</span>
-                    </button>
-                    <p class="text-[11px] text-slate-400 leading-relaxed mt-2.5 text-center">
-                      By clicking this button you agree to be contacted about this vehicle and your requirements in
-                      accordance with our privacy policy.
-                    </p>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+            <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text--600"
+              href="about-us.html">About Us</a>
+            <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
+              href="login.html">Login</a>
+          </nav>
         </div>
 
+        <!-- Right Side: Global VAT Toggle + Primary CTA -->
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-blue-600"
+            id="label-personal">Personal</span>
+
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" class="sr-only peer vat-toggle-input">
+            <div
+              class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
+            </div>
+          </label>
+
+          <span class="text-[10px] font-mono tracking-widest uppercase font-bold transition-colors text-slate-400"
+            id="label-business">Business</span>
+        </div>
+
+        <a class="l-btn l-btn-pri" style="min-height: 42px; padding: 0 22px; font-size: 14px;" href="search.html">Search
+          deals</a>
       </div>
   </div>
+
+  <script>
+    function toggleMegaMenu(id) {
+      const menus = document.querySelectorAll('.leasio-mega-menu');
+      const target = document.getElementById(id);
+      menus.forEach(menu => { if (menu !== target) menu.classList.add('hidden'); });
+      target.classList.toggle('hidden');
+    }
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('.leasio-nav-container')) {
+        document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
+      }
+    });
+  </script>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="min-h-screen bg-[#f8fafc]">
+
+    <!-- BREADCRUMB BAR -->
+    <div class="border-b border-slate-200 bg-white">
+      <div class="mx-auto max-w-[1600px] px-5 py-4 sm:px-8 lg:px-12">
+        <nav aria-label="Breadcrumb"
+          class="flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-slate-400">
+          <a class="transition-colors hover:text-slate-900" href="main.html">Home</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-chevron-right" aria-hidden="true">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+          <a id="breadcrumb-type" class="transition-colors hover:text-slate-900" href="search.html">Cars</a>
+          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-chevron-right" aria-hidden="true">
+            <path d="m9 18 6-6-6-6"></path>
+          </svg>
+          <span id="breadcrumb-title" class="text-slate-900 pending-load font-bold">Vehicle Details</span>
+        </nav>
+      </div>
+    </div>
+
+    <!-- VEHICLE DETAILS & CALCULATOR GRID -->
+    <div class="mx-auto max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12">
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_400px]">
+
+        <!-- LEFT COLUMN: Image & Specs -->
+        <div class="min-w-0">
+          <div
+            class="relative aspect-[16/7] overflow-hidden border border-slate-200 bg-white rounded-2xl shadow-sm flex items-center justify-center">
+            <div class="text-slate-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-car">
+                <path
+                  d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2">
+                </path>
+                <circle cx="7" cy="17" r="2"></circle>
+                <path d="M9 17h6"></path>
+                <circle cx="17" cy="17" r="2"></circle>
+              </svg>
+            </div>
+            <span id="dyn-fuel"
+              class="absolute left-4 top-4 border px-3 py-1 font-mono text-[10px] tracking-widest border-blue-200 bg-blue-50 text-blue-700 rounded-full font-bold">Loading
+              Fuel Type...</span>
+            <span id="dyn-year"
+              class="absolute right-4 top-4 border border-slate-200 bg-white/90 backdrop-blur px-3 py-1 font-mono text-[10px] tracking-widest text-slate-500 rounded-full">Year
+            </span>
+          </div>
+
+          <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm font-sans">
+            <!-- Manufacturer (Massive & Bold) -->
+            <h1 id="dyn-make" class="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight uppercase">Loading
+              Vehicle...</h1>
+
+            <!-- Model (Blue Subtitle) -->
+            <h2 id="dyn-model" class="mt-2 text-2xl sm:text-3xl font-semibold text-blue-600 pending-load">Loading...
+            </h2>
+
+            <!-- Trim / Derivative -->
+            <p id="dyn-derivative" class="mt-4 text-lg font-medium text-slate-500 pending-load"></p>
+
+            <!-- Description -->
+            <p id="vehicle-description" class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 pending-load">
+            </p>
+          </div>
+
+          <!-- Standard Features -->
+          <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+            <p
+              class="mb-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
+              <span class="h-px w-8 bg-blue-600"></span>
+              <span>Standard features included</span>
+            </p>
+            <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm text-slate-700 font-medium">
+              <li class="flex items-start gap-3"><span
+                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Flexible
+                contract lengths (24, 36 or 48 months)</li>
+              <li class="flex items-start gap-3"><span
+                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Choice
+                of annual mileage allowance</li>
+              <li class="flex items-start gap-3"><span
+                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Road
+                tax included for the duration</li>
+              <li class="flex items-start gap-3"><span
+                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Manufacturer
+                warranty included</li>
+              <li class="flex items-start gap-3"><span
+                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Fixed
+                monthly payments</li>
+              <li class="flex items-start gap-3"><span
+                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>No
+                depreciation risk</li>
+            </ul>
+          </div>
+
+          <!-- Technical Specifications -->
+          <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+            <p
+              class="mb-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
+              <span class="h-px w-8 bg-blue-600"></span>
+              <span>Technical specifications</span>
+            </p>
+            <dl class="divide-y divide-slate-100">
+              <div class="flex items-center justify-between py-3">
+                <dt class="text-sm text-slate-500 font-medium">Make</dt>
+                <dd id="spec-make" class="text-sm font-bold text-slate-900">-</dd>
+              </div>
+              <div class="flex items-center justify-between py-3">
+                <dt class="text-sm text-slate-500 font-medium">Model</dt>
+                <dd id="spec-model" class="text-sm font-bold text-slate-900">-</dd>
+              </div>
+              <div class="flex items-center justify-between py-3">
+                <dt class="text-sm text-slate-500 font-medium">Fuel type</dt>
+                <dd id="spec-fuel" class="text-sm font-bold text-slate-900">-</dd>
+              </div>
+              <div class="flex items-center justify-between py-3">
+                <dt class="text-sm text-slate-500 font-medium">Engine Size</dt>
+                <dd id="spec-engine" class="text-sm font-bold text-slate-900">-</dd>
+              </div>
+              <div class="flex items-center justify-between py-3">
+                <dt class="text-sm text-slate-500 font-medium">Power (kW)</dt>
+                <dd id="spec-kw" class="text-sm font-bold text-slate-900">-</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Interactive Calculator Box -->
+        <div
+          class="border border-slate-200 bg-white rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-900/5 lg:self-start sticky top-28">
+
+          <div class="flex items-center justify-between mb-6">
+            <div>
+              <p
+                class="mb-1 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
+                <span class="h-px w-6 bg-blue-600"></span>
+                <span>Lease calculator</span>
+              </p>
+              <p class="text-xs text-slate-500">Adjust the options to see your live payment.</p>
+            </div>
+
+            <!-- CALCULATOR VAT TOGGLE -->
+            <div class="flex flex-col items-center gap-1">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer vat-toggle-input">
+                <!-- Track stays bg-blue-600 at all times -->
+                <div
+                  class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
+                </div>
+              </label>
+              <span
+                class="text-[9px] font-mono tracking-widest text-slate-400 uppercase font-bold text-center vat-status-text">Personal</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-5">
+            <!-- Contract Length -->
+            <div>
+              <div class="mb-2 flex items-center justify-between">
+                <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Contract
+                  Length</span>
+              </div>
+              <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">24
+                  mo</button>
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">36
+                  mo</button>
+                <button type="button" aria-pressed="true"
+                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48
+                  mo</button>
+              </div>
+            </div>
+
+            <!-- Annual Mileage -->
+            <div>
+              <div class="mb-2 flex items-center justify-between">
+                <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Annual
+                  Mileage</span>
+              </div>
+              <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
+                <button type="button" aria-pressed="true"
+                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">10k</button>
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">15k</button>
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">20k</button>
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">25k</button>
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">30k</button>
+              </div>
+            </div>
+
+            <!-- Initial Payment -->
+            <div>
+              <div class="mb-2 flex items-center justify-between">
+                <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Initial
+                  Payment</span>
+              </div>
+              <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50 gap-1">
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                  onclick="setInitial(1, this)">1m</button>
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                  onclick="setInitial(3, this)">3m</button>
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                  onclick="setInitial(6, this)">6m</button>
+                <button type="button" aria-pressed="false"
+                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                  onclick="setInitial(9, this)">9m</button>
+                <button type="button" aria-pressed="true"
+                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm"
+                  onclick="setInitial(12, this)">12m</button>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col gap-3">
+              <button id="save-quote-btn"
+                class="w-full bg-blue-50 hover:bg-blue-100 text-blue-500 font-bold py-2.5 px-4 rounded-xl transition text-sm shadow-sm hidden">
+                Save Quote
+              </button>
+
+              <!-- Trigger Button -->
+              <button type="button" id="open-enquiry-btn"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
+                <span>Enquire</span>
+                <span>&rarr;</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Enquiry Modal Box -->
+          <div id="enquiry-modal"
+            class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
+            <div class="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-8 relative">
+              <div class="flex items-start justify-between gap-4 mb-6">
+                <div>
+                  <span
+                    class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-2">
+                    Vehicle Enquiry
+                  </span>
+                  <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Request a callback or quote</h2>
+                  <p id="enquiry-vehicle-summary" class="text-xs text-slate-500 mt-1">Share your details and our team
+                    will be in touch.</p>
+                </div>
+                <button type="button" id="close-enquiry-btn" aria-label="Close enquiry box"
+                  class="text-slate-400 hover:text-slate-700 font-bold text-lg leading-none p-1">
+                  &times;
+                </button>
+              </div>
+
+              <form id="enquiry-form" class="flex flex-col gap-4" novalidate>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label for="enq-first-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">First
+                      Name</label>
+                    <input type="text" id="enq-first-name" name="first_name" required placeholder="Jane"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                  </div>
+                  <div>
+                    <label for="enq-last-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Last
+                      Name</label>
+                    <input type="text" id="enq-last-name" name="last_name" required placeholder="Doe"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                  </div>
+                </div>
+
+                <div>
+                  <label for="enq-phone" class="block text-xs font-bold text-slate-500 uppercase mb-1">Phone
+                    Number</label>
+                  <input type="tel" id="enq-phone" name="phone" required placeholder="07123 456789"
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                </div>
+
+                <div>
+                  <label for="enq-email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email
+                    Address</label>
+                  <input type="email" id="enq-email" name="email" required placeholder="name@example.com"
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                </div>
+
+                <!-- Terms & Conditions Checkbox -->
+                <label class="flex items-start gap-3 pt-1 cursor-pointer select-none">
+                  <input type="checkbox" id="enq-terms" required
+                    class="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
+                  <span class="text-xs text-slate-600 leading-relaxed">
+                    I confirm that I have read and agree to the <a href="/terms"
+                      class="text-blue-600 font-semibold underline hover:text-blue-700">terms and conditions</a>.
+                  </span>
+                </label>
+
+                <!-- Validation / Status Messages -->
+                <p id="enquiry-error"
+                  class="hidden text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium">
+                </p>
+                <p id="enquiry-success"
+                  class="hidden text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5 text-xs font-semibold">
+                </p>
+
+                <!-- Send Enquiry Button & GDPR Disclaimer -->
+                <div class="pt-1">
+                  <button type="submit" id="send-enquiry-btn"
+                    class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
+                    <span>Send Enquiry</span>
+                  </button>
+                  <p class="text-[11px] text-slate-400 leading-relaxed mt-2.5 text-center">
+                    By clicking this button you agree to be contacted about this vehicle and your requirements in
+                    accordance with our privacy policy.
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
   </main>
 
   <!-- FOOTER -->
@@ -877,33 +965,24 @@
       }
     });
 
-    // nav.js
-    document.addEventListener("DOMContentLoaded", () => {
+    // Auth Nav Swap (runs immediately to avoid flash)
+    (function () {
       const userJson = localStorage.getItem('leasio_user');
-
-      // Find all elements or links that point to login or act as the auth button
-      // You can target them by looking for href="login.html" or a specific ID
-      const loginLinks = document.querySelectorAll('a[href="login.html"], a[href="register.html"]');
-
-      if (userJson) {
-        try {
-          const user = JSON.parse(userJson);
-
-          // Loop through login/register links in the nav and convert them to "Account"
-          loginLinks.forEach(link => {
-            // Only convert if it's the main login/auth nav item (avoid footer links if needed)
-            if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
-              link.textContent = "Account";
-              link.setAttribute("href", "dashboard.html");
-              link.className = "px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-blue-600 font-bold transition-colors";
-            }
-          });
-        } catch (e) {
-          console.error("Failed to parse user session", e);
-          localStorage.removeItem('leasio_user');
-        }
+      if (!userJson) return;
+      try {
+        JSON.parse(userJson);
+        document.querySelectorAll('header a[href="login.html"], header a[href="register.html"]').forEach(link => {
+          if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
+            link.textContent = "Account";
+            link.setAttribute("href", "dashboard.html");
+            link.className = "px-3 py-2 text-[15px] font-semibold text-slate-700 transition-colors";
+          }
+        });
+      } catch (e) {
+        console.error("Failed to parse user session", e);
+        localStorage.removeItem('leasio_user');
       }
-    });
+    })();
   </script>
 
   <script src="nav.js"></script>
