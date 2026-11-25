@@ -212,6 +212,17 @@
             color: #ffffff;
         }
 
+        /* Match direct header nav links (Offers, About Us, Login) to dropdown button hover */
+        header nav>a {
+            border-radius: 10px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        header nav>a:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+
         /* Dropdown menu item hover highlight */
         .leasio-mega-menu a {
             display: inline-block;
@@ -1297,7 +1308,7 @@
                     if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
                         link.textContent = "Account";
                         link.setAttribute("href", "dashboard.html");
-                        link.className = "px-3 py-2 text-[15px] font-bold text-blue-600 transition-colors";
+                        link.className = "px-3 py-2 text-[15px] font-semibold text-slate-700 transition-colors";
                     }
                 });
             } catch (e) {
