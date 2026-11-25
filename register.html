@@ -125,6 +125,53 @@
       background-color: #2563eb !important;
       color: #ffffff !important;
     }
+
+    /* Dropdown boxes hover highlight */
+    select,
+    #hero-body-btn,
+    #filter-body-btn {
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    select:hover:not(:disabled),
+    #hero-body-btn:hover,
+    #filter-body-btn:hover {
+      background-color: #2563eb !important;
+      border-color: #2563eb !important;
+      color: #ffffff !important;
+    }
+
+    select option {
+      background-color: #ffffff;
+      color: #0f172a;
+    }
+
+    /* Standard <select> dropdowns & custom body-style trigger hover */
+    select,
+    #hero-body-btn,
+    #filter-body-btn {
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    select:hover:not(:disabled),
+    #hero-body-btn:hover,
+    #filter-body-btn:hover {
+      background-color: #2563eb !important;
+      border-color: #2563eb !important;
+      color: #ffffff !important;
+    }
+
+    /* Keep native <option> items readable when the browser menu opens */
+    select option {
+      background-color: #ffffff;
+      color: #0f172a;
+    }
+
+    select option:disabled {
+      color: #94a3b8;
+    }
   </style>
 </head>
 
@@ -359,7 +406,6 @@
       <a class="l-btn l-btn-pri" style="min-height: 42px; padding: 0 22px; font-size: 14px;" href="search.html">Search
         deals</a>
     </div>
-    </div>
 
     <script>
       function toggleMegaMenu(id) {
@@ -455,6 +501,8 @@
         const emailInput = document.getElementById('email').value.trim();
         const phoneInput = document.getElementById('phone').value.trim();
         const addressInput = document.getElementById('address').value.trim();
+        const errorMsg = document.getElementById('error-message');
+        errorMsg.classList.add('hidden');
 
         if (!isValidEmail(emailInput)) {
           alert("Please enter a valid email address (e.g., name@example.com)");
@@ -473,7 +521,6 @@
           return;
         }
 
-        const errorMsg = document.getElementById('error-message');
         const submitBtn = e.target.querySelector('button[type="submit"]');
         errorMsg.classList.add('hidden');
 

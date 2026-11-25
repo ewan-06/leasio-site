@@ -331,6 +331,32 @@
         .js-vat-suffix.is-fading {
             opacity: 0;
         }
+
+        /* Standard <select> dropdowns & custom body-style trigger hover */
+        select,
+        #hero-body-btn,
+        #filter-body-btn {
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        select:hover:not(:disabled),
+        #hero-body-btn:hover,
+        #filter-body-btn:hover {
+            background-color: #2563eb !important;
+            border-color: #2563eb !important;
+            color: #ffffff !important;
+        }
+
+        /* Keep native <option> items readable when the browser menu opens */
+        select option {
+            background-color: #ffffff;
+            color: #0f172a;
+        }
+
+        select option:disabled {
+            color: #94a3b8;
+        }
     </style>
 </head>
 
@@ -345,7 +371,8 @@
                 <!-- Logo -->
                 <a aria-label="Leasio home" class="min-w-0 shrink-0 block" href="main.html">
                     <img src="images/base_logo_transparent_background.png" alt="Leasio Logo" width="260" height="80"
-                        loading="eager" class="block w-auto object-contain" style="height: 66px; max-height: 66px; filter: none;">
+                        loading="eager" class="block w-auto object-contain"
+                        style="height: 66px; max-height: 66px; filter: none;">
                 </a>
 
                 <!-- Navigation Links -->

@@ -137,6 +137,39 @@
       background-color: #2563eb !important;
       color: #ffffff !important;
     }
+
+    /* Standard <select> dropdowns & custom body-style trigger hover */
+    select,
+    #hero-body-btn,
+    #filter-body-btn {
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    select:hover:not(:disabled),
+    #hero-body-btn:hover,
+    #filter-body-btn:hover {
+      background-color: #2563eb !important;
+      border-color: #2563eb !important;
+      color: #ffffff !important;
+    }
+
+    /* Keep native <option> items readable when the browser menu opens */
+    select option {
+      background-color: #ffffff;
+      color: #0f172a;
+    }
+
+    select option:disabled {
+      color: #94a3b8;
+    }
+
+    /* Turn sibling & child dropdown chevron arrows white on hover */
+    select:hover:not(:disabled)+span,
+    #hero-body-btn:hover svg,
+    #filter-body-btn:hover svg {
+      color: #ffffff !important;
+    }
   </style>
   <link rel="canonical" href="https://leasio.co.uk/search">
 </head>
@@ -375,399 +408,401 @@
 
         <a class="l-btn l-btn-pri" style="min-height: 42px; padding: 0 22px; font-size: 14px;" href="search.html">Search
           deals</a>
-  </div>
+      </div>
 
-  <script>
-    function toggleMegaMenu(id) {
-      const menus = document.querySelectorAll('.leasio-mega-menu');
-      const target = document.getElementById(id);
-      menus.forEach(menu => { if (menu !== target) menu.classList.add('hidden'); });
-      target.classList.toggle('hidden');
-    }
-    document.addEventListener('click', function (event) {
-      if (!event.target.closest('.leasio-nav-container')) {
-        document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
-      }
-    });
-  </script>
-  </header>
+      <script>
+        function toggleMegaMenu(id) {
+          const menus = document.querySelectorAll('.leasio-mega-menu');
+          const target = document.getElementById(id);
+          menus.forEach(menu => { if (menu !== target) menu.classList.add('hidden'); });
+          target.classList.toggle('hidden');
+        }
+        document.addEventListener('click', function (event) {
+          if (!event.target.closest('.leasio-nav-container')) {
+            document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
+          }
+        });
+      </script>
+    </header>
 
-  <!-- SEARCH & FILTER LAYOUT -->
-  <main class="min-h-screen bg-[#f8fafc]">
+    <!-- SEARCH & FILTER LAYOUT -->
+    <main class="min-h-screen bg-[#f8fafc]">
 
-    <!-- TOP RESULTS HEADER BAR -->
-    <div class="border-b border-slate-200 bg-white shadow-sm">
-      <div class="mx-auto max-w-[1600px] px-5 py-5 sm:px-8 lg:px-12">
-        <nav aria-label="Breadcrumb"
-          class="mb-3 flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-slate-400">
-          <a class="transition-colors hover:text-slate-900" href="main.html">Home</a>
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-chevron-right">
-            <path d="m9 18 6-6-6-6"></path>
-          </svg>
-          <span id="crumb-type" class="text-slate-900 font-bold">Cars</span>
-        </nav>
+      <!-- TOP RESULTS HEADER BAR -->
+      <div class="border-b border-slate-200 bg-white shadow-sm">
+        <div class="mx-auto max-w-[1600px] px-5 py-5 sm:px-8 lg:px-12">
+          <nav aria-label="Breadcrumb"
+            class="mb-3 flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-slate-400">
+            <a class="transition-colors hover:text-slate-900" href="main.html">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-chevron-right">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span id="crumb-type" class="text-slate-900 font-bold">Cars</span>
+          </nav>
 
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex items-center gap-3">
-            <span id="type-label"
-              class="font-mono text-xs tracking-widest text-blue-600 font-bold uppercase bg-blue-50 px-3 py-1 rounded-full">Cars</span>
-            <p class="font-mono text-xs text-slate-500"><span id="result-count"
-                class="text-slate-900 font-bold">0</span> vehicles available</p>
-          </div>
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex items-center gap-3">
+              <span id="type-label"
+                class="font-mono text-xs tracking-widest text-blue-600 font-bold uppercase bg-blue-50 px-3 py-1 rounded-full">Cars</span>
+              <p class="font-mono text-xs text-slate-500"><span id="result-count"
+                  class="text-slate-900 font-bold">0</span> vehicles available</p>
+            </div>
 
-          <div class="flex items-center gap-3">
-            <div class="relative">
-              <select aria-label="Sort results"
-                class="appearance-none rounded-xl border border-slate-200 bg-white py-2.5 pl-4 pr-10 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 shadow-sm">
-                <option value="Relevance">Relevance</option>
-                <option value="Price: low to high">Price: low to high</option>
-                <option value="Price: high to low">Price: high to low</option>
-              </select>
-              <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                  stroke="currentColor" stroke-width="2">
-                  <path d="m6 9 6 6 6-6"></path>
-                </svg>
-              </span>
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <select aria-label="Sort results"
+                  class="appearance-none rounded-xl border border-slate-200 bg-white py-2.5 pl-4 pr-10 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 shadow-sm">
+                  <option value="Relevance">Relevance</option>
+                  <option value="Price: low to high">Price: low to high</option>
+                  <option value="Price: high to low">Price: high to low</option>
+                </select>
+                <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2">
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- MAIN FILTER SIDEBAR & GRID -->
-    <div class="mx-auto max-w-[1600px] px-5 py-8 sm:px-8 lg:px-12">
-      <div class="flex gap-10 items-start">
+      <!-- MAIN FILTER SIDEBAR & GRID -->
+      <div class="mx-auto max-w-[1600px] px-5 py-8 sm:px-8 lg:px-12">
+        <div class="flex gap-10 items-start">
 
-        <!-- SIDEBAR FILTERS -->
-        <aside id="filter-sidebar" aria-label="Refine your search" class="hidden w-full shrink-0 lg:block lg:w-72 z-20"
-          style="position: sticky; top: 6rem; align-self: flex-start; max-height: calc(100vh - 7rem); overflow-y: auto;">
-          <div>
-            <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-              <p
-                class="mb-5 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
-                <span class="h-px w-6 bg-blue-600"></span>
-                <span>Refine your search</span>
-              </p>
+          <!-- SIDEBAR FILTERS -->
+          <aside id="filter-sidebar" aria-label="Refine your search"
+            class="hidden w-full shrink-0 lg:block lg:w-72 z-20"
+            style="position: sticky; top: 6rem; align-self: flex-start; max-height: calc(100vh - 7rem); overflow-y: auto;">
+            <div>
+              <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                <p
+                  class="mb-5 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
+                  <span class="h-px w-6 bg-blue-600"></span>
+                  <span>Refine your search</span>
+                </p>
 
-              <div class="flex flex-col gap-5">
+                <div class="flex flex-col gap-5">
 
-                <!-- Make Dropdown -->
-                <div>
-                  <label for="filter-make"
-                    class="mb-1.5 block font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Make</label>
-                  <div class="relative">
-                    <select id="filter-make" aria-label="Filter by make"
-                      class="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-10 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                      <option value="Any make">Any make</option>
-                    </select>
-                    <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="m6 9 6 6 6-6"></path>
-                      </svg></span>
+                  <!-- Make Dropdown -->
+                  <div>
+                    <label for="filter-make"
+                      class="mb-1.5 block font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Make</label>
+                    <div class="relative">
+                      <select id="filter-make" aria-label="Filter by make"
+                        class="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-10 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                        <option value="Any make">Any make</option>
+                      </select>
+                      <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"><svg
+                          xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
+                          <path d="m6 9 6 6 6-6"></path>
+                        </svg></span>
+                    </div>
                   </div>
-                </div>
 
-                <!-- Model Dropdown -->
-                <div>
-                  <label for="filter-model"
-                    class="mb-1.5 block font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Model</label>
-                  <div class="relative">
-                    <select id="filter-model" disabled aria-label="Filter by model"
-                      class="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-10 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 disabled:opacity-50">
-                      <option value="">Select a make first</option>
-                    </select>
-                    <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="m6 9 6 6 6-6"></path>
-                      </svg></span>
+                  <!-- Model Dropdown -->
+                  <div>
+                    <label for="filter-model"
+                      class="mb-1.5 block font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Model</label>
+                    <div class="relative">
+                      <select id="filter-model" disabled aria-label="Filter by model"
+                        class="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-10 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 disabled:opacity-50">
+                        <option value="">Select a make first</option>
+                      </select>
+                      <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"><svg
+                          xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
+                          <path d="m6 9 6 6 6-6"></path>
+                        </svg></span>
+                    </div>
                   </div>
-                </div>
 
-                <!-- Fuel Type Dropdown -->
-                <div>
-                  <label for="filter-fuel"
-                    class="mb-1.5 block font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Fuel
-                    Type</label>
-                  <div class="relative">
-                    <select id="filter-fuel" aria-label="Filter by fuel type"
-                      class="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-10 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                      <option value="">Any fuel type</option>
-                    </select>
-                    <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"><svg
-                        xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="m6 9 6 6 6-6"></path>
-                      </svg></span>
+                  <!-- Fuel Type Dropdown -->
+                  <div>
+                    <label for="filter-fuel"
+                      class="mb-1.5 block font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Fuel
+                      Type</label>
+                    <div class="relative">
+                      <select id="filter-fuel" aria-label="Filter by fuel type"
+                        class="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 pr-10 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                        <option value="">Any fuel type</option>
+                      </select>
+                      <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400"><svg
+                          xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2">
+                          <path d="m6 9 6 6 6-6"></path>
+                        </svg></span>
+                    </div>
                   </div>
-                </div>
 
-                <!-- Size & Body Style Custom Dropdown -->
-                <div class="relative z-40">
-                  <label
-                    class="mb-1.5 block font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Body
-                    Style & Size</label>
+                  <!-- Size & Body Style Custom Dropdown -->
+                  <div class="relative z-40">
+                    <label
+                      class="mb-1.5 block font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Body
+                      Style & Size</label>
 
-                  <!-- Trigger Button -->
-                  <button type="button" id="filter-body-btn"
-                    class="w-full flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-colors">
-                    <span id="filter-body-label" class="truncate">Any size or style</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
-                      stroke="currentColor" stroke-width="2"
-                      class="text-slate-400 shrink-0 transition-transform duration-200" id="filter-body-icon">
-                      <path d="m6 9 6 6 6-6"></path>
-                    </svg>
-                  </button>
+                    <!-- Trigger Button -->
+                    <button type="button" id="filter-body-btn"
+                      class="w-full flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-colors">
+                      <span id="filter-body-label" class="truncate">Any size or style</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2"
+                        class="text-slate-400 shrink-0 transition-transform duration-200" id="filter-body-icon">
+                        <path d="m6 9 6 6 6-6"></path>
+                      </svg>
+                    </button>
 
-                  <!-- Hidden Dropdown Panel -->
-                  <div id="filter-body-dropdown"
-                    class="hidden mt-2 w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
-                    <div class="p-4">
+                    <!-- Hidden Dropdown Panel -->
+                    <div id="filter-body-dropdown"
+                      class="hidden mt-2 w-full bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+                      <div class="p-4">
 
-                      <!-- Clear Selection -->
-                      <button type="button" onclick="selectBodyFilter('', '')"
-                        class="w-full text-left px-3 py-2 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors mb-3">
-                        View All (Clear Filter)
-                      </button>
+                        <!-- Clear Selection -->
+                        <button type="button" onclick="selectBodyFilter('', '')"
+                          class="w-full text-left px-3 py-2 text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors mb-3">
+                          View All (Clear Filter)
+                        </button>
 
-                      <!-- Section 1: Vehicle Size -->
-                      <h4 class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Vehicle Size
-                      </h4>
-                      <div class="grid grid-cols-3 gap-2 mb-5">
-                        <button type="button" onclick="selectBodyFilter('size', 'small')"
-                          class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/small.png" alt="Small"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">Small</span>
-                        </button>
-                        <button type="button" onclick="selectBodyFilter('size', 'medium')"
-                          class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/medium.png" alt="Medium"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">Medium</span>
-                        </button>
-                        <button type="button" onclick="selectBodyFilter('size', 'large')"
-                          class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/large.png" alt="Large"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">Large</span>
-                        </button>
-                      </div>
+                        <!-- Section 1: Vehicle Size -->
+                        <h4 class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Vehicle Size
+                        </h4>
+                        <div class="grid grid-cols-3 gap-2 mb-5">
+                          <button type="button" onclick="selectBodyFilter('size', 'small')"
+                            class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/small.png" alt="Small"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">Small</span>
+                          </button>
+                          <button type="button" onclick="selectBodyFilter('size', 'medium')"
+                            class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/medium.png" alt="Medium"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">Medium</span>
+                          </button>
+                          <button type="button" onclick="selectBodyFilter('size', 'large')"
+                            class="flex flex-col items-center justify-center p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="h-8 w-full mb-1 flex items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/large.png" alt="Large"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">Large</span>
+                          </button>
+                        </div>
 
-                      <!-- Section 2: Body Type -->
-                      <h4 class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Body Type</h4>
-                      <div class="grid grid-cols-2 gap-2">
-                        <button type="button" onclick="selectBodyFilter('bodytype', 'hatchback')"
-                          class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/hatchback.png" alt="Hatchback"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">Hatchback</span>
-                        </button>
-                        <button type="button" onclick="selectBodyFilter('bodytype', 'convertible')"
-                          class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/convertible.png" alt="Convertible"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">Convertible</span>
-                        </button>
-                        <button type="button" onclick="selectBodyFilter('bodytype', 'coupe')"
-                          class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/coupe.png" alt="Coupe"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">Coupe</span>
-                        </button>
-                        <button type="button" onclick="selectBodyFilter('bodytype', 'saloon')"
-                          class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/saloon.png" alt="Saloon"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">Saloon</span>
-                        </button>
-                        <button type="button" onclick="selectBodyFilter('bodytype', 'Estate')"
-                          class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/estate.png" alt="Estate"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">Estate</span>
-                        </button>
-                        <button type="button" onclick="selectBodyFilter('bodytype', 'suv')"
-                          class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/SUV.png" alt="SUV"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">SUV</span>
-                        </button>
-                        <button type="button" onclick="selectBodyFilter('bodytype', 'mpv')"
-                          class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/MPV.png" alt="MPV"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">MPV</span>
-                        </button>
-                        <button type="button" onclick="selectBodyFilter('bodytype', 'van')"
-                          class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
-                          <div
-                            class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
-                            <img src="images/van.png" alt="Van"
-                              class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
-                          </div>
-                          <span class="text-[10px] font-bold text-slate-700">Van</span>
-                        </button>
+                        <!-- Section 2: Body Type -->
+                        <h4 class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Body Type</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'hatchback')"
+                            class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/hatchback.png" alt="Hatchback"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">Hatchback</span>
+                          </button>
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'convertible')"
+                            class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/convertible.png" alt="Convertible"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">Convertible</span>
+                          </button>
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'coupe')"
+                            class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/coupe.png" alt="Coupe"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">Coupe</span>
+                          </button>
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'saloon')"
+                            class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/saloon.png" alt="Saloon"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">Saloon</span>
+                          </button>
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'Estate')"
+                            class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/estate.png" alt="Estate"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">Estate</span>
+                          </button>
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'suv')"
+                            class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/SUV.png" alt="SUV"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">SUV</span>
+                          </button>
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'mpv')"
+                            class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/MPV.png" alt="MPV"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">MPV</span>
+                          </button>
+                          <button type="button" onclick="selectBodyFilter('bodytype', 'van')"
+                            class="flex items-center gap-2 p-2 rounded-xl border border-slate-100 bg-slate-50 hover:border-blue-600 hover:bg-blue-50 transition-colors group">
+                            <div
+                              class="w-6 h-6 flex shrink-0 items-center justify-center text-slate-300 group-hover:text-blue-500">
+                              <img src="images/van.png" alt="Van"
+                                class="w-full h-full object-contain opacity-60 group-hover:opacity-100 transition-opacity mix-blend-multiply" />
+                            </div>
+                            <span class="text-[10px] font-bold text-slate-700">Van</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Max Monthly Price Slider -->
-                <div class="pt-2 bg-slate-50 border border-slate-200 rounded-xl p-4">
-                  <div class="flex items-center justify-between mb-2">
-                    <label for="filter-max-price" class="block text-xs font-mono uppercase text-slate-500 font-bold">Max
-                      Monthly Price</label>
-                    <span id="price-slider-label" class="font-mono text-xs font-bold text-blue-600">Any price</span>
+                  <!-- Max Monthly Price Slider -->
+                  <div class="pt-2 bg-slate-50 border border-slate-200 rounded-xl p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <label for="filter-max-price"
+                        class="block text-xs font-mono uppercase text-slate-500 font-bold">Max
+                        Monthly Price</label>
+                      <span id="price-slider-label" class="font-mono text-xs font-bold text-blue-600">Any price</span>
+                    </div>
+                    <input type="range" id="filter-max-price" min="150" max="2000" step="50" value="2000"
+                      class="w-full cursor-pointer accent-blue-600" />
+                    <div class="flex justify-between text-[10px] font-mono text-slate-400 mt-2">
+                      <span>£150</span>
+                      <span>£1,000</span>
+                      <span>£2,000+</span>
+                    </div>
                   </div>
-                  <input type="range" id="filter-max-price" min="150" max="2000" step="50" value="2000"
-                    class="w-full cursor-pointer accent-blue-600" />
-                  <div class="flex justify-between text-[10px] font-mono text-slate-400 mt-2">
-                    <span>£150</span>
-                    <span>£1,000</span>
-                    <span>£2,000+</span>
+
+                  <!-- Clear Filters Button -->
+                  <div class="mt-2 pt-4 border-t border-slate-100">
+                    <button id="clear-filters-btn"
+                      class="w-full py-3 px-4 rounded-xl border border-slate-200 bg-white text-slate-700 text-xs font-bold tracking-wider uppercase transition-colors hover:bg-slate-50 hover:border-slate-300">
+                      Remove all filters
+                    </button>
                   </div>
                 </div>
+              </div>
+            </div>
+          </aside>
 
-                <!-- Clear Filters Button -->
-                <div class="mt-2 pt-4 border-t border-slate-100">
-                  <button id="clear-filters-btn"
-                    class="w-full py-3 px-4 rounded-xl border border-slate-200 bg-white text-slate-700 text-xs font-bold tracking-wider uppercase transition-colors hover:bg-slate-50 hover:border-slate-300">
-                    Remove all filters
-                  </button>
+          <!-- VEHICLE RESULTS GRID -->
+          <div class="min-w-0 flex-1">
+            <div id="search-results-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+
+              <!-- Search Skeleton Loaders -->
+              <div
+                class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px]">
+                <div>
+                  <div class="flex justify-between items-start gap-2 mb-4">
+                    <div class="h-5 bg-blue-100 rounded w-16"></div>
+                    <div class="h-4 bg-slate-100 rounded w-12"></div>
+                  </div>
+                  <div class="h-3 bg-slate-200 rounded w-1/4 mt-2"></div>
+                  <div class="h-6 bg-slate-200 rounded w-3/4 mt-2"></div>
+                  <div class="h-4 bg-slate-100 rounded w-full mt-2"></div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-end justify-between">
+                  <div>
+                    <div class="h-3 bg-slate-100 rounded w-16 mb-1"></div>
+                    <div class="h-8 bg-slate-200 rounded w-24"></div>
+                  </div>
+                  <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
                 </div>
               </div>
+              <div
+                class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px] hidden sm:flex">
+                <div>
+                  <div class="flex justify-between items-start gap-2 mb-4">
+                    <div class="h-5 bg-blue-100 rounded w-16"></div>
+                    <div class="h-4 bg-slate-100 rounded w-12"></div>
+                  </div>
+                  <div class="h-3 bg-slate-200 rounded w-1/3 mt-2"></div>
+                  <div class="h-6 bg-slate-200 rounded w-2/3 mt-2"></div>
+                  <div class="h-4 bg-slate-100 rounded w-4/5 mt-2"></div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-end justify-between">
+                  <div>
+                    <div class="h-3 bg-slate-100 rounded w-16 mb-1"></div>
+                    <div class="h-8 bg-slate-200 rounded w-24"></div>
+                  </div>
+                  <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
+                </div>
+              </div>
+              <div
+                class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px] hidden xl:flex">
+                <div>
+                  <div class="flex justify-between items-start gap-2 mb-4">
+                    <div class="h-5 bg-blue-100 rounded w-16"></div>
+                    <div class="h-4 bg-slate-100 rounded w-12"></div>
+                  </div>
+                  <div class="h-3 bg-slate-200 rounded w-1/4 mt-2"></div>
+                  <div class="h-6 bg-slate-200 rounded w-3/4 mt-2"></div>
+                  <div class="h-4 bg-slate-100 rounded w-full mt-2"></div>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100 flex items-end justify-between">
+                  <div>
+                    <div class="h-3 bg-slate-100 rounded w-16 mb-1"></div>
+                    <div class="h-8 bg-slate-200 rounded w-24"></div>
+                  </div>
+                  <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- PAGINATION -->
+            <div id="pagination" class="mt-12 flex items-center justify-center gap-3">
+              <button id="prev-page" type="button" disabled
+                class="flex items-center gap-1.5 border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 rounded-xl transition-colors hover:border-blue-600 disabled:opacity-30 shadow-sm">
+                &larr; Previous
+              </button>
+              <span class="font-mono text-xs text-slate-500 font-medium">Page <span id="page-current"
+                  class="text-slate-900 font-bold">1</span> of <span id="page-total"
+                  class="text-slate-900 font-bold">1</span></span>
+              <button id="next-page" type="button"
+                class="flex items-center gap-1.5 border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 rounded-xl transition-colors hover:border-blue-600 disabled:opacity-30 shadow-sm">
+                Next &rarr;
+              </button>
             </div>
           </div>
-        </aside>
 
-        <!-- VEHICLE RESULTS GRID -->
-        <div class="min-w-0 flex-1">
-          <div id="search-results-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-
-            <!-- Search Skeleton Loaders -->
-            <div
-              class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px]">
-              <div>
-                <div class="flex justify-between items-start gap-2 mb-4">
-                  <div class="h-5 bg-blue-100 rounded w-16"></div>
-                  <div class="h-4 bg-slate-100 rounded w-12"></div>
-                </div>
-                <div class="h-3 bg-slate-200 rounded w-1/4 mt-2"></div>
-                <div class="h-6 bg-slate-200 rounded w-3/4 mt-2"></div>
-                <div class="h-4 bg-slate-100 rounded w-full mt-2"></div>
-              </div>
-              <div class="mt-6 pt-4 border-t border-slate-100 flex items-end justify-between">
-                <div>
-                  <div class="h-3 bg-slate-100 rounded w-16 mb-1"></div>
-                  <div class="h-8 bg-slate-200 rounded w-24"></div>
-                </div>
-                <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
-              </div>
-            </div>
-            <div
-              class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px] hidden sm:flex">
-              <div>
-                <div class="flex justify-between items-start gap-2 mb-4">
-                  <div class="h-5 bg-blue-100 rounded w-16"></div>
-                  <div class="h-4 bg-slate-100 rounded w-12"></div>
-                </div>
-                <div class="h-3 bg-slate-200 rounded w-1/3 mt-2"></div>
-                <div class="h-6 bg-slate-200 rounded w-2/3 mt-2"></div>
-                <div class="h-4 bg-slate-100 rounded w-4/5 mt-2"></div>
-              </div>
-              <div class="mt-6 pt-4 border-t border-slate-100 flex items-end justify-between">
-                <div>
-                  <div class="h-3 bg-slate-100 rounded w-16 mb-1"></div>
-                  <div class="h-8 bg-slate-200 rounded w-24"></div>
-                </div>
-                <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
-              </div>
-            </div>
-            <div
-              class="bg-white border border-slate-200/90 rounded-2xl shadow-sm p-6 flex flex-col justify-between animate-pulse h-[280px] hidden xl:flex">
-              <div>
-                <div class="flex justify-between items-start gap-2 mb-4">
-                  <div class="h-5 bg-blue-100 rounded w-16"></div>
-                  <div class="h-4 bg-slate-100 rounded w-12"></div>
-                </div>
-                <div class="h-3 bg-slate-200 rounded w-1/4 mt-2"></div>
-                <div class="h-6 bg-slate-200 rounded w-3/4 mt-2"></div>
-                <div class="h-4 bg-slate-100 rounded w-full mt-2"></div>
-              </div>
-              <div class="mt-6 pt-4 border-t border-slate-100 flex items-end justify-between">
-                <div>
-                  <div class="h-3 bg-slate-100 rounded w-16 mb-1"></div>
-                  <div class="h-8 bg-slate-200 rounded w-24"></div>
-                </div>
-                <div class="h-10 bg-blue-200 rounded-xl w-24"></div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- PAGINATION -->
-          <div id="pagination" class="mt-12 flex items-center justify-center gap-3">
-            <button id="prev-page" type="button" disabled
-              class="flex items-center gap-1.5 border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 rounded-xl transition-colors hover:border-blue-600 disabled:opacity-30 shadow-sm">
-              &larr; Previous
-            </button>
-            <span class="font-mono text-xs text-slate-500 font-medium">Page <span id="page-current"
-                class="text-slate-900 font-bold">1</span> of <span id="page-total"
-                class="text-slate-900 font-bold">1</span></span>
-            <button id="next-page" type="button"
-              class="flex items-center gap-1.5 border border-slate-200 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 rounded-xl transition-colors hover:border-blue-600 disabled:opacity-30 shadow-sm">
-              Next &rarr;
-            </button>
-          </div>
         </div>
-
       </div>
-    </div>
-  </main>
+    </main>
 
-  <!-- FOOTER -->
-  <footer class="relative z-20 border-t border-slate-200 bg-white">
-    <div
-      class="mx-auto flex max-w-[1600px] flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
-      <p class="text-xs text-slate-500 font-medium">© 2026 Leasio. Car leasing made easy.</p>
-      <p class="font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold">Live Fleet Database</p>
-    </div>
-  </footer>
+    <!-- FOOTER -->
+    <footer class="relative z-20 border-t border-slate-200 bg-white">
+      <div
+        class="mx-auto flex max-w-[1600px] flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+        <p class="text-xs text-slate-500 font-medium">© 2026 Leasio. Car leasing made easy.</p>
+        <p class="font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold">Live Fleet Database</p>
+      </div>
+    </footer>
   </div>
 
   <!-- WORKING SEARCH SCRIPT LOGIC -->
