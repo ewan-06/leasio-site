@@ -107,8 +107,8 @@
             font-size: 13px;
             font-weight: 600;
             color: #0f172a;
-            flex: 1 1 150px;
-            min-width: 145px;
+            flex: 1 1 0;
+            min-width: 140px;
         }
 
         .l-select {
@@ -883,6 +883,11 @@
                                 style="min-width: 160px; height: 46px; min-height: 46px;">
                                 Search deals
                             </button>
+                            <button id="hero-clear-btn" type="button" onclick="clearHeroFilters()"
+                                class="l-btn l-btn-sec"
+                                style="height: 46px; min-height: 46px; padding: 0 16px; font-size: 13px; white-space: nowrap;">
+                                Clear filters
+                            </button>
                         </div>
                     </div>
     </section>
@@ -1497,6 +1502,38 @@
                 el.textContent = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
             });
         };
+        function clearHeroFilters() {
+            const makeSelect = document.getElementById("hero-make");
+            const modelSelect = document.getElementById("hero-model");
+            const fuelSelect = document.getElementById("hero-fuel");
+            const budgetSlider = document.getElementById("budget-slider");
+            const budgetDisplay = document.getElementById("budget-display");
+
+            if (makeSelect) makeSelect.value = "Any make";
+
+            if (modelSelect) {
+                modelSelect.innerHTML = '<option value="">Select a make first</option>';
+                modelSelect.disabled = true;
+            }
+
+            if (fuelSelect) fuelSelect.value = "Any fuel type";
+            loadHeroFuels("", "", currentHeroType);
+
+            if (typeof selectHeroBodyFilter === "function") {
+                selectHeroBodyFilter("", "");
+            } else {
+                heroSelectedBodyCategory = "";
+                heroSelectedBodyValue = "";
+                const bodyLabel = document.getElementById("hero-body-label");
+                if (bodyLabel) {
+                    bodyLabel.textContent = "Any style";
+                    bodyLabel.classList.remove("text-blue-600", "font-bold");
+                }
+            }
+
+            if (budgetSlider) budgetSlider.value = "2000";
+            if (budgetDisplay) budgetDisplay.textContent = "Any price";
+        }
     </script>
 </body>
 
