@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://leasio-api.onrender.com" crossorigin>
   <style>
     body {
-      
+
       background-color: #f8fafc;
       color: #0f172a;
     }
@@ -783,17 +783,20 @@
 
     function vehicleCardHTML(car) {
       const cleanDerivative = (car.CAP_Derivative || "").replace(/\s*\b\d+bhp\b/gi, "").trim();
-      let numericPrice = parseMonthlyPrice(car.Monthly);
-
+      const parsedPrice = parseMonthlyPrice(car.Monthly);
+      const hasNumericPrice = parsedPrice !== null;
       const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
-      let vatLabel = isBusiness ? " +VAT" : " inc VAT";
+      // In search.html, car.Monthly is inc-VAT when personal, so / 1.2 gives ex-VAT base
+      const baseMonthly = hasNumericPrice ? (parsedPrice / 1.2) : null;
+      const displayMonthly = hasNumericPrice ? (isBusiness ? baseMonthly : parsedPrice) : null;
+      const vatSuffix = isBusiness ? " +VAT" : " inc VAT";
 
-      if (numericPrice !== null && isBusiness) {
-        numericPrice = numericPrice / 1.2;
-      }
-
-      const priceDisplay = numericPrice !== null ? `£${numericPrice.toFixed(2)}` : "POA";
-      const labelDisplay = numericPrice !== null ? `<span class="text-xs font-medium text-slate-400">${vatLabel}</span>` : "";
+      const priceDisplay = hasNumericPrice
+        ? `<span class="js-dynamic-price" data-base-price="${baseMonthly.toFixed(2)}" data-current-price="${displayMonthly.toFixed(2)}">£${displayMonthly.toFixed(2)}</span>`
+        : "POA";
+      const labelDisplay = hasNumericPrice
+        ? `<span class="js-vat-suffix text-xs font-medium text-slate-400">${vatSuffix}</span>`
+        : "";
 
       const fallbackImage = "https://placehold.co/600x400/f8fafc/94a3b8?text=Image+Coming+Soon";
       const imageUrl = car.Image_URL ? car.Image_URL : fallbackImage;
@@ -1137,8 +1140,19 @@
     document.addEventListener("DOMContentLoaded", () => {
       const vatInputs = document.querySelectorAll('.vat-toggle-input');
       const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+      vatInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+          const isBusinessMode = e.target.checked;
+          localStorage.setItem('leasio_vat_mode', isBusinessMode ? 'business' : 'personal');
+          syncVisuals(isBusinessMode);
 
-      // Set initial visual state on page load
+          if (typeof window.refreshPagePrices === 'function') {
+            window.refreshPagePrices(isBusinessMode, true);
+          } else if (typeof renderPage === 'function') {
+            renderPage();
+          }
+        });
+      });
       function syncVisuals(businessMode) {
         vatInputs.forEach(input => input.checked = businessMode);
 
@@ -1163,22 +1177,69 @@
       // Listen for slider clicks
       vatInputs.forEach(input => {
         input.addEventListener('change', (e) => {
-          const newMode = e.target.checked ? 'business' : 'personal';
-          localStorage.setItem('leasio_vat_mode', newMode);
-          syncVisuals(e.target.checked);
+          const isBusinessMode = e.target.checked;
+          localStorage.setItem('leasio_vat_mode', isBusinessMode ? 'business' : 'personal');
+          syncVisuals(isBusinessMode);
 
-          // Re-calculate the live price if we are on the vehicles.html page
-          if (typeof window.fetchValuation === 'function') {
-            window.fetchValuation();
-          }
-          // Re-render the search grid if we are on the search.html page
-          if (typeof renderPage === 'function') {
-            renderPage();
+          if (typeof window.refreshPagePrices === 'function') {
+            window.refreshPagePrices(isBusinessMode, true);
           }
         });
       });
     });
 
+    // Shared VAT price animator for main.html, search.html, and vehicles.html
+    window.animatePriceElement = function (el, targetValue, duration = 350) {
+      if (!el || isNaN(targetValue)) return;
+
+      if (el._priceAnimFrame) {
+        cancelAnimationFrame(el._priceAnimFrame);
+      }
+
+      const startValue = parseFloat(el.dataset.currentPrice);
+      if (isNaN(startValue) || duration <= 0) {
+        el.dataset.currentPrice = targetValue.toFixed(2);
+        el.textContent = `£${targetValue.toFixed(2)}`;
+        return;
+      }
+
+      const startTime = performance.now();
+
+      function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Smooth ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = startValue + (targetValue - startValue) * eased;
+
+        el.dataset.currentPrice = current.toFixed(2);
+        el.textContent = `£${current.toFixed(2)}`;
+
+        if (progress < 1) {
+          el._priceAnimFrame = requestAnimationFrame(tick);
+        } else {
+          el.dataset.currentPrice = targetValue.toFixed(2);
+          el.textContent = `£${targetValue.toFixed(2)}`;
+          el._priceAnimFrame = null;
+        }
+      }
+
+      el._priceAnimFrame = requestAnimationFrame(tick);
+    };
+
+    window.refreshPagePrices = function (isBusiness, animate = true) {
+      document.querySelectorAll('.js-dynamic-price[data-base-price]').forEach((el) => {
+        const base = parseFloat(el.dataset.basePrice);
+        if (isNaN(base)) return;
+
+        const target = isBusiness ? base : base * 1.2;
+        window.animatePriceElement(el, target, animate ? 350 : 0);
+      });
+
+      document.querySelectorAll('.js-vat-suffix').forEach((el) => {
+        el.textContent = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
+      });
+    };
   </script>
 </body>
 

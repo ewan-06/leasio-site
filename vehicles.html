@@ -513,92 +513,92 @@
               </div>
             </div>
 
-        <!-- Enquiry Modal Box -->
-        <div id="enquiry-modal"
-          class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
-          <div class="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-8 relative">
-            <div class="flex items-start justify-between gap-4 mb-6">
-              <div>
-                <span
-                  class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-2">
-                  Vehicle Enquiry
-                </span>
-                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Request a callback or quote</h2>
-                <p id="enquiry-vehicle-summary" class="text-xs text-slate-500 mt-1">Share your details and our team
-                  will be in touch.</p>
+            <!-- Enquiry Modal Box -->
+            <div id="enquiry-modal"
+              class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
+              <div class="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-8 relative">
+                <div class="flex items-start justify-between gap-4 mb-6">
+                  <div>
+                    <span
+                      class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-2">
+                      Vehicle Enquiry
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Request a callback or quote</h2>
+                    <p id="enquiry-vehicle-summary" class="text-xs text-slate-500 mt-1">Share your details and our team
+                      will be in touch.</p>
+                  </div>
+                  <button type="button" id="close-enquiry-btn" aria-label="Close enquiry box"
+                    class="text-slate-400 hover:text-slate-700 font-bold text-lg leading-none p-1">
+                    &times;
+                  </button>
+                </div>
+
+                <form id="enquiry-form" class="flex flex-col gap-4" novalidate>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label for="enq-first-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">First
+                        Name</label>
+                      <input type="text" id="enq-first-name" name="first_name" required placeholder="Jane"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                    </div>
+                    <div>
+                      <label for="enq-last-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Last
+                        Name</label>
+                      <input type="text" id="enq-last-name" name="last_name" required placeholder="Doe"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="enq-phone" class="block text-xs font-bold text-slate-500 uppercase mb-1">Phone
+                      Number</label>
+                    <input type="tel" id="enq-phone" name="phone" required placeholder="07123 456789"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                  </div>
+
+                  <div>
+                    <label for="enq-email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email
+                      Address</label>
+                    <input type="email" id="enq-email" name="email" required placeholder="name@example.com"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                  </div>
+
+                  <!-- Terms & Conditions Checkbox -->
+                  <label class="flex items-start gap-3 pt-1 cursor-pointer select-none">
+                    <input type="checkbox" id="enq-terms" required
+                      class="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
+                    <span class="text-xs text-slate-600 leading-relaxed">
+                      I confirm that I have read and agree to the <a href="/terms"
+                        class="text-blue-600 font-semibold underline hover:text-blue-700">terms and conditions</a>.
+                    </span>
+                  </label>
+
+                  <!-- Validation / Status Messages -->
+                  <p id="enquiry-error"
+                    class="hidden text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium">
+                  </p>
+                  <p id="enquiry-success"
+                    class="hidden text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5 text-xs font-semibold">
+                  </p>
+
+                  <!-- Send Enquiry Button & GDPR Disclaimer -->
+                  <div class="pt-1">
+                    <button type="submit" id="send-enquiry-btn"
+                      class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
+                      <span>Send Enquiry</span>
+                    </button>
+                    <p class="text-[11px] text-slate-400 leading-relaxed mt-2.5 text-center">
+                      By clicking this button you agree to be contacted about this vehicle and your requirements in
+                      accordance with our privacy policy.
+                    </p>
+                  </div>
+                </form>
               </div>
-              <button type="button" id="close-enquiry-btn" aria-label="Close enquiry box"
-                class="text-slate-400 hover:text-slate-700 font-bold text-lg leading-none p-1">
-                &times;
-              </button>
             </div>
-
-            <form id="enquiry-form" class="flex flex-col gap-4" novalidate>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label for="enq-first-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">First
-                    Name</label>
-                  <input type="text" id="enq-first-name" name="first_name" required placeholder="Jane"
-                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                </div>
-                <div>
-                  <label for="enq-last-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Last
-                    Name</label>
-                  <input type="text" id="enq-last-name" name="last_name" required placeholder="Doe"
-                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                </div>
-              </div>
-
-              <div>
-                <label for="enq-phone" class="block text-xs font-bold text-slate-500 uppercase mb-1">Phone
-                  Number</label>
-                <input type="tel" id="enq-phone" name="phone" required placeholder="07123 456789"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-              </div>
-
-              <div>
-                <label for="enq-email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email
-                  Address</label>
-                <input type="email" id="enq-email" name="email" required placeholder="name@example.com"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-              </div>
-
-              <!-- Terms & Conditions Checkbox -->
-              <label class="flex items-start gap-3 pt-1 cursor-pointer select-none">
-                <input type="checkbox" id="enq-terms" required
-                  class="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
-                <span class="text-xs text-slate-600 leading-relaxed">
-                  I confirm that I have read and agree to the <a href="/terms"
-                    class="text-blue-600 font-semibold underline hover:text-blue-700">terms and conditions</a>.
-                </span>
-              </label>
-
-              <!-- Validation / Status Messages -->
-              <p id="enquiry-error"
-                class="hidden text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium">
-              </p>
-              <p id="enquiry-success"
-                class="hidden text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5 text-xs font-semibold">
-              </p>
-
-              <!-- Send Enquiry Button & GDPR Disclaimer -->
-              <div class="pt-1">
-                <button type="submit" id="send-enquiry-btn"
-                  class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
-                  <span>Send Enquiry</span>
-                </button>
-                <p class="text-[11px] text-slate-400 leading-relaxed mt-2.5 text-center">
-                  By clicking this button you agree to be contacted about this vehicle and your requirements in
-                  accordance with our privacy policy.
-                </p>
-              </div>
-            </form>
           </div>
         </div>
-      </div>
-  </div>
 
-  </div>
+      </div>
   </div>
   </main>
 
@@ -725,11 +725,24 @@
               let rawPrice = parseFloat(result.valuation.toString().replace(/[^0-9.]/g, ''));
               const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
 
-              if (isBusiness) {
-                rawPrice = rawPrice / 1.2;
-                priceDisplayBox.innerHTML = `£${rawPrice.toFixed(2)} <span class="text-lg text-blue-500 font-medium">/mo +VAT</span>`;
+              // Keep baseExVat as ex-VAT so toggling Personal/Business smoothly animates between ex-VAT and x1.2 inc-VAT
+              const baseExVat = isBusiness ? rawPrice : (rawPrice / 1.2);
+              const displayPrice = isBusiness ? baseExVat : (baseExVat * 1.2);
+              const vatText = isBusiness ? '/mo +VAT' : '/mo inc VAT';
+
+              let numSpan = priceDisplayBox.querySelector('.js-dynamic-price');
+              let suffixSpan = priceDisplayBox.querySelector('.js-vat-suffix');
+
+              if (!numSpan) {
+                priceDisplayBox.innerHTML = `<span class="js-dynamic-price" data-base-price="${baseExVat.toFixed(2)}" data-current-price="${displayPrice.toFixed(2)}">£${displayPrice.toFixed(2)}</span> <span class="js-vat-suffix text-lg text-blue-500 font-medium">${vatText}</span>`;
               } else {
-                priceDisplayBox.innerHTML = `£${rawPrice.toFixed(2)} <span class="text-lg text-blue-500 font-medium">/mo inc VAT</span>`;
+                numSpan.dataset.basePrice = baseExVat.toFixed(2);
+                if (suffixSpan) suffixSpan.textContent = vatText;
+                if (typeof window.animatePriceElement === 'function') {
+                  window.animatePriceElement(numSpan, displayPrice, 350);
+                } else {
+                  numSpan.textContent = `£${displayPrice.toFixed(2)}`;
+                }
               }
 
               // Show Save Button if logged in
@@ -885,8 +898,61 @@
     document.addEventListener("DOMContentLoaded", () => {
       const vatInputs = document.querySelectorAll('.vat-toggle-input');
       const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+      window.animatePriceElement = function (el, targetValue, duration = 350) {
+        if (!el || isNaN(targetValue)) return;
+        if (el._priceAnimFrame) cancelAnimationFrame(el._priceAnimFrame);
 
-      // Set initial visual state on page load
+        const startValue = parseFloat(el.dataset.currentPrice);
+        if (isNaN(startValue) || duration <= 0) {
+          el.dataset.currentPrice = targetValue.toFixed(2);
+          el.textContent = `£${targetValue.toFixed(2)}`;
+          return;
+        }
+
+        const startTime = performance.now();
+        function tick(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = startValue + (targetValue - startValue) * eased;
+          el.dataset.currentPrice = current.toFixed(2);
+          el.textContent = `£${current.toFixed(2)}`;
+          if (progress < 1) {
+            el._priceAnimFrame = requestAnimationFrame(tick);
+          } else {
+            el.dataset.currentPrice = targetValue.toFixed(2);
+            el.textContent = `£${targetValue.toFixed(2)}`;
+            el._priceAnimFrame = null;
+          }
+        }
+        el._priceAnimFrame = requestAnimationFrame(tick);
+      };
+
+      window.refreshPagePrices = function (isBusiness, animate = true) {
+        document.querySelectorAll('.js-dynamic-price[data-base-price]').forEach((el) => {
+          const base = parseFloat(el.dataset.basePrice);
+          if (isNaN(base)) return;
+          const target = isBusiness ? base : base * 1.2;
+          window.animatePriceElement(el, target, animate ? 350 : 0);
+        });
+        document.querySelectorAll('.js-vat-suffix').forEach((el) => {
+          el.textContent = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
+        });
+      };
+
+      syncVisuals(isBusiness);
+
+      // Listen for slider clicks
+      vatInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+          const isBusinessMode = e.target.checked;
+          localStorage.setItem('leasio_vat_mode', isBusinessMode ? 'business' : 'personal');
+          syncVisuals(isBusinessMode);
+
+          if (typeof window.refreshPagePrices === 'function') {
+            window.refreshPagePrices(isBusinessMode, true);
+          }
+        });
+      });
       function syncVisuals(businessMode) {
         vatInputs.forEach(input => input.checked = businessMode);
 
@@ -910,13 +976,12 @@
       // Listen for slider clicks
       vatInputs.forEach(input => {
         input.addEventListener('change', (e) => {
-          const newMode = e.target.checked ? 'business' : 'personal';
-          localStorage.setItem('leasio_vat_mode', newMode);
-          syncVisuals(e.target.checked);
+          const isBusinessMode = e.target.checked;
+          localStorage.setItem('leasio_vat_mode', isBusinessMode ? 'business' : 'personal');
+          syncVisuals(isBusinessMode);
 
-          // Re-calculate the live price if we are on the vehicles page
-          if (typeof window.fetchValuation === 'function') {
-            window.fetchValuation();
+          if (typeof window.refreshPagePrices === 'function') {
+            window.refreshPagePrices(isBusinessMode, true);
           }
         });
       });
@@ -1053,6 +1118,59 @@
         }
       });
     })();
+
+    // Shared VAT price animator for main.html, search.html, and vehicles.html
+    window.animatePriceElement = function (el, targetValue, duration = 350) {
+      if (!el || isNaN(targetValue)) return;
+
+      if (el._priceAnimFrame) {
+        cancelAnimationFrame(el._priceAnimFrame);
+      }
+
+      const startValue = parseFloat(el.dataset.currentPrice);
+      if (isNaN(startValue) || duration <= 0) {
+        el.dataset.currentPrice = targetValue.toFixed(2);
+        el.textContent = `£${targetValue.toFixed(2)}`;
+        return;
+      }
+
+      const startTime = performance.now();
+
+      function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // Smooth ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = startValue + (targetValue - startValue) * eased;
+
+        el.dataset.currentPrice = current.toFixed(2);
+        el.textContent = `£${current.toFixed(2)}`;
+
+        if (progress < 1) {
+          el._priceAnimFrame = requestAnimationFrame(tick);
+        } else {
+          el.dataset.currentPrice = targetValue.toFixed(2);
+          el.textContent = `£${targetValue.toFixed(2)}`;
+          el._priceAnimFrame = null;
+        }
+      }
+
+      el._priceAnimFrame = requestAnimationFrame(tick);
+    };
+
+    window.refreshPagePrices = function (isBusiness, animate = true) {
+      document.querySelectorAll('.js-dynamic-price[data-base-price]').forEach((el) => {
+        const base = parseFloat(el.dataset.basePrice);
+        if (isNaN(base)) return;
+
+        const target = isBusiness ? base : base * 1.2;
+        window.animatePriceElement(el, target, animate ? 350 : 0);
+      });
+
+      document.querySelectorAll('.js-vat-suffix').forEach((el) => {
+        el.textContent = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
+      });
+    };
   </script>
 </body>
 

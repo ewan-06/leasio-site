@@ -1092,7 +1092,15 @@
             const capCode = offer.CAP_Code || "";
             const monthly = typeof offer.Monthly === "number" ? `£${offer.Monthly.toFixed(2)}` : offer.Monthly;
             const typeParam = vehicleType === "vans" ? "&type=vans" : "";
+            const baseMonthly = typeof offer.Monthly === "number" ? offer.Monthly : parseFloat(offer.Monthly);
+            const hasNumericPrice = !isNaN(baseMonthly);
+            const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+            const displayMonthly = hasNumericPrice ? (isBusiness ? baseMonthly : baseMonthly * 1.2) : null;
+            const vatSuffix = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
 
+            const priceHtml = hasNumericPrice
+                ? `<span class="js-dynamic-price" data-base-price="${baseMonthly.toFixed(2)}" data-current-price="${displayMonthly.toFixed(2)}">£${displayMonthly.toFixed(2)}</span><span class="js-vat-suffix" style="font-size: 12px; font-weight: 500; color: #64748b;">${vatSuffix}</span>`
+                : `<span>${offer.Monthly || "POA"}</span>`;
             const card = document.createElement("div");
             card.className = "l-card";
             card.innerHTML = `
@@ -1110,10 +1118,10 @@
                 </div>
                 <h3 class="font-bold text-slate-900" style="font-size: 18px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">${make} ${model}</h3>
                 <p class="text-slate-500" style="font-size: 13px; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;">${derivative}</p>
-                <p class="text-slate-400" style="font-size: 12px; margin: 0;">48 mo · 5k miles · 12m initial</p>
+                <p class="text-slate-400" style="font-size: 12px; margin: 0;">48 months · 5,000 miles · 12 months initial</p>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 6px;">
-                    <span style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 22px; color: #2563eb;">
-                        ${monthly}<span style="font-size: 13px; font-weight: 500; color: #64748b;"> /mo</span>
+                    <span style="font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 20px; color: #2563eb; white-space: nowrap;">
+                        ${priceHtml}
                     </span>
                     <a href="/vehicles.html?cap=${encodeURIComponent(capCode)}${typeParam}" class="l-btn l-btn-sec"
                         style="min-height: 40px; padding: 0 16px; font-size: 14px;">
@@ -1329,7 +1337,19 @@
         (function () {
             const vatInputs = document.querySelectorAll('.vat-toggle-input');
             const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+            vatInputs.forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const isBusinessMode = e.target.checked;
+                    localStorage.setItem('leasio_vat_mode', isBusinessMode ? 'business' : 'personal');
+                    syncVisuals(isBusinessMode);
 
+                    if (typeof window.refreshPagePrices === 'function') {
+                        window.refreshPagePrices(isBusinessMode, true);
+                    } else if (typeof renderPage === 'function') {
+                        renderPage();
+                    }
+                });
+            });
             function syncVisuals(businessMode) {
                 vatInputs.forEach(input => input.checked = businessMode);
 
@@ -1351,16 +1371,69 @@
 
             vatInputs.forEach(input => {
                 input.addEventListener('change', (e) => {
-                    const newMode = e.target.checked ? 'business' : 'personal';
-                    localStorage.setItem('leasio_vat_mode', newMode);
-                    syncVisuals(e.target.checked);
+                    const isBusinessMode = e.target.checked;
+                    localStorage.setItem('leasio_vat_mode', isBusinessMode ? 'business' : 'personal');
+                    syncVisuals(isBusinessMode);
 
-                    if (typeof window.fetchValuation === 'function') {
-                        window.fetchValuation();
+                    if (typeof window.refreshPagePrices === 'function') {
+                        window.refreshPagePrices(isBusinessMode, true);
                     }
                 });
             });
         })();
+
+        // Shared VAT price animator for main.html, search.html, and vehicles.html
+        window.animatePriceElement = function (el, targetValue, duration = 350) {
+            if (!el || isNaN(targetValue)) return;
+
+            if (el._priceAnimFrame) {
+                cancelAnimationFrame(el._priceAnimFrame);
+            }
+
+            const startValue = parseFloat(el.dataset.currentPrice);
+            if (isNaN(startValue) || duration <= 0) {
+                el.dataset.currentPrice = targetValue.toFixed(2);
+                el.textContent = `£${targetValue.toFixed(2)}`;
+                return;
+            }
+
+            const startTime = performance.now();
+
+            function tick(now) {
+                const elapsed = now - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Smooth ease-out cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = startValue + (targetValue - startValue) * eased;
+
+                el.dataset.currentPrice = current.toFixed(2);
+                el.textContent = `£${current.toFixed(2)}`;
+
+                if (progress < 1) {
+                    el._priceAnimFrame = requestAnimationFrame(tick);
+                } else {
+                    el.dataset.currentPrice = targetValue.toFixed(2);
+                    el.textContent = `£${targetValue.toFixed(2)}`;
+                    el._priceAnimFrame = null;
+                }
+            }
+
+            el._priceAnimFrame = requestAnimationFrame(tick);
+        };
+
+        window.refreshPagePrices = function (isBusiness, animate = true) {
+            document.querySelectorAll('.js-dynamic-price[data-base-price]').forEach((el) => {
+                const base = parseFloat(el.dataset.basePrice);
+                if (isNaN(base)) return;
+
+                const target = isBusiness ? base : base * 1.2;
+                window.animatePriceElement(el, target, animate ? 350 : 0);
+            });
+
+            document.querySelectorAll('.js-vat-suffix').forEach((el) => {
+                el.textContent = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
+            });
+        };
     </script>
 </body>
 
