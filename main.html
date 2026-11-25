@@ -305,6 +305,21 @@
                 width: 28px;
             }
         }
+
+        .js-dynamic-price {
+            font-variant-numeric: tabular-nums;
+            display: inline-block;
+        }
+
+        .js-vat-suffix {
+            display: inline-block;
+            margin-left: 4px;
+            transition: opacity 0.18s ease;
+        }
+
+        .js-vat-suffix.is-fading {
+            opacity: 0;
+        }
     </style>
 </head>
 
@@ -1096,11 +1111,13 @@
             const hasNumericPrice = !isNaN(baseMonthly);
             const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
             const displayMonthly = hasNumericPrice ? (isBusiness ? baseMonthly : baseMonthly * 1.2) : null;
-            const vatSuffix = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
-
-            const priceHtml = hasNumericPrice
-                ? `<span class="js-dynamic-price" data-base-price="${baseMonthly.toFixed(2)}" data-current-price="${displayMonthly.toFixed(2)}">£${displayMonthly.toFixed(2)}</span><span class="js-vat-suffix" style="font-size: 12px; font-weight: 500; color: #64748b;">${vatSuffix}</span>`
-                : `<span>${offer.Monthly || "POA"}</span>`;
+            const vatSuffix = isBusiness ? ' + VAT' : 'inc VAT';
+            const priceDisplay = hasNumericPrice
+                ? `<span class="js-dynamic-price" data-base-price="${baseMonthly.toFixed(2)}" data-current-price="${displayMonthly.toFixed(2)}">£${displayMonthly.toFixed(2)}</span>`
+                : "POA";
+            const labelDisplay = hasNumericPrice
+                ? `<span class="js-vat-suffix text-xs font-medium text-slate-400">${vatSuffix}</span>`
+                : "";
             const card = document.createElement("div");
             card.className = "l-card";
             card.innerHTML = `

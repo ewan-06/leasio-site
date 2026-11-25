@@ -24,6 +24,21 @@
     .loaded {
       opacity: 1;
     }
+
+    .js-dynamic-price {
+      font-variant-numeric: tabular-nums;
+      display: inline-block;
+    }
+
+    .js-vat-suffix {
+      display: inline-block;
+      margin-left: 4px;
+      transition: opacity 0.18s ease;
+    }
+
+    .js-vat-suffix.is-fading {
+      opacity: 0;
+    }
   </style>
   <link rel="canonical" href="https://leasio.co.uk/vehicles/1">
 </head>
@@ -728,7 +743,7 @@
               // Keep baseExVat as ex-VAT so toggling Personal/Business smoothly animates between ex-VAT and x1.2 inc-VAT
               const baseExVat = isBusiness ? rawPrice : (rawPrice / 1.2);
               const displayPrice = isBusiness ? baseExVat : (baseExVat * 1.2);
-              const vatText = isBusiness ? '/mo +VAT' : '/mo inc VAT';
+              const vatText = isBusiness ? '/mo + VAT' : '/mo inc VAT';
 
               let numSpan = priceDisplayBox.querySelector('.js-dynamic-price');
               let suffixSpan = priceDisplayBox.querySelector('.js-vat-suffix');
@@ -934,8 +949,24 @@
           const target = isBusiness ? base : base * 1.2;
           window.animatePriceElement(el, target, animate ? 350 : 0);
         });
+
+        const nextSuffix = isBusiness ? '+VAT' : 'inc VAT';
+
         document.querySelectorAll('.js-vat-suffix').forEach((el) => {
-          el.textContent = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
+          if (el.textContent.trim() === nextSuffix) return;
+
+          if (!animate) {
+            el.textContent = nextSuffix;
+            el.classList.remove('is-fading');
+            return;
+          }
+
+          el.classList.add('is-fading');
+          clearTimeout(el._suffixFadeTimer);
+          el._suffixFadeTimer = setTimeout(() => {
+            el.textContent = nextSuffix;
+            el.classList.remove('is-fading');
+          }, 140);
         });
       };
 
@@ -1162,13 +1193,27 @@
       document.querySelectorAll('.js-dynamic-price[data-base-price]').forEach((el) => {
         const base = parseFloat(el.dataset.basePrice);
         if (isNaN(base)) return;
-
         const target = isBusiness ? base : base * 1.2;
         window.animatePriceElement(el, target, animate ? 350 : 0);
       });
 
+      const nextSuffix = isBusiness ? '+VAT' : 'inc VAT';
+
       document.querySelectorAll('.js-vat-suffix').forEach((el) => {
-        el.textContent = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
+        if (el.textContent.trim() === nextSuffix) return;
+
+        if (!animate) {
+          el.textContent = nextSuffix;
+          el.classList.remove('is-fading');
+          return;
+        }
+
+        el.classList.add('is-fading');
+        clearTimeout(el._suffixFadeTimer);
+        el._suffixFadeTimer = setTimeout(() => {
+          el.textContent = nextSuffix;
+          el.classList.remove('is-fading');
+        }, 140);
       });
     };
   </script>

@@ -43,6 +43,21 @@
       transform: scale(1.15);
       background: #1d4ed8;
     }
+
+    .js-dynamic-price {
+      font-variant-numeric: tabular-nums;
+      display: inline-block;
+    }
+
+    .js-vat-suffix {
+      display: inline-block;
+      margin-left: 4px;
+      transition: opacity 0.18s ease;
+    }
+
+    .js-vat-suffix.is-fading {
+      opacity: 0;
+    }
   </style>
   <link rel="canonical" href="https://leasio.co.uk/search">
 </head>
@@ -789,8 +804,7 @@
       // In search.html, car.Monthly is inc-VAT when personal, so / 1.2 gives ex-VAT base
       const baseMonthly = hasNumericPrice ? (parsedPrice / 1.2) : null;
       const displayMonthly = hasNumericPrice ? (isBusiness ? baseMonthly : parsedPrice) : null;
-      const vatSuffix = isBusiness ? " +VAT" : " inc VAT";
-
+      const vatSuffix = isBusiness ? ' + VAT' : 'inc VAT';
       const priceDisplay = hasNumericPrice
         ? `<span class="js-dynamic-price" data-base-price="${baseMonthly.toFixed(2)}" data-current-price="${displayMonthly.toFixed(2)}">£${displayMonthly.toFixed(2)}</span>`
         : "POA";
@@ -1231,13 +1245,27 @@
       document.querySelectorAll('.js-dynamic-price[data-base-price]').forEach((el) => {
         const base = parseFloat(el.dataset.basePrice);
         if (isNaN(base)) return;
-
         const target = isBusiness ? base : base * 1.2;
         window.animatePriceElement(el, target, animate ? 350 : 0);
       });
 
+      const nextSuffix = isBusiness ? '+VAT' : 'inc VAT';
+
       document.querySelectorAll('.js-vat-suffix').forEach((el) => {
-        el.textContent = isBusiness ? ' /mo +VAT' : ' /mo inc VAT';
+        if (el.textContent.trim() === nextSuffix) return;
+
+        if (!animate) {
+          el.textContent = nextSuffix;
+          el.classList.remove('is-fading');
+          return;
+        }
+
+        el.classList.add('is-fading');
+        clearTimeout(el._suffixFadeTimer);
+        el._suffixFadeTimer = setTimeout(() => {
+          el.textContent = nextSuffix;
+          el.classList.remove('is-fading');
+        }, 140);
       });
     };
   </script>
