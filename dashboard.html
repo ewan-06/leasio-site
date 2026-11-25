@@ -6,6 +6,28 @@
   <link rel="icon" type="image/x-icon" href="images/base_icon_transparent_background.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Leasio | Find the best leasing deal for you.</title>
+  <script>
+    (function () {
+      const userJson = localStorage.getItem('leasio_user');
+      if (!userJson) {
+        window.location.replace('login.html');
+        return;
+      }
+
+      try {
+        const user = JSON.parse(userJson);
+        if (!user || !user.email) {
+          localStorage.removeItem('leasio_user');
+          window.location.replace('login.html');
+          return;
+        }
+        window.currentLeasioUser = user;
+      } catch (e) {
+        localStorage.removeItem('leasio_user');
+        window.location.replace('login.html');
+      }
+    })();
+  </script>
   <link href="output.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -359,7 +381,6 @@
       <a class="l-btn l-btn-pri" style="min-height: 42px; padding: 0 22px; font-size: 14px;" href="search.html">Search
         deals</a>
     </div>
-    </div>
 
     <script>
       function toggleMegaMenu(id) {
@@ -496,21 +517,36 @@
 
   <script src="nav.js"></script>
   <script>
-    const userJson = localStorage.getItem('leasio_user');
-    const authLink = document.getElementById('auth-nav-link');
-
-    if (userJson) {
-      if (authLink) {
-        authLink.textContent = "Account";
-        authLink.setAttribute("href", "dashboard.html");
-        authLink.className = "px-4 py-6 font-mono text-[11px] tracking-[0.12em] text-blue-600 font-bold transition-colors";
+    const user = (function () {
+      const userJson = localStorage.getItem('leasio_user');
+      if (!userJson) {
+        window.location.replace('login.html');
+        return null;
       }
-    }
+      try {
+        const parsed = JSON.parse(userJson);
+        if (!parsed || !parsed.email) {
+          localStorage.removeItem('leasio_user');
+          window.location.replace('login.html');
+          return null;
+        }
+        document.querySelectorAll('header a[href="login.html"], header a[href="register.html"]').forEach(link => {
+          if (link.textContent.includes("Login") || link.getAttribute("href") === "login.html") {
+            link.textContent = "Account";
+            link.setAttribute("href", "dashboard.html");
+            link.className = "px-3 py-2 text-[15px] font-semibold text-slate-700 transition-colors";
+          }
+        });
+        return parsed;
+      } catch (e) {
+        console.error("Failed to parse user session", e);
+        localStorage.removeItem('leasio_user');
+        window.location.replace('login.html');
+        return null;
+      }
+    })();
 
-    if (!userJson) {
-      window.location.href = 'login.html';
-    } else {
-      const user = JSON.parse(userJson);
+    if (user) {
       document.getElementById('sidebar-user-name').textContent = `${user.first_name} ${user.last_name}`;
       document.getElementById('welcome-heading').textContent = `Welcome back, ${user.first_name}`;
       document.getElementById('user-name').textContent = `${user.first_name} ${user.last_name}`;
