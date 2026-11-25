@@ -1100,13 +1100,14 @@
 
       setTypeUI();
 
-      // Run filter population and vehicle search simultaneously for instant loading
+      // Populate dropdowns with URL query values first so #filter-make has the selected make
+      await loadMakes(selectedMake);
       await Promise.all([
-        triggerSearch(false),
-        loadMakes(selectedMake),
         selectedMake ? loadModelsForMake(selectedMake, selectedModel) : Promise.resolve(),
         loadFuelTypes(selectedMake, selectedModel, selectedFuel)
       ]);
+
+      await triggerSearch(false);
     });
 
     // Filter Change Listeners (Reset to Page 1 on every filter change)
@@ -1303,7 +1304,6 @@
 
       syncVisuals(isBusiness);
 
-      // Listen for slider clicks
       // Listen for slider clicks
       vatInputs.forEach(input => {
         input.addEventListener('change', (e) => {
