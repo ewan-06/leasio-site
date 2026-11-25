@@ -127,8 +127,31 @@
 
     <!-- HEADER -->
     <header class="relative z-50 backdrop-blur-md sticky top-0 bg-white/95 border-b border-slate-200/70">
+      <!-- Mobile Menu Button (shown below md) -->
+      <button type="button" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu"
+        class="md:hidden inline-flex items-center justify-center p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-blue-600 hover:text-white transition-colors">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
       <div class="l-wrap flex items-center justify-between gap-4 py-3 relative" style="min-height: 76px;">
-
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3">
+          <div class="flex flex-col gap-1 text-base font-semibold text-slate-800">
+            <a href="search.html"
+              class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Cars</a>
+            <a href="search.html?type=vans"
+              class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Vans</a>
+            <a href="main.html#best-offers-section"
+              class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Offers</a>
+            <a href="guides.html"
+              class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Guides</a>
+            <a href="about-us.html"
+              class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">About Us</a>
+            <a href="login.html"
+              class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Login</a>
+          </div>
+        </div>
         <!-- Left Side: Logo & Navigation Menu -->
         <div class="flex items-center gap-6 lg:gap-8">
           <!-- Logo -->
@@ -331,7 +354,7 @@
               </div>
             </div>
 
-            <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text--600"
+            <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
               href="about-us.html">About Us</a>
             <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
               href="login.html">Login</a>
@@ -356,352 +379,389 @@
 
         <a class="l-btn l-btn-pri" style="min-height: 42px; padding: 0 22px; font-size: 14px;" href="search.html">Search
           deals</a>
-  </div>
-
-  <script>
-    function toggleMegaMenu(id) {
-      const menus = document.querySelectorAll('.leasio-mega-menu');
-      const target = document.getElementById(id);
-      menus.forEach(menu => { if (menu !== target) menu.classList.add('hidden'); });
-      target.classList.toggle('hidden');
-    }
-    document.addEventListener('click', function (event) {
-      if (!event.target.closest('.leasio-nav-container')) {
-        document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
-      }
-    });
-  </script>
-  </header>
-
-  <!-- MAIN CONTENT -->
-  <main class="min-h-screen bg-[#f8fafc]">
-
-    <!-- BREADCRUMB BAR -->
-    <div class="border-b border-slate-200 bg-white">
-      <div class="mx-auto max-w-[1600px] px-5 py-4 sm:px-8 lg:px-12">
-        <nav aria-label="Breadcrumb"
-          class="flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-slate-400">
-          <a class="transition-colors hover:text-slate-900" href="main.html">Home</a>
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-chevron-right" aria-hidden="true">
-            <path d="m9 18 6-6-6-6"></path>
-          </svg>
-          <a id="breadcrumb-type" class="transition-colors hover:text-slate-900" href="search.html">Cars</a>
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-chevron-right" aria-hidden="true">
-            <path d="m9 18 6-6-6-6"></path>
-          </svg>
-          <span id="breadcrumb-title" class="text-slate-900 pending-load font-bold">Vehicle Details</span>
-        </nav>
       </div>
-    </div>
 
-    <!-- VEHICLE DETAILS & CALCULATOR GRID -->
-    <div class="mx-auto max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12">
-      <div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_400px]">
+      <script>
+        function toggleMegaMenu(id) {
+          const menus = document.querySelectorAll('.leasio-mega-menu');
+          const target = document.getElementById(id);
+          menus.forEach(menu => { if (menu !== target) menu.classList.add('hidden'); });
+          target.classList.toggle('hidden');
+        }
+        document.addEventListener('click', function (event) {
+          if (!event.target.closest('.leasio-nav-container')) {
+            document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
+          }
+        });
+        function toggleMobileMenu() {
+          const drawer = document.getElementById('mobile-nav-drawer');
+          if (drawer) drawer.classList.toggle('hidden');
+        }
+      </script>
+    </header>
 
-        <!-- LEFT COLUMN: Image & Specs -->
-        <div class="min-w-0">
-          <div
-            class="relative aspect-[16/7] overflow-hidden border border-slate-200 bg-white rounded-2xl shadow-sm flex items-center justify-center">
-            <div class="text-slate-300">
-              <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
-                class="lucide lucide-car">
-                <path
-                  d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2">
-                </path>
-                <circle cx="7" cy="17" r="2"></circle>
-                <path d="M9 17h6"></path>
-                <circle cx="17" cy="17" r="2"></circle>
-              </svg>
-            </div>
-            <span id="dyn-fuel"
-              class="absolute left-4 top-4 border px-3 py-1 font-mono text-[10px] tracking-widest border-blue-200 bg-blue-50 text-blue-700 rounded-full font-bold">Loading
-              Fuel Type...</span>
-            <span id="dyn-year"
-              class="absolute right-4 top-4 border border-slate-200 bg-white/90 backdrop-blur px-3 py-1 font-mono text-[10px] tracking-widest text-slate-500 rounded-full">Year
-            </span>
-          </div>
+    <!-- MAIN CONTENT -->
+    <main class="min-h-screen bg-[#f8fafc]">
 
-          <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm font-sans">
-            <!-- Manufacturer (Massive & Bold) -->
-            <h1 id="dyn-make" class="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight uppercase">Loading
-              Vehicle...</h1>
-
-            <!-- Model (Blue Subtitle) -->
-            <h2 id="dyn-model" class="mt-2 text-2xl sm:text-3xl font-semibold text-blue-600 pending-load">Loading...
-            </h2>
-
-            <!-- Trim / Derivative -->
-            <p id="dyn-derivative" class="mt-4 text-lg font-medium text-slate-500 pending-load"></p>
-
-            <!-- Description -->
-            <p id="vehicle-description" class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 pending-load">
-            </p>
-          </div>
-
-          <!-- Standard Features -->
-          <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-            <p
-              class="mb-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
-              <span class="h-px w-8 bg-blue-600"></span>
-              <span>Standard features included</span>
-            </p>
-            <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm text-slate-700 font-medium">
-              <li class="flex items-start gap-3"><span
-                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Flexible
-                contract lengths (24, 36 or 48 months)</li>
-              <li class="flex items-start gap-3"><span
-                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Choice
-                of annual mileage allowance</li>
-              <li class="flex items-start gap-3"><span
-                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Road
-                tax included for the duration</li>
-              <li class="flex items-start gap-3"><span
-                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Manufacturer
-                warranty included</li>
-              <li class="flex items-start gap-3"><span
-                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Fixed
-                monthly payments</li>
-              <li class="flex items-start gap-3"><span
-                  class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>No
-                depreciation risk</li>
-            </ul>
-          </div>
-
-          <!-- Technical Specifications -->
-          <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
-            <p
-              class="mb-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
-              <span class="h-px w-8 bg-blue-600"></span>
-              <span>Technical specifications</span>
-            </p>
-            <dl class="divide-y divide-slate-100">
-              <div class="flex items-center justify-between py-3">
-                <dt class="text-sm text-slate-500 font-medium">Make</dt>
-                <dd id="spec-make" class="text-sm font-bold text-slate-900">-</dd>
-              </div>
-              <div class="flex items-center justify-between py-3">
-                <dt class="text-sm text-slate-500 font-medium">Model</dt>
-                <dd id="spec-model" class="text-sm font-bold text-slate-900">-</dd>
-              </div>
-              <div class="flex items-center justify-between py-3">
-                <dt class="text-sm text-slate-500 font-medium">Fuel type</dt>
-                <dd id="spec-fuel" class="text-sm font-bold text-slate-900">-</dd>
-              </div>
-              <div class="flex items-center justify-between py-3">
-                <dt class="text-sm text-slate-500 font-medium">Engine Size</dt>
-                <dd id="spec-engine" class="text-sm font-bold text-slate-900">-</dd>
-              </div>
-              <div class="flex items-center justify-between py-3">
-                <dt class="text-sm text-slate-500 font-medium">Power (kW)</dt>
-                <dd id="spec-kw" class="text-sm font-bold text-slate-900">-</dd>
-              </div>
-            </dl>
-          </div>
+      <!-- BREADCRUMB BAR -->
+      <div class="border-b border-slate-200 bg-white">
+        <div class="mx-auto max-w-[1600px] px-5 py-4 sm:px-8 lg:px-12">
+          <nav aria-label="Breadcrumb"
+            class="flex items-center gap-2 font-mono text-[10px] tracking-[0.14em] text-slate-400">
+            <a class="transition-colors hover:text-slate-900" href="main.html">Home</a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-chevron-right" aria-hidden="true">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <a id="breadcrumb-type" class="transition-colors hover:text-slate-900" href="search.html">Cars</a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-chevron-right" aria-hidden="true">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg>
+            <span id="breadcrumb-title" class="text-slate-900 pending-load font-bold">Vehicle Details</span>
+          </nav>
         </div>
+      </div>
 
-        <!-- RIGHT COLUMN: Interactive Calculator Box -->
-        <div
-          class="border border-slate-200 bg-white rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-900/5 lg:self-start sticky top-28">
+      <!-- VEHICLE DETAILS & CALCULATOR GRID -->
+      <div class="mx-auto max-w-[1600px] px-5 py-10 sm:px-8 lg:px-12">
+        <div class="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_400px]">
 
-          <div class="flex items-center justify-between mb-6">
-            <div>
-              <p
-                class="mb-1 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
-                <span class="h-px w-6 bg-blue-600"></span>
-                <span>Lease calculator</span>
+          <!-- LEFT COLUMN: Image & Specs -->
+          <div class="min-w-0">
+            <div
+              class="relative aspect-[16/7] overflow-hidden border border-slate-200 bg-white rounded-2xl shadow-sm flex items-center justify-center">
+              <div class="text-slate-300">
+                <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-car">
+                  <path
+                    d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2">
+                  </path>
+                  <circle cx="7" cy="17" r="2"></circle>
+                  <path d="M9 17h6"></path>
+                  <circle cx="17" cy="17" r="2"></circle>
+                </svg>
+              </div>
+              <span id="dyn-fuel"
+                class="absolute left-4 top-4 border px-3 py-1 font-mono text-[10px] tracking-widest border-blue-200 bg-blue-50 text-blue-700 rounded-full font-bold">Loading
+                Fuel Type...</span>
+              <span id="dyn-year"
+                class="absolute right-4 top-4 border border-slate-200 bg-white/90 backdrop-blur px-3 py-1 font-mono text-[10px] tracking-widest text-slate-500 rounded-full">Year
+              </span>
+            </div>
+
+            <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 sm:p-10 shadow-sm font-sans">
+              <!-- Manufacturer (Massive & Bold) -->
+              <h1 id="dyn-make" class="text-5xl sm:text-6xl font-black text-slate-900 tracking-tight uppercase">Loading
+                Vehicle...</h1>
+
+              <!-- Model (Blue Subtitle) -->
+              <h2 id="dyn-model" class="mt-2 text-2xl sm:text-3xl font-semibold text-blue-600 pending-load">Loading...
+              </h2>
+
+              <!-- Trim / Derivative -->
+              <p id="dyn-derivative" class="mt-4 text-lg font-medium text-slate-500 pending-load"></p>
+
+              <!-- Description -->
+              <p id="vehicle-description" class="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600 pending-load">
               </p>
-              <p class="text-xs text-slate-500">Adjust the options to see your live payment.</p>
             </div>
 
-            <!-- CALCULATOR VAT TOGGLE -->
-            <div class="flex flex-col items-center gap-1">
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" class="sr-only peer vat-toggle-input">
-                <!-- Track stays bg-blue-600 at all times -->
-                <div
-                  class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
+            <!-- Standard Features -->
+            <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+              <p
+                class="mb-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
+                <span class="h-px w-8 bg-blue-600"></span>
+                <span>Standard features included</span>
+              </p>
+              <ul class="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm text-slate-700 font-medium">
+                <li class="flex items-start gap-3"><span
+                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Flexible
+                  contract lengths (24, 36 or 48 months)</li>
+                <li class="flex items-start gap-3"><span
+                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Choice
+                  of annual mileage allowance</li>
+                <li class="flex items-start gap-3"><span
+                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Road
+                  tax included for the duration</li>
+                <li class="flex items-start gap-3"><span
+                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Manufacturer
+                  warranty included</li>
+                <li class="flex items-start gap-3"><span
+                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>Fixed
+                  monthly payments</li>
+                <li class="flex items-start gap-3"><span
+                    class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs shrink-0">✓</span>No
+                  depreciation risk</li>
+              </ul>
+            </div>
+
+            <!-- Technical Specifications -->
+            <div class="mt-8 bg-white border border-slate-200 rounded-2xl p-8 shadow-sm">
+              <p
+                class="mb-6 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
+                <span class="h-px w-8 bg-blue-600"></span>
+                <span>Technical specifications</span>
+              </p>
+              <dl class="divide-y divide-slate-100">
+                <div class="flex items-center justify-between py-3">
+                  <dt class="text-sm text-slate-500 font-medium">Make</dt>
+                  <dd id="spec-make" class="text-sm font-bold text-slate-900">-</dd>
                 </div>
-              </label>
-              <span
-                class="text-[9px] font-mono tracking-widest text-slate-400 uppercase font-bold text-center vat-status-text">Personal</span>
+                <div class="flex items-center justify-between py-3">
+                  <dt class="text-sm text-slate-500 font-medium">Model</dt>
+                  <dd id="spec-model" class="text-sm font-bold text-slate-900">-</dd>
+                </div>
+                <div class="flex items-center justify-between py-3">
+                  <dt class="text-sm text-slate-500 font-medium">Fuel type</dt>
+                  <dd id="spec-fuel" class="text-sm font-bold text-slate-900">-</dd>
+                </div>
+                <div class="flex items-center justify-between py-3">
+                  <dt class="text-sm text-slate-500 font-medium">Engine Size</dt>
+                  <dd id="spec-engine" class="text-sm font-bold text-slate-900">-</dd>
+                </div>
+                <div class="flex items-center justify-between py-3">
+                  <dt class="text-sm text-slate-500 font-medium">Power (kW)</dt>
+                  <dd id="spec-kw" class="text-sm font-bold text-slate-900">-</dd>
+                </div>
+              </dl>
             </div>
           </div>
 
-          <div class="flex flex-col gap-5">
-            <!-- Contract Length -->
-            <div>
-              <div class="mb-2 flex items-center justify-between">
-                <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Contract
-                  Length</span>
+          <!-- RIGHT COLUMN: Interactive Calculator Box -->
+          <div
+            class="border border-slate-200 bg-white rounded-2xl p-6 sm:p-8 shadow-xl shadow-slate-900/5 lg:self-start sticky top-28">
+
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <p
+                  class="mb-1 flex items-center gap-3 font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold uppercase">
+                  <span class="h-px w-6 bg-blue-600"></span>
+                  <span>Lease calculator</span>
+                </p>
+                <p class="text-xs text-slate-500">Adjust the options to see your live payment.</p>
               </div>
-              <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">24
-                  mo</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">36
-                  mo</button>
-                <button type="button" aria-pressed="true"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48
-                  mo</button>
+
+              <!-- CALCULATOR VAT TOGGLE -->
+              <div class="flex flex-col items-center gap-1">
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" class="sr-only peer vat-toggle-input">
+                  <!-- Track stays bg-blue-600 at all times -->
+                  <div
+                    class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
+                  </div>
+                </label>
+                <span
+                  class="text-[9px] font-mono tracking-widest text-slate-400 uppercase font-bold text-center vat-status-text">Personal</span>
               </div>
             </div>
 
-            <!-- Annual Mileage -->
-            <div>
-              <div class="mb-2 flex items-center justify-between">
-                <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Annual
-                  Mileage</span>
-              </div>
-              <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
-                <button type="button" aria-pressed="true"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">10k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">15k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">20k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">25k</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">30k</button>
-              </div>
-            </div>
-
-            <!-- Initial Payment -->
-            <div>
-              <div class="mb-2 flex items-center justify-between">
-                <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Initial
-                  Payment</span>
-              </div>
-              <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50 gap-1">
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                  onclick="setInitial(1, this)">1m</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                  onclick="setInitial(3, this)">3m</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                  onclick="setInitial(6, this)">6m</button>
-                <button type="button" aria-pressed="false"
-                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
-                  onclick="setInitial(9, this)">9m</button>
-                <button type="button" aria-pressed="true"
-                  class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm"
-                  onclick="setInitial(12, this)">12m</button>
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex flex-col gap-3">
-              <button id="save-quote-btn"
-                class="w-full bg-blue-50 hover:bg-blue-100 text-blue-500 font-bold py-2.5 px-4 rounded-xl transition text-sm shadow-sm hidden">
-                Save Quote
-              </button>
-
-              <!-- Trigger Button -->
-              <button type="button" id="open-enquiry-btn"
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
-                <span>Enquire</span>
-                <span>&rarr;</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Enquiry Modal Box -->
-          <div id="enquiry-modal"
-            class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
-            <div class="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-8 relative">
-              <div class="flex items-start justify-between gap-4 mb-6">
-                <div>
-                  <span
-                    class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-2">
-                    Vehicle Enquiry
-                  </span>
-                  <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Request a callback or quote</h2>
-                  <p id="enquiry-vehicle-summary" class="text-xs text-slate-500 mt-1">Share your details and our team
-                    will be in touch.</p>
+            <div class="flex flex-col gap-5">
+              <!-- Contract Length -->
+              <div>
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Contract
+                    Length</span>
                 </div>
-                <button type="button" id="close-enquiry-btn" aria-label="Close enquiry box"
-                  class="text-slate-400 hover:text-slate-700 font-bold text-lg leading-none p-1">
-                  &times;
+                <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">24
+                    mo</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">36
+                    mo</button>
+                  <button type="button" aria-pressed="true"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48
+                    mo</button>
+                </div>
+              </div>
+
+              <!-- Annual Mileage -->
+              <div>
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Annual
+                    Mileage</span>
+                </div>
+                <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
+                  <button type="button" aria-pressed="true"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">10k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">15k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">20k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">25k</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">30k</button>
+                </div>
+              </div>
+
+              <!-- Initial Payment -->
+              <div>
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Initial
+                    Payment</span>
+                </div>
+                <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50 gap-1">
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                    onclick="setInitial(1, this)">1m</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                    onclick="setInitial(3, this)">3m</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                    onclick="setInitial(6, this)">6m</button>
+                  <button type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                    onclick="setInitial(9, this)">9m</button>
+                  <button type="button" aria-pressed="true"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm"
+                    onclick="setInitial(12, this)">12m</button>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col gap-3">
+                <button id="save-quote-btn"
+                  class="w-full bg-blue-50 hover:bg-blue-100 text-blue-500 font-bold py-2.5 px-4 rounded-xl transition text-sm shadow-sm hidden">
+                  Save Quote
+                </button>
+
+                <!-- Trigger Button -->
+                <button type="button" id="open-enquiry-btn"
+                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
+                  <span>Enquire</span>
+                  <span>&rarr;</span>
                 </button>
               </div>
+            </div>
 
-              <form id="enquiry-form" class="flex flex-col gap-4" novalidate>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Enquiry Modal Box -->
+            <div id="enquiry-modal"
+              class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4">
+              <div class="bg-white border border-slate-200 rounded-2xl shadow-2xl w-full max-w-lg p-6 sm:p-8 relative">
+                <div class="flex items-start justify-between gap-4 mb-6">
                   <div>
-                    <label for="enq-first-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">First
-                      Name</label>
-                    <input type="text" id="enq-first-name" name="first_name" required placeholder="Jane"
-                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                    <span
+                      class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-2">
+                      Vehicle Enquiry
+                    </span>
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Request a callback or quote</h2>
+                    <p id="enquiry-vehicle-summary" class="text-xs text-slate-500 mt-1">Share your details and our team
+                      will be in touch.</p>
                   </div>
-                  <div>
-                    <label for="enq-last-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Last
-                      Name</label>
-                    <input type="text" id="enq-last-name" name="last_name" required placeholder="Doe"
-                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                  </div>
-                </div>
-
-                <div>
-                  <label for="enq-phone" class="block text-xs font-bold text-slate-500 uppercase mb-1">Phone
-                    Number</label>
-                  <input type="tel" id="enq-phone" name="phone" required placeholder="07123 456789"
-                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                </div>
-
-                <div>
-                  <label for="enq-email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email
-                    Address</label>
-                  <input type="email" id="enq-email" name="email" required placeholder="name@example.com"
-                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                </div>
-
-                <!-- Terms & Conditions Checkbox -->
-                <label class="flex items-start gap-3 pt-1 cursor-pointer select-none">
-                  <input type="checkbox" id="enq-terms" required
-                    class="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
-                  <span class="text-xs text-slate-600 leading-relaxed">
-                    I confirm that I have read and agree to the <a href="/terms"
-                      class="text-blue-600 font-semibold underline hover:text-blue-700">terms and conditions</a>.
-                  </span>
-                </label>
-
-                <!-- Validation / Status Messages -->
-                <p id="enquiry-error"
-                  class="hidden text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium">
-                </p>
-                <p id="enquiry-success"
-                  class="hidden text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5 text-xs font-semibold">
-                </p>
-
-                <!-- Send Enquiry Button & GDPR Disclaimer -->
-                <div class="pt-1">
-                  <button type="submit" id="send-enquiry-btn"
-                    class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
-                    <span>Send Enquiry</span>
+                  <button type="button" id="close-enquiry-btn" aria-label="Close enquiry box"
+                    class="text-slate-400 hover:text-slate-700 font-bold text-lg leading-none p-1">
+                    &times;
                   </button>
-                  <p class="text-[11px] text-slate-400 leading-relaxed mt-2.5 text-center">
-                    By clicking this button you agree to be contacted about this vehicle and your requirements in
-                    accordance with our privacy policy.
-                  </p>
                 </div>
-              </form>
+
+                <!-- Live Vehicle & Deal Summary -->
+                <div id="enq-deal-summary"
+                  class="mb-5 rounded-xl border border-blue-100 bg-blue-50/70 p-4 text-xs text-slate-700">
+                  <p id="enq-sum-vehicle" class="text-sm font-extrabold text-slate-900 uppercase">-</p>
+                  <p id="enq-sum-derivative" class="text-slate-500 mt-0.5">-</p>
+                  <div class="mt-3 grid grid-cols-2 gap-2 border-t border-blue-100 pt-3">
+                    <div><span class="text-slate-400 block">Contract Term</span><strong id="enq-sum-term"
+                        class="text-slate-900">-</strong></div>
+                    <div><span class="text-slate-400 block">Annual Mileage</span><strong id="enq-sum-mileage"
+                        class="text-slate-900">-</strong></div>
+                    <div><span class="text-slate-400 block">Initial Rental</span><strong id="enq-sum-initial"
+                        class="text-slate-900">-</strong></div>
+                    <div><span class="text-slate-400 block">Monthly Rental</span><strong id="enq-sum-price"
+                        class="text-blue-600">-</strong></div>
+                  </div>
+                </div>
+
+                <form id="enquiry-form" class="flex flex-col gap-4" novalidate>
+                  <!-- Shown ONLY when signed in -->
+                  <div id="enq-signed-in-banner"
+                    class="hidden rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800">
+                    Enquiring as <strong id="enq-signed-in-name"></strong> (<span id="enq-signed-in-email"></span>).
+                    Your saved contact details and address will be attached automatically.
+                  </div>
+
+                  <!-- Shown ONLY when NOT signed in -->
+                  <div id="enq-guest-fields" class="flex flex-col gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label for="enq-first-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">First
+                          Name</label>
+                        <input type="text" id="enq-first-name" name="first_name" placeholder="Jane"
+                          class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                      </div>
+                      <div>
+                        <label for="enq-last-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Last
+                          Name</label>
+                        <input type="text" id="enq-last-name" name="last_name" placeholder="Doe"
+                          class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                      </div>
+                    </div>
+
+                    <div>
+                      <label for="enq-phone" class="block text-xs font-bold text-slate-500 uppercase mb-1">Phone
+                        Number</label>
+                      <input type="tel" id="enq-phone" name="phone" placeholder="07123 456789"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                    </div>
+
+                    <div>
+                      <label for="enq-email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email
+                        Address</label>
+                      <input type="email" id="enq-email" name="email" placeholder="name@example.com"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+                    </div>
+
+                    <div>
+                      <label for="enq-address" class="block text-xs font-bold text-slate-500 uppercase mb-1">Full
+                        Address</label>
+                      <textarea id="enq-address" name="address" rows="2"
+                        placeholder="123 High Street, Cardiff, CF10 1AA"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Terms & Conditions Checkbox -->
+                  <label class="flex items-start gap-3 pt-1 cursor-pointer select-none">
+                    <input type="checkbox" id="enq-terms" required
+                      class="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
+                    <span class="text-xs text-slate-600 leading-relaxed">
+                      I confirm that I have read and agree to the <a href="/terms"
+                        class="text-blue-600 font-semibold underline hover:text-blue-700">terms and conditions</a>.
+                    </span>
+                  </label>
+
+                  <p id="enquiry-error"
+                    class="hidden text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium">
+                  </p>
+                  <p id="enquiry-success"
+                    class="hidden text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5 text-xs font-semibold">
+                  </p>
+
+                  <div class="pt-1">
+                    <button type="submit" id="send-enquiry-btn"
+                      class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
+                      <span>Send Enquiry</span>
+                    </button>
+                    <p class="text-[11px] text-slate-400 leading-relaxed mt-2.5 text-center">
+                      By clicking this button you agree to be contacted about this vehicle and your requirements in
+                      accordance with our privacy policy.
+                    </p>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-    </div>
-    </div>
+      </div>
+  </div>
   </main>
 
   <!-- FOOTER -->
@@ -1078,21 +1138,6 @@
           el.style.color = '#2563eb';
         });
       }
-
-      syncVisuals(isBusiness);
-
-      // Listen for slider clicks
-      vatInputs.forEach(input => {
-        input.addEventListener('change', (e) => {
-          const isBusinessMode = e.target.checked;
-          localStorage.setItem('leasio_vat_mode', isBusinessMode ? 'business' : 'personal');
-          syncVisuals(isBusinessMode);
-
-          if (typeof window.refreshPagePrices === 'function') {
-            window.refreshPagePrices(isBusinessMode, true);
-          }
-        });
-      });
     });
   </script>
   <script>
@@ -1104,34 +1149,72 @@
       const errorEl = document.getElementById("enquiry-error");
       const successEl = document.getElementById("enquiry-success");
       const submitBtn = document.getElementById("send-enquiry-btn");
+      const guestFields = document.getElementById("enq-guest-fields");
+      const signedInBanner = document.getElementById("enq-signed-in-banner");
 
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       const phoneRegex = /^(?:(?:\+44\s?|0)(?:\d{2}\s?\d{4}\s?\d{4}|\d{3}\s?\d{3}\s?\d{4}|\d{3}\s?\d{4}\s?\d{4}|\d{4}\s?\d{6}|\d{5}\s?\d{5})|\+?[0-9\s-]{10,15})$/;
 
-      function prefillSignedInUser() {
+      function getSignedInUser() {
         try {
-          const userJson = localStorage.getItem("leasio_user");
-          if (!userJson) return;
-          const user = JSON.parse(userJson);
-          if (user.first_name && !document.getElementById("enq-first-name").value) {
-            document.getElementById("enq-first-name").value = user.first_name;
-          }
-          if (user.last_name && !document.getElementById("enq-last-name").value) {
-            document.getElementById("enq-last-name").value = user.last_name;
-          }
-          if (user.email && !document.getElementById("enq-email").value) {
-            document.getElementById("enq-email").value = user.email;
-          }
-        } catch (_) { }
+          const raw = localStorage.getItem("leasio_user");
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          return parsed && parsed.email ? parsed : null;
+        } catch (_) {
+          return null;
+        }
+      }
+
+      function getCurrentDealSummary() {
+        const state = window.leaseState || { term: 48, mileage: 5000, initial: 12 };
+        const isBusiness = localStorage.getItem("leasio_vat_mode") === "business";
+        const priceEl = document.querySelector("#live-price-display .js-dynamic-price");
+        const monthlyNum = priceEl ? parseFloat(priceEl.dataset.currentPrice) : null;
+        const monthlyText = !isNaN(monthlyNum) && monthlyNum !== null ? `£${monthlyNum.toFixed(2)}` : "POA";
+        const initialTotal = !isNaN(monthlyNum) && monthlyNum !== null
+          ? `£${(monthlyNum * state.initial).toFixed(2)}`
+          : "POA";
+
+        return {
+          make: (document.getElementById("dyn-make")?.innerText || "").trim(),
+          model: (document.getElementById("dyn-model")?.innerText || "").trim(),
+          derivative: (document.getElementById("dyn-derivative")?.innerText || "").trim(),
+          term: state.term,
+          mileage: state.mileage,
+          initial_months: state.initial,
+          initial_amount: initialTotal,
+          monthly_price: monthlyText,
+          vat_status: isBusiness ? "+VAT" : "inc VAT",
+          is_business: isBusiness
+        };
       }
 
       function openModal() {
         errorEl.classList.add("hidden");
         successEl.classList.add("hidden");
-        prefillSignedInUser();
+
+        const deal = getCurrentDealSummary();
+        document.getElementById("enq-sum-vehicle").textContent = `${deal.make} ${deal.model}`;
+        document.getElementById("enq-sum-derivative").textContent = deal.derivative;
+        document.getElementById("enq-sum-term").textContent = `${deal.term} months`;
+        document.getElementById("enq-sum-mileage").textContent = `${deal.mileage.toLocaleString("en-GB")} mi/yr`;
+        document.getElementById("enq-sum-initial").textContent = `${deal.initial_months} months (${deal.initial_amount})`;
+        document.getElementById("enq-sum-price").textContent = `${deal.monthly_price}/mo ${deal.vat_status}`;
+
+        const user = getSignedInUser();
+        if (user) {
+          guestFields.classList.add("hidden");
+          signedInBanner.classList.remove("hidden");
+          document.getElementById("enq-signed-in-name").textContent = `${user.first_name || ""} ${user.last_name || ""}`.trim();
+          document.getElementById("enq-signed-in-email").textContent = user.email;
+        } else {
+          guestFields.classList.remove("hidden");
+          signedInBanner.classList.add("hidden");
+        }
+
         modal.classList.remove("hidden");
         modal.classList.add("flex");
-        document.getElementById("enq-first-name").focus();
       }
 
       function closeModal() {
@@ -1141,15 +1224,9 @@
 
       openBtn?.addEventListener("click", openModal);
       closeBtn?.addEventListener("click", closeModal);
-
-      modal?.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-      });
-
+      modal?.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
-          closeModal();
-        }
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
       });
 
       form?.addEventListener("submit", async (e) => {
@@ -1157,29 +1234,8 @@
         errorEl.classList.add("hidden");
         successEl.classList.add("hidden");
 
-        const firstName = document.getElementById("enq-first-name").value.trim();
-        const lastName = document.getElementById("enq-last-name").value.trim();
-        const phone = document.getElementById("enq-phone").value.trim();
-        const email = document.getElementById("enq-email").value.trim();
+        const user = getSignedInUser();
         const agreedToTerms = document.getElementById("enq-terms").checked;
-
-        if (!firstName || !lastName) {
-          errorEl.textContent = "Please enter both your first name and last name.";
-          errorEl.classList.remove("hidden");
-          return;
-        }
-
-        if (!phoneRegex.test(phone)) {
-          errorEl.textContent = "Please enter a valid phone number.";
-          errorEl.classList.remove("hidden");
-          return;
-        }
-
-        if (!emailRegex.test(email)) {
-          errorEl.textContent = "Please enter a valid email address (e.g., name@example.com).";
-          errorEl.classList.remove("hidden");
-          return;
-        }
 
         if (!agreedToTerms) {
           errorEl.textContent = "Please confirm that you have read and agree to the terms and conditions.";
@@ -1187,14 +1243,63 @@
           return;
         }
 
+        let customerPayload = {};
+        if (user) {
+          customerPayload = {
+            is_logged_in: true,
+            customer_id: user.customer_id || user.CustomerID || null,
+            first_name: user.first_name || "",
+            last_name: user.last_name || "",
+            email: user.email,
+            phone: user.phone || "",
+            address: user.address || ""
+          };
+        } else {
+          const firstName = document.getElementById("enq-first-name").value.trim();
+          const lastName = document.getElementById("enq-last-name").value.trim();
+          const phone = document.getElementById("enq-phone").value.trim();
+          const email = document.getElementById("enq-email").value.trim();
+          const address = document.getElementById("enq-address").value.trim();
+
+          if (!firstName || !lastName) {
+            errorEl.textContent = "Please enter both your first name and last name.";
+            errorEl.classList.remove("hidden");
+            return;
+          }
+          if (!phoneRegex.test(phone)) {
+            errorEl.textContent = "Please enter a valid phone number.";
+            errorEl.classList.remove("hidden");
+            return;
+          }
+          if (!emailRegex.test(email)) {
+            errorEl.textContent = "Please enter a valid email address (e.g., name@example.com).";
+            errorEl.classList.remove("hidden");
+            return;
+          }
+          if (address.length < 5) {
+            errorEl.textContent = "Please enter your full address.";
+            errorEl.classList.remove("hidden");
+            return;
+          }
+
+          customerPayload = {
+            is_logged_in: false,
+            customer_id: null,
+            first_name: firstName,
+            last_name: lastName,
+            phone,
+            email,
+            address
+          };
+        }
+
         const params = new URLSearchParams(window.location.search);
+        const deal = getCurrentDealSummary();
         const payload = {
-          first_name: firstName,
-          last_name: lastName,
-          phone,
-          email,
+          ...customerPayload,
+          ...deal,
           agreed_terms: true,
-          cap_code: params.get("cap") || "",
+          cap_code: (params.get("cap") || "").trim(),
           vehicle_type: params.get("type") || "car"
         };
 
