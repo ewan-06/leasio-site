@@ -965,9 +965,25 @@
                 const user = JSON.parse(userJson);
                 saveBtn.classList.remove('hidden');
 
-                // Attach save logic
+                function setSaveButtonSavedState(saveBtn) {
+                  saveBtn.innerHTML = "✓ Saved to Dashboard";
+                  saveBtn.disabled = true;
+                  saveBtn.classList.remove("bg-blue-50", "hover:bg-blue-100", "text-blue-500");
+                  saveBtn.classList.add("text-white");
+                  saveBtn.style.backgroundColor = "#059669";
+                }
+
+                function resetSaveQuoteButton() {
+                  const saveBtn = document.getElementById("save-quote-btn");
+                  if (!saveBtn) return;
+                  saveBtn.innerHTML = "Save Quote";
+                  saveBtn.disabled = false;
+                  saveBtn.style.backgroundColor = "";
+                  saveBtn.classList.remove("text-white");
+                  saveBtn.classList.add("bg-blue-50", "hover:bg-blue-100", "text-blue-500");
+                }
+
                 saveBtn.onclick = async () => {
-                  const originalText = saveBtn.innerHTML;
                   saveBtn.innerHTML = "Saving...";
                   saveBtn.disabled = true;
 
@@ -975,9 +991,9 @@
                     const payload = {
                       email: user.email,
                       cap_code: capCode,
-                      make: document.getElementById('dyn-make').innerText.trim(),
-                      model: document.getElementById('dyn-model').innerText.trim(),
-                      derivative: document.getElementById('dyn-derivative').innerText.trim(),
+                      make: document.getElementById("dyn-make").innerText.trim(),
+                      model: document.getElementById("dyn-model").innerText.trim(),
+                      derivative: document.getElementById("dyn-derivative").innerText.trim(),
                       term: Number(window.leaseState.term),
                       mileage: Number(window.leaseState.mileage),
                       initial: Number(window.leaseState.initial),
@@ -986,9 +1002,9 @@
                       is_business: Boolean(isBusiness)
                     };
 
-                    const saveRes = await fetch('https://leasio-api.onrender.com/api/save_quote', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
+                    const saveRes = await fetch("https://leasio-api.onrender.com/api/save_quote", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
                       body: JSON.stringify(payload)
                     });
 
@@ -998,20 +1014,12 @@
                       throw new Error(JSON.stringify(responseData));
                     }
 
-                    saveBtn.innerHTML = "✓ Saved to Dashboard";
-                    saveBtn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                    saveBtn.style.backgroundColor = '#059669'; // Emerald 600
+                    setSaveButtonSavedState(saveBtn);
                   } catch (e) {
                     saveBtn.innerHTML = "Error saving";
+                    saveBtn.disabled = false;
                     console.error("Exact Save Error:", e.message);
                   }
-
-                  setTimeout(() => {
-                    saveBtn.innerHTML = originalText;
-                    saveBtn.disabled = false;
-                    saveBtn.style.backgroundColor = '';
-                    saveBtn.classList.add('bg-blue-600', 'hover:bg-blue-700');
-                  }, 3000);
                 };
 
               }
