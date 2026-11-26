@@ -668,126 +668,123 @@
                 </button>
               </div>
             </div>
-
-            <!-- Enquiry Modal Box -->
-            <div id="enquiry-modal" class="hidden">
-              <div id="enquiry-modal-card"
-                class="bg-white border border-slate-200 rounded-2xl shadow-2xl p-6 sm:p-8 relative">
-                <div class="flex items-start justify-between gap-4 mb-6">
-                  <div>
-                    <span
-                      class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-2">
-                      Vehicle Enquiry
-                    </span>
-                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Request a callback or quote</h2>
-                    <p id="enquiry-vehicle-summary" class="text-xs text-slate-500 mt-1">Share your details and our team
-                      will be in touch.</p>
-                  </div>
-                  <button type="button" id="close-enquiry-btn" aria-label="Close enquiry box"
-                    class="text-slate-400 hover:text-slate-700 font-bold text-lg leading-none p-1">
-                    &times;
-                  </button>
-                </div>
-
-                <!-- Live Vehicle & Deal Summary -->
-                <div id="enq-deal-summary"
-                  class="mb-5 rounded-xl border border-blue-100 bg-blue-50/70 p-4 text-xs text-slate-700">
-                  <p id="enq-sum-vehicle" class="text-sm font-extrabold text-slate-900 uppercase">-</p>
-                  <p id="enq-sum-derivative" class="text-slate-500 mt-0.5">-</p>
-                  <div class="mt-3 grid grid-cols-2 gap-2 border-t border-blue-100 pt-3">
-                    <div><span class="text-slate-400 block">Contract Term</span><strong id="enq-sum-term"
-                        class="text-slate-900">-</strong></div>
-                    <div><span class="text-slate-400 block">Annual Mileage</span><strong id="enq-sum-mileage"
-                        class="text-slate-900">-</strong></div>
-                    <div><span class="text-slate-400 block">Initial Rental</span><strong id="enq-sum-initial"
-                        class="text-slate-900">-</strong></div>
-                    <div><span class="text-slate-400 block">Monthly Rental</span><strong id="enq-sum-price"
-                        class="text-blue-600">-</strong></div>
-                  </div>
-                </div>
-
-                <form id="enquiry-form" class="flex flex-col gap-4" novalidate>
-                  <!-- Shown ONLY when signed in -->
-                  <div id="enq-signed-in-banner"
-                    class="hidden rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800">
-                    Enquiring as <strong id="enq-signed-in-name"></strong> (<span id="enq-signed-in-email"></span>).
-                    Your saved contact details and address will be attached automatically.
-                  </div>
-
-                  <!-- Shown ONLY when NOT signed in -->
-                  <div id="enq-guest-fields" class="flex flex-col gap-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label for="enq-first-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">First
-                          Name</label>
-                        <input type="text" id="enq-first-name" name="first_name" placeholder="Jane"
-                          class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                      </div>
-                      <div>
-                        <label for="enq-last-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Last
-                          Name</label>
-                        <input type="text" id="enq-last-name" name="last_name" placeholder="Doe"
-                          class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                      </div>
-                    </div>
-
-                    <div>
-                      <label for="enq-phone" class="block text-xs font-bold text-slate-500 uppercase mb-1">Phone
-                        Number</label>
-                      <input type="tel" id="enq-phone" name="phone" placeholder="07123 456789"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                    </div>
-
-                    <div>
-                      <label for="enq-email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email
-                        Address</label>
-                      <input type="email" id="enq-email" name="email" placeholder="name@example.com"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
-                    </div>
-
-                    <div>
-                      <label for="enq-address" class="block text-xs font-bold text-slate-500 uppercase mb-1">Full
-                        Address</label>
-                      <textarea id="enq-address" name="address" rows="2"
-                        placeholder="123 High Street, Cardiff, CF10 1AA"
-                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"></textarea>
-                    </div>
-                  </div>
-
-                  <!-- Terms & Conditions Checkbox -->
-                  <label class="flex items-start gap-3 pt-1 cursor-pointer select-none">
-                    <input type="checkbox" id="enq-terms" required
-                      class="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
-                    <span class="text-xs text-slate-600 leading-relaxed">
-                      I confirm that I have read and agree to the <a href="/terms"
-                        class="text-blue-600 font-semibold underline hover:text-blue-700">terms and conditions</a>.
-                    </span>
-                  </label>
-
-                  <p id="enquiry-error"
-                    class="hidden text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium">
-                  </p>
-                  <p id="enquiry-success"
-                    class="hidden text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5 text-xs font-semibold">
-                  </p>
-
-                  <div class="pt-1">
-                    <button type="submit" id="send-enquiry-btn"
-                      class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
-                      <span>Send Enquiry</span>
-                    </button>
-                    <p class="text-[11px] text-slate-400 leading-relaxed mt-2.5 text-center">
-                      By clicking this button you agree to be contacted about this vehicle and your requirements in
-                      accordance with our privacy policy.
-                    </p>
-                  </div>
-                </form>
-              </div>
-            </div>
           </div>
         </div>
 
       </div>
+  </div>
+  <!-- Enquiry Modal Box -->
+  <div id="enquiry-modal" class="hidden">
+    <div id="enquiry-modal-card" class="bg-white border border-slate-200 rounded-2xl shadow-2xl p-6 sm:p-8 relative">
+      <div class="flex items-start justify-between gap-4 mb-6">
+        <div>
+          <span
+            class="inline-block bg-blue-50 text-blue-700 border border-blue-100 font-mono text-[10px] tracking-widest uppercase font-bold px-3 py-1 rounded-full mb-2">
+            Vehicle Enquiry
+          </span>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Request a callback or quote</h2>
+          <p id="enquiry-vehicle-summary" class="text-xs text-slate-500 mt-1">Share your details and our team
+            will be in touch.</p>
+        </div>
+        <button type="button" id="close-enquiry-btn" aria-label="Close enquiry box"
+          class="text-slate-400 hover:text-slate-700 font-bold text-lg leading-none p-1">
+          &times;
+        </button>
+      </div>
+
+      <!-- Live Vehicle & Deal Summary -->
+      <div id="enq-deal-summary"
+        class="mb-5 rounded-xl border border-blue-100 bg-blue-50/70 p-4 text-xs text-slate-700">
+        <p id="enq-sum-vehicle" class="text-sm font-extrabold text-slate-900 uppercase">-</p>
+        <p id="enq-sum-derivative" class="text-slate-500 mt-0.5">-</p>
+        <div class="mt-3 grid grid-cols-2 gap-2 border-t border-blue-100 pt-3">
+          <div><span class="text-slate-400 block">Contract Term</span><strong id="enq-sum-term"
+              class="text-slate-900">-</strong></div>
+          <div><span class="text-slate-400 block">Annual Mileage</span><strong id="enq-sum-mileage"
+              class="text-slate-900">-</strong></div>
+          <div><span class="text-slate-400 block">Initial Rental</span><strong id="enq-sum-initial"
+              class="text-slate-900">-</strong></div>
+          <div><span class="text-slate-400 block">Monthly Rental</span><strong id="enq-sum-price"
+              class="text-blue-600">-</strong></div>
+        </div>
+      </div>
+
+      <form id="enquiry-form" class="flex flex-col gap-4" novalidate>
+        <!-- Shown ONLY when signed in -->
+        <div id="enq-signed-in-banner"
+          class="hidden rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-xs text-emerald-800">
+          Enquiring as <strong id="enq-signed-in-name"></strong> (<span id="enq-signed-in-email"></span>).
+          Your saved contact details and address will be attached automatically.
+        </div>
+
+        <!-- Shown ONLY when NOT signed in -->
+        <div id="enq-guest-fields" class="flex flex-col gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="enq-first-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">First
+                Name</label>
+              <input type="text" id="enq-first-name" name="first_name" placeholder="Jane"
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+            </div>
+            <div>
+              <label for="enq-last-name" class="block text-xs font-bold text-slate-500 uppercase mb-1">Last
+                Name</label>
+              <input type="text" id="enq-last-name" name="last_name" placeholder="Doe"
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+            </div>
+          </div>
+
+          <div>
+            <label for="enq-phone" class="block text-xs font-bold text-slate-500 uppercase mb-1">Phone
+              Number</label>
+            <input type="tel" id="enq-phone" name="phone" placeholder="07123 456789"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+          </div>
+
+          <div>
+            <label for="enq-email" class="block text-xs font-bold text-slate-500 uppercase mb-1">Email
+              Address</label>
+            <input type="email" id="enq-email" name="email" placeholder="name@example.com"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600">
+          </div>
+
+          <div>
+            <label for="enq-address" class="block text-xs font-bold text-slate-500 uppercase mb-1">Full
+              Address</label>
+            <textarea id="enq-address" name="address" rows="2" placeholder="123 High Street, Cardiff, CF10 1AA"
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-semibold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600"></textarea>
+          </div>
+        </div>
+
+        <!-- Terms & Conditions Checkbox -->
+        <label class="flex items-start gap-3 pt-1 cursor-pointer select-none">
+          <input type="checkbox" id="enq-terms" required
+            class="mt-0.5 h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-600">
+          <span class="text-xs text-slate-600 leading-relaxed">
+            I confirm that I have read and agree to the <a href="/terms"
+              class="text-blue-600 font-semibold underline hover:text-blue-700">terms and conditions</a>.
+          </span>
+        </label>
+
+        <p id="enquiry-error"
+          class="hidden text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2.5 text-xs font-medium">
+        </p>
+        <p id="enquiry-success"
+          class="hidden text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-2.5 text-xs font-semibold">
+        </p>
+
+        <div class="pt-1">
+          <button type="submit" id="send-enquiry-btn"
+            class="w-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-bold text-sm py-3.5 rounded-xl shadow-md shadow-blue-600/20 transition flex items-center justify-center gap-2">
+            <span>Send Enquiry</span>
+          </button>
+          <p class="text-[11px] text-slate-400 leading-relaxed mt-2.5 text-center">
+            By clicking this button you agree to be contacted about this vehicle and your requirements in
+            accordance with our privacy policy.
+          </p>
+        </div>
+      </form>
+    </div>
   </div>
   </main>
 
