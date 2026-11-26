@@ -152,6 +152,7 @@
 
     #enquiry-modal-scroll {
       max-height: calc(100vh - 48px) !important;
+      padding-bottom: 32px !important;
       overflow-y: auto !important;
       background-color: #ffffff !important;
       box-sizing: border-box !important;
@@ -698,9 +699,20 @@
             </div>
           </div>
         </div>
-
       </div>
   </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-20 border-t border-slate-200 bg-white">
+    <div
+      class="mx-auto flex max-w-[1600px] flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
+      <p class="text-xs text-slate-500 font-medium">© 2026 Leasio. Car leasing made easy.</p>
+      <p class="font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold">Secure Online Quotes</p>
+    </div>
+  </footer>
+  </div>
+
   <!-- Enquiry Modal Box -->
   <div id="enquiry-modal" class="hidden">
     <div id="enquiry-modal-card" class="bg-white border border-slate-200 shadow-2xl">
@@ -813,18 +825,7 @@
         </form>
       </div>
     </div>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="relative z-20 border-t border-slate-200 bg-white">
-      <div
-        class="mx-auto flex max-w-[1600px] flex-col gap-3 px-5 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
-        <p class="text-xs text-slate-500 font-medium">© 2026 Leasio. Car leasing made easy.</p>
-        <p class="font-mono text-[10px] tracking-[0.18em] text-blue-600 font-bold">Secure Online Quotes</p>
-      </div>
-    </footer>
   </div>
-
   <!-- WORKING SCRIPT LOGIC -->
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
