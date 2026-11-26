@@ -174,6 +174,23 @@
     #enquiry-modal-scroll::-webkit-scrollbar-thumb:hover {
       background-color: #94a3b8;
     }
+
+    .lease-option-btn {
+      transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.2s ease;
+      will-change: transform;
+    }
+
+    .lease-option-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+      z-index: 10;
+    }
+
+    .lease-option-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
   </style>
   <link rel="canonical" href="https://leasio.co.uk/vehicles/1">
 </head>
@@ -623,13 +640,13 @@
                     Length</span>
                 </div>
                 <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">24
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">24
                     mo</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">36
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">36
                     mo</button>
-                  <button type="button" aria-pressed="true"
+                  <button id="lease-option-btn" type="button" aria-pressed="true"
                     class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48
                     mo</button>
                 </div>
@@ -642,18 +659,18 @@
                     Mileage</span>
                 </div>
                 <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50">
-                  <button type="button" aria-pressed="true"
+                  <button id="lease-option-btn" type="button" aria-pressed="true"
                     class="flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">10k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">15k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">20k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">25k</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900">30k</button>
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">10k</button>
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">15k</button>
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">20k</button>
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">25k</button>
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">30k</button>
                 </div>
               </div>
 
@@ -664,19 +681,19 @@
                     Payment</span>
                 </div>
                 <div class="flex rounded-xl overflow-hidden border border-slate-200 p-1 bg-slate-50 gap-1">
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600"
                     onclick="setInitial(1, this)">1m</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600"
                     onclick="setInitial(3, this)">3m</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600"
                     onclick="setInitial(6, this)">6m</button>
-                  <button type="button" aria-pressed="false"
-                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600 hover:text-slate-900"
+                  <button id="lease-option-btn" type="button" aria-pressed="false"
+                    class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600"
                     onclick="setInitial(9, this)">9m</button>
-                  <button type="button" aria-pressed="true"
+                  <button id="lease-option-btn" type="button" aria-pressed="true"
                     class="flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm"
                     onclick="setInitial(12, this)">12m</button>
                 </div>
