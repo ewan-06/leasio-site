@@ -147,17 +147,32 @@
       background-color: #2563eb !important;
       color: #ffffff !important;
     }
+
+    /* Hide mobile menu button/drawer on desktop and tablet (768px+) */
+    @media (min-width: 768px) {
+
+      #mobile-menu-btn,
+      #mobile-nav-drawer {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 
 <body class="antialiased selection:bg-blue-600 selection:text-white">
 
-  <!-- 1. NAVIGATION BAR -->
+  <!-- HEADER -->
   <header class="relative z-50 backdrop-blur-md sticky top-0 bg-white/95 border-b border-slate-200/70">
-    <div class="l-wrap flex items-center justify-between gap-4 py-3 relative" style="min-height: 76px;">
-
+    <div class="l-wrap flex items-center justify-between gap-4 py-1.5 relative">
       <!-- Left Side: Logo & Navigation Menu -->
-      <div class="flex items-center gap-6 lg:gap-8">
+      <div class="flex items-center gap-4 lg:gap-8">
+        <!-- Mobile Menu Button (only shown below 768px) -->
+        <button type="button" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu"
+          class="md:hidden inline-flex items-center justify-center p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-blue-600 hover:text-white transition-colors">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
         <!-- Logo -->
         <a aria-label="Leasio home" class="min-w-0 shrink-0 block" href="main.html">
           <img src="images/base_logo_transparent_background.png" alt="Leasio Logo" width="260" height="80"
@@ -291,7 +306,8 @@
                 <a href="search.html?make=Land+Rover&type=vans" class="hover:text-blue-600 transition-colors">Land
                   Rover</a>
                 <a href="search.html?make=MAN&type=vans" class="hover:text-blue-600 transition-colors">MAN</a>
-                <a href="search.html?make=Mercedes&type=vans" class="hover:text-blue-600 transition-colors">Mercedes</a>
+                <a href="search.html?make=Mercedes&type=vans"
+                  class="hover:text-blue-600 transition-colors">Mercedes</a>
                 <a href="search.html?make=Mitsubishi&type=vans"
                   class="hover:text-blue-600 transition-colors">Mitsubishi</a>
                 <a href="search.html?make=Nissan&type=vans" class="hover:text-blue-600 transition-colors">Nissan</a>
@@ -301,7 +317,8 @@
                   class="hover:text-blue-600 transition-colors">Renault Trucks</a>
                 <a href="search.html?make=Skoda&type=vans" class="hover:text-blue-600 transition-colors">Skoda</a>
                 <a href="search.html?make=Toyota&type=vans" class="hover:text-blue-600 transition-colors">Toyota</a>
-                <a href="search.html?make=Vauxhall&type=vans" class="hover:text-blue-600 transition-colors">Vauxhall</a>
+                <a href="search.html?make=Vauxhall&type=vans"
+                  class="hover:text-blue-600 transition-colors">Vauxhall</a>
                 <a href="search.html?make=Volkswagen&type=vans"
                   class="hover:text-blue-600 transition-colors">Volkswagen</a>
                 <a href="search.html?make=Volvo&type=vans" class="hover:text-blue-600 transition-colors">Volvo</a>
@@ -333,17 +350,18 @@
               <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-4 uppercase font-bold">Leasing
                 Guides</h3>
               <div class="flex flex-col gap-3 text-sm text-slate-800">
-                <a href="/guides/personal-contract-hire" class="hover:text-blue-600 transition-colors">Personal Contract
-                  Hire</a>
-                <a href="/guides/business-contract-hire" class="hover:text-blue-600 transition-colors">Business Contract
-                  Hire</a>
+                <a href="/guides/personal-contract-hire" class="hover:text-blue-600 transition-colors">Personal
+                  Contract Hire</a>
+                <a href="/guides/business-contract-hire" class="hover:text-blue-600 transition-colors">Business
+                  Contract Hire</a>
                 <a href="/guides/car-leasing" class="hover:text-blue-600 transition-colors">Car
                   Leasing</a>
                 <a href="/guides/van-leasing" class="hover:text-blue-600 transition-colors">Van
                   Leasing</a>
                 <a href="/guides/hybrid-phev-vehicles" class="hover:text-blue-600 transition-colors">Hybrid/PHEV
                   Vehicles</a>
-                <a href="/guides/electric-vehicles" class="hover:text-blue-600 transition-colors">Electric Vehicles</a>
+                <a href="/guides/electric-vehicles" class="hover:text-blue-600 transition-colors">Electric
+                  Vehicles</a>
                 <a href="/guides/leasing-faqs" class="hover:text-blue-600 transition-colors">Leasing
                   FAQs</a>
               </div>
@@ -355,10 +373,10 @@
             </div>
           </div>
 
-          <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text--600"
+          <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
             href="about-us.html">About Us</a>
           <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
-            href="dashboard.html">Account</a>
+            href="login.html">Login</a>
         </nav>
       </div>
 
@@ -382,19 +400,40 @@
         deals</a>
     </div>
 
-    <script>
-      function toggleMegaMenu(id) {
-        const menus = document.querySelectorAll('.leasio-mega-menu');
-        const target = document.getElementById(id);
-        menus.forEach(menu => { if (menu !== target) menu.classList.add('hidden'); });
-        target.classList.toggle('hidden');
-      }
-      document.addEventListener('click', function (event) {
-        if (!event.target.closest('.leasio-nav-container')) {
-          document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3">
+      <div class="flex flex-col gap-1 text-base font-semibold text-slate-800">
+        <a href="search.html"
+          class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Cars</a>
+        <a href="search.html?type=vans"
+          class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Vans</a>
+        <a href="main.html#best-offers-section"
+          class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Offers</a>
+        <a href="guides.html"
+          class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Guides</a>
+        <a href="about-us.html"
+          class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">About
+          Us</a>
+        <a href="login.html"
+          class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Login</a>
+      </div>
+      <script>
+        function toggleMegaMenu(id) {
+          const menus = document.querySelectorAll('.leasio-mega-menu');
+          const target = document.getElementById(id);
+          menus.forEach(menu => { if (menu !== target) menu.classList.add('hidden'); });
+          target.classList.toggle('hidden');
         }
-      });
-    </script>
+        document.addEventListener('click', function (event) {
+          if (!event.target.closest('.leasio-nav-container')) {
+            document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
+          }
+        });
+        function toggleMobileMenu() {
+          const drawer = document.getElementById('mobile-nav-drawer');
+          if (drawer) drawer.classList.toggle('hidden');
+        }
+      </script>
   </header>
 
   <!-- MAIN DASHBOARD LAYOUT WITH SIDEBAR -->
