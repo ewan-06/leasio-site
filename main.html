@@ -208,16 +208,16 @@
         }
 
         /* Header dropdown button hover highlight */
-        .leasio-nav-container > button,
-        header nav > a {
+        .leasio-nav-container>button,
+        header nav>a {
             border-radius: 10px;
             line-height: 1.2;
             white-space: nowrap;
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
-        .leasio-nav-container > button:hover,
-        header nav > a:hover {
+        .leasio-nav-container>button:hover,
+        header nav>a:hover {
             background-color: #2563eb !important;
             color: #ffffff !important;
         }
@@ -238,6 +238,7 @@
 
         /* Hide mobile menu button/drawer on desktop and tablet (768px+) */
         @media (min-width: 768px) {
+
             #mobile-menu-btn,
             #mobile-nav-drawer {
                 display: none !important;
@@ -699,8 +700,8 @@
                         id="label-business">Business</span>
                 </div>
 
-                <a class="l-btn l-btn-pri shrink-0" style="min-height: 42px; height: 42px; padding: 0 22px; font-size: 14px;"
-                    href="search.html">Search
+                <a class="l-btn l-btn-pri shrink-0"
+                    style="min-height: 42px; height: 42px; padding: 0 22px; font-size: 14px;" href="search.html">Search
                     deals</a>
             </div>
         </div>
@@ -1036,16 +1037,17 @@
         </div>
     </section>
 
-    <!-- Footer (Matches Template.dc.html Dark Footer) -->
-    <footer style="background: #0f172a; color: #ffffff;">
+    <!-- Footer -->
+    <footer style="background: #0f172a; color: #ffffff; margin-top: auto;">
         <div class="l-wrap"
             style="padding-top: 28px; padding-bottom: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px;">
             <span class="text-slate-300">© 2026 Leasio. Car &amp; van leasing made simple.</span>
-            <span style="display: flex; gap: 24px;" class="text-slate-300">
-                <a href="about-us.html" class="hover:text-white transition-colors">About Us</a>
-                <a href="guides.html" class="hover:text-white transition-colors">Guides</a>
-                <a href="search.html" class="hover:text-white transition-colors">Search</a>
-                <a href="login.html" class="hover:text-white transition-colors">Login</a>
+            <span style="display: flex; gap: 24px; flex-wrap: wrap;" class="text-slate-300">
+                <a href="/about-us.html" class="hover:text-white transition-colors">About Us</a>
+                <a href="/guides.html" class="hover:text-white transition-colors">Guides</a>
+                <a href="/terms.html" class="hover:text-white transition-colors">Terms &amp; Conditions</a>
+                <a href="/privacy.html" class="hover:text-white transition-colors">Privacy Notice</a>
+                <a href="/login.html" class="hover:text-white transition-colors">Login</a>
             </span>
         </div>
     </footer>

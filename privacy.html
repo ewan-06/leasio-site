@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/images/base_icon_transparent_background.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Notice | Leasio</title>
+    <link href="/output.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,500;9..40,600;9..40,700;9..40,800&family=Source+Sans+3:wght@400;500;600;700&display=block"
+        rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #ffffff;
+            color: #0f172a;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        .font-mono {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .l-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 32px;
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 640px) {
+            .l-wrap {
+                padding: 0 16px;
+            }
+            header img[alt="Leasio Logo"] {
+                height: 44px !important;
+                max-height: 44px !important;
+            }
+        }
+
+        .l-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 48px;
+            padding: 0 26px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1;
+            white-space: nowrap;
+            border: 2px solid transparent;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+            text-decoration: none;
+        }
+
+        .l-btn-pri {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .l-btn-pri:hover {
+            background: #1d4ed8;
+        }
+
+        .l-btn-sec {
+            background: #ffffff !important;
+            color: #2563eb !important;
+            border: 2px solid #2563eb !important;
+        }
+
+        .l-btn-sec:hover {
+            background-color: #2563eb !important;
+            border-color: #2563eb !important;
+            color: #ffffff !important;
+        }
+
+        .leasio-nav-container > button,
+        header nav > a {
+            border-radius: 10px;
+            line-height: 1.2;
+            white-space: nowrap;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .leasio-nav-container > button:hover,
+        header nav > a:hover {
+            background-color: #2563eb !important;
+            color: #ffffff !important;
+        }
+
+        .leasio-mega-menu a {
+            display: inline-block;
+            padding: 6px 10px;
+            margin: -6px -10px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .leasio-mega-menu a:hover {
+            background-color: #2563eb !important;
+            color: #ffffff !important;
+        }
+
+        .leasio-mega-menu.hidden,
+        #mobile-nav-drawer.hidden {
+            display: none !important;
+        }
+
+        @media (min-width: 768px) {
+            #mobile-menu-btn,
+            #mobile-nav-drawer {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- Header -->
+    <header class="relative z-50 sticky top-0 bg-white border-b border-slate-200/70">
+        <div class="l-wrap flex items-center justify-between gap-4 relative" style="height: 78px;">
+            <div class="flex items-center gap-4 lg:gap-8">
+                <button type="button" id="mobile-menu-btn" onclick="toggleMobileMenu()"
+                    aria-label="Toggle navigation menu"
+                    class="md:hidden inline-flex items-center justify-center p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-blue-600 hover:text-white transition-colors">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+
+                <a aria-label="Leasio home" class="min-w-0 shrink-0 block" href="/main.html">
+                    <img src="/images/base_logo_transparent_background.png" alt="Leasio Logo" width="260" height="80"
+                        loading="eager" class="block w-auto object-contain"
+                        style="height: 66px; max-height: 66px; filter: none;">
+                </a>
+
+                <nav aria-label="Main navigation"
+                    class="hidden md:flex items-center gap-1 text-[15px] font-medium text-slate-700">
+                    <div class="relative inline-block leasio-nav-container">
+                        <button type="button" onclick="toggleMegaMenu('cars-mega')"
+                            class="flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600 focus:outline-none">
+                            <span>Cars</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                        </button>
+                        <div id="cars-mega"
+                            class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl z-50"
+                            style="width: 750px;">
+                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Cars Manufacturers</h3>
+                            <div class="grid text-slate-800"
+                                style="grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
+                                <a href="/search.html?make=Abarth">Abarth</a>
+                                <a href="/search.html?make=Aion">Aion</a>
+                                <a href="/search.html?make=Alfa+Romeo">Alfa Romeo</a>
+                                <a href="/search.html?make=Alpine">Alpine</a>
+                                <a href="/search.html?make=Audi">Audi</a>
+                                <a href="/search.html?make=BMW">BMW</a>
+                                <a href="/search.html?make=BYD">BYD</a>
+                                <a href="/search.html?make=Cadillac">Cadillac</a>
+                                <a href="/search.html?make=Chery">Chery</a>
+                                <a href="/search.html?make=Chevrolet">Chevrolet</a>
+                                <a href="/search.html?make=Citroen">Citroen</a>
+                                <a href="/search.html?make=Cupra">Cupra</a>
+                                <a href="/search.html?make=Dacia">Dacia</a>
+                                <a href="/search.html?make=Denza">Denza</a>
+                                <a href="/search.html?make=DS+Automobiles">DS Automobiles</a>
+                                <a href="/search.html?make=Fiat">Fiat</a>
+                                <a href="/search.html?make=Ford">Ford</a>
+                                <a href="/search.html?make=Geely">Geely</a>
+                                <a href="/search.html?make=Genesis">Genesis</a>
+                                <a href="/search.html?make=GWM+ORA">GWM ORA</a>
+                                <a href="/search.html?make=Honda">Honda</a>
+                                <a href="/search.html?make=Hyundai">Hyundai</a>
+                                <a href="/search.html?make=Ineos">Ineos</a>
+                                <a href="/search.html?make=Jaecoo">Jaecoo</a>
+                                <a href="/search.html?make=Jeep">Jeep</a>
+                                <a href="/search.html?make=KG+Mobility">KG Mobility</a>
+                                <a href="/search.html?make=Kia">Kia</a>
+                                <a href="/search.html?make=Land+Rover">Land Rover</a>
+                                <a href="/search.html?make=Leapmotor">Leapmotor</a>
+                                <a href="/search.html?make=Lepas">Lepas</a>
+                                <a href="/search.html?make=Lexus">Lexus</a>
+                                <a href="/search.html?make=Lotus">Lotus</a>
+                                <a href="/search.html?make=Maserati">Maserati</a>
+                                <a href="/search.html?make=Mazda">Mazda</a>
+                                <a href="/search.html?make=Mercedes">Mercedes</a>
+                                <a href="/search.html?make=MG+Motor+UK">MG Motor UK</a>
+                                <a href="/search.html?make=Mini">Mini</a>
+                                <a href="/search.html?make=Mitsubishi">Mitsubishi</a>
+                                <a href="/search.html?make=Nissan">Nissan</a>
+                                <a href="/search.html?make=Omoda">Omoda</a>
+                                <a href="/search.html?make=Peugeot">Peugeot</a>
+                                <a href="/search.html?make=Polestar">Polestar</a>
+                                <a href="/search.html?make=Porsche">Porsche</a>
+                                <a href="/search.html?make=Renault">Renault</a>
+                                <a href="/search.html?make=Seat">SEAT</a>
+                                <a href="/search.html?make=Skoda">Skoda</a>
+                                <a href="/search.html?make=Smart">SMART</a>
+                                <a href="/search.html?make=Subaru">Subaru</a>
+                                <a href="/search.html?make=Suzuki">Suzuki</a>
+                                <a href="/search.html?make=Tesla">Tesla</a>
+                                <a href="/search.html?make=Toyota">Toyota</a>
+                                <a href="/search.html?make=Vauxhall">Vauxhall</a>
+                                <a href="/search.html?make=Volkswagen">Volkswagen</a>
+                                <a href="/search.html?make=Volvo">Volvo</a>
+                                <a href="/search.html?make=Xpeng">Xpeng</a>
+                            </div>
+                            <div class="mt-8 border-t border-slate-100 pt-4">
+                                <a href="/search.html" class="font-bold text-sm text-blue-600">Browse all cars &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative inline-block leasio-nav-container">
+                        <button type="button" onclick="toggleMegaMenu('vans-mega')"
+                            class="flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600 focus:outline-none">
+                            <span>Vans</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                        </button>
+                        <div id="vans-mega"
+                            class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl z-50"
+                            style="width: 400px;">
+                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Vans Manufacturers</h3>
+                            <div class="grid text-slate-800"
+                                style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
+                                <a href="/search.html?make=BYD&type=vans">BYD</a>
+                                <a href="/search.html?make=Citroen&type=vans">Citroen</a>
+                                <a href="/search.html?make=Dacia&type=vans">Dacia</a>
+                                <a href="/search.html?make=Farizon&type=vans">Farizon</a>
+                                <a href="/search.html?make=Fiat&type=vans">Fiat</a>
+                                <a href="/search.html?make=Ford&type=vans">Ford</a>
+                                <a href="/search.html?make=GWM+ORA&type=vans">GWM ORA</a>
+                                <a href="/search.html?make=Ineos&type=vans">Ineos</a>
+                                <a href="/search.html?make=Isuzu&type=vans">Isuzu</a>
+                                <a href="/search.html?make=Isuzu+Trucks&type=vans">Isuzu Trucks</a>
+                                <a href="/search.html?make=Iveco&type=vans">Iveco</a>
+                                <a href="/search.html?make=KG+Mobility&type=vans">KG Mobility</a>
+                                <a href="/search.html?make=Kia&type=vans">KIA</a>
+                                <a href="/search.html?make=Land+Rover&type=vans">Land Rover</a>
+                                <a href="/search.html?make=MAN&type=vans">MAN</a>
+                                <a href="/search.html?make=Mercedes&type=vans">Mercedes</a>
+                                <a href="/search.html?make=Mitsubishi&type=vans">Mitsubishi</a>
+                                <a href="/search.html?make=Nissan&type=vans">Nissan</a>
+                                <a href="/search.html?make=Peugeot&type=vans">Peugeot</a>
+                                <a href="/search.html?make=Renault&type=vans">Renault</a>
+                                <a href="/search.html?make=Renault+Trucks&type=vans">Renault Trucks</a>
+                                <a href="/search.html?make=Skoda&type=vans">Skoda</a>
+                                <a href="/search.html?make=Toyota&type=vans">Toyota</a>
+                                <a href="/search.html?make=Vauxhall&type=vans">Vauxhall</a>
+                                <a href="/search.html?make=Volkswagen&type=vans">Volkswagen</a>
+                                <a href="/search.html?make=Volvo&type=vans">Volvo</a>
+                            </div>
+                            <div class="mt-8 border-t border-slate-100 pt-4">
+                                <a href="/search.html?type=vans" class="font-bold text-sm text-blue-600">Browse all vans &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
+                        href="/main.html#best-offers-section">Offers</a>
+
+                    <div class="relative inline-block leasio-nav-container">
+                        <button type="button" onclick="toggleMegaMenu('guides-mega')"
+                            class="flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600 focus:outline-none">
+                            <span>Guides</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                        </button>
+                        <div id="guides-mega"
+                            class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-6 hidden shadow-2xl rounded-2xl z-50"
+                            style="width: 280px;">
+                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-4 uppercase font-bold">Leasing Guides</h3>
+                            <div class="flex flex-col gap-3 text-sm text-slate-800">
+                                <a href="/guides/personal-contract-hire">Personal Contract Hire</a>
+                                <a href="/guides/business-contract-hire">Business Contract Hire</a>
+                                <a href="/guides/car-leasing">Car Leasing</a>
+                                <a href="/guides/van-leasing">Van Leasing</a>
+                                <a href="/guides/hybrid-phev-vehicles">Hybrid/PHEV Vehicles</a>
+                                <a href="/guides/electric-vehicles">Electric Vehicles</a>
+                                <a href="/guides/leasing-faqs">Leasing FAQs</a>
+                            </div>
+                            <div class="mt-5 border-t border-slate-100 pt-3">
+                                <a href="/guides.html" class="font-bold text-xs text-blue-600">View all guides &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
+                        href="/about-us.html">About Us</a>
+                    <a class="px-3 py-2 text-[15px] font-medium text-slate-700 transition-colors hover:text-blue-600"
+                        href="/login.html">Login</a>
+                </nav>
+            </div>
+
+            <div class="flex items-center gap-3 shrink-0">
+                <div class="flex items-center gap-2 shrink-0 whitespace-nowrap">
+                    <span
+                        class="text-[10px] font-mono tracking-widest uppercase font-bold leading-none transition-colors text-blue-600"
+                        id="label-personal">Personal</span>
+
+                    <label class="relative inline-flex items-center cursor-pointer shrink-0">
+                        <input type="checkbox" class="sr-only peer vat-toggle-input">
+                        <div
+                            class="w-11 h-6 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-200 after:border after:rounded-full after:h-5 after:w-5 after:transition-all">
+                        </div>
+                    </label>
+
+                    <span
+                        class="text-[10px] font-mono tracking-widest uppercase font-bold leading-none transition-colors text-slate-400"
+                        id="label-business">Business</span>
+                </div>
+
+                <a class="l-btn l-btn-pri shrink-0" style="min-height: 42px; height: 42px; padding: 0 22px; font-size: 14px;"
+                    href="/search.html">Search deals</a>
+            </div>
+        </div>
+
+        <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3">
+            <div class="flex flex-col gap-1 text-base font-semibold text-slate-800">
+                <a href="/search.html" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Cars</a>
+                <a href="/search.html?type=vans" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Vans</a>
+                <a href="/main.html#best-offers-section" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Offers</a>
+                <a href="/guides.html" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Guides</a>
+                <a href="/about-us.html" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">About Us</a>
+                <a href="/login.html" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Login</a>
+            </div>
+        </div>
+        <script>
+            function toggleMegaMenu(id) {
+                const menus = document.querySelectorAll('.leasio-mega-menu');
+                const target = document.getElementById(id);
+                menus.forEach(menu => { if (menu !== target) menu.classList.add('hidden'); });
+                if (target) target.classList.toggle('hidden');
+            }
+            document.addEventListener('click', function (event) {
+                if (!event.target.closest('.leasio-nav-container')) {
+                    document.querySelectorAll('.leasio-mega-menu').forEach(menu => menu.classList.add('hidden'));
+                }
+            });
+            function toggleMobileMenu() {
+                const drawer = document.getElementById('mobile-nav-drawer');
+                if (drawer) drawer.classList.toggle('hidden');
+            }
+        </script>
+    </header>
+
+    <main style="flex: 1; background: #ffffff;">
+        <div style="background: #eff6ff; border-bottom: 1px solid #dbeafe;">
+            <div class="l-wrap" style="padding-top: 14px; padding-bottom: 14px;">
+                <nav aria-label="Breadcrumb"
+                    style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: #64748b;">
+                    <a href="/main.html" style="color: inherit; text-decoration: none;">Home</a>
+                    <span>&rsaquo;</span>
+                    <span style="color: #0f172a; font-weight: 600;">Privacy Notice</span>
+                </nav>
+            </div>
+        </div>
+
+        <article class="l-wrap" style="padding-top: 48px; padding-bottom: 64px;">
+            <div
+                style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 36px; box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);">
+                <span
+                    style="display: inline-block; background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px;">
+                    UK GDPR &amp; Data Protection
+                </span>
+                <h1 class="font-extrabold text-slate-900"
+                    style="font-size: clamp(32px, 4vw, 44px); line-height: 1.12; margin: 0;">
+                    Privacy <span class="text-blue-600">Notice.</span>
+                </h1>
+                <p class="text-slate-600" style="font-size: 17px; line-height: 1.6; margin: 14px 0 0; max-width: 720px;">
+                    Last updated: November 2026. This Privacy Notice explains how Leasio collects, uses, encrypts, and protects your personal data under the UK GDPR and the Data Protection Act 2018.
+                </p>
+
+                <hr style="margin: 28px 0; border: none; border-top: 1px solid #f1f5f9;">
+
+                <div style="display: flex; flex-direction: column; gap: 22px; color: #334155; font-size: 16px; line-height: 1.65;">
+                    <div>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">1. Who We Are (Data Controller)</h2>
+                        <p style="margin: 0 0 10px;">
+                            Leasio ("we", "us", "our") is the data controller responsible for the personal data collected through <strong>leasio.co.uk</strong>.
+                        </p>
+                        <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 6px;">
+                            <li><strong>Contact Email:</strong> <a href="mailto:enquiries@leasio.co.uk" class="text-blue-600 font-semibold hover:underline">enquiries@leasio.co.uk</a></li>
+                            <li><strong>Registered Address:</strong> 61 Bridge Street, Kington, Hereford, HR5 3DJ</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">2. The Personal Data We Collect</h2>
+                        <p style="margin: 0 0 10px;">When you register an account, configure a vehicle, save a quote, or submit an enquiry, we collect:</p>
+                        <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px;">
+                            <li><strong>Identity Data:</strong> First name, last name, and date of birth.</li>
+                            <li><strong>Contact Data:</strong> Email address, telephone number, and residential or business address.</li>
+                            <li><strong>Vehicle &amp; Quoting Data:</strong> Selected vehicle make, model, derivative, contract duration, annual mileage allowance, initial rental multiple, and personal/business VAT preference.</li>
+                            <li><strong>Account Security Data:</strong> Encrypted contact fields and one-way cryptographically hashed passwords.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">3. Why We Use Your Data &amp; Lawful Bases (UK GDPR Article 6)</h2>
+                        <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px;">
+                            <li><strong>Preparing &amp; Delivering Lease Quotes (Contract / Pre-Contractual Steps — Art. 6(1)(b)):</strong> We process your name, email address, telephone number, address, and date of birth to generate accurate lease quotations, verify eligibility criteria (such as minimum age and UK mainland delivery location), and respond to your vehicle enquiries.</li>
+                            <li><strong>Managing Your Customer Account (Contract — Art. 6(1)(b)):</strong> We use your email address, telephone number, and password credentials to authenticate sign-ins, store saved quotes for up to 30 days, and allow you to manage your profile details.</li>
+                            <li><strong>Platform Security &amp; Fraud Prevention (Legitimate Interests — Art. 6(1)(f)):</strong> We monitor enquiry and login activity to protect our platform and users from unauthorised access or misuse.</li>
+                            <li><strong>Legal &amp; Regulatory Obligations (Legal Obligation — Art. 6(1)(c)):</strong> We retain necessary records to comply with applicable UK tax, financial, and regulatory obligations.</li>
+                            <li><strong>Marketing Communications (Consent — Art. 6(1)(a)):</strong> We only send promotional offers if you have separately opted in, and you may withdraw consent at any time.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">4. How We Encrypt &amp; Protect Your Data</h2>
+                        <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px;">
+                            <li><strong>Field-Level Encryption:</strong> Your email address, telephone number, and residential address are encrypted before being stored in our database.</li>
+                            <li><strong>One-Way Password Hashing:</strong> Passwords are hashed using industry-standard cryptographic hashing (<code>bcrypt</code>) and are never stored in plain text.</li>
+                            <li><strong>Encrypted Transport:</strong> All traffic between your browser and our servers is secured via HTTPS (TLS).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">5. Sharing Your Information</h2>
+                        <p style="margin: 0 0 10px;">We never sell your personal data. We only share data where necessary to fulfil your quote or operate our platform:</p>
+                        <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px;">
+                            <li><strong>Authorised Leasing Funders, Brokers &amp; Dealerships:</strong> When you ask us to progress a vehicle quote or enquiry, we may share relevant details with our authorised finance partners or supplying dealers to confirm stock and underwriting terms. We will always inform you before any formal finance application or credit check takes place.</li>
+                            <li><strong>Trusted Infrastructure Providers (Data Processors):</strong> Cloud hosting, database, and transactional email providers acting strictly under data processing terms.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">6. Data Retention</h2>
+                        <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px;">
+                            <li><strong>Saved Quotes:</strong> Automatically deleted after <strong>30 days</strong>.</li>
+                            <li><strong>Customer Accounts:</strong> Retained while your account remains active, or deleted sooner upon your request.</li>
+                            <li><strong>Enquiry Records:</strong> Retained for up to <strong>24 months</strong> following an enquiry (or longer where required for an active lease agreement or statutory compliance).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">7. Your Rights Under UK GDPR</h2>
+                        <p style="margin: 0 0 10px;">Under the UK GDPR and Data Protection Act 2018, you have the right to:</p>
+                        <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px;">
+                            <li><strong>Access</strong> a copy of the personal data we hold about you.</li>
+                            <li><strong>Rectify</strong> inaccurate or incomplete personal details (including editing your email, phone number, address, and password directly in your <a href="/dashboard.html#account-details" class="text-blue-600 font-semibold hover:underline">Account Dashboard</a>).</li>
+                            <li><strong>Erase</strong> your personal data ("right to be forgotten") where no overriding legal obligation requires retention.</li>
+                            <li><strong>Restrict or Object</strong> to specific processing activities, including direct marketing.</li>
+                            <li><strong>Data Portability</strong> to request your data in a structured, machine-readable format.</li>
+                        </ul>
+                        <p style="margin: 12px 0 0;">
+                            To exercise any of these rights, email <a href="mailto:enquiries@leasio.co.uk" class="text-blue-600 font-semibold hover:underline">enquiries@leasio.co.uk</a>. You also have the right to complain to the UK Information Commissioner's Office (ICO) at <strong>ico.org.uk</strong> or on <strong>0303 123 1113</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top: 36px; background: #eff6ff; border: 1.5px solid #dbeafe; border-radius: 18px; padding: 24px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+                    <div>
+                        <h3 class="font-bold text-slate-900" style="font-size: 19px; margin: 0;">Need to update your personal details?</h3>
+                        <p class="text-slate-600" style="font-size: 14px; margin: 4px 0 0;">Manage your email address, phone number, address, or password anytime in your dashboard.</p>
+                    </div>
+                    <a href="/dashboard.html#account-details" class="l-btn l-btn-pri">
+                        Manage Account &rarr;
+                    </a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: #0f172a; color: #ffffff; margin-top: auto;">
+        <div class="l-wrap"
+            style="padding-top: 28px; padding-bottom: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px;">
+            <span class="text-slate-300">© 2026 Leasio. Car &amp; van leasing made simple.</span>
+            <span style="display: flex; gap: 24px; flex-wrap: wrap;" class="text-slate-300">
+                <a href="/about-us.html" class="hover:text-white transition-colors">About Us</a>
+                <a href="/guides.html" class="hover:text-white transition-colors">Guides</a>
+                <a href="/terms.html" class="hover:text-white transition-colors">Terms &amp; Conditions</a>
+                <a href="/privacy.html" class="hover:text-white transition-colors">Privacy Notice</a>
+                <a href="/login.html" class="hover:text-white transition-colors">Login</a>
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        // Auth Nav Swap
+        (function () {
+            const userJson = localStorage.getItem('leasio_user');
+            if (!userJson) return;
+            try {
+                JSON.parse(userJson);
+                document.querySelectorAll('header a[href="/login.html"], header a[href="login.html"]').forEach(link => {
+                    link.textContent = "Account";
+                    link.setAttribute("href", "/dashboard.html");
+                });
+            } catch (e) {
+                localStorage.removeItem('leasio_user');
+            }
+        })();
+
+        // VAT Toggle Sync
+        (function () {
+            const vatInputs = document.querySelectorAll('.vat-toggle-input');
+            const isBusiness = localStorage.getItem('leasio_vat_mode') === 'business';
+            function syncVisuals(businessMode) {
+                vatInputs.forEach(input => input.checked = businessMode);
+                const lblPersonal = document.getElementById('label-personal');
+                const lblBusiness = document.getElementById('label-business');
+                if (lblPersonal && lblBusiness) {
+                    lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
+                    lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+                }
+            }
+            syncVisuals(isBusiness);
+            vatInputs.forEach(input => {
+                input.addEventListener('change', (e) => {
+                    localStorage.setItem('leasio_vat_mode', e.target.checked ? 'business' : 'personal');
+                    syncVisuals(e.target.checked);
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>
