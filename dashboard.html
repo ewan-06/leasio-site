@@ -807,123 +807,123 @@
     }
 
     const summaryEmailEl = document.getElementById('summary-email');
-      const summaryPhoneEl = document.getElementById('summary-phone');
-      const summaryAddressEl = document.getElementById('summary-address');
-      const editEmailInput = document.getElementById('edit-email');
-      const editPhoneInput = document.getElementById('edit-phone');
-      const editAddressInput = document.getElementById('edit-address');
-      const currentPasswordInput = document.getElementById('edit-current-password');
-      const newPasswordInput = document.getElementById('edit-new-password');
-      const detailsForm = document.getElementById('account-details-form');
-      const toggleEditBtn = document.getElementById('toggle-edit-details-btn');
-      const cancelEditBtn = document.getElementById('cancel-edit-details-btn');
-      const saveProfileBtn = document.getElementById('save-profile-btn');
-      const profileErrorEl = document.getElementById('profile-error');
-      const profileSuccessEl = document.getElementById('profile-success');
+    const summaryPhoneEl = document.getElementById('summary-phone');
+    const summaryAddressEl = document.getElementById('summary-address');
+    const editEmailInput = document.getElementById('edit-email');
+    const editPhoneInput = document.getElementById('edit-phone');
+    const editAddressInput = document.getElementById('edit-address');
+    const currentPasswordInput = document.getElementById('edit-current-password');
+    const newPasswordInput = document.getElementById('edit-new-password');
+    const detailsForm = document.getElementById('account-details-form');
+    const toggleEditBtn = document.getElementById('toggle-edit-details-btn');
+    const cancelEditBtn = document.getElementById('cancel-edit-details-btn');
+    const saveProfileBtn = document.getElementById('save-profile-btn');
+    const profileErrorEl = document.getElementById('profile-error');
+    const profileSuccessEl = document.getElementById('profile-success');
 
-      function applyProfileToUI(profile) {
-        if (profile.email) {
-          user.email = profile.email;
-          document.getElementById('user-email').textContent = profile.email;
-          summaryEmailEl.textContent = profile.email;
-          editEmailInput.value = profile.email;
-        }
-        const phoneVal = profile.phone || '';
-        const addressVal = profile.address || '';
-        summaryPhoneEl.textContent = phoneVal || '-';
-        summaryAddressEl.textContent = addressVal || '-';
-        editPhoneInput.value = phoneVal;
-        editAddressInput.value = addressVal;
+    function applyProfileToUI(profile) {
+      if (profile.email) {
+        user.email = profile.email;
+        document.getElementById('user-email').textContent = profile.email;
+        summaryEmailEl.textContent = profile.email;
+        editEmailInput.value = profile.email;
       }
+      const phoneVal = profile.phone || '';
+      const addressVal = profile.address || '';
+      summaryPhoneEl.textContent = phoneVal || '-';
+      summaryAddressEl.textContent = addressVal || '-';
+      editPhoneInput.value = phoneVal;
+      editAddressInput.value = addressVal;
+    }
 
-      applyProfileToUI(user);
+    applyProfileToUI(user);
 
-      fetch(`https://leasio-api.onrender.com/api/customer_profile?email=${encodeURIComponent(user.email)}`)
-        .then(res => res.ok ? res.json() : null)
-        .then(profile => {
-          if (!profile || profile.error) return;
-          applyProfileToUI(profile);
-          localStorage.setItem('leasio_user', JSON.stringify({
-            ...user,
-            first_name: profile.first_name || user.first_name,
-            last_name: profile.last_name || user.last_name,
-            email: profile.email || user.email,
-            phone: profile.phone ?? user.phone ?? '',
-            address: profile.address ?? user.address ?? ''
-          }));
-        })
-        .catch(err => console.error('Failed to load customer profile:', err));
+    fetch(`https://leasio-api.onrender.com/api/customer_profile?email=${encodeURIComponent(user.email)}`)
+      .then(res => res.ok ? res.json() : null)
+      .then(profile => {
+        if (!profile || profile.error) return;
+        applyProfileToUI(profile);
+        localStorage.setItem('leasio_user', JSON.stringify({
+          ...user,
+          first_name: profile.first_name || user.first_name,
+          last_name: profile.last_name || user.last_name,
+          email: profile.email || user.email,
+          phone: profile.phone ?? user.phone ?? '',
+          address: profile.address ?? user.address ?? ''
+        }));
+      })
+      .catch(err => console.error('Failed to load customer profile:', err));
 
-      toggleEditBtn?.addEventListener('click', () => {
-        profileErrorEl.classList.add('hidden');
-        profileSuccessEl.classList.add('hidden');
-        detailsForm.classList.toggle('hidden');
-      });
+    toggleEditBtn?.addEventListener('click', () => {
+      profileErrorEl.classList.add('hidden');
+      profileSuccessEl.classList.add('hidden');
+      detailsForm.classList.toggle('hidden');
+    });
 
-      cancelEditBtn?.addEventListener('click', () => {
-        editEmailInput.value = user.email || '';
-        editPhoneInput.value = summaryPhoneEl.textContent === '-' ? '' : summaryPhoneEl.textContent;
-        editAddressInput.value = summaryAddressEl.textContent === '-' ? '' : summaryAddressEl.textContent;
+    cancelEditBtn?.addEventListener('click', () => {
+      editEmailInput.value = user.email || '';
+      editPhoneInput.value = summaryPhoneEl.textContent === '-' ? '' : summaryPhoneEl.textContent;
+      editAddressInput.value = summaryAddressEl.textContent === '-' ? '' : summaryAddressEl.textContent;
+      currentPasswordInput.value = '';
+      newPasswordInput.value = '';
+      profileErrorEl.classList.add('hidden');
+      detailsForm.classList.add('hidden');
+    });
+
+    detailsForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      profileErrorEl.classList.add('hidden');
+      profileSuccessEl.classList.add('hidden');
+
+      const payload = {
+        current_email: user.email,
+        current_password: currentPasswordInput.value,
+        email: editEmailInput.value.trim(),
+        phone: editPhoneInput.value.trim(),
+        address: editAddressInput.value.trim(),
+        new_password: newPasswordInput.value || null
+      };
+
+      saveProfileBtn.disabled = true;
+      saveProfileBtn.textContent = 'Saving...';
+
+      try {
+        const res = await fetch('https://leasio-api.onrender.com/api/update_profile', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (!res.ok) {
+          profileErrorEl.textContent = data.detail || 'Could not update account details.';
+          profileErrorEl.classList.remove('hidden');
+          return;
+        }
+
+        const updatedUser = {
+          ...user,
+          ...(data.user || {}),
+          email: payload.email,
+          phone: payload.phone,
+          address: payload.address
+        };
+        user.email = updatedUser.email;
+        localStorage.setItem('leasio_user', JSON.stringify(updatedUser));
+        applyProfileToUI(updatedUser);
+
         currentPasswordInput.value = '';
         newPasswordInput.value = '';
-        profileErrorEl.classList.add('hidden');
-        detailsForm.classList.add('hidden');
-      });
-
-      detailsForm?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        profileErrorEl.classList.add('hidden');
-        profileSuccessEl.classList.add('hidden');
-
-        const payload = {
-          current_email: user.email,
-          current_password: currentPasswordInput.value,
-          email: editEmailInput.value.trim(),
-          phone: editPhoneInput.value.trim(),
-          address: editAddressInput.value.trim(),
-          new_password: newPasswordInput.value || null
-        };
-
-        saveProfileBtn.disabled = true;
-        saveProfileBtn.textContent = 'Saving...';
-
-        try {
-          const res = await fetch('https://leasio-api.onrender.com/api/update_profile', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          const data = await res.json().catch(() => ({}));
-
-          if (!res.ok) {
-            profileErrorEl.textContent = data.detail || 'Could not update account details.';
-            profileErrorEl.classList.remove('hidden');
-            return;
-          }
-
-          const updatedUser = {
-            ...user,
-            ...(data.user || {}),
-            email: payload.email,
-            phone: payload.phone,
-            address: payload.address
-          };
-          user.email = updatedUser.email;
-          localStorage.setItem('leasio_user', JSON.stringify(updatedUser));
-          applyProfileToUI(updatedUser);
-
-          currentPasswordInput.value = '';
-          newPasswordInput.value = '';
-          profileSuccessEl.textContent = data.message || 'Account details updated.';
-          profileSuccessEl.classList.remove('hidden');
-        } catch (_) {
-          profileErrorEl.textContent = 'Could not connect to the server. Please try again.';
-          profileErrorEl.classList.remove('hidden');
-        } finally {
-          saveProfileBtn.disabled = false;
-          saveProfileBtn.textContent = 'Save Changes';
-        }
-      });
+        profileSuccessEl.textContent = data.message || 'Account details updated.';
+        profileSuccessEl.classList.remove('hidden');
+      } catch (_) {
+        profileErrorEl.textContent = 'Could not connect to the server. Please try again.';
+        profileErrorEl.classList.remove('hidden');
+      } finally {
+        saveProfileBtn.disabled = false;
+        saveProfileBtn.textContent = 'Save Changes';
+      }
+    });
 
     // 4. Handle Logout
     document.getElementById('logout-btn').addEventListener('click', () => {
@@ -969,40 +969,105 @@
     });
   </script>
 
-  <!-- SCROLL SPY SCRIPT FOR SIDEBAR -->
+  <!-- SCROLL SPY & JUMP LINK SCRIPT FOR SIDEBAR -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      const sections = document.querySelectorAll("main section[id]");
-      const navLinks = document.querySelectorAll("aside nav a[href^='#']");
-      const observerOptions = {
-        root: null,
-        rootMargin: "-120px 0px -40% 0px",
-        threshold: 0
-      };
+      const sections = Array.from(document.querySelectorAll("main section[id]"));
+      const navLinks = Array.from(document.querySelectorAll("aside nav a[href^='#']"));
+      if (!sections.length || !navLinks.length) return;
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const activeId = entry.target.id;
+      let clickLockId = null;
+      let clickLockTimer = null;
 
-            navLinks.forEach(link => {
-              const isActive = link.getAttribute("href") === `#${activeId}`;
-
-              if (isActive) {
-                // Apply active styling
-                link.classList.add("bg-blue-50", "text-blue-600", "font-bold");
-                link.classList.remove("text-slate-600", "hover:bg-slate-50", "hover:text-slate-900", "font-medium");
-              } else {
-                // Apply inactive styling
-                link.classList.add("text-slate-600", "hover:bg-slate-50", "hover:text-slate-900", "font-medium");
-                link.classList.remove("bg-blue-50", "text-blue-600", "font-bold");
-              }
-            });
+      function setActiveLink(targetId) {
+        navLinks.forEach(link => {
+          const isActive = link.getAttribute("href") === `#${targetId}`;
+          if (isActive) {
+            link.classList.add("bg-blue-50", "text-blue-600", "font-bold");
+            link.classList.remove("text-slate-600", "hover:bg-slate-50", "hover:text-slate-900", "font-medium");
+          } else {
+            link.classList.add("text-slate-600", "hover:bg-slate-50", "hover:text-slate-900", "font-medium");
+            link.classList.remove("bg-blue-50", "text-blue-600", "font-bold");
           }
         });
-      }, observerOptions);
+      }
 
-      sections.forEach(section => observer.observe(section));
+      function updateActiveFromScroll() {
+        if (clickLockId) return;
+
+        // Account for sticky header (~78px) + comfortable top offset
+        const headerOffset = 130;
+        const scrollPos = window.scrollY + headerOffset;
+
+        // If scrolled near the bottom of the page, highlight the last section
+        const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 40;
+        if (nearBottom) {
+          setActiveLink(sections[sections.length - 1].id);
+          return;
+        }
+
+        // Find the last section whose top has passed the header offset
+        let currentSection = sections[0];
+        for (const section of sections) {
+          if (section.offsetTop <= scrollPos) {
+            currentSection = section;
+          } else {
+            break;
+          }
+        }
+
+        if (currentSection) {
+          setActiveLink(currentSection.id);
+        }
+      }
+
+      navLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+          const href = link.getAttribute("href");
+          if (!href || !href.startsWith("#")) return;
+
+          const targetId = href.slice(1);
+          const targetEl = document.getElementById(targetId);
+          if (!targetEl) return;
+
+          e.preventDefault();
+          setActiveLink(targetId);
+
+          // Temporarily lock active state while smooth-scrolling to target
+          clickLockId = targetId;
+          clearTimeout(clickLockTimer);
+
+          const headerOffset = 104;
+          const top = targetEl.getBoundingClientRect().top + window.scrollY - headerOffset;
+          window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+
+          history.replaceState(null, "", `#${targetId}`);
+
+          clickLockTimer = setTimeout(() => {
+            clickLockId = null;
+            updateActiveFromScroll();
+          }, 750);
+        });
+      });
+
+      let scrollTicking = false;
+      window.addEventListener("scroll", () => {
+        if (!scrollTicking) {
+          window.requestAnimationFrame(() => {
+            updateActiveFromScroll();
+            scrollTicking = false;
+          });
+          scrollTicking = true;
+        }
+      }, { passive: true });
+
+      // Sync on initial load (and if page opened with a #hash)
+      const initialHash = window.location.hash ? window.location.hash.slice(1) : "";
+      if (initialHash && document.getElementById(initialHash)) {
+        setActiveLink(initialHash);
+      } else {
+        updateActiveFromScroll();
+      }
     });
   </script>
 </body>
