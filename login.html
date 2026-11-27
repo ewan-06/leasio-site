@@ -15,9 +15,9 @@
   <style>
     body {
 
-      background-color: #f8fafc;
+      background-color: #DCE1E9;
       /* Soft Slate-50 background */
-      color: #0f172a;
+      color: #363732;
       /* Deep Slate-900 text */
     }
 
@@ -27,7 +27,7 @@
       appearance: none;
       width: 100%;
       height: 6px;
-      background: #e2e8f0;
+      background: #cfd5df;
       border-radius: 999px;
       outline: none;
     }
@@ -38,7 +38,7 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: #2563eb;
+      background: #00859b;
       cursor: pointer;
       border: 2px solid #ffffff;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
@@ -47,7 +47,7 @@
 
     input[type="range"]::-webkit-slider-thumb:hover {
       transform: scale(1.15);
-      background: #1d4ed8;
+      background: #006f82;
     }
 
     /* Header Container & CTA Button Sizing */
@@ -77,12 +77,12 @@
     }
 
     .l-btn-pri {
-      background: #2563eb;
+      background: #00859b;
       color: #ffffff;
     }
 
     .l-btn-pri:hover {
-      background: #1d4ed8;
+      background: #006f82;
     }
 
     @media (max-width: 640px) {
@@ -98,7 +98,7 @@
     }
 
     .leasio-nav-container>button:hover {
-      background-color: #2563eb !important;
+      background-color: #00859b !important;
       color: #ffffff !important;
     }
 
@@ -109,7 +109,7 @@
     }
 
     header nav>a:hover {
-      background-color: #2563eb !important;
+      background-color: #00859b !important;
       color: #ffffff !important;
     }
 
@@ -123,7 +123,7 @@
     }
 
     .leasio-mega-menu a:hover {
-      background-color: #2563eb !important;
+      background-color: #00859b !important;
       color: #ffffff !important;
     }
 
@@ -147,14 +147,14 @@
     select:hover:not(:disabled),
     #hero-body-btn:hover,
     #filter-body-btn:hover {
-      background-color: #2563eb !important;
-      border-color: #2563eb !important;
+      background-color: #00859b !important;
+      border-color: #00859b !important;
       color: #ffffff !important;
     }
 
     select option {
       background-color: #ffffff;
-      color: #0f172a;
+      color: #363732;
     }
 
     /* Standard <select> dropdowns & custom body-style trigger hover */
@@ -168,19 +168,25 @@
     select:hover:not(:disabled),
     #hero-body-btn:hover,
     #filter-body-btn:hover {
-      background-color: #2563eb !important;
-      border-color: #2563eb !important;
+      background-color: #00859b !important;
+      border-color: #00859b !important;
       color: #ffffff !important;
     }
 
     /* Keep native <option> items readable when the browser menu opens */
     select option {
       background-color: #ffffff;
-      color: #0f172a;
+      color: #363732;
     }
 
     select option:disabled {
-      color: #94a3b8;
+      color: #989990;
+    }
+
+    header,
+    header .leasio-mega-menu,
+    header #mobile-nav-drawer {
+      background-color: #ffffff !important;
     }
   </style>
 </head>
@@ -537,7 +543,7 @@
   </main>
 
   <!-- Footer -->
-  <footer style="background: #0f172a; color: #ffffff; margin-top: auto;">
+  <footer style="background: #363732; color: #ffffff; margin-top: auto;">
     <div class="l-wrap"
       style="padding-top: 28px; padding-bottom: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px;">
       <span class="text-slate-300">© 2026 Leasio. Car &amp; van leasing made simple.</span>
@@ -634,14 +640,14 @@
         const lblBusiness = document.getElementById('label-business');
 
         if (lblPersonal && lblBusiness) {
-          // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
-          lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
-          lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+          // Whichever side is active gets blue (#00859b), inactive gets muted slate (#989990)
+          lblPersonal.style.color = businessMode ? '#989990' : '#00859b';
+          lblBusiness.style.color = businessMode ? '#00859b' : '#989990';
         }
 
         document.querySelectorAll('.vat-status-text').forEach(el => {
           el.innerText = businessMode ? 'Business' : 'Personal';
-          el.style.color = '#2563eb';
+          el.style.color = '#00859b';
         });
       }
 

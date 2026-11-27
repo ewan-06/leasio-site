@@ -15,8 +15,8 @@
   <style>
     body {
 
-      background-color: #f8fafc;
-      color: #0f172a;
+      background-color: #DCE1E9;
+      color: #363732;
     }
 
     input[type="range"] {
@@ -24,7 +24,7 @@
       appearance: none;
       width: 100%;
       height: 6px;
-      background: #e2e8f0;
+      background: #cfd5df;
       border-radius: 999px;
       outline: none;
     }
@@ -35,7 +35,7 @@
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: #2563eb;
+      background: #00859b;
       cursor: pointer;
       border: 2px solid #ffffff;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
@@ -44,7 +44,7 @@
 
     input[type="range"]::-webkit-slider-thumb:hover {
       transform: scale(1.15);
-      background: #1d4ed8;
+      background: #006f82;
     }
 
     .js-dynamic-price {
@@ -88,12 +88,12 @@
     }
 
     .l-btn-pri {
-      background: #2563eb;
+      background: #00859b;
       color: #ffffff;
     }
 
     .l-btn-pri:hover {
-      background: #1d4ed8;
+      background: #006f82;
     }
 
     @media (max-width: 640px) {
@@ -109,7 +109,7 @@
     }
 
     .leasio-nav-container>button:hover {
-      background-color: #2563eb !important;
+      background-color: #00859b !important;
       color: #ffffff !important;
     }
 
@@ -120,7 +120,7 @@
     }
 
     header nav>a:hover {
-      background-color: #2563eb !important;
+      background-color: #00859b !important;
       color: #ffffff !important;
     }
 
@@ -134,7 +134,7 @@
     }
 
     .leasio-mega-menu a:hover {
-      background-color: #2563eb !important;
+      background-color: #00859b !important;
       color: #ffffff !important;
     }
 
@@ -158,19 +158,19 @@
     select:hover:not(:disabled),
     #hero-body-btn:hover,
     #filter-body-btn:hover {
-      background-color: #2563eb !important;
-      border-color: #2563eb !important;
+      background-color: #00859b !important;
+      border-color: #00859b !important;
       color: #ffffff !important;
     }
 
     /* Keep native <option> items readable when the browser menu opens */
     select option {
       background-color: #ffffff;
-      color: #0f172a;
+      color: #363732;
     }
 
     select option:disabled {
-      color: #94a3b8;
+      color: #989990;
     }
 
     /* Turn sibling & child dropdown chevron arrows white on hover */
@@ -201,12 +201,18 @@
         width: 100%;
       }
     }
+
+    header,
+    header .leasio-mega-menu,
+    header #mobile-nav-drawer {
+      background-color: #ffffff !important;
+    }
   </style>
   <link rel="canonical" href="https://leasio.co.uk/search">
 </head>
 
 <body class="antialiased selection:bg-blue-600 selection:text-white">
-  <div class="min-h-screen bg-[#f8fafc] flex flex-col">
+  <div class="min-h-screen bg-[#DCE1E9] flex flex-col">
 
     <!-- Header -->
     <header class="relative z-50 sticky top-0 bg-white border-b border-slate-200/70">
@@ -491,7 +497,7 @@
     </header>
 
     <!-- SEARCH & FILTER LAYOUT -->
-    <main class="min-h-screen bg-[#f8fafc]">
+    <main class="min-h-screen bg-[#DCE1E9]">
 
       <!-- TOP RESULTS HEADER BAR -->
       <div class="border-b border-slate-200 bg-white shadow-sm">
@@ -861,7 +867,7 @@
     </main>
 
     <!-- Footer -->
-    <footer style="background: #0f172a; color: #ffffff; margin-top: auto;">
+    <footer style="background: #363732; color: #ffffff; margin-top: auto;">
       <div class="l-wrap"
         style="padding-top: 28px; padding-bottom: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px;">
         <span class="text-slate-300">© 2026 Leasio. Car &amp; van leasing made simple.</span>
@@ -1366,14 +1372,14 @@
         const lblBusiness = document.getElementById('label-business');
 
         if (lblPersonal && lblBusiness) {
-          // Whichever side is active gets blue (#2563eb), inactive gets muted slate (#94a3b8)
-          lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
-          lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+          // Whichever side is active gets blue (#00859b), inactive gets muted slate (#989990)
+          lblPersonal.style.color = businessMode ? '#989990' : '#00859b';
+          lblBusiness.style.color = businessMode ? '#00859b' : '#989990';
         }
 
         document.querySelectorAll('.vat-status-text').forEach(el => {
           el.innerText = businessMode ? 'Business' : 'Personal';
-          el.style.color = '#2563eb';
+          el.style.color = '#00859b';
         });
       }
 

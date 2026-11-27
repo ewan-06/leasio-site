@@ -16,8 +16,8 @@
     body {
       margin: 0;
       font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
+      background-color: #DCE1E9;
+      color: #363732;
     }
 
     h1,
@@ -60,12 +60,12 @@
     }
 
     .l-btn-pri {
-      background: #2563eb;
+      background: #00859b;
       color: #ffffff;
     }
 
     .l-btn-pri:hover {
-      background: #1d4ed8;
+      background: #006f82;
     }
 
     @media (max-width: 640px) {
@@ -81,7 +81,7 @@
     }
 
     .leasio-nav-container>button:hover {
-      background-color: #2563eb !important;
+      background-color: #00859b !important;
       color: #ffffff !important;
     }
 
@@ -92,7 +92,7 @@
     }
 
     header nav>a:hover {
-      background-color: #2563eb !important;
+      background-color: #00859b !important;
       color: #ffffff !important;
     }
 
@@ -106,7 +106,7 @@
     }
 
     .leasio-mega-menu a:hover {
-      background-color: #2563eb !important;
+      background-color: #00859b !important;
       color: #ffffff !important;
     }
 
@@ -122,7 +122,7 @@
     /* Guide Cards */
     .guide-card {
       background: #ffffff;
-      border: 1.5px solid #e2e8f0;
+      border: 1.5px solid #cfd5df;
       border-radius: 20px;
       padding: 28px;
       display: flex;
@@ -135,8 +135,8 @@
 
     .guide-card:hover {
       transform: translateY(-3px);
-      border-color: #93c5fd;
-      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08);
+      border-color: #7fc1cc;
+      box-shadow: 0 14px 32px rgba(54, 55, 50, 0.08);
     }
 
     .guide-card:hover .guide-arrow {
@@ -152,21 +152,21 @@
       border-radius: 999px;
       font-size: 14px;
       font-weight: 600;
-      border: 1.5px solid #e2e8f0;
+      border: 1.5px solid #cfd5df;
       background: #ffffff;
-      color: #475569;
+      color: #5c5d56;
       cursor: pointer;
       transition: all 0.15s ease;
     }
 
     .filter-pill:hover {
-      border-color: #93c5fd;
-      color: #1e293b;
+      border-color: #7fc1cc;
+      color: #363732;
     }
 
     .filter-pill.active {
-      background: #2563eb;
-      border-color: #2563eb;
+      background: #00859b;
+      border-color: #00859b;
       color: #ffffff;
     }
 
@@ -174,6 +174,12 @@
       .l-wrap {
         padding: 0 20px;
       }
+    }
+
+    header,
+    header .leasio-mega-menu,
+    header #mobile-nav-drawer {
+      background-color: #ffffff !important;
     }
   </style>
 </head>
@@ -463,7 +469,7 @@
   <!-- Main Guides Content -->
   <main class="flex-1">
     <!-- Hero Header -->
-    <section style="background: #eff6ff; border-bottom: 1px solid #dbeafe;">
+    <section style="background: #e8f3f5; border-bottom: 1px solid #cce3e8;">
       <div class="l-wrap" style="padding-top: 56px; padding-bottom: 56px;">
         <nav aria-label="Breadcrumb" class="mb-4 flex items-center gap-2 text-xs font-semibold text-slate-500">
           <a href="main.html" class="hover:text-blue-600 transition-colors">Home</a>
@@ -724,7 +730,7 @@
   </main>
 
   <!-- Footer -->
-  <footer style="background: #0f172a; color: #ffffff; margin-top: auto;">
+  <footer style="background: #363732; color: #ffffff; margin-top: auto;">
     <div class="l-wrap"
       style="padding-top: 28px; padding-bottom: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px;">
       <span class="text-slate-300">© 2026 Leasio. Car &amp; van leasing made simple.</span>
@@ -803,8 +809,8 @@
         const lblBusiness = document.getElementById('label-business');
 
         if (lblPersonal && lblBusiness) {
-          lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
-          lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+          lblPersonal.style.color = businessMode ? '#989990' : '#00859b';
+          lblBusiness.style.color = businessMode ? '#00859b' : '#989990';
         }
       }
 

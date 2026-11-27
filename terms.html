@@ -17,13 +17,18 @@
             margin: 0;
             font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: #ffffff;
-            color: #0f172a;
+            color: #363732;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             letter-spacing: -0.02em;
         }
@@ -43,6 +48,7 @@
             .l-wrap {
                 padding: 0 16px;
             }
+
             header img[alt="Leasio Logo"] {
                 height: 44px !important;
                 max-height: 44px !important;
@@ -69,37 +75,37 @@
         }
 
         .l-btn-pri {
-            background: #2563eb;
+            background: #00859b;
             color: #ffffff;
         }
 
         .l-btn-pri:hover {
-            background: #1d4ed8;
+            background: #006f82;
         }
 
         .l-btn-sec {
             background: #ffffff !important;
-            color: #2563eb !important;
-            border: 2px solid #2563eb !important;
+            color: #00859b !important;
+            border: 2px solid #00859b !important;
         }
 
         .l-btn-sec:hover {
-            background-color: #2563eb !important;
-            border-color: #2563eb !important;
+            background-color: #00859b !important;
+            border-color: #00859b !important;
             color: #ffffff !important;
         }
 
-        .leasio-nav-container > button,
-        header nav > a {
+        .leasio-nav-container>button,
+        header nav>a {
             border-radius: 10px;
             line-height: 1.2;
             white-space: nowrap;
             transition: background-color 0.2s ease, color 0.2s ease;
         }
 
-        .leasio-nav-container > button:hover,
-        header nav > a:hover {
-            background-color: #2563eb !important;
+        .leasio-nav-container>button:hover,
+        header nav>a:hover {
+            background-color: #00859b !important;
             color: #ffffff !important;
         }
 
@@ -112,7 +118,7 @@
         }
 
         .leasio-mega-menu a:hover {
-            background-color: #2563eb !important;
+            background-color: #00859b !important;
             color: #ffffff !important;
         }
 
@@ -122,10 +128,17 @@
         }
 
         @media (min-width: 768px) {
+
             #mobile-menu-btn,
             #mobile-nav-drawer {
                 display: none !important;
             }
+        }
+
+        header,
+        header .leasio-mega-menu,
+        header #mobile-nav-drawer {
+            background-color: #ffffff !important;
         }
     </style>
 </head>
@@ -164,7 +177,8 @@
                         <div id="cars-mega"
                             class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl z-50"
                             style="width: 750px;">
-                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Cars Manufacturers</h3>
+                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Cars Manufacturers
+                            </h3>
                             <div class="grid text-slate-800"
                                 style="grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
                                 <a href="/search.html?make=Abarth">Abarth</a>
@@ -224,7 +238,8 @@
                                 <a href="/search.html?make=Xpeng">Xpeng</a>
                             </div>
                             <div class="mt-8 border-t border-slate-100 pt-4">
-                                <a href="/search.html" class="font-bold text-sm text-blue-600">Browse all cars &rarr;</a>
+                                <a href="/search.html" class="font-bold text-sm text-blue-600">Browse all cars
+                                    &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -241,7 +256,8 @@
                         <div id="vans-mega"
                             class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-8 hidden shadow-2xl rounded-2xl z-50"
                             style="width: 400px;">
-                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Vans Manufacturers</h3>
+                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-6 font-bold">Vans Manufacturers
+                            </h3>
                             <div class="grid text-slate-800"
                                 style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
                                 <a href="/search.html?make=BYD&type=vans">BYD</a>
@@ -272,7 +288,8 @@
                                 <a href="/search.html?make=Volvo&type=vans">Volvo</a>
                             </div>
                             <div class="mt-8 border-t border-slate-100 pt-4">
-                                <a href="/search.html?type=vans" class="font-bold text-sm text-blue-600">Browse all vans &rarr;</a>
+                                <a href="/search.html?type=vans" class="font-bold text-sm text-blue-600">Browse all vans
+                                    &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -292,7 +309,8 @@
                         <div id="guides-mega"
                             class="leasio-mega-menu absolute top-full left-0 mt-2 bg-white border border-slate-200 p-6 hidden shadow-2xl rounded-2xl z-50"
                             style="width: 280px;">
-                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-4 uppercase font-bold">Leasing Guides</h3>
+                            <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-4 uppercase font-bold">Leasing
+                                Guides</h3>
                             <div class="flex flex-col gap-3 text-sm text-slate-800">
                                 <a href="/guides/personal-contract-hire">Personal Contract Hire</a>
                                 <a href="/guides/business-contract-hire">Business Contract Hire</a>
@@ -303,7 +321,8 @@
                                 <a href="/guides/leasing-faqs">Leasing FAQs</a>
                             </div>
                             <div class="mt-5 border-t border-slate-100 pt-3">
-                                <a href="/guides.html" class="font-bold text-xs text-blue-600">View all guides &rarr;</a>
+                                <a href="/guides.html" class="font-bold text-xs text-blue-600">View all guides
+                                    &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -333,19 +352,26 @@
                         id="label-business">Business</span>
                 </div>
 
-                <a class="l-btn l-btn-pri shrink-0" style="min-height: 42px; height: 42px; padding: 0 22px; font-size: 14px;"
-                    href="/search.html">Search deals</a>
+                <a class="l-btn l-btn-pri shrink-0"
+                    style="min-height: 42px; height: 42px; padding: 0 22px; font-size: 14px;" href="/search.html">Search
+                    deals</a>
             </div>
         </div>
 
         <div id="mobile-nav-drawer" class="hidden md:hidden border-t border-slate-200 bg-white px-5 py-4 space-y-3">
             <div class="flex flex-col gap-1 text-base font-semibold text-slate-800">
-                <a href="/search.html" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Cars</a>
-                <a href="/search.html?type=vans" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Vans</a>
-                <a href="/main.html#best-offers-section" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Offers</a>
-                <a href="/guides.html" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Guides</a>
-                <a href="/about-us.html" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">About Us</a>
-                <a href="/login.html" class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Login</a>
+                <a href="/search.html"
+                    class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Cars</a>
+                <a href="/search.html?type=vans"
+                    class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Vans</a>
+                <a href="/main.html#best-offers-section"
+                    class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Offers</a>
+                <a href="/guides.html"
+                    class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Guides</a>
+                <a href="/about-us.html"
+                    class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">About Us</a>
+                <a href="/login.html"
+                    class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Login</a>
             </div>
         </div>
         <script>
@@ -368,86 +394,114 @@
     </header>
 
     <main style="flex: 1; background: #ffffff;">
-        <div style="background: #eff6ff; border-bottom: 1px solid #dbeafe;">
+        <div style="background: #e8f3f5; border-bottom: 1px solid #cce3e8;">
             <div class="l-wrap" style="padding-top: 14px; padding-bottom: 14px;">
                 <nav aria-label="Breadcrumb"
-                    style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: #64748b;">
+                    style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: #72736b;">
                     <a href="/main.html" style="color: inherit; text-decoration: none;">Home</a>
                     <span>&rsaquo;</span>
-                    <span style="color: #0f172a; font-weight: 600;">Terms &amp; Conditions</span>
+                    <span style="color: #363732; font-weight: 600;">Terms &amp; Conditions</span>
                 </nav>
             </div>
         </div>
 
         <article class="l-wrap" style="padding-top: 48px; padding-bottom: 64px;">
             <div
-                style="background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 20px; padding: 36px; box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);">
+                style="background: #ffffff; border: 1.5px solid #cfd5df; border-radius: 20px; padding: 36px; box-shadow: 0 12px 32px rgba(54, 55, 50, 0.06);">
                 <span
-                    style="display: inline-block; background: #eff6ff; color: #2563eb; border: 1px solid #dbeafe; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px;">
+                    style="display: inline-block; background: #e8f3f5; color: #00859b; border: 1px solid #cce3e8; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; margin-bottom: 14px;">
                     Legal &amp; Quoting Terms
                 </span>
                 <h1 class="font-extrabold text-slate-900"
                     style="font-size: clamp(32px, 4vw, 44px); line-height: 1.12; margin: 0;">
                     Terms &amp; <span class="text-blue-600">Conditions.</span>
                 </h1>
-                <p class="text-slate-600" style="font-size: 17px; line-height: 1.6; margin: 14px 0 0; max-width: 720px;">
-                    Last updated: November 2026. These terms govern your use of Leasio (leasio.co.uk), your customer account, and any vehicle lease quotations or enquiries submitted through our platform.
+                <p class="text-slate-600"
+                    style="font-size: 17px; line-height: 1.6; margin: 14px 0 0; max-width: 720px;">
+                    Last updated: November 2026. These terms govern your use of Leasio (leasio.co.uk), your customer
+                    account, and any vehicle lease quotations or enquiries submitted through our platform.
                 </p>
 
-                <hr style="margin: 28px 0; border: none; border-top: 1px solid #f1f5f9;">
+                <hr style="margin: 28px 0; border: none; border-top: 1px solid #e5e9f0;">
 
-                <div style="display: flex; flex-direction: column; gap: 22px; color: #334155; font-size: 16px; line-height: 1.65;">
+                <div
+                    style="display: flex; flex-direction: column; gap: 22px; color: #4b4c46; font-size: 16px; line-height: 1.65;">
                     <div>
                         <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">1. About Us</h2>
                         <p style="margin: 0;">
-                            Leasio operates the website <strong>leasio.co.uk</strong> to help personal and business customers compare and enquire about vehicle contract hire deals across the UK.
+                            Leasio operates the website <strong>leasio.co.uk</strong> to help personal and business
+                            customers compare and enquire about vehicle contract hire deals across the UK.
                         </p>
                     </div>
 
                     <div>
-                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">2. Account Registration &amp; Accuracy of Information</h2>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">2. Account
+                            Registration &amp; Accuracy of Information</h2>
                         <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px;">
-                            <li>To create an account, save quotes, or request a personalised vehicle lease quotation, you must provide accurate, current, and complete information, including your full name, date of birth, residential or business address, email address, and telephone number.</li>
-                            <li>You confirm that you are at least 18 years of age and hold (or are eligible to hold) a full, valid UK driving licence where required for a vehicle lease agreement.</li>
-                            <li>You are responsible for keeping your password confidential and keeping your contact details up to date in your account dashboard.</li>
+                            <li>To create an account, save quotes, or request a personalised vehicle lease quotation,
+                                you must provide accurate, current, and complete information, including your full name,
+                                date of birth, residential or business address, email address, and telephone number.
+                            </li>
+                            <li>You confirm that you are at least 18 years of age and hold (or are eligible to hold) a
+                                full, valid UK driving licence where required for a vehicle lease agreement.</li>
+                            <li>You are responsible for keeping your password confidential and keeping your contact
+                                details up to date in your account dashboard.</li>
                         </ul>
                     </div>
 
                     <div>
-                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">3. Use of Information for Quoting &amp; Enquiries</h2>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">3. Use of
+                            Information for Quoting &amp; Enquiries</h2>
                         <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px;">
-                            <li>By submitting an enquiry or saving a quote, you authorise Leasio to use the personal details provided to prepare accurate personal or business contract hire quotations, check basic eligibility criteria (such as minimum age and UK mainland delivery location), and contact you regarding your selected vehicle(s).</li>
-                            <li>All figures and quotations shown on our website are indicative and subject to vehicle availability, manufacturer price revisions, and formal underwriting and credit approval by the relevant finance provider.</li>
+                            <li>By submitting an enquiry or saving a quote, you authorise Leasio to use the personal
+                                details provided to prepare accurate personal or business contract hire quotations,
+                                check basic eligibility criteria (such as minimum age and UK mainland delivery
+                                location), and contact you regarding your selected vehicle(s).</li>
+                            <li>All figures and quotations shown on our website are indicative and subject to vehicle
+                                availability, manufacturer price revisions, and formal underwriting and credit approval
+                                by the relevant finance provider.</li>
                         </ul>
                     </div>
 
                     <div>
-                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">4. Data Protection &amp; UK GDPR Compliance</h2>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">4. Data
+                            Protection &amp; UK GDPR Compliance</h2>
                         <p style="margin: 0;">
-                            We process all personal data strictly in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018. Full details of how we collect, encrypt, store, share, and retain your email address, telephone number, residential address, and date of birth—along with your statutory rights—are set out in our <a href="/privacy.html" class="text-blue-600 font-semibold hover:underline">Privacy Notice</a>.
+                            We process all personal data strictly in accordance with the UK General Data Protection
+                            Regulation (UK GDPR) and the Data Protection Act 2018. Full details of how we collect,
+                            encrypt, store, share, and retain your email address, telephone number, residential address,
+                            and date of birth—along with your statutory rights—are set out in our <a
+                                href="/privacy.html" class="text-blue-600 font-semibold hover:underline">Privacy
+                                Notice</a>.
                         </p>
                     </div>
 
                     <div>
-                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">5. Intellectual Property &amp; Acceptable Use</h2>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">5. Intellectual
+                            Property &amp; Acceptable Use</h2>
                         <p style="margin: 0;">
-                            You agree not to misuse our website, scrape live pricing feeds, or attempt unauthorised access to our systems or customer records.
+                            You agree not to misuse our website, scrape live pricing feeds, or attempt unauthorised
+                            access to our systems or customer records.
                         </p>
                     </div>
 
                     <div>
-                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">6. Governing Law</h2>
+                        <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0 0 8px;">6. Governing Law
+                        </h2>
                         <p style="margin: 0;">
-                            These Terms &amp; Conditions are governed by and construed in accordance with the laws of England and Wales.
+                            These Terms &amp; Conditions are governed by and construed in accordance with the laws of
+                            England and Wales.
                         </p>
                     </div>
                 </div>
 
                 <div
-                    style="margin-top: 36px; background: #eff6ff; border: 1.5px solid #dbeafe; border-radius: 18px; padding: 24px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+                    style="margin-top: 36px; background: #e8f3f5; border: 1.5px solid #cce3e8; border-radius: 18px; padding: 24px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
                     <div>
-                        <h3 class="font-bold text-slate-900" style="font-size: 19px; margin: 0;">Want to see how we protect your data?</h3>
-                        <p class="text-slate-600" style="font-size: 14px; margin: 4px 0 0;">Read our full UK GDPR &amp; Data Protection Act 2018 Privacy Notice.</p>
+                        <h3 class="font-bold text-slate-900" style="font-size: 19px; margin: 0;">Want to see how we
+                            protect your data?</h3>
+                        <p class="text-slate-600" style="font-size: 14px; margin: 4px 0 0;">Read our full UK GDPR &amp;
+                            Data Protection Act 2018 Privacy Notice.</p>
                     </div>
                     <a href="/privacy.html" class="l-btn l-btn-pri">
                         Read Privacy Notice &rarr;
@@ -458,7 +512,7 @@
     </main>
 
     <!-- Footer -->
-    <footer style="background: #0f172a; color: #ffffff; margin-top: auto;">
+    <footer style="background: #363732; color: #ffffff; margin-top: auto;">
         <div class="l-wrap"
             style="padding-top: 28px; padding-bottom: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px;">
             <span class="text-slate-300">© 2026 Leasio. Car &amp; van leasing made simple.</span>
@@ -497,8 +551,8 @@
                 const lblPersonal = document.getElementById('label-personal');
                 const lblBusiness = document.getElementById('label-business');
                 if (lblPersonal && lblBusiness) {
-                    lblPersonal.style.color = businessMode ? '#94a3b8' : '#2563eb';
-                    lblBusiness.style.color = businessMode ? '#2563eb' : '#94a3b8';
+                    lblPersonal.style.color = businessMode ? '#989990' : '#00859b';
+                    lblBusiness.style.color = businessMode ? '#00859b' : '#989990';
                 }
             }
             syncVisuals(isBusiness);
