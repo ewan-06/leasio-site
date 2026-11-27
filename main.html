@@ -85,14 +85,13 @@
             min-width: 0;
             border: 1.5px solid #bcc4d0;
             border-radius: 10px;
-            padding: 0 32px 0 12px;
+            padding: 0 24px 0 10px;
             font: inherit;
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 500;
             background-color: #ffffff;
             color: #363732;
             outline: none;
-            transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.15s ease;
         }
 
         .l-select:focus {
@@ -379,8 +378,14 @@
             }
 
             .l-field {
-                flex: 1 1 100%;
-                min-width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                font-size: 13px;
+                font-weight: 600;
+                color: #363732;
+                flex: 1 1 135px;
+                min-width: 135px;
             }
 
             #hero-search-btn,
@@ -409,13 +414,14 @@
         header #mobile-nav-drawer {
             background-color: #ffffff !important;
         }
-            body,
+
+        body,
         main {
             background-color: #ffffff !important;
         }
 
-        label:has(.vat-toggle-input) > div::after,
-        label:has(.vat-toggle-input) > div:checked::after {
+        label:has(.vat-toggle-input)>div::after,
+        label:has(.vat-toggle-input)>div:checked::after {
             background-color: #ffffff !important;
         }
     </style>
