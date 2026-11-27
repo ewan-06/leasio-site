@@ -181,16 +181,36 @@
     header #mobile-nav-drawer {
       background-color: #ffffff !important;
     }
-          body,
-        main {
-            background-color: #ffffff !important;
-        }
 
-        label:has(.vat-toggle-input) > div::after,
-        label:has(.vat-toggle-input) > div:checked::after {
-            background-color: #ffffff !important;
-        }
-    </style>
+    body,
+    main {
+      background-color: #ffffff !important;
+    }
+
+    label:has(.vat-toggle-input)>div::after,
+    label:has(.vat-toggle-input)>div:checked::after {
+      background-color: #ffffff !important;
+    }
+
+    /* Bottom "Ready to compare live lease deals?" banner -> match .guide-card white box + border */
+    main section:last-of-type>div.mt-14 {
+      background-color: #ffffff !important;
+      border: 1.5px solid #cfd5df !important;
+      color: #363732 !important;
+    }
+
+    /* Ensure "Browse Vans" secondary CTA stays legible with #00859b border & text */
+    main section:last-of-type>div.mt-14 .l-btn-sec {
+      background-color: #ffffff !important;
+      color: #00859b !important;
+      border: 2px solid #00859b !important;
+    }
+
+    main section:last-of-type>div.mt-14 .l-btn-sec:hover {
+      background-color: #00859b !important;
+      color: #ffffff !important;
+    }
+  </style>
 </head>
 
 <body class="antialiased selection:bg-blue-600 selection:text-white flex flex-col min-h-screen">
