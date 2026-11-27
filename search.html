@@ -207,6 +207,126 @@
     header #mobile-nav-drawer {
       background-color: #ffffff !important;
     }
+
+    body,
+    main {
+      background-color: #ffffff !important;
+    }
+
+    label:has(.vat-toggle-input)>div::after,
+    label:has(.vat-toggle-input)>div:checked::after {
+      background-color: #ffffff !important;
+    }
+
+    /* Lighten search page surfaces, cards, and filter controls */
+    body,
+    main,
+    .min-h-screen {
+      background-color: #f8fafc !important;
+      color: #363732 !important;
+    }
+
+    /* Filter sidebar card & vehicle result cards -> crisp white */
+    #filter-sidebar>div>div,
+    #search-results-grid>article,
+    #filter-body-dropdown {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+    }
+
+    /* Filter inputs, selects, and body-style trigger -> light off-white */
+    #filter-sidebar select,
+    #filter-body-btn,
+    #filter-sidebar .bg-slate-50 {
+      background-color: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+      color: #363732 !important;
+    }
+
+    /* Vehicle image container inside cards -> soft light grey/white */
+    #search-results-grid>article .bg-slate-50 {
+      background-color: #f4f6f8 !important;
+    }
+
+    /* Fuel badge on search cards -> soft light teal tint with #00859b text */
+    #search-results-grid>article .bg-blue-50 {
+      background-color: #eef8fa !important;
+      border-color: #d2ebf0 !important;
+      color: #007387 !important;
+    }
+
+    /* Match Remove all filters and View Deal buttons to Search deals (#00859b + #ffffff text) */
+    #clear-filters-btn,
+    #search-results-grid>article a[href^="vehicles.html"] {
+      background-color: #00859b !important;
+      border-color: #00859b !important;
+      color: #ffffff !important;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    #clear-filters-btn:hover,
+    #search-results-grid>article a[href^="vehicles.html"]:hover {
+      background-color: #006f82 !important;
+      border-color: #006f82 !important;
+      color: #ffffff !important;
+    }
+
+    /* Top results header bar above the main search grid -> white */
+    main>div.border-b.bg-white {
+      background-color: #ffffff !important;
+      border-bottom-color: #e2e8f0 !important;
+    }
+
+    /* 'CARS' / 'VANS' pill badge -> light airy teal background */
+    #type-label {
+      background-color: #eef8fa !important;
+      color: #00859b !important;
+    }
+
+    /* 'Relevance' sort dropdown when not hovered -> crisp white */
+    select[aria-label="Sort results"]:not(:hover) {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #363732 !important;
+    }
+
+    /* Loading skeleton cards in #search-results-grid -> crisp white with light placeholders */
+    #search-results-grid>div.animate-pulse {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+    }
+
+    #search-results-grid>div.animate-pulse .bg-slate-200 {
+      background-color: #eef2f6 !important;
+    }
+
+    #search-results-grid>div.animate-pulse .bg-slate-100 {
+      background-color: #f6f8fa !important;
+    }
+
+    #search-results-grid>div.animate-pulse .bg-blue-100,
+    #search-results-grid>div.animate-pulse .bg-blue-200 {
+      background-color: #e6f4f7 !important;
+    }
+
+    /* Pagination Previous & Next buttons -> crisp white with #00859b hover */
+    #pagination button {
+      background-color: #ffffff !important;
+      border-color: #cfd5df !important;
+      color: #363732 !important;
+      transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    }
+
+    #pagination button:hover:not(:disabled) {
+      background-color: #ffffff !important;
+      border-color: #00859b !important;
+      color: #00859b !important;
+    }
+
+    #pagination button:focus-visible {
+      outline: 2px solid #00859b !important;
+      outline-offset: 2px !important;
+    }
   </style>
   <link rel="canonical" href="https://leasio.co.uk/search">
 </head>

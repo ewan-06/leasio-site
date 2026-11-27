@@ -205,6 +205,55 @@
     header #mobile-nav-drawer {
       background-color: #ffffff !important;
     }
+
+    body,
+    main {
+      background-color: #f4f6f8 !important;
+      color: #363732 !important;
+    }
+
+    main .bg-white,
+    main article,
+    main aside>div {
+      background-color: #ffffff !important;
+    }
+
+    label:has(.vat-toggle-input)>div::after,
+    label:has(.vat-toggle-input)>div:checked::after {
+      background-color: #ffffff !important;
+    }
+
+    /* Fuel type badge -> crisp white with subtle border */
+    #dyn-fuel {
+      background-color: #ffffff !important;
+      color: #00859b !important;
+      border-color: #cfd5df !important;
+    }
+
+    /* Monthly Rental box -> soft airy teal tint matching original blue-50 lightness */
+    #live-price-container {
+      background-color: #f0f9fa !important;
+      border-color: #d4edf1 !important;
+    }
+
+    /* Calculator pill group track (Contract Length, Annual Mileage, Initial Payment) */
+    .lease-pill-group {
+      background-color: #ffffff !important;
+      border-color: #cfd5df !important;
+    }
+
+    /* Inactive calculator pills -> white background */
+    .lease-pill-group>button.lease-option-btn:not(.is-selected) {
+      background-color: #ffffff !important;
+      color: #363732 !important;
+      box-shadow: none !important;
+    }
+
+    /* Active calculator pill -> #00859b background with white text */
+    .lease-pill-group>button.lease-option-btn.is-selected {
+      background-color: #00859b !important;
+      color: #ffffff !important;
+    }
   </style>
   <link rel="canonical" href="https://leasio.co.uk/vehicles/1">
 </head>
@@ -667,7 +716,7 @@
                   <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Contract
                     Length</span>
                 </div>
-                <div class="lease-option-btn flex rounded-xl overflow-visible border border-slate-200 p-1 bg-slate-50">
+                <div class="lease-pill-group flex rounded-xl overflow-visible border border-slate-200 p-1 bg-slate-50">
                   <button type="button" aria-pressed="false"
                     class="lease-option-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">24
                     mo</button>
@@ -675,7 +724,7 @@
                     class="lease-option-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">36
                     mo</button>
                   <button type="button" aria-pressed="true"
-                    class="lease-option-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48
+                    class="lease-option-btn is-selected flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">48
                     mo</button>
                 </div>
               </div>
@@ -686,9 +735,9 @@
                   <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Annual
                     Mileage</span>
                 </div>
-                <div class="flex rounded-xl overflow-visible border border-slate-200 p-1 bg-slate-50">
+                <div class="lease-pill-group flex rounded-xl overflow-visible border border-slate-200 p-1 bg-slate-50">
                   <button type="button" aria-pressed="true"
-                    class="lease-option-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
+                    class="lease-option-btn is-selected flex-1 py-2 text-xs font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm">5k</button>
                   <button type="button" aria-pressed="false"
                     class="lease-option-btn flex-1 py-2 text-xs font-bold rounded-lg transition-all text-slate-600">10k</button>
                   <button type="button" aria-pressed="false"
@@ -708,7 +757,8 @@
                   <span class="font-mono text-[10px] tracking-widest text-slate-400 font-bold uppercase">Initial
                     Payment</span>
                 </div>
-                <div class="flex rounded-xl overflow-visible border border-slate-200 p-1 bg-slate-50 gap-1">
+                <div
+                  class="lease-pill-group flex rounded-xl overflow-visible border border-slate-200 p-1 bg-slate-50 gap-1">
                   <button type="button" aria-pressed="false"
                     class="lease-option-btn flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600"
                     onclick="setInitial(1, this)">1m</button>
@@ -722,15 +772,15 @@
                     class="lease-option-btn flex-1 py-2 text-[11px] font-bold rounded-lg transition-all text-slate-600"
                     onclick="setInitial(9, this)">9m</button>
                   <button type="button" aria-pressed="true"
-                    class="lease-option-btn flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm"
+                    class="lease-option-btn is-selected flex-1 py-2 text-[11px] font-bold rounded-lg transition-all bg-blue-600 text-white shadow-sm"
                     onclick="setInitial(12, this)">12m</button>
                 </div>
               </div>
 
               <!-- Action Buttons -->
               <div class="flex flex-col gap-3">
-                <button id="save-quote-btn" disabled
-                  class="w-full bg-blue-50 hover:bg-blue-100 text-blue-500 font-bold py-2.5 px-4 rounded-xl transition text-sm shadow-sm opacity-50 cursor-not-allowed hidden">
+                <button type="button" id="save-quote-btn"
+                  class="w-full mt-4 py-3 px-5 rounded-xl font-bold text-sm border border-[#00859b]/30 bg-[#00859b]/10 text-[#00859b] hover:bg-[#00859b] hover:text-white transition">
                   Save Quote
                 </button>
 
@@ -1091,29 +1141,29 @@
 
         window.fetchValuation();
 
+        function selectCalculatorPill(rowContainer, clickedBtn) {
+          if (!rowContainer) return;
+          rowContainer.querySelectorAll('button.lease-option-btn').forEach(b => {
+            b.classList.remove('is-selected', 'bg-blue-600', 'text-white', 'shadow-sm');
+            b.classList.add('text-slate-600');
+            b.setAttribute('aria-pressed', 'false');
+          });
+          clickedBtn.classList.remove('text-slate-600');
+          clickedBtn.classList.add('is-selected', 'bg-blue-600', 'text-white', 'shadow-sm');
+          clickedBtn.setAttribute('aria-pressed', 'true');
+        }
+
         window.setInitial = function (months, clickedBtn) {
           window.leaseState.initial = months;
           const lbl = document.getElementById('label-initial');
           if (lbl) lbl.innerText = `${months} mo`;
 
-          const rowContainer = clickedBtn.closest('.flex');
-          if (rowContainer) {
-            rowContainer.querySelectorAll('button').forEach(b => {
-              b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
-              b.classList.add('text-slate-600');
-              b.setAttribute('aria-pressed', 'false');
-            });
-          }
-          clickedBtn.classList.remove('text-slate-600');
-          clickedBtn.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
-          clickedBtn.setAttribute('aria-pressed', 'true');
-
+          selectCalculatorPill(clickedBtn.closest('.lease-pill-group'), clickedBtn);
           window.fetchValuation();
         }
 
-        calculatorContainer.querySelectorAll('button').forEach(btn => {
+        calculatorContainer.querySelectorAll('button.lease-option-btn').forEach(btn => {
           if (btn.getAttribute('onclick')?.includes('setInitial')) return;
-          if (btn.id === 'save-quote-btn') return;
 
           btn.addEventListener('click', (e) => {
             const text = e.currentTarget.innerText.trim();
@@ -1123,18 +1173,7 @@
               window.leaseState.mileage = parseInt(text) * 1000;
             }
 
-            const rowContainer = e.currentTarget.closest('.flex');
-            if (rowContainer) {
-              rowContainer.querySelectorAll('button').forEach(b => {
-                b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
-                b.classList.add('text-slate-600');
-                b.setAttribute('aria-pressed', 'false');
-              });
-            }
-            e.currentTarget.classList.remove('text-slate-600');
-            e.currentTarget.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
-            e.currentTarget.setAttribute('aria-pressed', 'true');
-
+            selectCalculatorPill(e.currentTarget.closest('.lease-pill-group'), e.currentTarget);
             window.fetchValuation();
           });
         });
