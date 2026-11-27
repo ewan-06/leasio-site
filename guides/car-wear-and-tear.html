@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="/images/base_icon_transparent_background.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leasing Guides & Advice | Leasio</title>
+    <title>Car Fair Wear & Tear Guide | Leasio</title>
     <link href="/output.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,10 +60,17 @@
         }
 
         .l-btn-sec {
-            min-height: 40px;
-            padding: 0 18px;
-            font-size: 14px;
+            min-height: 44px;
+            padding: 0 22px;
+            font-size: 15px;
+            background: #ffffff;
+            color: #00859b;
+            border-color: #00859b;
+        }
 
+        .l-btn-sec:hover {
+            background: #00859b;
+            color: #ffffff;
         }
 
         .l-btn-pri {
@@ -177,18 +184,13 @@
             color: #ffffff;
         }
 
-        @media (max-width: 640px) {
-            .l-wrap {
-                padding: 0 20px;
-            }
-        }
-
         header,
         header .leasio-mega-menu,
         header #mobile-nav-drawer {
             background-color: #ffffff !important;
         }
-            body,
+
+        body,
         main {
             background-color: #ffffff !important;
         }
@@ -196,6 +198,19 @@
         label:has(.vat-toggle-input) > div::after,
         label:has(.vat-toggle-input) > div:checked::after {
             background-color: #ffffff !important;
+        }
+
+        /* Responsive 3-column summary grid for Van guide */
+        .fwt-highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .fwt-highlights-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -243,113 +258,63 @@
                                 Manufacturers</h3>
                             <div class="grid text-slate-800"
                                 style="grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
-                                <a href="/search.html?make=Abarth"
-                                    class="hover:text-blue-600 transition-colors">Abarth</a>
+                                <a href="/search.html?make=Abarth" class="hover:text-blue-600 transition-colors">Abarth</a>
                                 <a href="/search.html?make=Aion" class="hover:text-blue-600 transition-colors">Aion</a>
-                                <a href="/search.html?make=Alfa+Romeo"
-                                    class="hover:text-blue-600 transition-colors">Alfa
-                                    Romeo</a>
-                                <a href="/search.html?make=Alpine"
-                                    class="hover:text-blue-600 transition-colors">Alpine</a>
+                                <a href="/search.html?make=Alfa+Romeo" class="hover:text-blue-600 transition-colors">Alfa Romeo</a>
+                                <a href="/search.html?make=Alpine" class="hover:text-blue-600 transition-colors">Alpine</a>
                                 <a href="/search.html?make=Audi" class="hover:text-blue-600 transition-colors">Audi</a>
                                 <a href="/search.html?make=BMW" class="hover:text-blue-600 transition-colors">BMW</a>
                                 <a href="/search.html?make=BYD" class="hover:text-blue-600 transition-colors">BYD</a>
-                                <a href="/search.html?make=Cadillac"
-                                    class="hover:text-blue-600 transition-colors">Cadillac</a>
-                                <a href="/search.html?make=Changen"
-                                    class="hover:text-blue-600 transition-colors">Changen</a>
-                                <a href="/search.html?make=Chery"
-                                    class="hover:text-blue-600 transition-colors">Chery</a>
-                                <a href="/search.html?make=Chevrolet"
-                                    class="hover:text-blue-600 transition-colors">Chevrolet</a>
-                                <a href="/search.html?make=Citroen"
-                                    class="hover:text-blue-600 transition-colors">Citroen</a>
-                                <a href="/search.html?make=Cupra"
-                                    class="hover:text-blue-600 transition-colors">Cupra</a>
-                                <a href="/search.html?make=Dacia"
-                                    class="hover:text-blue-600 transition-colors">Dacia</a>
-                                <a href="/search.html?make=Denza"
-                                    class="hover:text-blue-600 transition-colors">Denza</a>
-                                <a href="/search.html?make=DS+Automobiles"
-                                    class="hover:text-blue-600 transition-colors">DS
-                                    Automobiles</a>
+                                <a href="/search.html?make=Cadillac" class="hover:text-blue-600 transition-colors">Cadillac</a>
+                                <a href="/search.html?make=Changen" class="hover:text-blue-600 transition-colors">Changen</a>
+                                <a href="/search.html?make=Chery" class="hover:text-blue-600 transition-colors">Chery</a>
+                                <a href="/search.html?make=Chevrolet" class="hover:text-blue-600 transition-colors">Chevrolet</a>
+                                <a href="/search.html?make=Citroen" class="hover:text-blue-600 transition-colors">Citroen</a>
+                                <a href="/search.html?make=Cupra" class="hover:text-blue-600 transition-colors">Cupra</a>
+                                <a href="/search.html?make=Dacia" class="hover:text-blue-600 transition-colors">Dacia</a>
+                                <a href="/search.html?make=Denza" class="hover:text-blue-600 transition-colors">Denza</a>
+                                <a href="/search.html?make=DS+Automobiles" class="hover:text-blue-600 transition-colors">DS Automobiles</a>
                                 <a href="/search.html?make=Fiat" class="hover:text-blue-600 transition-colors">Fiat</a>
                                 <a href="/search.html?make=Ford" class="hover:text-blue-600 transition-colors">Ford</a>
-                                <a href="/search.html?make=Geely"
-                                    class="hover:text-blue-600 transition-colors">Geely</a>
-                                <a href="/search.html?make=Genesis"
-                                    class="hover:text-blue-600 transition-colors">Genesis</a>
-                                <a href="/search.html?make=GWM+ORA" class="hover:text-blue-600 transition-colors">GWM
-                                    ORA</a>
-                                <a href="/search.html?make=Honda"
-                                    class="hover:text-blue-600 transition-colors">Honda</a>
-                                <a href="/search.html?make=Hyundai"
-                                    class="hover:text-blue-600 transition-colors">Hyundai</a>
-                                <a href="/search.html?make=Ineos"
-                                    class="hover:text-blue-600 transition-colors">Ineos</a>
-                                <a href="/search.html?make=Jaecoo"
-                                    class="hover:text-blue-600 transition-colors">Jaecoo</a>
+                                <a href="/search.html?make=Geely" class="hover:text-blue-600 transition-colors">Geely</a>
+                                <a href="/search.html?make=Genesis" class="hover:text-blue-600 transition-colors">Genesis</a>
+                                <a href="/search.html?make=GWM+ORA" class="hover:text-blue-600 transition-colors">GWM ORA</a>
+                                <a href="/search.html?make=Honda" class="hover:text-blue-600 transition-colors">Honda</a>
+                                <a href="/search.html?make=Hyundai" class="hover:text-blue-600 transition-colors">Hyundai</a>
+                                <a href="/search.html?make=Ineos" class="hover:text-blue-600 transition-colors">Ineos</a>
+                                <a href="/search.html?make=Jaecoo" class="hover:text-blue-600 transition-colors">Jaecoo</a>
                                 <a href="/search.html?make=Jeep" class="hover:text-blue-600 transition-colors">Jeep</a>
-                                <a href="/search.html?make=KG+Mobility" class="hover:text-blue-600 transition-colors">KG
-                                    Mobility</a>
+                                <a href="/search.html?make=KG+Mobility" class="hover:text-blue-600 transition-colors">KG Mobility</a>
                                 <a href="/search.html?make=Kia" class="hover:text-blue-600 transition-colors">Kia</a>
-                                <a href="/search.html?make=Land+Rover"
-                                    class="hover:text-blue-600 transition-colors">Land
-                                    Rover</a>
-                                <a href="/search.html?make=Leapmotor"
-                                    class="hover:text-blue-600 transition-colors">Leapmotor</a>
-                                <a href="/search.html?make=Lepas"
-                                    class="hover:text-blue-600 transition-colors">Lepas</a>
-                                <a href="/search.html?make=Lexus"
-                                    class="hover:text-blue-600 transition-colors">Lexus</a>
-                                <a href="/search.html?make=Lotus"
-                                    class="hover:text-blue-600 transition-colors">Lotus</a>
-                                <a href="/search.html?make=Maserati"
-                                    class="hover:text-blue-600 transition-colors">Maserati</a>
-                                <a href="/search.html?make=Mazda"
-                                    class="hover:text-blue-600 transition-colors">Mazda</a>
-                                <a href="/search.html?make=Mercedes"
-                                    class="hover:text-blue-600 transition-colors">Mercedes</a>
-                                <a href="/search.html?make=MG+Motor+UK" class="hover:text-blue-600 transition-colors">MG
-                                    Motor UK</a>
+                                <a href="/search.html?make=Land+Rover" class="hover:text-blue-600 transition-colors">Land Rover</a>
+                                <a href="/search.html?make=Leapmotor" class="hover:text-blue-600 transition-colors">Leapmotor</a>
+                                <a href="/search.html?make=Lepas" class="hover:text-blue-600 transition-colors">Lepas</a>
+                                <a href="/search.html?make=Lexus" class="hover:text-blue-600 transition-colors">Lexus</a>
+                                <a href="/search.html?make=Lotus" class="hover:text-blue-600 transition-colors">Lotus</a>
+                                <a href="/search.html?make=Maserati" class="hover:text-blue-600 transition-colors">Maserati</a>
+                                <a href="/search.html?make=Mazda" class="hover:text-blue-600 transition-colors">Mazda</a>
+                                <a href="/search.html?make=Mercedes" class="hover:text-blue-600 transition-colors">Mercedes</a>
+                                <a href="/search.html?make=MG+Motor+UK" class="hover:text-blue-600 transition-colors">MG Motor UK</a>
                                 <a href="/search.html?make=Mini" class="hover:text-blue-600 transition-colors">Mini</a>
-                                <a href="/search.html?make=Mitsubishi"
-                                    class="hover:text-blue-600 transition-colors">Mitsubishi</a>
-                                <a href="/search.html?make=Nissan"
-                                    class="hover:text-blue-600 transition-colors">Nissan</a>
-                                <a href="/search.html?make=Omoda"
-                                    class="hover:text-blue-600 transition-colors">Omoda</a>
-                                <a href="/search.html?make=Peugeot"
-                                    class="hover:text-blue-600 transition-colors">Peugeot</a>
-                                <a href="/search.html?make=Polestar"
-                                    class="hover:text-blue-600 transition-colors">Polestar</a>
-                                <a href="/search.html?make=Porsche"
-                                    class="hover:text-blue-600 transition-colors">Porsche</a>
-                                <a href="/search.html?make=Raipiar"
-                                    class="hover:text-blue-600 transition-colors">Raipiar</a>
-                                <a href="/search.html?make=Renault"
-                                    class="hover:text-blue-600 transition-colors">Renault</a>
+                                <a href="/search.html?make=Mitsubishi" class="hover:text-blue-600 transition-colors">Mitsubishi</a>
+                                <a href="/search.html?make=Nissan" class="hover:text-blue-600 transition-colors">Nissan</a>
+                                <a href="/search.html?make=Omoda" class="hover:text-blue-600 transition-colors">Omoda</a>
+                                <a href="/search.html?make=Peugeot" class="hover:text-blue-600 transition-colors">Peugeot</a>
+                                <a href="/search.html?make=Polestar" class="hover:text-blue-600 transition-colors">Polestar</a>
+                                <a href="/search.html?make=Porsche" class="hover:text-blue-600 transition-colors">Porsche</a>
+                                <a href="/search.html?make=Raipiar" class="hover:text-blue-600 transition-colors">Raipiar</a>
+                                <a href="/search.html?make=Renault" class="hover:text-blue-600 transition-colors">Renault</a>
                                 <a href="/search.html?make=Seat" class="hover:text-blue-600 transition-colors">SEAT</a>
-                                <a href="/search.html?make=Skoda"
-                                    class="hover:text-blue-600 transition-colors">Skoda</a>
-                                <a href="/search.html?make=Smart"
-                                    class="hover:text-blue-600 transition-colors">SMART</a>
-                                <a href="/search.html?make=Subaru"
-                                    class="hover:text-blue-600 transition-colors">Subaru</a>
-                                <a href="/search.html?make=Suzuki"
-                                    class="hover:text-blue-600 transition-colors">Suzuki</a>
-                                <a href="/search.html?make=Tesla"
-                                    class="hover:text-blue-600 transition-colors">Tesla</a>
-                                <a href="/search.html?make=Toyota"
-                                    class="hover:text-blue-600 transition-colors">Toyota</a>
-                                <a href="/search.html?make=Vauxhall"
-                                    class="hover:text-blue-600 transition-colors">Vauxhall</a>
-                                <a href="/search.html?make=Volkswagen"
-                                    class="hover:text-blue-600 transition-colors">Volkswagen</a>
-                                <a href="/search.html?make=Volvo"
-                                    class="hover:text-blue-600 transition-colors">Volvo</a>
-                                <a href="/search.html?make=Xpeng"
-                                    class="hover:text-blue-600 transition-colors">Xpeng</a>
+                                <a href="/search.html?make=Skoda" class="hover:text-blue-600 transition-colors">Skoda</a>
+                                <a href="/search.html?make=Smart" class="hover:text-blue-600 transition-colors">SMART</a>
+                                <a href="/search.html?make=Subaru" class="hover:text-blue-600 transition-colors">Subaru</a>
+                                <a href="/search.html?make=Suzuki" class="hover:text-blue-600 transition-colors">Suzuki</a>
+                                <a href="/search.html?make=Tesla" class="hover:text-blue-600 transition-colors">Tesla</a>
+                                <a href="/search.html?make=Toyota" class="hover:text-blue-600 transition-colors">Toyota</a>
+                                <a href="/search.html?make=Vauxhall" class="hover:text-blue-600 transition-colors">Vauxhall</a>
+                                <a href="/search.html?make=Volkswagen" class="hover:text-blue-600 transition-colors">Volkswagen</a>
+                                <a href="/search.html?make=Volvo" class="hover:text-blue-600 transition-colors">Volvo</a>
+                                <a href="/search.html?make=Xpeng" class="hover:text-blue-600 transition-colors">Xpeng</a>
                             </div>
                             <div class="mt-8 border-t border-slate-100 pt-4">
                                 <a href="/search.html"
@@ -376,61 +341,32 @@
                                 Manufacturers</h3>
                             <div class="grid text-slate-800"
                                 style="grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; font-size: 14px;">
-                                <a href="/search.html?make=BYD&type=vans"
-                                    class="hover:text-blue-600 transition-colors">BYD</a>
-                                <a href="/search.html?make=Citroen&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Citroen</a>
-                                <a href="/search.html?make=Dacia&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Dacia</a>
-                                <a href="/search.html?make=Farizon&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Farizon</a>
-                                <a href="/search.html?make=Fiat&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Fiat</a>
-                                <a href="/search.html?make=Ford&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Ford</a>
-                                <a href="/search.html?make=GWM+ORA&type=vans"
-                                    class="hover:text-blue-600 transition-colors">GWM ORA</a>
-                                <a href="/search.html?make=Ineos&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Ineos</a>
-                                <a href="/search.html?make=Isuzu&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Isuzu</a>
-                                <a href="/search.html?make=Isuzu+Trucks&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Isuzu
-                                    Trucks</a>
-                                <a href="/search.html?make=Iveco&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Iveco</a>
-                                <a href="/search.html?make=KG+Mobility&type=vans"
-                                    class="hover:text-blue-600 transition-colors">KG
-                                    Mobility</a>
-                                <a href="/search.html?make=Kia&type=vans"
-                                    class="hover:text-blue-600 transition-colors">KIA</a>
-                                <a href="/search.html?make=Land+Rover&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Land
-                                    Rover</a>
-                                <a href="/search.html?make=MAN&type=vans"
-                                    class="hover:text-blue-600 transition-colors">MAN</a>
-                                <a href="/search.html?make=Mercedes&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Mercedes</a>
-                                <a href="/search.html?make=Mitsubishi&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Mitsubishi</a>
-                                <a href="/search.html?make=Nissan&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Nissan</a>
-                                <a href="/search.html?make=Peugeot&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Peugeot</a>
-                                <a href="/search.html?make=Renault&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Renault</a>
-                                <a href="/search.html?make=Renault+Trucks&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Renault Trucks</a>
-                                <a href="/search.html?make=Skoda&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Skoda</a>
-                                <a href="/search.html?make=Toyota&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Toyota</a>
-                                <a href="/search.html?make=Vauxhall&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Vauxhall</a>
-                                <a href="/search.html?make=Volkswagen&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Volkswagen</a>
-                                <a href="/search.html?make=Volvo&type=vans"
-                                    class="hover:text-blue-600 transition-colors">Volvo</a>
+                                <a href="/search.html?make=BYD&type=vans" class="hover:text-blue-600 transition-colors">BYD</a>
+                                <a href="/search.html?make=Citroen&type=vans" class="hover:text-blue-600 transition-colors">Citroen</a>
+                                <a href="/search.html?make=Dacia&type=vans" class="hover:text-blue-600 transition-colors">Dacia</a>
+                                <a href="/search.html?make=Farizon&type=vans" class="hover:text-blue-600 transition-colors">Farizon</a>
+                                <a href="/search.html?make=Fiat&type=vans" class="hover:text-blue-600 transition-colors">Fiat</a>
+                                <a href="/search.html?make=Ford&type=vans" class="hover:text-blue-600 transition-colors">Ford</a>
+                                <a href="/search.html?make=GWM+ORA&type=vans" class="hover:text-blue-600 transition-colors">GWM ORA</a>
+                                <a href="/search.html?make=Ineos&type=vans" class="hover:text-blue-600 transition-colors">Ineos</a>
+                                <a href="/search.html?make=Isuzu&type=vans" class="hover:text-blue-600 transition-colors">Isuzu</a>
+                                <a href="/search.html?make=Isuzu+Trucks&type=vans" class="hover:text-blue-600 transition-colors">Isuzu Trucks</a>
+                                <a href="/search.html?make=Iveco&type=vans" class="hover:text-blue-600 transition-colors">Iveco</a>
+                                <a href="/search.html?make=KG+Mobility&type=vans" class="hover:text-blue-600 transition-colors">KG Mobility</a>
+                                <a href="/search.html?make=Kia&type=vans" class="hover:text-blue-600 transition-colors">KIA</a>
+                                <a href="/search.html?make=Land+Rover&type=vans" class="hover:text-blue-600 transition-colors">Land Rover</a>
+                                <a href="/search.html?make=MAN&type=vans" class="hover:text-blue-600 transition-colors">MAN</a>
+                                <a href="/search.html?make=Mercedes&type=vans" class="hover:text-blue-600 transition-colors">Mercedes</a>
+                                <a href="/search.html?make=Mitsubishi&type=vans" class="hover:text-blue-600 transition-colors">Mitsubishi</a>
+                                <a href="/search.html?make=Nissan&type=vans" class="hover:text-blue-600 transition-colors">Nissan</a>
+                                <a href="/search.html?make=Peugeot&type=vans" class="hover:text-blue-600 transition-colors">Peugeot</a>
+                                <a href="/search.html?make=Renault&type=vans" class="hover:text-blue-600 transition-colors">Renault</a>
+                                <a href="/search.html?make=Renault+Trucks&type=vans" class="hover:text-blue-600 transition-colors">Renault Trucks</a>
+                                <a href="/search.html?make=Skoda&type=vans" class="hover:text-blue-600 transition-colors">Skoda</a>
+                                <a href="/search.html?make=Toyota&type=vans" class="hover:text-blue-600 transition-colors">Toyota</a>
+                                <a href="/search.html?make=Vauxhall&type=vans" class="hover:text-blue-600 transition-colors">Vauxhall</a>
+                                <a href="/search.html?make=Volkswagen&type=vans" class="hover:text-blue-600 transition-colors">Volkswagen</a>
+                                <a href="/search.html?make=Volvo&type=vans" class="hover:text-blue-600 transition-colors">Volvo</a>
                             </div>
                             <div class="mt-8 border-t border-slate-100 pt-4">
                                 <a href="/search.html?type=vans"
@@ -459,24 +395,15 @@
                             <h3 class="text-[11px] tracking-[0.12em] text-blue-600 mb-4 uppercase font-bold">Leasing
                                 Guides</h3>
                             <div class="flex flex-col gap-3 text-sm text-slate-800">
-                                <a href="/guides/personal-contract-hire"
-                                    class="hover:text-blue-600 transition-colors">Personal
-                                    Contract Hire</a>
-                                <a href="/guides/business-contract-hire"
-                                    class="hover:text-blue-600 transition-colors">Business
-                                    Contract Hire</a>
-                                <a href="/guides/car-leasing" class="hover:text-blue-600 transition-colors">Car
-                                    Leasing</a>
-                                <a href="/guides/van-leasing" class="hover:text-blue-600 transition-colors">Van
-                                    Leasing</a>
-                                <a href="/guides/hybrid-phev-vehicles"
-                                    class="hover:text-blue-600 transition-colors">Hybrid/PHEV
-                                    Vehicles</a>
-                                <a href="/guides/electric-vehicles"
-                                    class="hover:text-blue-600 transition-colors">Electric
-                                    Vehicles</a>
-                                <a href="/guides/leasing-faqs" class="hover:text-blue-600 transition-colors">Leasing
-                                    FAQs</a>
+                                <a href="/guides/personal-contract-hire" class="hover:text-blue-600 transition-colors">Personal Contract Hire</a>
+                                <a href="/guides/business-contract-hire" class="hover:text-blue-600 transition-colors">Business Contract Hire</a>
+                                <a href="/guides/car-leasing" class="hover:text-blue-600 transition-colors">Car Leasing</a>
+                                <a href="/guides/van-leasing" class="hover:text-blue-600 transition-colors">Van Leasing</a>
+                                <a href="/guides/hybrid-phev-vehicles" class="hover:text-blue-600 transition-colors">Hybrid/PHEV Vehicles</a>
+                                <a href="/guides/electric-vehicles" class="hover:text-blue-600 transition-colors">Electric Vehicles</a>
+                                <a href="/guides/leasing-faqs" class="hover:text-blue-600 transition-colors">Leasing FAQs</a>
+                                <a href="/guides/car-wear-and-tear" class="hover:text-blue-600 transition-colors">Car Wear &amp; Tear</a>
+                                <a href="/guides/van-wear-and-tear" class="hover:text-blue-600 transition-colors">Van Wear &amp; Tear</a>
                             </div>
                             <div class="mt-5 border-t border-slate-100 pt-3">
                                 <a href="/guides.html"
@@ -531,8 +458,7 @@
                 <a href="/guides.html"
                     class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Guides</a>
                 <a href="/about-us.html"
-                    class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">About
-                    Us</a>
+                    class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">About Us</a>
                 <a href="/login.html"
                     class="px-3 py-2.5 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Login</a>
             </div>
@@ -556,115 +482,162 @@
         </script>
     </header>
 
-    <main class="flex-1">
-      <section class="border-b border-slate-200 bg-white">
-        <div class="l-wrap py-10 sm:py-12">
-          <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
-            <span class="guide-pill inline-flex items-center px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider">BVRLA Car Standard</span>
-            <div class="flex items-center gap-3">
-              <span class="text-sm font-semibold text-[#00859b]">Car Guide</span>
-              <span class="text-slate-300">|</span>
-              <a href="/guides-van-wear-and-tear.html" class="text-sm font-semibold text-[#363732] hover:text-[#00859b] transition-colors">Van &amp; LCV Guide &rarr;</a>
+    <main style="flex: 1; background: #ffffff;">
+        <div style="background: #e8f3f5; border-bottom: 1px solid #cce3e8;">
+            <div class="l-wrap" style="padding-top: 14px; padding-bottom: 14px;">
+                <nav aria-label="Breadcrumb"
+                    style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: #72736b;">
+                    <a href="/main.html" style="color: inherit; text-decoration: none;">Home</a>
+                    <span>&rsaquo;</span>
+                    <a href="/guides.html" style="color: inherit; text-decoration: none;">Guides</a>
+                    <span>&rsaquo;</span>
+                    <span style="color: #363732; font-weight: 600;">Car Fair Wear &amp; Tear</span>
+                </nav>
             </div>
-          </div>
-          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#363732] tracking-tight">Car Fair Wear &amp; Tear Guide</h1>
-          <p class="mt-3 text-base sm:text-lg text-[#4b4c46] max-w-3xl leading-relaxed">
-            A clear, everyday summary of the BVRLA car wear and tear standard so you know what counts as normal driving wear and what can lead to end-of-lease charges.
-          </p>
-        </div>
-      </section>
-
-      <section class="l-wrap py-10 sm:py-12 space-y-8">
-        <div class="guide-surface-card p-6 sm:p-8">
-          <h2 class="text-2xl font-bold text-[#363732]">What &ldquo;Fair Wear and Tear&rdquo; Means</h2>
-          <p class="mt-3 text-[#4b4c46] leading-relaxed">
-            Fair wear and tear is the gradual, everyday ageing a car picks up through careful, normal driving. It does not cover accidents, bumps, neglect, missing items, or unapproved changes to the vehicle. If an issue goes beyond normal wear, you may be charged for it when the car goes back unless you get it repaired properly beforehand.
-          </p>
-          <div class="guide-soft-box p-4 sm:p-5 mt-5">
-            <p class="text-sm font-bold text-[#00859b] uppercase tracking-wider mb-1">Golden Rule</p>
-            <p class="text-sm sm:text-base text-[#363732] leading-relaxed">
-              The vehicle should be safe, roadworthy, clean, and complete with all keys, documents, and standard equipment when returned.
-            </p>
-          </div>
         </div>
 
-        <div class="guide-surface-card p-6 sm:p-8">
-          <h2 class="text-2xl font-bold text-[#363732] mb-5">What Is Usually Acceptable vs. Chargeable</h2>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse text-sm sm:text-base">
-              <thead>
-                <tr class="border-b-2 border-[#cfd5df] text-[#363732]">
-                  <th class="py-3 pr-4 font-bold">Area</th>
-                  <th class="py-3 px-4 font-bold text-[#00859b]">Usually Acceptable (No Charge)</th>
-                  <th class="py-3 pl-4 font-bold text-[#363732]">Likely Chargeable</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200 text-[#4b4c46]">
-                <tr>
-                  <td class="py-3.5 pr-4 font-bold text-[#363732]">Scratches &amp; scuffs</td>
-                  <td class="py-3.5 px-4">Light surface scratches up to 25mm (max 4 per panel) that do not expose primer or bare metal.</td>
-                  <td class="py-3.5 pl-4">Scratches over 25mm, more than 4 on one panel, or any mark down to primer, bare metal, or rust.</td>
-                </tr>
-                <tr>
-                  <td class="py-3.5 pr-4 font-bold text-[#363732]">Dents</td>
-                  <td class="py-3.5 px-4">Small, shallow dents under 15mm (max 2 per panel) where the paint is unbroken.</td>
-                  <td class="py-3.5 pl-4">Dents 15mm or larger, 3 or more per panel, broken paint, or any dent on the roof or a body crease/swage line.</td>
-                </tr>
-                <tr>
-                  <td class="py-3.5 pr-4 font-bold text-[#363732]">Stone chips</td>
-                  <td class="py-3.5 px-4">Minor stone chips under 3mm (within normal panel limits) with no rust.</td>
-                  <td class="py-3.5 pl-4">Chips 3mm or larger, excessive chip clusters, or any chip that has started to rust.</td>
-                </tr>
-                <tr>
-                  <td class="py-3.5 pr-4 font-bold text-[#363732]">Alloy wheels &amp; tyres</td>
-                  <td class="py-3.5 px-4">Light alloy scuffs up to 50mm around the rim edge; tyres with legal tread (at least 1.6mm) and even wear.</td>
-                  <td class="py-3.5 pl-4">Alloy scuffs over 50mm, cracks or dents in wheels, bald/illegal tyres, sidewall cuts/bulges, or mismatched/wrong-spec tyres.</td>
-                </tr>
-                <tr>
-                  <td class="py-3.5 pr-4 font-bold text-[#363732]">Glass, lights &amp; mirrors</td>
-                  <td class="py-3.5 px-4">Light glass marks outside the driver&rsquo;s main view that pass an MOT; intact lights and mirrors.</td>
-                  <td class="py-3.5 pl-4">Windscreen cracks or chips in the driver&rsquo;s view or failing an MOT, cracked/broken light lenses, or damaged/loose mirrors.</td>
-                </tr>
-                <tr>
-                  <td class="py-3.5 pr-4 font-bold text-[#363732]">Interior &amp; equipment</td>
-                  <td class="py-3.5 px-4">Light creasing or normal wear on seats, carpets, and switches that cleans up easily.</td>
-                  <td class="py-3.5 pl-4">Burns, rips, tears, deep stains, lingering smoke/pet odours, missing keys, missing manuals/service history, or missing parcel shelf/charging cables.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <article class="l-wrap" style="padding-top: 48px; padding-bottom: 64px;">
+            <div
+                style="background: #ffffff; border: 1.5px solid #cfd5df; border-radius: 20px; padding: 36px; box-shadow: 0 12px 32px rgba(54, 55, 50, 0.06);">
+                <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px;">
+                    <span
+                        style="display: inline-block; background: #e8f3f5; color: #00859b; border: 1px solid #cce3e8; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+                        BVRLA Car Standard
+                    </span>
+                    <a href="/guides/van-wear-and-tear"
+                        style="font-size: 13px; font-weight: 600; color: #00859b; text-decoration: none;">
+                        Looking for vans? Read the Van &amp; LCV Guide &rarr;
+                    </a>
+                </div>
 
-        <div class="guide-surface-card p-6 sm:p-8">
-          <h2 class="text-2xl font-bold text-[#363732]">Simple End-of-Lease Checklist</h2>
-          <p class="mt-2 text-[#4b4c46]">Check your car around 8 to 10 weeks before return so you have time to sort any issues on your own terms:</p>
-          <ul class="mt-4 space-y-2.5 text-[#363732] list-disc pl-5">
-            <li><strong>Wash and dry the car</strong> in good daylight so hidden scuffs, dents, and chips are easy to spot.</li>
-            <li><strong>Check tyres and wheels</strong> for legal tread depth, even wear, and rim scuffs.</li>
-            <li><strong>Inspect the cabin</strong> for stains, odours, tears, or warning lights on the dashboard.</li>
-            <li><strong>Gather everything that came with the car</strong>, including both keys, locking wheel nut key, service records, handbooks, parcel shelf, and EV/hybrid charging cables.</li>
-            <li><strong>Remove personal data</strong> (sat-nav history, paired phones, and garage/toll tags) and take clear photos before collection.</li>
-          </ul>
-          <div class="mt-7 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
-            <a href="/guides-van-wear-and-tear.html" class="l-btn l-btn-sec">Read Van &amp; LCV Wear &amp; Tear Guide &rarr;</a>
-            <a href="/search.html" class="l-btn l-btn-pri">Browse Car Lease Deals</a>
-          </div>
-        </div>
-      </section>
+                <h1 class="font-extrabold text-slate-900"
+                    style="font-size: clamp(32px, 4vw, 44px); line-height: 1.12; margin: 0;">
+                    Car Fair Wear &amp; Tear <span class="text-blue-600">Guide.</span>
+                </h1>
+                <p class="text-slate-600"
+                    style="font-size: 17px; line-height: 1.6; margin: 14px 0 0; max-width: 720px;">
+                    A clear, everyday summary of the BVRLA car wear and tear standard so you know what counts as normal
+                    driving wear and what can lead to end-of-lease charges.
+                </p>
+
+                <hr style="margin: 28px 0; border: none; border-top: 1px solid #e5e9f0;">
+
+                <div
+                    style="display: flex; flex-direction: column; gap: 20px; color: #4b4c46; font-size: 16px; line-height: 1.65;">
+                    <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 0;">What &ldquo;Fair Wear and
+                        Tear&rdquo; means</h2>
+                    <p style="margin: 0;">
+                        Fair wear and tear is the gradual, everyday ageing a car picks up through careful, normal
+                        driving. It does not cover accidents, bumps, neglect, missing items, or unapproved changes to
+                        the vehicle. If an issue goes beyond normal wear, you may be charged for it when the car goes
+                        back unless you get it repaired properly beforehand.
+                    </p>
+
+                    <div
+                        style="background: #e8f3f5; border: 1.5px solid #cce3e8; border-radius: 14px; padding: 18px 22px;">
+                        <p style="margin: 0 0 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #00859b;">
+                            Golden Rule
+                        </p>
+                        <p style="margin: 0; color: #363732; font-size: 15px; line-height: 1.55;">
+                            The vehicle should be safe, roadworthy, clean, and complete with all keys, documents, and
+                            standard equipment when returned.
+                        </p>
+                    </div>
+
+                    <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 8px 0 0;">What is usually
+                        acceptable vs. chargeable</h2>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 15px;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #cfd5df; color: #363732;">
+                                    <th style="padding: 12px 14px 12px 0; font-weight: 700;">Area</th>
+                                    <th style="padding: 12px 14px; font-weight: 700; color: #00859b;">Usually Acceptable (No Charge)</th>
+                                    <th style="padding: 12px 0 12px 14px; font-weight: 700;">Likely Chargeable</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #e5e9f0;">
+                                    <td style="padding: 14px 14px 14px 0; font-weight: 700; color: #363732; vertical-align: top;">Scratches &amp; scuffs</td>
+                                    <td style="padding: 14px; vertical-align: top;">Light surface scratches up to 25mm (max 4 per panel) that do not expose primer or bare metal.</td>
+                                    <td style="padding: 14px 0 14px 14px; vertical-align: top;">Scratches over 25mm, more than 4 on one panel, or any mark down to primer, bare metal, or rust.</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e9f0;">
+                                    <td style="padding: 14px 14px 14px 0; font-weight: 700; color: #363732; vertical-align: top;">Dents</td>
+                                    <td style="padding: 14px; vertical-align: top;">Small, shallow dents under 15mm (max 2 per panel) where the paint is unbroken.</td>
+                                    <td style="padding: 14px 0 14px 14px; vertical-align: top;">Dents 15mm or larger, 3 or more per panel, broken paint, or any dent on the roof or a body crease/swage line.</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e9f0;">
+                                    <td style="padding: 14px 14px 14px 0; font-weight: 700; color: #363732; vertical-align: top;">Stone chips</td>
+                                    <td style="padding: 14px; vertical-align: top;">Minor stone chips under 3mm (within normal panel limits) with no rust.</td>
+                                    <td style="padding: 14px 0 14px 14px; vertical-align: top;">Chips 3mm or larger, excessive chip clusters, or any chip that has started to rust.</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e9f0;">
+                                    <td style="padding: 14px 14px 14px 0; font-weight: 700; color: #363732; vertical-align: top;">Alloy wheels &amp; tyres</td>
+                                    <td style="padding: 14px; vertical-align: top;">Light alloy scuffs up to 50mm around the rim edge; tyres with legal tread (at least 1.6mm) and even wear.</td>
+                                    <td style="padding: 14px 0 14px 14px; vertical-align: top;">Alloy scuffs over 50mm, cracks or dents in wheels, bald/illegal tyres, sidewall cuts/bulges, or mismatched/wrong-spec tyres.</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e9f0;">
+                                    <td style="padding: 14px 14px 14px 0; font-weight: 700; color: #363732; vertical-align: top;">Glass, lights &amp; mirrors</td>
+                                    <td style="padding: 14px; vertical-align: top;">Light glass marks outside the driver&rsquo;s main view that pass an MOT; intact lights and mirrors.</td>
+                                    <td style="padding: 14px 0 14px 14px; vertical-align: top;">Windscreen cracks or chips in the driver&rsquo;s view or failing an MOT, cracked/broken light lenses, or damaged/loose mirrors.</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 14px 14px 14px 0; font-weight: 700; color: #363732; vertical-align: top;">Interior &amp; equipment</td>
+                                    <td style="padding: 14px; vertical-align: top;">Light creasing or normal wear on seats, carpets, and switches that cleans up easily.</td>
+                                    <td style="padding: 14px 0 14px 14px; vertical-align: top;">Burns, rips, tears, deep stains, lingering smoke/pet odours, missing keys, missing manuals/service history, or missing parcel shelf/charging cables.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2 class="font-bold text-slate-900" style="font-size: 22px; margin: 8px 0 0;">Simple end-of-lease
+                        checklist</h2>
+                    <p style="margin: 0;">
+                        Check your car around 8 to 10 weeks before return so you have time to sort any issues on your
+                        own terms:
+                    </p>
+                    <ul style="margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 10px;">
+                        <li><strong>Wash and dry the car</strong> in good daylight so hidden scuffs, dents, and chips are easy to spot.</li>
+                        <li><strong>Check tyres and wheels</strong> for legal tread depth, even wear, and rim scuffs.</li>
+                        <li><strong>Inspect the cabin</strong> for stains, odours, tears, or warning lights on the dashboard.</li>
+                        <li><strong>Gather everything that came with the car</strong>, including both keys, locking wheel nut key, service records, handbooks, parcel shelf, and EV/hybrid charging cables.</li>
+                        <li><strong>Remove personal data</strong> (sat-nav history, paired phones, and garage/toll tags) and take clear photos before collection.</li>
+                    </ul>
+                </div>
+
+                <div
+                    style="margin-top: 36px; background: #e8f3f5; border: 1.5px solid #cce3e8; border-radius: 18px; padding: 24px 28px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
+                    <div>
+                        <h3 class="font-bold text-slate-900" style="font-size: 19px; margin: 0;">Ready to browse cars?</h3>
+                        <p class="text-slate-600" style="font-size: 14px; margin: 4px 0 0;">Explore personal and business car lease deals across leading manufacturers.</p>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+                        <a href="/guides/van-wear-and-tear" class="l-btn l-btn-sec">
+                            Van &amp; LCV Guide &rarr;
+                        </a>
+                        <a href="/search.html" class="l-btn l-btn-pri">
+                            Browse Cars &rarr;
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </article>
     </main>
+
+    <!-- Footer -->
     <footer style="background: #363732; color: #ffffff; margin-top: auto;">
-      <div class="l-wrap" style="padding-top: 28px; padding-bottom: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px;">
-        <span class="text-slate-300">&copy; 2026 Leasio. Car &amp; van leasing made simple.</span>
-        <span style="display: flex; gap: 24px; flex-wrap: wrap;" class="text-slate-300">
-          <a href="/about-us.html" class="hover:text-white transition-colors">About Us</a>
-          <a href="/guides.html" class="hover:text-white transition-colors">Guides</a>
-          <a href="/guides-car-wear-and-tear.html" class="hover:text-white transition-colors">Car Wear &amp; Tear</a>
-          <a href="/guides-van-wear-and-tear.html" class="hover:text-white transition-colors">Van Wear &amp; Tear</a>
-          <a href="/terms.html" class="hover:text-white transition-colors">Terms &amp; Conditions</a>
-          <a href="/privacy.html" class="hover:text-white transition-colors">Privacy Notice</a>
-        </span>
-      </div>
+        <div class="l-wrap"
+            style="padding-top: 28px; padding-bottom: 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px;">
+            <span class="text-slate-300">&copy; 2026 Leasio. Car &amp; van leasing made simple.</span>
+            <span style="display: flex; gap: 24px; flex-wrap: wrap;" class="text-slate-300">
+                <a href="/about-us.html" class="hover:text-white transition-colors">About Us</a>
+                <a href="/guides.html" class="hover:text-white transition-colors">Guides</a>
+                <a href="/terms.html" class="hover:text-white transition-colors">Terms &amp; Conditions</a>
+                <a href="/privacy.html" class="hover:text-white transition-colors">Privacy Notice</a>
+                <a href="/login.html" class="hover:text-white transition-colors">Login</a>
+            </span>
+        </div>
     </footer>
-  </div>
 </body>
+
 </html>
